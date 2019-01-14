@@ -1,0 +1,46 @@
+{
+  "name": "ungaklara.se",
+  "version": "1.0.0",
+  "description": "Official webpage of youth theatre Unga Klara",
+  "main": "index.js",
+  "scripts": {
+    "start": "jalla index.js --sw sw.js",
+    "test": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codeandconspire/ungaklara.se.git"
+  },
+  "now": {
+    "alias": "www.ungaklara.se",
+    "env": {
+      "NODE_ENV": "production",
+      "POLYFILL_FEATURES": "default-3.3,Array.prototype.find,Array.prototype.findIndex,Array.prototype.includes"
+    }
+  },
+  "author": "code and conspire",
+  "license": "CC-BY-SA-4.0",
+  "bugs": {
+    "url": "https://github.com/codeandconspire/ungaklara.se/issues"
+  },
+  "homepage": "https://github.com/codeandconspire/ungaklara.se#readme",
+  "devDependencies": {
+    "choo-devtools": "^2.5.1",
+    "standard": "^12.0.1"
+  },
+  "dependencies": {
+    "cccpurge": "^2.0.0",
+    "choo": "^6.13.1",
+    "choo-meta": "^0.1.0",
+    "choo-service-worker": "^2.4.0",
+    "focus-visible": "^4.1.5",
+    "jalla": "^0.11.0",
+    "nanolru": "^1.0.0",
+    "normalize.css": "^8.0.1",
+    "postcss-custom-properties": "^8.0.9",
+    "postcss-focus-visible": "^4.0.0",
+    "prismic-element": "^1.0.0",
+    "prismic-javascript": "^2.0.1",
+    "smoothscroll-polyfill": "^0.4.3"
+  }
+}
