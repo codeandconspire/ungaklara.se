@@ -5,6 +5,10 @@ module.exports = view(home)
 
 function home () {
   return html`
-    <main>Hellooo!</main>
+    <main>
+      <div class="u-container">
+        <h1>Hellooo!</h1>
+      </div>
+    </main>
   `
 }

@@ -3,11 +3,13 @@ var html = require('choo/html')
 var raw = require('choo/html/raw')
 var Component = require('choo/component')
 var error = require('./error')
+var header = require('../header')
+var footer = require('../footer')
 var { i18n, asText } = require('../base')
 
 var text = i18n()
 
-var DEFAULT_TITLE = text`SITE_TITLE`
+var DEFAULT_TITLE = text`SITE_NAME`
 
 module.exports = View
 
@@ -65,7 +67,11 @@ function createView (view, meta) {
       return html`
         <body class="View" id="view">
           <script type="application/ld+json">${raw(JSON.stringify(linkedData(state)))}</script>
-          ${children}
+          ${header()}
+          <div class="View-main">
+            ${children}
+          </div>
+          ${footer()}
         </body>
       `
 
@@ -75,7 +81,7 @@ function createView (view, meta) {
         return {
           '@context': 'http://schema.org',
           '@type': 'Organization',
-          name: 'Unga Klara',
+          name: DEFAULT_TITLE,
           url: state.origin,
           logo: state.origin + '/icon.png'
         }
