@@ -1,6 +1,5 @@
 @import "normalize.css";
 @import "./global";
-@import "./utilities/colors";
 @import "./utilities/layout";
 @import "./utilities/loading";
 @import "./utilities/size";
@@ -36,11 +35,11 @@
   height: 100%; /* 3 */
   overflow-x: hidden; /* 2 */
   cursor: default; /* 4 */
-  font-family: var(--default-font-family);
-  background: rgb(var(--default-background-color)); /* 5 */
-  color: rgb(var(--default-color));
+  font-family: var(--document-font-family);
+  background: rgb(var(--document-background)); /* 5 */
+  color: rgb(var(--document-color));
   font-size: 100%;
-  line-height: var(--default-line-height);
+  line-height: var(--document-line-height);
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased; /* 6 */
   -moz-osx-font-smoothing: grayscale; /* 6 */
@@ -77,7 +76,7 @@ iframe {
 }
 
 /**
- * Improve alt text rendering for broken images
+ * Pretty alt text rendering for broken images
  */
 
 img {
@@ -127,21 +126,21 @@ textarea,
  * Reset a few styles
  */
 
+ p,
  h1,
  h2,
  h3,
  h4,
  h5,
  h6,
- p,
  ul,
  ol,
- blockquote,
+ figure,
  iframe,
- figure {
+ blockquote {
    font: inherit;
-   margin: 0;
    border: 0;
+   margin: 0;
    list-style: none;
    padding: 0;
  }
@@ -152,18 +151,18 @@ textarea,
 
 button {
   padding: 0;
-  margin: 0;
   border: 0;
-  border-radius: 0;
-  background: transparent;
+  margin: 0;
   color: inherit;
   font: inherit;
   line-height: inherit;
+  border-radius: 0;
+  background: transparent;
   cursor: default;
 }
 
 /**
- * Pointer is for links, not for actions on the same page
+ * Pointer is for links, not for actions on the same page.
  */
 
 :root[scripting-enabled] [role="button"],

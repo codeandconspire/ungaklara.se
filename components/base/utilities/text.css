@@ -30,21 +30,14 @@
 }
 
 .u-textDefault {
-  font-family: var(--default-font-family) !important;
-  line-height: var(--default-line-height) !important;
-  letter-spacing: var(--default-font-size) !important;
+  font-family: var(--document-font-family) !important;
+  line-height: var(--document-line-height) !important;
   text-transform: normal;
-  word-spacing: normal;
 }
 
 .u-textHeading {
   font-family: var(--heading-font-family) !important;
   line-height: var(--heading-line-height) !important;
-  text-transform: uppercase;
-}
-
-.u-rtl {
-  direction: rtl !important;
 }
 
 .u-nowrap {
@@ -65,7 +58,8 @@
 }
 
 /**
- * Source: https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/
+ * Source:
+ * https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/
  */
 
 .u-textBreakLongWords {
