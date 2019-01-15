@@ -24,9 +24,8 @@
  * 2. Guard for horizontal scrolling
  * 3. Support sticky footer solutions
  * 4. Simply feels better then global text cursor
- * 5. Site should have a background in case it's iframed
- * 6. Fabulous text rendering
- * 7. Fabulous svg text sizing
+ * 5. Fabulous text rendering
+ * 6. Fabulous svg text sizing
  */
 
  :root {
@@ -36,14 +35,14 @@
   overflow-x: hidden; /* 2 */
   cursor: default; /* 4 */
   font-family: var(--document-font-family);
-  background: rgb(var(--document-background)); /* 5 */
+  background: rgb(var(--theme-background, var(--document-background)));
   color: rgb(var(--document-color));
   font-size: 100%;
   line-height: var(--document-line-height);
   -webkit-tap-highlight-color: transparent;
-  -webkit-font-smoothing: antialiased; /* 6 */
-  -moz-osx-font-smoothing: grayscale; /* 6 */
-  text-rendering: geometricPrecision; /* 7 */
+  -webkit-font-smoothing: antialiased; /* 5 */
+  -moz-osx-font-smoothing: grayscale; /* 5 */
+  text-rendering: geometricPrecision; /* 6 */
 }
 
 @media (min-width: 1500px) {

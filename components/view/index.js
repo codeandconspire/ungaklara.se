@@ -67,6 +67,7 @@ function createView (view, meta) {
       return html`
         <body class="View" id="view">
           <script type="application/ld+json">${raw(JSON.stringify(linkedData(state)))}</script>
+          <div class="View-gradient"></div>
           ${header()}
           <div class="View-main">
             ${children}

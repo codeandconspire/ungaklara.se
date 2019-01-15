@@ -5,7 +5,7 @@ var text = i18n()
 
 module.exports = header
 
-function header (view, meta) {
+function header () {
   return html`
     <header class="Header">
       <nav class="u-container">

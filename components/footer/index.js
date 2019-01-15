@@ -5,7 +5,7 @@ var text = i18n()
 
 module.exports = footer
 
-function footer (view, meta) {
+function footer () {
   return html`
     <footer class="Footer">
       <div class="u-container">
