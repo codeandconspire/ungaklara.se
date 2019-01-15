@@ -4,6 +4,7 @@
   "description": "Official webpage of youth theatre Unga Klara",
   "main": "index.js",
   "scripts": {
+    "build": "jalla index.js --sw sw.js --build",
     "start": "jalla index.js --sw sw.js",
     "test": "standard"
   },
@@ -31,14 +32,15 @@
   "dependencies": {
     "cccpurge": "^2.0.0",
     "choo": "^6.13.1",
-    "choo-meta": "^0.1.0",
+    "choo-meta": "^1.0.1",
     "choo-service-worker": "^2.4.0",
     "focus-visible": "^4.1.5",
-    "jalla": "^0.11.0",
+    "jalla": "^0.11.0-3",
     "nanolru": "^1.0.0",
     "normalize.css": "^8.0.1",
     "postcss-custom-properties": "^8.0.9",
     "postcss-focus-visible": "^4.0.0",
+    "postcss-url": "^8.0.0",
     "prismic-element": "^1.0.0",
     "prismic-javascript": "^2.0.1",
     "smoothscroll-polyfill": "^0.4.3"

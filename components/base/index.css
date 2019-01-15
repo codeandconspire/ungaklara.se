@@ -11,12 +11,19 @@
  * Font declaration
  */
 
-/* @font-face {
-  font-family: "Giorgio Sans Bold";
+@font-face {
+  font-family: "UK Logotype";
   font-style: normal;
   font-weight: 600;
-  src: url("./fonts/giorgio-sans-bold.woff") format("woff");
-} */
+  src: url("./fonts/uk-black.woff") format("woff");
+}
+
+@font-face {
+  font-family: "UK";
+  font-style: normal;
+  font-weight: 600;
+  src: url("./fonts/uk-bold.woff") format("woff");
+}
 
 /**
  * Document styles

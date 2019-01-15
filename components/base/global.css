@@ -18,8 +18,11 @@
   --document-font-size: 1rem;
   --document-line-height: 1.4;
 
-  --heading-font-family: sans-serif;
+  --heading-font-family: "UK", var(--default-font-family);
   --heading-line-height: 1.2;
+
+  --logo-font-family: "UK Logotype", var(--heading-font-family);
+  --logo-line-height: 1.2;
 
   --document-background: var(--color-gray-light);
   --document-color: 0, 0, 0;

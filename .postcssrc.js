@@ -1,9 +1,17 @@
+var url = require('postcss-url')
+var focusVisible = require('postcss-focus-visible')
+var customProperties = require('postcss-custom-properties')
+
 module.exports = config
 
 function config (ctx) {
-  var plugins = [require('postcss-focus-visible')]
+  var plugins = [focusVisible]
+
   if (ctx.env !== 'development') {
-    plugins.push(require('postcss-custom-properties'))
+    plugins.push(
+      customProperties,
+      url({ filter: /\.woff$/, url: 'inline', maxSize: Infinity })
+    )
   }
 
   return { plugins }
