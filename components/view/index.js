@@ -49,17 +49,18 @@ function createView (view, meta) {
         children = view.call(self, state, emit)
         let next = meta ? meta.call(self, state) : {}
 
-        if (next.title && next.title !== DEFAULT_TITLE) {
+        if (next && next.title && next.title !== DEFAULT_TITLE) {
           next.title = `${next.title} | ${DEFAULT_TITLE}`
         }
 
         emit('meta', Object.assign({
           title: doc ? asText(doc.data.title) : `${text`Loading`} | ${DEFAULT_TITLE}`,
           description: doc && asText(doc.data.description),
-          'og:image': doc && doc.data.default_share_image.url
+          'og:image': doc && doc.data.default_share_image.url,
+          'og:image:width': doc && doc.data.default_share_image.dimensions.width,
+          'og:image:height': doc && doc.data.default_share_image.dimensions.height
         }, next))
       } catch (err) {
-        if (state.prefetch) throw err
         err.status = err.status || 500
         children = error(err)
         emit('meta', { title: `${text`Oops`} | ${DEFAULT_TITLE}` })

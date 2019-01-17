@@ -59,10 +59,17 @@ function i18n (source) {
       }
     }
 
-    return value.split('%s').reduce(function (result, str, index) {
-      result.push(str, parts[index] || '')
+    var hasForeignPart = false
+    var res = value.split('%s').reduce(function (result, str, index) {
+      var part = parts[index] || ''
+      if (!hasForeignPart) {
+        hasForeignPart = (typeof part !== 'string' && typeof part !== 'number')
+      }
+      result.push(str, part)
       return result
     }, [])
+
+    return hasForeignPart ? res : res.join('')
   }
 }
 

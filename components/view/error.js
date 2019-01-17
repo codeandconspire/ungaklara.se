@@ -22,15 +22,11 @@ function error (err) {
             <h1>${text`Oops`}</h1>
             ${err.status === 404 ? html`
               <p>
-                ${text`There is no page at this address. Try finding your way using the menu or from` + ' '}
-                <a href="/">${text`the homepage`}</a>.
+                ${text`There is no page at this address. Try finding your way using the menu or from ${html`<a href="/">${text`the homepage`}</a>`}.`}.
               </p>
             ` : html`
               <p>
-                ${text`We apologize, an error has occured on our site. It may be temporary and you could` + ' '}
-                <a href="" onclick=${reload}>${text`try again`}</a>
-                ${' ' + text`or go back to` + ' '}
-                <a href="/">${text`the homepage`}</a>.
+                ${text`We apologize, an error has occured on our site. It may be temporary and you could ${html`<a href="" onclick=${reload}>${text`try again`}</a>`} or go back to ${html`<a href="/">${text`the homepage`}</a>`}.`}
               </p>
             `}
             ${DEBUG ? html`<pre>${err.stack}</pre>` : null}
