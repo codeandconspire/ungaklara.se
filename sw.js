@@ -46,8 +46,9 @@ self.addEventListener('fetch', function onfetch (event) {
 // () -> Promise
 function clear () {
   return caches.keys().then(function (keys) {
-    var caches = keys.filter((key) => key !== CACHE_KEY)
-    return Promise.all(keys.map((key) => caches.delete(key)))
+    return Promise.all(
+      keys.filter((key) => key !== CACHE_KEY).map((key) => caches.delete(key))
+    )
   })
 }
 

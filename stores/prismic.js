@@ -18,44 +18,38 @@ function prismicStore (opts) {
       req: state.req
     }, opts))
 
+    // clear cache on SSR prefetch
     if (typeof window === 'undefined' && state.prefetch) {
       cache.clear()
     }
 
+    // parse SSR-provided initial state
     if (state.prismic) {
       assert(typeof state.prismic === 'object', 'choo-prismic: state.prismic should be type object')
       var cachekeys = Object.keys(state.prismic)
       for (var i = 0, len = cachekeys.length, val; i < len; i++) {
         val = state.prismic[cachekeys[i]]
-        if (val.status) {
-          // a status property indicates an error response
-          val = Object.assign(new Error(), {
-            status: val.status,
-            message: val.message || val.status === 404
-              ? 'Document not found'
-              : 'An error occured'
-          })
-        }
         cache.set(cachekeys[i], val)
       }
     }
 
-    var queue = createQueue()
-    if (state.prefetch) state.prefetch.push(Promise.all(queue))
+    var queue
+    if (state.prefetch) queue = createQueue()
 
     // query prismic endpoint with given predicate(s)
     // (str|arr, obj?, fn) -> any
     function get (predicates, opts, callback) {
       assert(predicates, 'choo-prismic: predicates should be type array or string')
 
+      // parse arguments
       predicates = Array.isArray(predicates) ? predicates : [predicates]
       callback = typeof opts === 'function' ? opts : callback
       opts = typeof opts === 'function' ? {} : opts
       callback = callback || Function.prototype
 
+      // pass input through middleware
       var transform
       if (typeof middleware === 'function') {
-        // pass input through middleware
         transform = middleware(predicates, opts)
       }
 
@@ -64,6 +58,7 @@ function prismicStore (opts) {
       opts = Object.assign({}, opts)
       delete opts.prefetch
 
+      // compile cache key and lookup cached request
       var key = predicates.join(',')
       var optkeys = Object.keys(opts).sort()
       for (var i = 0, len = optkeys.length; i < len; i++) {
@@ -77,6 +72,7 @@ function prismicStore (opts) {
       else if (cached instanceof Promise) return callback(null, null)
       else if (cached) return callback(null, cached)
 
+      // perform query
       var request = init.then(function (api) {
         return api.query(predicates, opts).then(function (response) {
           // optionally transform the response using registered middleware
@@ -94,11 +90,12 @@ function prismicStore (opts) {
         if (!prefetch) emitter.emit('render')
       })
 
+      // cache pending request
       cache.set(key, request)
       emitter.emit('prismic:request', request)
 
-      // defer to callback to allow for nested API calls
-      if (state.prefetch) queue.push(chain(request, callback))
+      // defer to callback to allow for nested queries
+      if (state.prefetch) queue(chain(request, callback))
 
       return result
     }
@@ -158,6 +155,34 @@ function prismicStore (opts) {
         return json
       }
     })
+
+    // add a promise to state.prefetch which allows for lazy queing
+    // () -> Promise -> void
+    function createQueue () {
+      var success, fail
+      var queued = 0
+      var error = null
+      var proxy = new Promise(function (resolve, reject) {
+        success = resolve
+        fail = reject
+      })
+
+      state.prefetch.push(proxy)
+
+      // queue promise and resolve proxy if last to resolve/reject in queue
+      // Promise -> void
+      return function queue (promise) {
+        queued++
+        promise.catch(function (err) {
+          error = err
+        }).then(function () {
+          if (--queued === 0) {
+            if (error) fail(error)
+            else success()
+          }
+        })
+      }
+    }
   }
 }
 
@@ -186,18 +211,4 @@ function chain (promise, fn) {
   return promise.then(function (value) {
     return fn(null, value)
   }, fn)
-}
-
-// create an array of promises that defers resolution until all are reolved
-// () -> arr
-function createQueue () {
-  var queued = []
-  var _push = queued.push
-  queued.push = function push () {
-    var args = Array.prototype.slice.call(arguments)
-    return _push.apply(queued, Promise.all(args).then(function () {
-      return Promise.all(queued)
-    }))
-  }
-  return queued
 }

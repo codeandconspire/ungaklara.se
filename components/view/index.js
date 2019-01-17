@@ -52,8 +52,9 @@ function createView (view, meta) {
         if (next.title && next.title !== DEFAULT_TITLE) {
           next.title = `${next.title} | ${DEFAULT_TITLE}`
         }
+
         emit('meta', Object.assign({
-          title: doc && asText(doc.data.title),
+          title: doc ? asText(doc.data.title) : `${text`Loading`} | ${DEFAULT_TITLE}`,
           description: doc && asText(doc.data.description),
           'og:image': doc && doc.data.default_share_image.url
         }, next))
