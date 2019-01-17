@@ -1,0 +1,291 @@
+@import "../base";
+
+/** @define Text */
+.Text {
+  font-family: var(--default-font-family);
+  line-height: var(--default-line-height);
+  font-size: 1rem;
+  max-width: 39em;
+  text-align: left;
+}
+
+.Text-muted {
+  color: rgb(var(--color-gray-light));
+}
+
+.Text-small {
+  font-size: 0.8em;
+}
+
+.Text:first-child {
+  margin-top: 0;
+}
+
+.Text:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 1000px) {
+  .Text--large,
+  .Text-large {
+    font-size: 1.1875rem;
+  }
+}
+
+/**
+ * Inline elements
+ * 1. Sorry: make links usable when used within interactive cards (Card)
+ */
+
+.Text a {
+  position: relative; /* 1 */
+  z-index: 2; /* 1 */
+  font-weight: 600;
+  color: inherit;
+  transition: color 50ms cubic-bezier(0,0,.2,1);
+  text-decoration: var(--high-contrast-underline, none);
+}
+
+.Text a:hover {
+  color: inherit;
+}
+
+.Text small {
+  font-size: 0.8em;
+}
+
+.Text-muted a,
+.Text-muted a:hover {
+  color: inherit;
+  text-decoration: underline;
+  font-weight: inherit;
+}
+
+/**
+ * Block elements
+ */
+
+.Text p,
+.Text ul,
+.Text ol {
+  margin: 0;
+}
+
+.Text p:not(:first-child),
+.Text ul:not(:first-child),
+.Text ol:not(:first-child) {
+  margin-top: 1.3em;
+}
+
+.Text p:not(:last-child),
+.Text ul:not(:last-child),
+.Text ol:not(:last-child) {
+  margin-bottom: 1.3em;
+}
+
+.Text img,
+.Text pre {
+  margin: 0;
+}
+
+.Text img:not(:first-child),
+.Text pre:not(:first-child),
+.Text figure:not(:first-child) {
+  margin-top: 1.5em;
+}
+
+.Text img:not(:last-child),
+.Text pre:not(:last-child),
+.Text figure:not(:last-child) {
+  margin-bottom: 1.5em;
+}
+
+.Text img + figcaption,
+.Text pre + figcaption {
+  margin-top: -1em;
+}
+
+.Text img {
+  height: auto;
+  max-width: 100%;
+}
+
+.Text pre {
+  font-size: 0.75rem;
+  overflow: auto;
+  background: rgb(var(--color-gray-light));
+  padding: 1em;
+  text-align: left;
+}
+
+/**
+ * Lists
+ */
+
+.Text ul {
+  list-style-type: none;
+}
+
+.Text ol {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+}
+
+.Text ul > li {
+  padding-left: 1.5em;
+  position: relative;
+}
+
+.Text ol > li {
+  padding-left: 0.5em;
+}
+
+.Text ul > li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  font-weight: 600;
+  color: var(--color-theme)
+}
+
+.Text li + li {
+  padding-top: 0.8em;
+}
+
+.Text dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+@supports (display: grid) {
+  .Text dl > dd {
+    padding-left: 1em;
+    margin: 0;
+  }
+
+  .Text dl > dd:not(:last-child) {
+    margin-bottom: 0.25em;
+  }
+}
+
+/**
+ * 1. Maintain 16/9 aspect ratio for embedded content
+ */
+
+.Text iframe {
+  width: 100vw;
+  height: calc(100% * 9/16); /* 1 */
+  max-width: 100%;
+  vertical-align: top;
+  user-select: none;
+}
+
+/**
+ * Headings
+ */
+
+.Text h1,
+.Text h2,
+.Text h3,
+.Text h4,
+.Text h5,
+.Text h6,
+.Text .Text-h1,
+.Text .Text-h2,
+.Text .Text-h3,
+.Text .Text-h4,
+.Text .Text-h5,
+.Text .Text-h6 {
+  margin: 0;
+  color: rgb(var(--current-color));
+}
+
+.Text h1:not(:first-child),
+.Text h2:not(:first-child),
+.Text h3:not(:first-child),
+.Text h4:not(:first-child),
+.Text h5:not(:first-child),
+.Text h6:not(:first-child),
+.Text .Text-h1:not(:first-child),
+.Text .Text-h2:not(:first-child),
+.Text .Text-h3:not(:first-child),
+.Text .Text-h4:not(:first-child),
+.Text .Text-h5:not(:first-child),
+.Text .Text-h6:not(:first-child) {
+  margin-top: 1.3em;
+}
+
+.Text h1,
+.Text h2,
+.Text h3,
+.Text .Text-h1,
+.Text .Text-h2,
+.Text .Text-h3 {
+  margin: 0 0 0.3em;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-family: var(--heading-font-family);
+  line-height: var(--heading-line-height);
+  hyphens: auto;
+}
+
+.Text h1,
+.Text .Text-h1 {
+  font-size: 3rem;
+  line-height: .95;
+}
+
+@media (min-width: 500px) {
+  .Text h1,
+  .Text .Text-h1  {
+    font-size: 4rem;
+  }
+}
+
+.Text h2,
+.Text .Text-h2 {
+  font-size: 2.5em;
+  line-height: 1.1;
+}
+
+@media (min-width: 500px) {
+  .Text h2,
+  .Text .Text-h2 {
+    font-size: 3rem;
+  }
+}
+
+.Text h3,
+.Text .Text-h3 {
+  font-size: 1.5em;
+  line-height: 1.15;
+}
+
+.Text h4,
+.Text h5,
+.Text h6,
+.Text .Text-h5,
+.Text .Text-h6 {
+  margin: 1.3em 0;
+  font-weight: 600;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+@media (min-width: 1200px) {
+  .Text h1,
+  .Text .Text-h1 {
+    font-size: 4.75rem;
+  }
+
+  .Text h2,
+  .Text .Text-h2 {
+    font-size: 3.5rem;
+  }
+
+  .Text h3,
+  .Text .Text-h3 {
+    font-size: 2em;
+    line-height: 1.1;
+  }
+}

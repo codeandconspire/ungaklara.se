@@ -18,5 +18,6 @@ app.use(require('choo-meta')({ origin: app.state.origin }))
 app.use(require('choo-service-worker')('/sw.js'))
 
 app.route('/', require('./views/home'))
+app.route('/pa-scen/:event', require('./views/event'))
 
 module.exports = app.mount('body')

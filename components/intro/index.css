@@ -1,0 +1,33 @@
+@import "../base";
+
+/** @define Intro */
+.Intro {
+  padding-top: 50vh;
+  font-family: var(--heading-font-family);
+  line-height: var(--heading-line-height);
+}
+
+.Intro-title {
+  position: relative;
+  font-size: 5.625rem;
+  padding-top: 2.5rem;
+  margin: 0 0 0.75rem;
+}
+
+.Intro-badge {
+  position: absolute;
+  left: 0;
+  top: 0;
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+
+.Intro-text {
+  font-size: 1.875rem;
+  margin-bottom: 6rem;
+}
+
+.Intro-image {
+  width: 100%;
+  height: auto;
+}

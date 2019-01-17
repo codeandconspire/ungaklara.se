@@ -25,6 +25,7 @@ exports.resolve = resolve
 function resolve (doc) {
   switch (doc.type) {
     case 'homepage': return '/'
+    case 'event': return `/pa-scen/${doc.uid}`
     case 'Web':
     case 'Media': return doc.url
     default: {
@@ -249,4 +250,13 @@ function snippet (str, maxlen = Infinity) {
   var snipped = ''
   while (snipped.length < maxlen) snipped += ' ' + words.shift()
   return [snipped, ' ', html`<span class="u-textNowrap">${words[0]}…</span>`]
+}
+
+exports.loading = loading
+function loading (length, light = false) {
+  var content = '⏳'.repeat(length).split('').reduce(function (str, char) {
+    if (Math.random() > 0.7) char += ' '
+    return str + char
+  }, '')
+  return html`<span class="u-loading${light ? 'Light' : ''}">${content}</span>`
 }
