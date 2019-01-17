@@ -4,7 +4,7 @@ var raw = require('choo/html/raw')
 var Component = require('choo/component')
 var error = require('./error')
 var header = require('../header')
-var footer = require('../footer')
+var Footer = require('../footer')
 var { i18n, asText } = require('../base')
 
 var text = i18n()
@@ -74,7 +74,7 @@ function createView (view, meta) {
           <div class="View-main">
             ${children}
           </div>
-          ${footer()}
+          ${state.cache(Footer, 'header').render()}
         </body>
       `
 

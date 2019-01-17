@@ -3,6 +3,11 @@
  */
 
 /* @define utilities */
+
+.u-sizeFull {
+  width: 100% !important;
+}
+
 .u-size1of4 {
   flex-basis: auto !important;
   width: 25% !important;
