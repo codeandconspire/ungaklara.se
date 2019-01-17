@@ -1,0 +1,44 @@
+@import "../base";
+
+/* @define Button */
+.Button {
+  display: inline-block;
+  line-height: 3.25rem;
+  padding: 0 1.2rem;
+  min-width: 10rem;
+  border: 2px solid rgb(var(--document-color));
+  font-size: 1.5rem;
+  color: rgb(var(--document-color));
+  background-color: transparent;
+  text-transform: uppercase;
+  font-weight: 600;
+  white-space: nowrap;
+  user-select: none;
+  font-family: var(--heading-font-family);
+  transition: 140ms var(--ease-out);
+  transition-property: background-color, color;
+}
+
+.Button--small {
+  padding: 0 0.9rem;
+  min-width: 0;
+  line-height: 2.7rem;
+}
+
+.Button:not([disabled]):hover {
+  background-color: rgba(var(--color-gray), 0.22);
+}
+
+.Button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/**
+ * Primary button
+ */
+
+.Button--primary {
+  background: rgb(var(--document-color));
+  color: #fff;
+}

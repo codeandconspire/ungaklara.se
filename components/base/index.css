@@ -42,7 +42,7 @@
   overflow-x: hidden; /* 2 */
   cursor: default; /* 4 */
   font-family: var(--document-font-family);
-  background: rgb(var(--theme-background, var(--document-background)));
+  background: rgb(var(--theme-color, var(--document-background)));
   color: rgb(var(--document-color));
   font-size: 100%;
   line-height: var(--document-line-height);

@@ -30,7 +30,7 @@
   --document-max-width: 2000px;
   --document-margin: 1.125rem;
 
-  --theme-background: var(--color-pink);
+  --theme-color: var(--color-pink);
 
   --focus-ring-width: 0.2rem;
   --focus-ring-color: var(--color-gray-dark);

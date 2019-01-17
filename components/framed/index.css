@@ -1,0 +1,27 @@
+@import "../base";
+
+/** @define Framed */
+.Framed {
+  flex: 0 1 auto;
+  padding: 0 0 1.5rem 1.5rem;
+  margin-top: 1.5rem;
+  position: relative;
+}
+
+.Framed::before {
+  display: block;
+  content: "";
+  width: calc(100% - 1.5rem);
+  height: calc(100% - 1.5rem);
+  position: absolute;
+  top: 0;
+  right: 1.5rem;
+  background-color: rgb(var(--theme-color));
+}
+
+.Framed-image {
+  width: 100%;
+  height: auto;
+  position: relative;
+  top: -1.5rem;
+}
