@@ -4,8 +4,8 @@
 .Button {
   display: inline-block;
   line-height: 3.25rem;
-  padding: 0 1.2rem;
-  border: 2px solid rgb(var(--document-color));
+  padding: 0 1.8rem;
+  border: var(--border-width) solid rgb(var(--document-color));
   font-size: 1.125rem;
   color: rgb(var(--document-color));
   background-color: transparent;

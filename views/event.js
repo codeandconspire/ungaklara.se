@@ -51,15 +51,15 @@ function event (state, emit) {
                 `, { size: { md: '1of4' } }),
                 Object.assign(() => html`
                   <div>
-                    <div class="Text Text-large u-spaceB6">
+                    <div class="Text Text--large u-spaceV5">
                       ${asElement(doc.data.about, resolve, serialize)}
                     </div>
-                    ${button({ text: text`Show dates`, href: '/', class: 'u-spaceR4' })}
+                    ${button({ text: text`Show dates`, href: '/', class: 'u-spaceR1' })}
                     ${button({ text: text`Buy ticket`, href: '/', primary: true })}
                   </div>
                 `, { size: { md: '3of4' } })
               ])}
-              <div class="u-spaceV4">
+              <div class="u-spaceV8">
                 ${facts(doc.data.details)}
               </div>
             </div>
