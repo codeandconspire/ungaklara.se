@@ -2,6 +2,9 @@
 
 /* @define Footer */
 .Footer {
+}
+
+.Footer-cols {
   display: flex;
   flex-wrap: wrap;
 }
@@ -70,16 +73,20 @@
 }
 
 @media (min-width: 600px) {
-  .Footer {
+  .Footer-section {
+    flex: 0 1 calc(100% / 3);
+  }
+}
+
+@media (min-width: 1000px) {
+  .Footer-cols {
     justify-content: space-between;
   }
 
   .Footer-section {
     flex: 0 1 auto;
   }
-}
 
-@media (min-width: 1000px) {
   .Footer-logo {
     font-size: 8.4vw;
   }
