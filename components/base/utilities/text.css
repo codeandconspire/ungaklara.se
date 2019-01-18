@@ -29,6 +29,10 @@
   hyphens: auto !important;
 }
 
+.u-textUppercase {
+  text-transform: uppercase !important;
+}
+
 .u-textDefault {
   font-family: var(--document-font-family) !important;
   line-height: var(--document-line-height) !important;

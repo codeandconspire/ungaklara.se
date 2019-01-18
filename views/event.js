@@ -5,7 +5,9 @@ var grid = require('../components/grid')
 var intro = require('../components/intro')
 var framed = require('../components/framed')
 var button = require('../components/button')
-var facts = require('../components/facts-box')
+var Masonry = require('../components/masonry')
+var factsBox = require('../components/facts-box')
+var Blockquote = require('../components/text/blockquote')
 var { asText, resolve, i18n, hexToRgb } = require('../components/base')
 var { serialize } = require('../components/text/serialize')
 
@@ -59,8 +61,11 @@ function event (state, emit) {
                   </div>
                 `, { size: { md: '3of4' } })
               ])}
-              <div class="u-spaceV8">
-                ${facts(doc.data.details)}
+              <div class="u-spaceV4">
+                ${factsBox(doc.data.details)}
+              </div>
+              <div class="u-spaceV4">
+                ${state.cache(Masonry, doc.id + '-media').render(doc.data.media.map(media).filter(Boolean))}
               </div>
             </div>
           `
@@ -68,6 +73,39 @@ function event (state, emit) {
       </div>
     </main>
   `
+
+  function media (slice, index) {
+    switch (slice.slice_type) {
+      case 'image': {
+        var attrs = {
+          alt: slice.primary.image.alt || '',
+          src: slice.primary.image.url,
+          width: slice.primary.image.dimensions.width,
+          height: slice.primary.image.dimensions.height
+        }
+        return html`
+          <figure class="Text u-spaceV3">
+            <img ${attrs} />
+            ${slice.primary.image.copyright ? html`
+              <figcaption class="Text-meta">${slice.primary.image.copyright}</figcaption>
+            ` : null}
+          </figure>
+        `
+      }
+      case 'quote': {
+        var blockquote = state.cache(Blockquote, `event-media-${index}`)
+        return html`
+          <div class="u-spaceV3">
+            ${blockquote.render(
+              asElement(slice.primary.text, resolve, serialize),
+              asElement(slice.primary.cite, resolve, serialize)
+            )}
+          </div>
+        `
+      }
+      default: return null
+    }
+  }
 }
 
 function meta (state) {

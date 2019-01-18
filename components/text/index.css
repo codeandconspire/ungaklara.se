@@ -119,6 +119,48 @@
 }
 
 /**
+ * Blockquote
+ */
+
+.Text-blockquote {
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  position: relative;
+  z-index: 0;
+  font-weight: 600;
+  font-family: var(--heading-font-family);
+  line-height: var(--heading-line-height);
+  font-size: 1.125rem;
+}
+
+.Text-blockquote::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.Text-blockquote--variant1::before {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 100%;
+  background: linear-gradient(53deg, rgb(var(--color-green)) 45%, rgba(var(--color-green), 0) 85%, transparent);
+  z-index: -1;
+}
+
+.Text-blockquote--variant2::before {
+  width: 2rem;
+  height: 100%;
+  background: linear-gradient(rgba(var(--color-pink), 0) 5%, rgb(var(--color-pink)) 85%, rgb(var(--color-pink)));
+  z-index: -1;
+}
+
+.Text-caption {
+  margin-top: 1rem;
+  text-transform: uppercase;
+}
+
+/**
  * Lists
  */
 
