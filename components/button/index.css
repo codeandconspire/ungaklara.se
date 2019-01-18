@@ -5,12 +5,10 @@
   display: inline-block;
   line-height: 3.25rem;
   padding: 0 1.2rem;
-  min-width: 10rem;
   border: 2px solid rgb(var(--document-color));
-  font-size: 1.5rem;
+  font-size: 1.125rem;
   color: rgb(var(--document-color));
   background-color: transparent;
-  text-transform: uppercase;
   font-weight: 600;
   white-space: nowrap;
   user-select: none;

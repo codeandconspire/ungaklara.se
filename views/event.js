@@ -5,6 +5,7 @@ var grid = require('../components/grid')
 var intro = require('../components/intro')
 var framed = require('../components/framed')
 var button = require('../components/button')
+var facts = require('../components/facts-box')
 var { asText, resolve, i18n, hexToRgb } = require('../components/base')
 var { serialize } = require('../components/text/serialize')
 
@@ -50,7 +51,7 @@ function event (state, emit) {
                 `, { size: { md: '1of4' } }),
                 Object.assign(() => html`
                   <div>
-                    <div class="Text u-spaceB6">
+                    <div class="Text Text-large u-spaceB6">
                       ${asElement(doc.data.about, resolve, serialize)}
                     </div>
                     ${button({ text: text`Show dates`, href: '/', class: 'u-spaceR4' })}
@@ -58,6 +59,9 @@ function event (state, emit) {
                   </div>
                 `, { size: { md: '3of4' } })
               ])}
+              <div class="u-spaceV4">
+                ${facts(doc.data.details)}
+              </div>
             </div>
           `
         })}

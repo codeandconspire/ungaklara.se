@@ -223,7 +223,6 @@
 .Text .Text-h3 {
   margin: 0 0 0.3em;
   font-weight: 600;
-  text-transform: uppercase;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
   hyphens: auto;
@@ -238,26 +237,26 @@
 @media (min-width: 500px) {
   .Text h1,
   .Text .Text-h1  {
-    font-size: 4rem;
+    font-size: 2.4rem;
   }
 }
 
 .Text h2,
 .Text .Text-h2 {
-  font-size: 2.5em;
+  font-size: 1.8em;
   line-height: 1.1;
 }
 
 @media (min-width: 500px) {
   .Text h2,
   .Text .Text-h2 {
-    font-size: 3rem;
+    font-size: 2rem;
   }
 }
 
 .Text h3,
 .Text .Text-h3 {
-  font-size: 1.5em;
+  font-size: 1.4em;
   line-height: 1.15;
 }
 
@@ -275,17 +274,12 @@
 @media (min-width: 1200px) {
   .Text h1,
   .Text .Text-h1 {
-    font-size: 4.75rem;
-  }
-
-  .Text h2,
-  .Text .Text-h2 {
-    font-size: 3.5rem;
+    font-size: 2.8rem;
   }
 
   .Text h3,
   .Text .Text-h3 {
-    font-size: 2em;
+    font-size: 1.6em;
     line-height: 1.1;
   }
 }
