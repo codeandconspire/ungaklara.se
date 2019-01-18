@@ -3,7 +3,7 @@ var html = require('choo/html')
 var raw = require('choo/html/raw')
 var Component = require('choo/component')
 var error = require('./error')
-var header = require('../header')
+var Header = require('../header')
 var Footer = require('../footer')
 var { i18n, asText } = require('../base')
 
@@ -70,11 +70,11 @@ function createView (view, meta) {
         <body class="View" id="view">
           <script type="application/ld+json">${raw(JSON.stringify(linkedData(state)))}</script>
           <div class="View-gradient"></div>
-          ${header()}
+          ${state.cache(Header, 'header').render()}
           <div class="View-main">
             ${children}
           </div>
-          ${state.cache(Footer, 'header').render()}
+          ${state.cache(Footer, 'footer').render()}
         </body>
       `
 

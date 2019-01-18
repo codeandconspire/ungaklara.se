@@ -1,9 +1,6 @@
 @import "../base";
 
 /* @define Footer */
-.Footer {
-}
-
 .Footer-cols {
   display: flex;
   flex-wrap: wrap;

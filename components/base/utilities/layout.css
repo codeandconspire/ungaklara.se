@@ -26,8 +26,13 @@
  */
 
 .u-block { display: block !important; }
+<<<<<<< HEAD
 .u-inlineBlock { display: block !important; }
 .u-inline { display: block !important; }
+=======
+.u-inlineBlock { display: inline-block !important; }
+.u-inline { display: inline !important; }
+>>>>>>> Add header
 .u-flex { display: flex !important; }
 
 /**

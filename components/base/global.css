@@ -35,6 +35,8 @@
   --focus-ring-width: 0.2rem;
   --focus-ring-color: var(--color-black);
 
+  --border-width: 0.125rem;
+
   /* Easing curves */
 
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
