@@ -14,7 +14,7 @@ function facts (items) {
         if (count <= 4) cols = count
         if (count === 5) cols = index < 4 ? 3 : 2
         return html`
-          <div class="FactsBox-cell u-size1of${cols}">
+          <div class="FactsBox-cell u-md-size1of${Math.max(2, Math.floor(cols / 2))} u-lg-size1of${cols}">
             <dt class="FactsBox-label">${item.label}</dt>
             <dd class="FactsBox-value">${item.text}</dd>
           </div>

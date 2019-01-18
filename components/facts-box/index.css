@@ -5,13 +5,19 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  padding: 3.75rem;
+  padding: 2.75rem;
   margin: 0;
   text-align: center;
   font-size: 1.125rem;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
   background-color: rgb(var(--theme-color));
+}
+
+.FactsBox-cell {
+  flex: 1 1 100%;
+  width: 100%;
+  padding: 1rem;
 }
 
 .FactsBox-label {
