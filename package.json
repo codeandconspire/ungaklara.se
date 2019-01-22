@@ -35,7 +35,7 @@
     "choo-meta": "^1.0.3",
     "choo-service-worker": "^2.4.0",
     "focus-visible": "^4.1.5",
-    "jalla": "^0.11.0-4",
+    "jalla": "^0.11.0-5",
     "nanolru": "^1.0.0",
     "nanoraf": "^3.1.0",
     "normalize.css": "^8.0.1",
