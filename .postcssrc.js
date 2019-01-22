@@ -10,7 +10,7 @@ function config (ctx) {
   if (ctx.env !== 'development') {
     plugins.push(
       customProperties,
-      url({ filter: /\.woff$/, url: 'inline', maxSize: Infinity })
+      url({ filter: /\.(?:woff|svg)$/, url: 'inline', maxSize: Infinity })
     )
   }
 

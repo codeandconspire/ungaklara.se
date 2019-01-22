@@ -117,7 +117,7 @@ function meta (state) {
       description: asText(doc.data.description)
     }
 
-    var image = doc.data.share_image.url ? doc.data.share_image : doc.data.image
+    var image = doc.data.featured_image.url ? doc.data.featured_image : doc.data.image
     if (image.url) {
       Object.assign(props, {
         'og:image': image.url,

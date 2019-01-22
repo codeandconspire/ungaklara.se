@@ -1,6 +1,6 @@
 var choo = require('choo')
 var app = choo({ hash: false })
-var middleware = require('./lib/prismic')
+var middleware = require('./lib/prismic-middleware')
 
 var REPOSITORY = 'https://unga-klara.cdn.prismic.io/api/v2'
 
@@ -14,11 +14,13 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(require('./stores/reset'))
+app.use(require('./stores/navigation'))
 app.use(require('./stores/prismic')({ repository: REPOSITORY, middleware }))
 app.use(require('choo-meta')({ origin: app.state.origin }))
 app.use(require('choo-service-worker')('/sw.js'))
 
 app.route('/', require('./views/home'))
 app.route('/pa-scen/:event', require('./views/event'))
+app.route('/:page', require('./views/page'))
 
 module.exports = app.mount('body')

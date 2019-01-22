@@ -2,7 +2,7 @@
 
 /** @define Intro */
 .Intro {
-  padding-top: 50vh;
+  padding-top: 40vh;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
 }
@@ -26,10 +26,11 @@
 
 .Intro-text {
   font-size: 1.875rem;
-  margin-bottom: 6rem;
 }
 
 .Intro-image {
+  display: block;
   width: 100%;
   height: auto;
+  margin-top: 4rem;
 }

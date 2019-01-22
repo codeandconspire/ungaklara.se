@@ -1,8 +1,8 @@
 var html = require('choo/html')
-var { loading } = require('../base')
+var { loader } = require('../base')
 
 module.exports = intro
-module.exports.loading = introLoading
+module.exports.loading = loading
 
 function intro (props) {
   return html`
@@ -19,14 +19,14 @@ function intro (props) {
   `
 }
 
-function introLoading (opts, light = false) {
+function loading (opts = {}) {
   return html`
     <div class="Intro">
       <div class="Intro-title">
-        ${opts.badge ? html`<span class="Intro-badge">${loading(4)}</span>` : null}
-        ${loading(8)}
+        ${opts.badge ? html`<span class="Intro-badge">${loader(4)}</span>` : null}
+        ${loader(8)}
       </div>
-      <div class="Intro-text">${loading(82)}</div>
+      <div class="Intro-text">${loader(82)}</div>
       ${opts.image ? html`
         <div class="Intro-image">
           <div class="u-loading u-aspect16-9"></div>

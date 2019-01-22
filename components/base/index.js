@@ -25,6 +25,7 @@ exports.resolve = resolve
 function resolve (doc) {
   switch (doc.type) {
     case 'homepage': return '/'
+    case 'page':
     case 'about':
     case 'events':
     case 'pedagogue':
@@ -263,11 +264,24 @@ function snippet (str, maxlen = Infinity) {
   return [snipped, ' ', html`<span class="u-textNowrap">${words[0]}…</span>`]
 }
 
-exports.loading = loading
-function loading (length, light = false) {
+// create placeholder loading text of given length
+// (num, bool?) -> Element
+exports.loader = loader
+function loader (length, light = false) {
   var content = '⏳'.repeat(length).split('').reduce(function (str, char) {
     if (Math.random() > 0.7) char += ' '
     return str + char
   }, '')
   return html`<span class="u-loading${light ? 'Light' : ''}">${content}</span>`
+}
+
+// pick props from object
+// (obj, arr|...str) -> obj
+exports.pluck = pluck
+function pluck (src, ...keys) {
+  keys = Array.isArray(keys[0]) ? keys[0] : keys
+  return keys.reduce(function (obj, key) {
+    if (src[key]) obj[key] = src[key]
+    return obj
+  }, {})
 }

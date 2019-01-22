@@ -65,6 +65,15 @@
  * Block elements
  */
 
+.Text hr {
+  display: block;
+  height: 2px;
+  width: 3em;
+  margin: 1.5em 0;
+  border: 0;
+  background: currentColor;
+}
+
 .Text p,
 .Text ul,
 .Text ol {
@@ -111,7 +120,7 @@
 }
 
 .Text pre {
-  font-size: 0.75rem;
+  font-size: 0.75em;
   overflow: auto;
   background: rgb(var(--color-gray-light));
   padding: 1em;
@@ -119,18 +128,108 @@
 }
 
 /**
+ * Details – Summary
+ */
+
+.Text details {
+  display: block;
+  margin-top: 1.5em;
+  border: solid currentColor;
+  border-width: 0 0 2px 0;
+  cursor: default;
+  outline: 0;
+  position: relative;
+}
+
+.Text details:first-child,
+.Text details + details {
+  margin-top: 0;
+}
+
+.Text details:first-of-type {
+  border-top-width: 2px;
+}
+
+.Text summary {
+  display: block;
+  list-style: none;
+  user-select: none;
+  padding: 1.4em 2.7em 1.4em 0;
+  position: relative;
+  outline: 0;
+  font-weight: 600;
+  font-size: 1.5em;
+  font-family: var(--heading-font-family);
+  line-height: var(--heading-line-height);
+}
+
+.Text summary h1,
+.Text summary h2,
+.Text summary h3,
+.Text summary h4,
+.Text summary h5,
+.Text summary h6 {
+  font-size: inherit;
+  margin: 0;
+}
+
+.Text summary:active {
+  transition: opacity 100ms var(--ease-out);
+  opacity: 0.5;
+}
+
+.Text summary::-webkit-details-marker {
+  display: none;
+}
+
+.Text summary::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 1em;
+  width: 1em;
+  height: 3px;
+  transform: translateY(-50%);
+  background-color: currentColor;
+  border-radius: 1.5px;
+}
+
+.Text summary::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 1.5em;
+  width: 3px;
+  height: 1em;
+  transform: translate(50%, -50%);
+  background-color: currentColor;
+  border-radius: 1.5px;
+  transform-origin: center;
+  transition: transform 250ms var(--ease-out);
+  will-change: transform;
+}
+
+.Text details[open] summary::after {
+  transform: translate(50%, -50%) scaleY(0.1);
+}
+
+.Text details[open] {
+  padding-bottom: 1.4em;
+}
+
+/**
  * Blockquote
  */
 
 .Text-blockquote {
-  padding: 1.5rem;
-  margin: 1.5rem 0;
+  padding: 1.5em;
+  margin: 1.5em 0;
   position: relative;
   z-index: 0;
   font-weight: 600;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
-  font-size: 1.125rem;
+  font-size: 1.125em;
 }
 
 .Text-blockquote::before {
@@ -141,22 +240,22 @@
 }
 
 .Text-blockquote--variant1::before {
-  width: 5rem;
-  height: 5rem;
+  width: 5em;
+  height: 5em;
   border-radius: 100%;
   background: linear-gradient(53deg, rgb(var(--color-green)) 45%, rgba(var(--color-green), 0) 85%, transparent);
   z-index: -1;
 }
 
 .Text-blockquote--variant2::before {
-  width: 2rem;
+  width: 2em;
   height: 100%;
   background: linear-gradient(rgba(var(--color-pink), 0) 5%, rgb(var(--color-pink)) 85%, rgb(var(--color-pink)));
   z-index: -1;
 }
 
 .Text-caption {
-  margin-top: 1rem;
+  margin-top: 1em;
   text-transform: uppercase;
 }
 
@@ -272,14 +371,14 @@
 
 .Text h1,
 .Text .Text-h1 {
-  font-size: 3rem;
+  font-size: 3em;
   line-height: .95;
 }
 
 @media (min-width: 500px) {
   .Text h1,
   .Text .Text-h1  {
-    font-size: 2.4rem;
+    font-size: 2.4em;
   }
 }
 
@@ -292,7 +391,7 @@
 @media (min-width: 500px) {
   .Text h2,
   .Text .Text-h2 {
-    font-size: 2rem;
+    font-size: 2em;
   }
 }
 
@@ -305,9 +404,10 @@
 .Text h4,
 .Text h5,
 .Text h6,
+.Text .Text-h4,
 .Text .Text-h5,
 .Text .Text-h6 {
-  margin: 1.3em 0;
+  margin-bottom: 1.3em;
   font-weight: 600;
   font-size: inherit;
   line-height: inherit;
@@ -316,7 +416,7 @@
 @media (min-width: 1200px) {
   .Text h1,
   .Text .Text-h1 {
-    font-size: 2.8rem;
+    font-size: 2.8em;
   }
 
   .Text h3,

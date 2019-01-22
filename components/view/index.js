@@ -53,13 +53,18 @@ function createView (view, meta) {
           next.title = `${next.title} | ${DEFAULT_TITLE}`
         }
 
-        emit('meta', Object.assign({
+        var defaults = {
           title: doc ? asText(doc.data.title) : `${text`Loading`} | ${DEFAULT_TITLE}`,
-          description: doc && asText(doc.data.description),
-          'og:image': doc && doc.data.default_share_image.url,
-          'og:image:width': doc && doc.data.default_share_image.dimensions.width,
-          'og:image:height': doc && doc.data.default_share_image.dimensions.height
-        }, next))
+          description: doc && asText(doc.data.description)
+        }
+
+        if (doc && doc.data.featured_image.url) {
+          defaults['og:image'] = doc.data.featured_image.url
+          defaults['og:image:width'] = doc.data.featured_image.dimensions.width
+          defaults['og:image:height'] = doc.data.featured_image.dimensions.height
+        }
+
+        emit('meta', Object.assign(defaults, next))
       } catch (err) {
         err.status = err.status || 500
         children = error(err)

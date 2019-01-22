@@ -1,0 +1,284 @@
+@import "../base";
+
+/* @define Card */
+.Card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  z-index: 0;
+  color: rgb(var(--current-color));
+}
+
+@media print {
+  .Card {
+    page-break-inside: avoid;
+    page-break-after: avoid;
+  }
+}
+
+.Card--background {
+  --current-color: 255, 255, 255;
+  --current-background: 0, 0, 0;
+  justify-content: flex-end;
+}
+
+.Card--interactive .Card-content::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: -1;
+  background: rgba(0, 0, 0, 0.09);
+  transition: opacity 180ms var(--ease-out);
+}
+
+.Card--interactive:hover .Card-content::before {
+  opacity: 1;
+}
+
+.Card-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  align-items: flex-start;
+}
+
+@media (min-width: 1000px) {
+  .Card-content {
+    padding-bottom: 1rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .Card-content {
+    padding-bottom: 0.8rem;
+  }
+}
+
+.Card--fill .Card-content {
+  padding: 1.2rem 1.2rem 0.2rem;
+}
+
+@media (min-width: 400px) {
+  .Card--fill .Card-content {
+    min-height: 17rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .Card--fill .Card-content {
+    padding: 2rem 2rem 0.5rem;
+  }
+}
+
+.Card--background .Card-content {
+  height: 100%;
+  flex: 0 0 auto;
+  min-height: auto;
+  background-image: var(--figure-gradient);
+}
+
+/**
+ * 1. Get a z-index to put ontop of hover shading
+ */
+
+.Card-body {
+  flex-grow: 1;
+  position: relative; /* 1 */
+  width: 100%;
+}
+
+.Card:not(.Card--fill) .Card-body {
+  flex-grow: 0;
+}
+
+.Card--background .Card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.Card-meta {
+  display: block;
+  margin: 0.75rem 0 0.6rem;
+  color: rgb(var(--color-text-muted));
+  font-size: 0.875rem;
+  font-style: normal;
+}
+
+.Card-title {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: var(--heading-font-family);
+  line-height: var(--heading-line-height);
+  word-break: break-all;
+}
+
+.Card:not(.Card--fill) .Card-title:first-child {
+  margin-top: 1.5rem;
+}
+
+.Card-text {
+  font-size: 1rem;
+  margin-top: 0.3em;
+}
+
+@media (min-width: 900px) {
+  .Card-title {
+    font-size: 2rem;
+    line-height: 1.05;
+  }
+
+  .Card-text {
+    margin-top: 0.5em;
+  }
+}
+
+.Card-footer {
+  --current-background: 0, 0, 0;
+  flex-grow: 0;
+  width: 100%;
+  padding-bottom: 2rem;
+}
+
+.Card--fill .Card-footer {
+  margin-top: 1.25rem;
+}
+
+.Card--fill.Card--dark {
+  --current-color: 255, 255, 255;
+}
+
+.Card--fill:not(.Card-dark) {
+  --current-color: var(--high-contrast-light, 0, 0, 0);
+}
+
+.Card--dark .Card-footer {
+  --current-background: 255, 255, 255;
+}
+
+.Card--fill {
+  background-color: rgb(var(--high-contrast-dark, var(--Card-background-color, var(--current-background))));
+}
+
+/**
+ * Figure
+ */
+
+.Card-figure {
+  margin: 0;
+  max-height: 24rem;
+  position: relative;
+  overflow: hidden;
+  z-index: -1;
+  background-color: rgba(var(--color-gray-light), 0.6);
+}
+
+.Card-figure::before {
+  content: "";
+  display: block;
+  height: 0;
+  padding-top: calc(100% * 3/4);
+}
+
+.Card:not(.Card--interactive) .Card-figure:not(.is-loading)::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.09);
+  transition: opacity 180ms var(--ease-out);
+}
+
+.Card:not(.Card--interactive):hover .Card-figure:not(.is-loading)::after {
+  opacity: 1;
+}
+
+.Card-figure.is-loading {
+  background-color: rgba(var(--color-gray-light), 0.6);
+}
+
+.Card-figure--background {
+  object-fit: cover;
+  max-height: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.Card-caption {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.Card-image {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  width: auto;
+  transform: translate(-50%, -50%);
+}
+
+@supports (object-fit: cover) {
+  .Card-image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    transform: none;
+  }
+}
+
+/**
+ * Link
+ */
+
+.Card-link {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid currentColor;
+  font-size: 1rem;
+  font-family: var(--heading-font-family);
+  font-weight: 600;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.Card-link::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+@media print {
+  .Card-link {
+    display: none !important;
+  }
+}
+
+.Card-icon {
+  padding-left: 0.4em;
+  font-size: 0.75em;
+  line-height: 0;
+  margin-right: -0.3rem;
+}
