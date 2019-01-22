@@ -63,12 +63,6 @@
   padding: 1.2rem 1.2rem 0.2rem;
 }
 
-@media (min-width: 400px) {
-  .Card--fill .Card-content {
-    min-height: 17rem;
-  }
-}
-
 @media (min-width: 1200px) {
   .Card--fill .Card-content {
     padding: 2rem 2rem 0.5rem;
