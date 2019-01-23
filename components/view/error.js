@@ -22,7 +22,7 @@ function error (err) {
             <h1>${text`Oops`}</h1>
             ${err.status === 404 ? html`
               <p>
-                ${text`There is no page at this address. Try finding your way using the menu or from ${html`<a href="/">${text`the homepage`}</a>`}.`}.
+                ${text`There is no page at this address. Try finding your way using the menu or from ${html`<a href="/">${text`the homepage`}</a>`}.`}
               </p>
             ` : html`
               <p>

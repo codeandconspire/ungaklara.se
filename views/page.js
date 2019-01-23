@@ -12,7 +12,7 @@ module.exports = view(page, meta)
 function page (state, emit) {
   return html`
     <main class="View-main">
-      ${state.prismic.getByUID('page', state.params.page, (err, doc) => {
+      ${state.prismic.getByUID('page', state.params.slug, (err, doc) => {
         if (err) throw err
         if (!doc) return intro.loading()
         return html`
@@ -126,7 +126,7 @@ function page (state, emit) {
                             ${slice.primary.introduction.length ? asElement(slice.primary.introduction, resolve, serialize) : null}
                           </div>
                         ` : null}
-                        ${grid(items.map((item) => asCard(item.page)), opts)}
+                        ${grid(opts, items.map((item) => asCard(item.page)))}
                       </div>
                     `
                   }
@@ -168,7 +168,7 @@ function asCard (doc) {
 }
 
 function meta (state) {
-  return state.prismic.getByUID('page', state.params.page, (err, doc) => {
+  return state.prismic.getByUID('page', state.params.slug, (err, doc) => {
     if (err) throw err
     if (!doc) return null
     var props = {

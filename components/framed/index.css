@@ -25,3 +25,23 @@
   position: relative;
   top: -2rem;
 }
+
+/**
+ * Loading
+ */
+
+.Framed.is-loading {
+  display: flex;
+  width: 100%;
+}
+
+.Framed.is-loading::after {
+  content: "";
+  display: block;
+  height: 0;
+  padding-bottom: calc(100% * 278/195);
+}
+
+.Framed.is-loading .Framed-image {
+  background-color: rgb(var(--color-gray));
+}

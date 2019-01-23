@@ -1,20 +1,32 @@
 var html = require('choo/html')
 
 module.exports = grid
+module.exports.cell = cell
 
 // render children in grid cells
-// (arr, obj?) -> Element
-function grid (children, opts = {}) {
+// (obj?, arr) -> Element
+function grid (opts, children) {
+  if (!children) {
+    children = opts
+    opts = {}
+  }
+
   return html`
     <div class="Grid">
-      ${children.map(cell)}
+      ${children.map(child)}
     </div>
   `
 
-  function cell (child, index) {
+  // render grid cell
+  // (Element|obj -> num) -> Element
+  function child (props, index) {
     var attrs = { class: 'Grid-cell' }
 
-    var size = child.size || opts.size
+    var children = props
+    if (children.render) children = children.render
+    if (typeof children === 'function') children = children()
+
+    var size = props.size || opts.size
     if (size) attrs.class += ' ' + sizes(size)
 
     if (opts.appear) {
@@ -24,10 +36,20 @@ function grid (children, opts = {}) {
 
     return html`
       <div ${attrs}>
-        ${typeof child === 'function' ? child() : child}
+        ${children}
       </div>
     `
   }
+}
+
+// convenience function for creating grid cells with options
+// (obj, Element|arr) -> obj
+function cell (opts, children) {
+  if (!children) {
+    children = opts
+    opts = {}
+  }
+  return Object.assign({ render: children }, opts)
 }
 
 function sizes (opts) {

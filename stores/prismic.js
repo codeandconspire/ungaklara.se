@@ -76,7 +76,7 @@ function prismicStore (opts) {
       var request = init.then(function (api) {
         return api.query(predicates, opts).then(function (response) {
           // optionally transform the response using registered middleware
-          if (typeof transform === 'function') return transform(response)
+          if (typeof transform === 'function') return transform(null, response)
           return response
         }).then(function (response) {
           cache.set(key, response)
@@ -88,6 +88,9 @@ function prismicStore (opts) {
         cache.set(key, err)
         emitter.emit('prismic:error', err)
         if (!prefetch) emitter.emit('render')
+        // forward error to transform or just throw it
+        if (typeof transform === 'function') return transform(err)
+        else throw err
       })
 
       // cache pending request

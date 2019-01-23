@@ -1,5 +1,6 @@
 var html = require('choo/html')
 var asElement = require('prismic-element')
+var events = require('./events')
 var view = require('../components/view')
 var grid = require('../components/grid')
 var intro = require('../components/intro')
@@ -12,14 +13,24 @@ var { asText, resolve, i18n, hexToRgb } = require('../components/base')
 var { serialize } = require('../components/text/serialize')
 
 var text = i18n()
+var page = view(event, meta)
 
-module.exports = view(event, meta)
+module.exports = catchall
+
+// capture the different listing pages and defer to events page
+// (obj, fn) -> Element
+function catchall (state, emit) {
+  if (state.params.slug === 'kalendarium' || state.params.slug === 'arkiv') {
+    return events(state, emit)
+  }
+  return page(state, emit)
+}
 
 function event (state, emit) {
   return html`
     <main class="View-main">
       <div class="u-container">
-        ${state.prismic.getByUID('event', state.params.event, (err, doc) => {
+        ${state.prismic.getByUID('event', state.params.slug, (err, doc) => {
           if (err) throw err
           if (!doc) return intro.loading({ badge: true, image: true })
 
@@ -44,14 +55,10 @@ function event (state, emit) {
                 })}
               </div>
               ${grid([
-                Object.assign(() => html`
-                  <div>
-                    ${framed(Object.assign({
-                      src: doc.data.poster.url
-                    }, doc.data.poster.dimensions))}
-                  </div>
-                `, { size: { md: '1of4' } }),
-                Object.assign(() => html`
+                grid.cell({ size: { md: '1of4' } }, framed(Object.assign({
+                  src: doc.data.poster.url
+                }, doc.data.poster.dimensions))),
+                grid.cell({ size: { md: '3of4' } }, html`
                   <div>
                     <div class="Text Text--large u-spaceV5">
                       ${asElement(doc.data.about, resolve, serialize)}
@@ -59,7 +66,7 @@ function event (state, emit) {
                     ${button({ text: text`Show dates`, href: '/', class: 'u-spaceR1' })}
                     ${button({ text: text`Buy ticket`, href: '/', primary: true })}
                   </div>
-                `, { size: { md: '3of4' } })
+                `)
               ])}
               <div class="u-spaceV4">
                 ${factsBox(doc.data.details)}
@@ -109,7 +116,7 @@ function event (state, emit) {
 }
 
 function meta (state) {
-  return state.prismic.getByUID('event', state.params.event, (err, doc) => {
+  return state.prismic.getByUID('event', state.params.slug, (err, doc) => {
     if (err) throw err
     if (!doc) return null
     var props = {

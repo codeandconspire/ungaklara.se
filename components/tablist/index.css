@@ -1,0 +1,25 @@
+@import "../base";
+
+/** @define Tablist */
+.Tablist {
+  display: flex;
+  border: solid currentColor;
+  border-width: 2px 0 2px 2px;
+}
+
+.Tablist-tab {
+  flex: 1 1 auto;
+  padding: 1em;
+  border-right: 2px solid currentColor;
+  font-size: 1.125rem;
+  text-align: center;
+  font-weight: 600;
+  font-family: var(--heading-font-family);
+  line-height: var(--heading-line-height);
+  background-color: transparent;
+}
+
+.Tablist-tab.is-selected {
+  background-color: #000;
+  color: #fff;
+}
