@@ -74,6 +74,27 @@ function event (state, emit) {
               <div class="u-spaceV4">
                 ${state.cache(Masonry, doc.id + '-media').render(doc.data.media.map(media).filter(Boolean))}
               </div>
+              ${doc.data.people.map(function (slice) {
+                if (!slice.items.length) return null
+                if (slice.slice_type !== 'group') return null
+
+                var opts = { size: { lg: '1of4' } }
+                var heading = asText(slice.primary.heading)
+                var hasImage = slice.items.find((item) => item.image.url)
+                if (hasImage) opts.size.xs = '1of2'
+                else opts.size.md = '1of2'
+
+                return html`
+                  <div class="u-spaceV8">
+                    ${heading ? html`
+                      <div class="Text u-spaceB6">
+                        <h2>${heading}</h2>
+                      </div>
+                    ` : null}
+                    ${grid(opts, slice.items.map(person))}
+                  </div>
+                `
+              })}
             </div>
           `
         })}
@@ -113,6 +134,36 @@ function event (state, emit) {
       default: return null
     }
   }
+}
+
+function person (props) {
+  var image
+  if (props.image.url) {
+    image = {
+      class: 'u-spaceB1',
+      style: 'width: 13em;',
+      alt: props.image.alt || '',
+      src: props.image.url,
+      width: props.image.dimensions.width,
+      height: props.image.dimensions.height
+    }
+  }
+
+  return html`
+    <article class="Text">
+      ${image ? html`<img ${image} />` : null}
+      ${props.label ? html`
+        <strong class="u-block u-textUppercase u-textHeading">
+          ${props.label}
+        </strong>
+      ` : null}
+      ${props.text.length ? html`
+        <div class="u-spaceT1 u-textBold">
+          ${asElement(props.text, resolve, serialize)}
+        </div>
+      ` : null}
+    </article>
+  `
 }
 
 function meta (state) {
