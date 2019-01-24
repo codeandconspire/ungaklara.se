@@ -21,6 +21,9 @@ self.addEventListener('activate', function onactivate (event) {
 
 self.addEventListener('fetch', function onfetch (event) {
   var req = event.request
+  var url = new self.URL(req.url)
+  var sameOrigin = self.location.origin === url.origin
+  var acceptHTML = req.headers.get('accept').includes('text/html')
 
   event.respondWith(
     caches.open(CACHE_KEY).then(function (cache) {
@@ -35,12 +38,37 @@ self.addEventListener('fetch', function onfetch (event) {
           return response
         }, function (err) {
           if (cached) return cached
+          if (sameOrigin && acceptHTML) return render()
           return err
         })
       })
     })
   )
 })
+
+function render () {
+  var script = process.env.ASSET_LIST.find(function (url) {
+    return /\/(?:\w+\.)?bundle\.js/.test(url)
+  })
+  var style = process.env.ASSET_LIST.find(function (url) {
+    return /\/(?:\w+\.)?bundle\.css/.test(url)
+  })
+  var doc = `
+    <!doctype html>
+    <html>
+    <head>
+      <script>window.initialState = { offline: true }</script>
+      <script src="${script}" defer></script>
+      <link rel="stylesheet" href="${style}">
+    </head>
+    <body></body>
+    </html>
+  `
+  return new self.Response(doc, {
+    status: 503,
+    headers: { 'Content-Type': 'text/html' }
+  })
+}
 
 // clear application cache
 // () -> Promise

@@ -89,8 +89,15 @@ function prismicStore (opts) {
         emitter.emit('prismic:error', err)
         if (!prefetch) emitter.emit('render')
         // forward error to transform or just throw it
-        if (typeof transform === 'function') return transform(err)
-        else throw err
+        if (typeof transform === 'function') {
+          try {
+            return transform(err)
+          } catch (err) {
+            if (state.prefetch) throw err
+          }
+        } else if (state.prefetch) {
+          throw err
+        }
       })
 
       // cache pending request

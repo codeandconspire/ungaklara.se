@@ -20,21 +20,21 @@ function error (err) {
         <div class="u-spaceV8">
           <div class="Text Text--center">
             <h1>${text`Oops`}</h1>
-            ${err.status === 404 ? html`
-              <p>
-                ${text`There is no page at this address. Try finding your way using the menu or from ${html`<a href="/">${text`the homepage`}</a>`}.`}
-              </p>
-            ` : html`
-              <p>
-                ${text`We apologize, an error has occured on our site. It may be temporary and you could ${html`<a href="" onclick=${reload}>${text`try again`}</a>`} or go back to ${html`<a href="/">${text`the homepage`}</a>`}.`}
-              </p>
-            `}
+            ${message(err.status)}
             ${DEBUG ? html`<pre>${err.stack}</pre>` : null}
           </div>
         </div>
       </div>
     </main>
   `
+}
+
+function message (status) {
+  switch (status) {
+    case 404: return html`<p>${text`There is no page at this address. Try finding your way using the menu or from ${html`<a href="/">${text`the homepage`}</a>`}.`}</p>`
+    case 503: return html`<p>${text`You seem to be offline. Check your network connection and ${html`<a href="" onclick=${reload}>${text`try again`}</a>`}.`}</p>`
+    default: return html`<p>${text`We apologize, an error has occured on our site. It may be temporary and you could ${html`<a href="" onclick=${reload}>${text`try again`}</a>`} or go back to ${html`<a href="/">${text`the homepage`}</a>`}.`}</p>`
+  }
 
   function reload (event) {
     window.location.reload()

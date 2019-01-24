@@ -66,7 +66,7 @@ function createView (view, meta) {
 
         emit('meta', Object.assign(defaults, next))
       } catch (err) {
-        err.status = err.status || 500
+        err.status = state.offline ? 503 : err.status || 500
         children = error(err)
         emit('meta', { title: `${text`Oops`} | ${DEFAULT_TITLE}` })
       }
@@ -76,9 +76,7 @@ function createView (view, meta) {
           <script type="application/ld+json">${raw(JSON.stringify(linkedData(state)))}</script>
           <div class="View-gradient"></div>
           ${state.cache(Header, 'header').render()}
-          <div class="View-main">
-            ${children}
-          </div>
+          ${children}
           ${state.cache(Footer, 'footer').render()}
         </body>
       `

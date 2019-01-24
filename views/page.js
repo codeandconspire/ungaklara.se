@@ -12,12 +12,12 @@ module.exports = view(page, meta)
 function page (state, emit) {
   return html`
     <main class="View-main">
-      ${state.prismic.getByUID('page', state.params.slug, (err, doc) => {
-        if (err) throw err
-        if (!doc) return intro.loading()
-        return html`
-          <div>
-            <div class="u-container">
+      <div class="u-container">
+        ${state.prismic.getByUID('page', state.params.slug, (err, doc) => {
+          if (err) throw err
+          if (!doc) return intro.loading()
+          return html`
+            <div>
               <div class="u-spaceB8">
                 ${intro({ title: asText(doc.data.title), text: asElement(doc.data.description) })}
               </div>
@@ -134,9 +134,9 @@ function page (state, emit) {
                 }
               })}
             </div>
-          </div>
-        `
-      })}
+          `
+        })}
+      </div>
     </main>
   `
 }
