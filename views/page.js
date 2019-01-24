@@ -126,7 +126,7 @@ function page (state, emit) {
                             ${slice.primary.introduction.length ? asElement(slice.primary.introduction, resolve, serialize) : null}
                           </div>
                         ` : null}
-                        ${grid(opts, items.map((item) => asCard(item.page)))}
+                        ${grid(opts, items.map((item) => asCard(item.page, item.color)))}
                       </div>
                     `
                   }
@@ -143,11 +143,11 @@ function page (state, emit) {
 
 // render linked document as card
 // obj -> Element
-function asCard (doc) {
+function asCard (doc, color) {
   var props = {
     title: asText(doc.data.title),
     body: asText(doc.data.description),
-    color: doc.data.theme,
+    color: color || doc.data.theme,
     link: {
       href: resolve(doc),
       text: doc.data.cta
