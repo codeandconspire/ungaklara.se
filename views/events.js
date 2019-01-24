@@ -32,7 +32,7 @@ function event (state, emit) {
 
           var attrs = {}
           if (doc.data.theme) {
-            attrs.style = `--theme-color: ${hexToRgb(doc.data.theme)}`
+            attrs.style = `--theme-color: ${hexToRgb(doc.data.theme).join(', ')}`
           }
 
           return html`
@@ -133,7 +133,7 @@ function event (state, emit) {
       }
 
       return response.results.map((doc) => html`
-        <li>
+        <li class="u-spaceV6" style="--theme-color: ${hexToRgb(doc.data.theme).join(', ')}">
           ${grid([
             grid.cell({ size: { md: '1of4' } }, framed(Object.assign({
               src: doc.data.poster.url

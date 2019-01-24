@@ -36,7 +36,7 @@ function event (state, emit) {
 
           var attrs = {}
           if (doc.data.theme) {
-            attrs.style = `--theme-color: ${hexToRgb(doc.data.theme)}`
+            attrs.style = `--theme-color: ${hexToRgb(doc.data.theme).join(', ')}`
           }
 
           return html`
@@ -105,7 +105,7 @@ function event (state, emit) {
   function media (slice, index) {
     switch (slice.slice_type) {
       case 'image': {
-        var attrs = {
+        let attrs = {
           alt: slice.primary.image.alt || '',
           src: slice.primary.image.url,
           width: slice.primary.image.dimensions.width,
@@ -121,13 +121,13 @@ function event (state, emit) {
         `
       }
       case 'quote': {
-        var blockquote = state.cache(Blockquote, `event-media-${index}`)
+        let blockquote = state.cache(Blockquote, `event-media-${index}`)
         return html`
           <div class="u-spaceV3">
-            ${blockquote.render(
-              asElement(slice.primary.text, resolve, serialize),
-              asElement(slice.primary.cite, resolve, serialize)
-            )}
+            ${blockquote.render({
+              content: asElement(slice.primary.text, resolve, serialize),
+              caption: asElement(slice.primary.cite, resolve, serialize)
+            })}
           </div>
         `
       }

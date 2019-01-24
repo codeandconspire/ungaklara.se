@@ -5,6 +5,7 @@ var card = require('../components/card')
 var grid = require('../components/grid')
 var intro = require('../components/intro')
 var { asText, resolve } = require('../components/base')
+var Blockquote = require('../components/text/blockquote')
 var { serialize } = require('../components/text/serialize')
 
 module.exports = view(page, meta)
@@ -21,13 +22,25 @@ function page (state, emit) {
               <div class="u-spaceB8">
                 ${intro({ title: asText(doc.data.title), text: asElement(doc.data.description) })}
               </div>
-              ${doc.data.body.map(function slices (slice) {
+              ${doc.data.body.map(function slices (slice, index) {
                 switch (slice.slice_type) {
                   case 'text': {
                     if (!slice.primary.text.length) return null
                     return html`
                       <div class="Text Text--large u-spaceV6">
                         ${asElement(slice.primary.text, resolve, serialize)}
+                      </div>
+                    `
+                  }
+                  case 'quote': {
+                    let blockquote = state.cache(Blockquote, `${doc.id}-${index}`)
+                    return html`
+                      <div class="u-spaceV3">
+                        ${blockquote.render({
+                          large: true,
+                          content: asElement(slice.primary.text, resolve, serialize),
+                          caption: asElement(slice.primary.cite, resolve, serialize)
+                        })}
                       </div>
                     `
                   }
@@ -82,7 +95,7 @@ function page (state, emit) {
                     `
                   }
                   case 'accordion': {
-                    var hasHeading = Boolean(slice.primary.heading.length)
+                    let hasHeading = Boolean(slice.primary.heading.length)
                     return html`
                       <section class="u-spaceV8">
                         ${hasHeading || slice.primary.introduction.length ? html`

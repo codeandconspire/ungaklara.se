@@ -16,12 +16,14 @@ module.exports = class Blockquote extends Component {
     return false
   }
 
-  createElement (content, caption) {
+  createElement ({ large = false, content, caption }) {
     return html`
-      <figure class="Text Text-blockquote Text-blockquote--variant${this.local.variant}" data-variant="${this.local.variant}" id="${this.local.id}">
-        <blockquote>${content}</blockquote>
-        ${caption ? html`<figcaption class="Text-caption">${caption}</figcaption>` : null}
-      </figure>
+      <div class="Text ${large ? 'Text--large' : ''}" data-variant="${this.local.variant}" id="${this.local.id}">
+        <figure class="Text-blockquote Text-blockquote--variant${this.local.variant}">
+          <blockquote>${content}</blockquote>
+          ${caption ? html`<figcaption class="Text-caption">${caption}</figcaption>` : null}
+        </figure>
+      </div>
     `
   }
 }
