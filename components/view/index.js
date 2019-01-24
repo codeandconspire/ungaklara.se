@@ -6,6 +6,7 @@ var error = require('./error')
 var Header = require('../header')
 var Footer = require('../footer')
 var { i18n, asText } = require('../base')
+var PrismicToolbar = require('../prismic-toolbar')
 
 var text = i18n()
 
@@ -78,6 +79,7 @@ function createView (view, meta) {
           ${state.cache(Header, 'header').render()}
           ${children}
           ${state.cache(Footer, 'footer').render()}
+          ${state.cache(PrismicToolbar, 'prismic-toolbar').render()}
         </body>
       `
 
