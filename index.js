@@ -25,4 +25,13 @@ app.route('/pa-scen', require('./views/events'))
 app.route('/pa-scen/:slug', require('./views/event'))
 app.route('/:slug', require('./views/page'))
 
-module.exports = app.mount('body')
+try {
+  module.exports = app.mount('body')
+  // remove parse guard added in header
+  window.onerror = null
+} catch (err) {
+  if (typeof window !== 'undefined') {
+    document.documentElement.removeAttribute('scripting-enabled')
+    document.documentElement.setAttribute('scripting-initial-only', '')
+  }
+}

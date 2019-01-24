@@ -9,6 +9,16 @@
     "start": "jalla index.js --sw sw.js",
     "test": "standard"
   },
+  "documentify": {
+    "transform": [
+      [
+        "./lib/document.js",
+        {
+          "order": "end"
+        }
+      ]
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/codeandconspire/ungaklara.se.git"
