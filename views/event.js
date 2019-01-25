@@ -3,6 +3,7 @@ var asElement = require('prismic-element')
 var events = require('./events')
 var view = require('../components/view')
 var grid = require('../components/grid')
+var event = require('../components/event')
 var intro = require('../components/intro')
 var framed = require('../components/framed')
 var button = require('../components/button')
@@ -13,7 +14,7 @@ var { asText, resolve, i18n, hexToRgb } = require('../components/base')
 var { serialize } = require('../components/text/serialize')
 
 var text = i18n()
-var page = view(event, meta)
+var page = view(eventPage, meta)
 
 module.exports = catchall
 
@@ -26,7 +27,7 @@ function catchall (state, emit) {
   return page(state, emit)
 }
 
-function event (state, emit) {
+function eventPage (state, emit) {
   return html`
     <main class="View-main">
       <div class="u-container">
@@ -39,9 +40,11 @@ function event (state, emit) {
             attrs.style = `--theme-color: ${hexToRgb(doc.data.theme).join(', ')}`
           }
 
+          var media = doc.data.media.map(mediaSlice).filter(Boolean)
+
           return html`
             <div ${attrs}>
-              <div class="u-spaceB8">
+              <div class="u-spaceB6">
                 ${intro({
                   badge: [doc.data.category, doc.data.subheading].filter(Boolean).join(' – '),
                   title: asText(doc.data.title),
@@ -54,27 +57,29 @@ function event (state, emit) {
                   } : null
                 })}
               </div>
-              ${grid([
-                grid.cell({ size: { md: '1of4' } }, framed(Object.assign({
-                  src: doc.data.poster.url
-                }, doc.data.poster.dimensions))),
-                grid.cell({ size: { md: '3of4' } }, html`
-                  <div>
-                    <div class="Text Text--large u-spaceV5">
-                      ${asElement(doc.data.about, resolve, serialize)}
-                    </div>
-                    ${button({ text: text`Show dates`, href: '/', class: 'u-spaceR1' })}
-                    ${button({ text: text`Buy ticket`, href: '/', primary: true })}
-                  </div>
-                `)
-              ])}
-              <div class="u-spaceV4">
-                ${factsBox(doc.data.details)}
-              </div>
-              <div class="u-spaceV4">
-                ${state.cache(Masonry, doc.id + '-media').render(doc.data.media.map(media).filter(Boolean))}
-              </div>
-              ${doc.data.people.map(function (slice) {
+              ${doc.data.about.length ? html`
+                <div class="u-spaceV6">
+                  ${event({
+                    image: doc.data.poster.url ? doc.data.poster : null,
+                    body: doc.data.about,
+                    actions: [
+                      { text: text`Show dates`, href: '/' },
+                      { text: text`Buy ticket`, href: '/', primary: true }
+                    ]
+                  })}
+                </div>
+              ` : null}
+              ${doc.data.details.length ? html`
+                <div class="u-spaceV4">
+                  ${factsBox(doc.data.details)}
+                </div>
+              ` : null}
+              ${media.length ? html`
+                <div class="u-spaceV4">
+                  ${state.cache(Masonry, doc.id + '-media').render(media)}
+                </div>
+              ` : null}
+              ${doc.data.team.map(function (slice) {
                 if (!slice.items.length) return null
                 if (slice.slice_type !== 'group') return null
 
@@ -91,7 +96,7 @@ function event (state, emit) {
                         <h2>${heading}</h2>
                       </div>
                     ` : null}
-                    ${grid(opts, slice.items.map(person))}
+                    ${grid(opts, slice.items.map(teamMember))}
                   </div>
                 `
               })}
@@ -102,7 +107,9 @@ function event (state, emit) {
     </main>
   `
 
-  function media (slice, index) {
+  // render media element from slice
+  // (obj, num) -> Element
+  function mediaSlice (slice, index) {
     switch (slice.slice_type) {
       case 'image': {
         let attrs = {
@@ -136,7 +143,9 @@ function event (state, emit) {
   }
 }
 
-function person (props) {
+// render team member
+// obj -> Element
+function teamMember (props) {
   var image
   if (props.image.url) {
     image = {

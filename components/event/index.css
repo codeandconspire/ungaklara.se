@@ -1,0 +1,64 @@
+@import "../base";
+
+/** @define Event */
+.Event {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@media (min-width: 600px) {
+  .Event {
+    position: relative;
+    padding-left: calc(20vw + 2rem);
+  }
+}
+
+@media (min-width: 1000px) {
+  .Event {
+    padding-left: calc(20vw + 3rem);
+  }
+}
+
+.Event-image {
+  float: right;
+  max-width: 50%;
+  margin: 0 0 1em 1em;
+}
+
+@media (min-width: 600px) {
+  .Event-image {
+    width: 20vw;
+    max-width: 16rem;
+    margin: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+
+.Event-actions {
+  order: -1;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.Event-action {
+  flex: 1 1 auto;
+}
+
+.Event-action:not(:last-child) {
+  margin-right: 1em;
+}
+
+@media (min-width: 600px) {
+  .Event-actions {
+    order: 2;
+    margin-top: 2rem;
+  }
+
+  .Event-action {
+    flex: 0 1 auto;
+  }
+}
