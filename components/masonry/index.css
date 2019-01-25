@@ -3,19 +3,26 @@
 /** @define Masonry */
 .Masonry {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   margin: 0 -0.75rem;
 }
 
 .Masonry-col {
-  flex: 0 1 50%;
+  flex: 1 1 100%;
   padding: 0 0.75rem;
 }
 
-.Masonry-col--1 {
-  margin: 5rem 0 -5rem;
-  transform: translateY(calc(-3% * var(--offset)));
-  will-change: transform;
+@media (min-width: 600px) {
+  .Masonry-col {
+    flex: 0 1 50%;
+  }
+
+  .Masonry-col--1 {
+    margin: 5rem 0 -5rem;
+    transform: translateY(calc(-3% * var(--offset)));
+    will-change: transform;
+  }
 }
 
 @media (min-width: 1000px) {

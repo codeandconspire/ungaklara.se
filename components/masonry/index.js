@@ -18,14 +18,16 @@ module.exports = class Masonry extends Component {
   }
 
   init (el) {
-    this.reflow(el)
-
+    var width = el.offsetWidth
     var height = el.offsetHeight
     var prev = window.innerWidth
     var top = el.offsetTop
 
+    if (width >= 600) this.reflow(el)
+
     var onscroll = nanoraf(function () {
       var { scrollY } = window
+      if (width < 600) return
       if (scrollY + vh() < top || scrollY > top + height) return
       let inview = scrollY + vh() - top
       let fraction = inview / height
@@ -35,6 +37,8 @@ module.exports = class Masonry extends Component {
     var onresize = nanoraf(() => {
       var next = window.innerWidth
       if ((prev >= 1000 && next < 1000) || (prev < 1000 && next >= 1000)) {
+        width = el.offsetWidth
+        if (width < 600) return
         this.rerender()
         this.reflow(el)
         height = el.offsetHeight
