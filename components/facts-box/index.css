@@ -2,16 +2,54 @@
 
 /** @define FactsBox */
 .FactsBox {
+  padding: 2.75rem 2.75rem 2.75rem 6.5rem;
+  position: relative;
+  background-color: rgb(var(--theme-color));
+  font-family: var(--heading-font-family);
+  line-height: var(--heading-line-height);
+}
+
+@media (min-wkidth: 600px) {
+  .FactsBox {
+    padding: 2.75rem;
+  }
+}
+
+.FactsBox-heading {
+  display: inline-block;
+  font-size: 3.5625rem;
+  position: absolute;
+  left: 1.5rem;
+  top: 2.75rem;
+  transform-origin: 100% 0;
+  transform: translateX(-100%) rotate(-90deg);
+}
+
+@media (min-width: 600px) {
+  .FactsBox-heading {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+}
+
+.FactsBox-list {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  padding: 2.75rem;
+  padding: 0;
   margin: 0;
-  text-align: center;
   font-size: 1.125rem;
-  font-family: var(--heading-font-family);
-  line-height: var(--heading-line-height);
-  background-color: rgb(var(--theme-color));
+}
+
+@media (min-width: 600px) {
+  .FactsBox-list {
+    text-align: center;
+  }
 }
 
 .FactsBox-cell {
@@ -20,12 +58,20 @@
   padding: 1rem;
 }
 
+.FactsBox-cell:first-child {
+  padding-top: 0;
+}
+
+.FactsBox-cell:last-child {
+  padding-bottom: 0;
+}
+
 .FactsBox-label {
   padding: 0;
   margin: 0 0 0.3em 0;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  
+
 }
 
 .FactsBox-value {
