@@ -4,7 +4,7 @@ var Component = require('choo/component')
 module.exports = class Blockquote extends Component {
   constructor (id, state) {
     super(id)
-    var variant = Math.ceil(Math.random() * 2)
+    var variant = Math.ceil(Math.random() * 4)
     if (typeof window !== 'undefined') {
       let el = document.getElementById(id)
       if (el) variant = el.dataset.variant
