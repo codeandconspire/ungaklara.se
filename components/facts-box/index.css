@@ -1,6 +1,6 @@
 @import "../base";
 
-/** @define FactsBox */
+/* @define FactsBox */
 .FactsBox {
   padding: 2.75rem 2.75rem 2.75rem 6.5rem;
   position: relative;

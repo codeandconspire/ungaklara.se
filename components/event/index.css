@@ -1,6 +1,6 @@
 @import "../base";
 
-/** @define Event */
+/* @define Event */
 .Event {
   display: flex;
   flex-direction: column;

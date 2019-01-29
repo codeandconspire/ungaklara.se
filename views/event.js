@@ -7,6 +7,7 @@ var event = require('../components/event')
 var intro = require('../components/intro')
 var framed = require('../components/framed')
 var button = require('../components/button')
+var spotify = require('../components/spotify')
 var Masonry = require('../components/masonry')
 var factsBox = require('../components/facts-box')
 var Blockquote = require('../components/text/blockquote')
@@ -112,6 +113,7 @@ function eventPage (state, emit) {
   function mediaSlice (slice, index) {
     switch (slice.slice_type) {
       case 'image': {
+        if (!slice.primary.image.url) return null
         let attrs = {
           alt: slice.primary.image.alt || '',
           src: slice.primary.image.url,
@@ -128,6 +130,7 @@ function eventPage (state, emit) {
         `
       }
       case 'quote': {
+        if (!slice.primary.text.length) return null
         let blockquote = state.cache(Blockquote, `event-media-${index}`)
         return html`
           <div class="u-spaceV3">
@@ -137,6 +140,11 @@ function eventPage (state, emit) {
             })}
           </div>
         `
+      }
+      case 'spotify': {
+        if (!slice.primary.uri.embed_url) return null
+        let body = slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null
+        return spotify(slice.primary.uri.embed_url, body)
       }
       default: return null
     }

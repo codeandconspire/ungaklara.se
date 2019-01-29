@@ -309,16 +309,19 @@
   }
 }
 
-/**
- * 1. Maintain 16/9 aspect ratio for embedded content
- */
-
 .Text iframe {
   width: 100vw;
-  height: calc(100% * 9/16); /* 1 */
   max-width: 100%;
   vertical-align: top;
   user-select: none;
+}
+
+/**
+ * 1. Maintain 16/9 aspect ratio for embedded content (exluding Spotify)
+ */
+
+.Text iframe:not([src*="spotify.com/embed"]) {
+  height: calc(100% * 9/16); /* 1 */
 }
 
 /**

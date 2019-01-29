@@ -1,6 +1,6 @@
 @import "../base";
 
-/** @define Framed */
+/* @define Framed */
 .Framed {
   flex: 0 1 auto;
   padding: 0 0 2rem 2rem;

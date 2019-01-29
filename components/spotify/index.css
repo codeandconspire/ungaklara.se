@@ -1,0 +1,15 @@
+@import "../base";
+
+/* @define Spotify */
+.Spotify {
+  position: relative;
+  padding: 1.5rem;
+  color: rgb(var(--document-background));
+  background-color: rgb(var(--document-color));
+}
+
+@media (min-width: 600px) {
+  .Spotify {
+    padding: 2rem;
+  }
+}

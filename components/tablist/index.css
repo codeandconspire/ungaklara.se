@@ -1,6 +1,6 @@
 @import "../base";
 
-/** @define Tablist */
+/* @define Tablist */
 .Tablist {
   display: flex;
   border: solid currentColor;
