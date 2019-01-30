@@ -16,7 +16,6 @@ app.use(get('/api/prismic-preview', async function (ctx) {
   var token = ctx.query.token
   var api = await Prismic.api(REPOSITORY, { req: ctx.req })
   var href = await api.previewSession(token, resolve, '/')
-  ctx.set('Cache-Control', 'no-cache, private, max-age=0')
   ctx.redirect(href)
 }))
 
