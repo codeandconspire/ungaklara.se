@@ -1,4 +1,5 @@
 var html = require('choo/html')
+var { className } = require('../base')
 
 module.exports = grid
 module.exports.cell = cell
@@ -12,7 +13,7 @@ function grid (opts, children) {
   }
 
   return html`
-    <div class="Grid ${opts.carousel ? 'Grid--carousel' : ''}">
+    <div class="${className('Grid', { 'Grid--carousel': opts.carousel, 'Grid--slim': opts.slim })}">
       ${children.map(child)}
     </div>
   `

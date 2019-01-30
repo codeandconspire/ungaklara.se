@@ -285,3 +285,10 @@ function pluck (src, ...keys) {
     return obj
   }, {})
 }
+
+// capitalize string
+// str -> str
+exports.capitalize = capitalize
+function capitalize (str) {
+  return str[0].toUpperCase() + str.substr(1)
+}

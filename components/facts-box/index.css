@@ -58,12 +58,14 @@
   padding: 1rem;
 }
 
-.FactsBox-cell:first-child {
-  padding-top: 0;
-}
+@media (max-width: 599px) {
+  .FactsBox-cell:first-child {
+    padding-top: 0;
+  }
 
-.FactsBox-cell:last-child {
-  padding-bottom: 0;
+  .FactsBox-cell:last-child {
+    padding-bottom: 0;
+  }
 }
 
 .FactsBox-label {

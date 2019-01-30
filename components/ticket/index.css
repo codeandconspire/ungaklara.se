@@ -1,0 +1,54 @@
+@import "../base";
+
+/* @define Ticket */
+.Ticket {
+  width: 100%;
+  padding: 2rem;
+  position: relative;
+  background-color: rgb(var(--theme-color));
+}
+
+.Ticket-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+
+  font-weight: 600;
+  text-align: right;
+  font-family: var(--heading-font-family);
+  line-height: var(--heading-line-height);
+}
+
+.Ticket-day {
+  text-align: left;
+  margin-right: auto;
+}
+
+.Ticket-date {
+  display: inline-block;
+  margin-bottom: 0.25em;
+  margin-right: -0.15em;
+  font-size: 3.75rem;
+  line-height: 0.7;
+}
+
+.Ticket-month {
+  text-transform: uppercase;
+}
+
+.Ticket-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.Ticket-link::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}

@@ -115,8 +115,8 @@
 }
 
 .Text img {
+  width: 100%;
   height: auto;
-  max-width: 100%;
 }
 
 .Text pre {
@@ -283,6 +283,11 @@
 .Text-caption {
   margin-top: 1em;
   text-transform: uppercase;
+}
+
+.Text-caption a {
+  display: inline-block;
+  border-bottom: 1px solid currentColor;
 }
 
 /**

@@ -79,6 +79,16 @@
  * Centered page container
  */
 
+.u-narrow {
+  --document-max-width: 960px !important;
+}
+
+@media (min-width: 1800px) {
+  .u-narrow {
+    --document-max-width: 1200px !important;
+  }
+}
+
 .u-container,
 .u-md-container,
 .u-lg-container,
@@ -88,7 +98,7 @@
   margin-right: auto !important;
   padding-left: var(--document-margin) !important;
   padding-right: var(--document-margin) !important;
-  max-width: calc(var(--document-max-width) + (var(--document-margin) * 2)) !important
+  max-width: calc(var(--document-max-width) + (var(--document-margin) * 2)) !important;
 }
 
 @supports (padding-left: constant(safe-area-inset-left)) {

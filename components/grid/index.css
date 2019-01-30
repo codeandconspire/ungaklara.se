@@ -25,12 +25,27 @@
   margin-bottom: calc(var(--Grid-gutter) * -1);
 }
 
+.Grid--slim {
+  --Grid-gutter: 0.75rem;
+}
+
+@media (min-width: 1000px), print {
+  .Grid--slim {
+    --Grid-gutter: 1rem;
+  }
+}
+
+@media (min-width: 1200px), print {
+  .Grid--slim {
+    --Grid-gutter: 1.5rem;
+  }
+}
+
 /**
  * 1. Add support for truncated text within the grid
  */
 
 .Grid-cell {
-  box-sizing: border-box;
   flex: 0 0 100%;
   display: flex;
   align-items: flex-start;
@@ -86,5 +101,6 @@
   .Grid--carousel .Grid-cell:last-child {
     flex-basis: 100%;
     margin-right: 0;
+    padding-right: var(--document-margin);
   }
 }

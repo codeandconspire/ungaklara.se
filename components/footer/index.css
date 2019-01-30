@@ -25,7 +25,7 @@
 }
 
 .Footer-link:hover {
-  
+
 }
 
 .Footer-logo {
@@ -38,6 +38,7 @@
   line-height: 1;
   text-align: center;
   text-indent: -0.13em;
+  white-space: nowrap;
   text-transform: lowercase;
   word-spacing: -0.15em;
 }
