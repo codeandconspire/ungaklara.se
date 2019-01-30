@@ -229,7 +229,14 @@
   font-weight: 600;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
-  font-size: 1.125em;
+  font-size: 1em;
+  word-break: break-word;
+}
+
+@media (min-width: 600px) {
+  .Text-blockquote {
+    font-size: 1.125em;
+  }
 }
 
 .Text-blockquote::before {
@@ -241,34 +248,34 @@
 }
 
 .Text-blockquote--variant1::before {
-  width: 5em;
-  height: 5em;
+  width: 5rem;
+  height: 5rem;
   border-radius: 100%;
   background: linear-gradient(53deg, rgb(var(--color-green)) 45%, rgba(var(--color-green), 0) 85%, transparent);
 }
 
 .Text-blockquote--variant2::before {
-  width: 2em;
+  width: 2rem;
   height: 100%;
   background: linear-gradient(rgba(var(--color-pink), 0) 5%, rgb(var(--color-pink)) 85%, rgb(var(--color-pink)));
 }
 
 .Text-blockquote--variant3::before {
-  width: 4.625em;
-  height: 5em;
+  width: 4.625rem;
+  height: 5rem;
   max-height: 100%;
   background-image:
     linear-gradient(rgb(var(--color-yellow)) 20%, rgba(var(--color-yellow), 0)),
     linear-gradient(rgb(var(--color-yellow)) 20%, rgba(var(--color-yellow), 0));
-  background-position: 0 0, 1.9em 0;
-  background-size: 1.3em 100%, 1.3em 100%;
+  background-position: 0 0, 1.9rem 0;
+  background-size: 1.3rem 100%, 1.3rem 100%;
   background-repeat: no-repeat;
 }
 
 .Text-blockquote--variant4::before {
-  width: 5em;
-  height: 5em;
-  border: 1.3em solid transparent;
+  width: 5rem;
+  height: 5rem;
+  border: 1.3rem solid transparent;
   border-image: linear-gradient(135deg, rgb(var(--color-blue)) 10%, rgba(var(--color-blue), 0.25) 56%, rgba(var(--color-blue), 0));
   border-image-slice: 1;
 }

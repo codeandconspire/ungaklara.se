@@ -12,7 +12,7 @@ function grid (opts, children) {
   }
 
   return html`
-    <div class="Grid">
+    <div class="Grid ${opts.carousel ? 'Grid--carousel' : ''}">
       ${children.map(child)}
     </div>
   `

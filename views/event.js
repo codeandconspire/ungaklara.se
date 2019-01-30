@@ -5,14 +5,13 @@ var view = require('../components/view')
 var grid = require('../components/grid')
 var event = require('../components/event')
 var intro = require('../components/intro')
-var framed = require('../components/framed')
-var button = require('../components/button')
 var spotify = require('../components/spotify')
 var Masonry = require('../components/masonry')
 var factsBox = require('../components/facts-box')
+var details = require('../components/text/details')
 var Blockquote = require('../components/text/blockquote')
-var { asText, resolve, i18n, hexToRgb } = require('../components/base')
 var { serialize } = require('../components/text/serialize')
+var { asText, resolve, i18n, hexToRgb, vw } = require('../components/base')
 
 var text = i18n()
 var page = view(eventPage, meta)
@@ -32,16 +31,133 @@ function eventPage (state, emit) {
   return html`
     <main class="View-main">
       <div class="u-container">
-        ${state.prismic.getByUID('event', state.params.slug, (err, doc) => {
+        ${state.prismic.getByUID('event', state.params.slug, function (err, doc) {
           if (err) throw err
           if (!doc) return intro.loading({ badge: true, image: true })
+
+          var blocks = []
+          var collapse = typeof window !== 'undefined' && vw() < 600
+
+          // facts box
+          if (doc.data.about.length) {
+            blocks.push(html`
+              <div class="u-spaceV6">
+                ${event({
+                  image: doc.data.poster.url ? doc.data.poster : null,
+                  body: doc.data.about,
+                  actions: [
+                    { text: text`Show dates`, href: '/' },
+                    { text: text`Buy ticket`, href: '/', primary: true }
+                  ]
+                })}
+              </div>
+            `)
+          }
+
+          // about the production
+          if (doc.data.details.length) {
+            blocks.push(html`
+              <div class="u-spaceV6">
+                ${factsBox(doc.data.details)}
+              </div>
+            `)
+          }
+
+          if (collapse) {
+            // spotify media
+            let spotify = doc.data.media
+              .filter((slice) => slice.slice_type === 'spotify')
+              .map(mediaSlice)
+              .filter(Boolean)
+            if (spotify.length) {
+              blocks.push(spotify.length > 1 ? html`
+                <div class="u-uncontain">
+                  ${grid({ carousel: true }, spotify)}
+                </div>
+              ` : spotify[0])
+            }
+
+            // some sections are arranged into an accordion
+            let accordion = []
+
+            // images (accordion)
+            let images = doc.data.media
+              .filter((slice) => slice.slice_type === 'image')
+              .map(mediaSlice)
+              .filter(Boolean)
+            if (images.length) {
+              accordion.push(details(html`<h2>${text`Images`}</h2>`, html`
+                <div class="u-uncontain">
+                  ${grid({ carousel: true }, images.map((image) => grid.cell(image)))}
+                </div>
+              `))
+            }
+
+            // quotes (accordion)
+            let quotes = doc.data.media
+              .filter((slice) => slice.slice_type === 'quote')
+              .map(mediaSlice)
+              .filter(Boolean)
+            if (quotes.length) {
+              accordion.push(details(html`<h2>${text`Quotes`}</h2>`, quotes))
+            }
+
+            // team (accordion)
+            doc.data.team.forEach(function (slice) {
+              if (!slice.items.length) return
+              if (slice.slice_type !== 'group') return
+              if (!slice.primary.heading.length) return
+
+              var opts = { size: { lg: '1of4' } }
+              var heading = asText(slice.primary.heading)
+              var hasImage = slice.items.find((item) => item.image.url)
+              if (hasImage) opts.size.xs = '1of2'
+              else opts.size.md = '1of2'
+
+              accordion.push(details(
+                html`<h2>${heading}</h2>`,
+                grid(opts, slice.items.map(teamMember))
+              ))
+            })
+
+            if (accordion.length) {
+              // add accordion to blocks
+              blocks.push(html`<div class="Text u-sizeFull u-spaceV6">${accordion}</div>`)
+            }
+          } else {
+            // on large screens media is displayed in a masonry grid
+            let media = doc.data.media.map(mediaSlice).filter(Boolean)
+            if (media.length) {
+              blocks.push(state.cache(Masonry, doc.id + '-media').render(media))
+            }
+
+            // teams are just listed one after another
+            doc.data.team.forEach(function (slice) {
+              if (!slice.items.length) return
+              if (slice.slice_type !== 'group') return
+              if (!slice.primary.heading.length) return
+
+              var opts = { size: { lg: '1of4' } }
+              var heading = asText(slice.primary.heading)
+              var hasImage = slice.items.find((item) => item.image.url)
+              if (hasImage) opts.size.xs = '1of2'
+              else opts.size.md = '1of2'
+
+              blocks.push(html`
+                <div class="u-spaceV8">
+                  <div class="Text u-spaceB6">
+                    <h2>${heading}</h2>
+                  </div>
+                  ${grid(opts, slice.items.map(teamMember))}
+                </div>
+              `)
+            })
+          }
 
           var attrs = {}
           if (doc.data.theme) {
             attrs.style = `--theme-color: ${hexToRgb(doc.data.theme).join(', ')}`
           }
-
-          var media = doc.data.media.map(mediaSlice).filter(Boolean)
 
           return html`
             <div ${attrs}>
@@ -58,49 +174,7 @@ function eventPage (state, emit) {
                   } : null
                 })}
               </div>
-              ${doc.data.about.length ? html`
-                <div class="u-spaceV6">
-                  ${event({
-                    image: doc.data.poster.url ? doc.data.poster : null,
-                    body: doc.data.about,
-                    actions: [
-                      { text: text`Show dates`, href: '/' },
-                      { text: text`Buy ticket`, href: '/', primary: true }
-                    ]
-                  })}
-                </div>
-              ` : null}
-              ${doc.data.details.length ? html`
-                <div class="u-spaceV4">
-                  ${factsBox(doc.data.details)}
-                </div>
-              ` : null}
-              ${media.length ? html`
-                <div class="u-spaceV4">
-                  ${state.cache(Masonry, doc.id + '-media').render(media)}
-                </div>
-              ` : null}
-              ${doc.data.team.map(function (slice) {
-                if (!slice.items.length) return null
-                if (slice.slice_type !== 'group') return null
-
-                var opts = { size: { lg: '1of4' } }
-                var heading = asText(slice.primary.heading)
-                var hasImage = slice.items.find((item) => item.image.url)
-                if (hasImage) opts.size.xs = '1of2'
-                else opts.size.md = '1of2'
-
-                return html`
-                  <div class="u-spaceV8">
-                    ${heading ? html`
-                      <div class="Text u-spaceB6">
-                        <h2>${heading}</h2>
-                      </div>
-                    ` : null}
-                    ${grid(opts, slice.items.map(teamMember))}
-                  </div>
-                `
-              })}
+              ${blocks}
             </div>
           `
         })}

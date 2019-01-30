@@ -20,7 +20,7 @@
 
   .Masonry-col--1 {
     margin: 5rem 0 -5rem;
-    transform: translateY(calc(-3% * var(--offset)));
+    transform: translateY(calc(-6% * var(--offset)));
     will-change: transform;
   }
 }
@@ -31,13 +31,13 @@
   }
 
   .Masonry-col--1 {
-    transform: translateY(calc(-5% * var(--offset)));
+    transform: translateY(calc(-8% * var(--offset)));
     will-change: transform;
   }
 
   .Masonry-col--3 {
     margin: 5rem 0 -5rem;
-    transform: translateY(calc(-3% * var(--offset)));
+    transform: translateY(calc(-4% * var(--offset)));
     will-change: transform;
   }
 }

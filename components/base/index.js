@@ -11,7 +11,7 @@ if (typeof window !== 'undefined') {
     if (typeof opts === 'boolean') {
       if (opts) opts = { block: 'start', inline: 'nearest' }
       else opts = { block: 'end', inline: 'nearest' }
-    } else {
+    } else if (!opts) {
       opts = { block: 'start' }
     }
     opts.behavior = opts.behavior || 'smooth'

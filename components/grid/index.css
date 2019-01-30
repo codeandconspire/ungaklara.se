@@ -30,6 +30,7 @@
  */
 
 .Grid-cell {
+  box-sizing: border-box;
   flex: 0 0 100%;
   display: flex;
   align-items: flex-start;
@@ -52,5 +53,38 @@
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+/**
+ * Carousel
+ */
+
+@media (max-width: 599px) {
+  .Grid--carousel {
+    width: 100%;
+    margin: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    -webkit-scroll-snap-type: mandatory;
+    scroll-snap-type: x mandatory;
+    -webkit-scroll-snap-points-x: repeat(100%);
+    scroll-snap-points-x: repeat(100%);
+  }
+
+  .Grid--carousel .Grid-cell {
+    flex-basis: calc(100% - 3rem);
+    padding-left: var(--document-margin);
+    padding-right: 0;
+    margin-right: calc((var(--document-margin) * -1) + 1rem);
+    scroll-snap-align: start;
+    margin-bottom: 0;
+  }
+
+  .Grid--carousel .Grid-cell:last-child {
+    flex-basis: 100%;
+    margin-right: 0;
   }
 }
