@@ -2,8 +2,8 @@
   /* Colors  */
 
   --color-white: 255, 255, 255;
-  --color-gray-light: 228, 230, 235;
-  --color-gray: 218, 220, 226;
+  --color-gray-light: 237, 239, 245;
+  --color-gray: 216, 216, 216;
   --color-gray-dark: 108, 109, 112;
   --color-black: 0, 0, 0;
 
@@ -24,7 +24,7 @@
   --logo-font-family: "UK Logotype", var(--heading-font-family);
   --logo-line-height: 1.2;
 
-  --document-background: var(--color-gray-light);
+  --document-background: 228, 230, 235;
   --document-color: 0, 0, 0;
 
   --document-max-width: 1800px;

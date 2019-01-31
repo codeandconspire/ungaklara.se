@@ -1,9 +1,8 @@
 var html = require('choo/html')
 var { className } = require('../base')
 
-var ATTRS = [
-  'disabled', 'title', 'title', 'aria-', 'on', 'autofocus', 'formnovalidate'
-]
+var ATTRS = [ 'disabled', 'title', 'title', 'aria-', 'on', 'autofocus',
+  'formnovalidate', 'download' ]
 
 module.exports = button
 

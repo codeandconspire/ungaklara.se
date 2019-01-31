@@ -1,5 +1,6 @@
 @import "normalize.css";
 @import "./global";
+@import "./utilities/colors";
 @import "./utilities/layout";
 @import "./utilities/loading";
 @import "./utilities/size";
@@ -191,6 +192,18 @@ button {
 
 :focus-visible {
   outline: rgb(var(--focus-ring-color)) solid var(--focus-ring-width) !important;
+}
+
+/**
+ * Set sensible default ruler styles
+ */
+
+hr {
+  display: block;
+  width: 100%;
+  height: 1px;
+  border: 0;
+  background-color: rgb(var(--color-gray));
 }
 
 /**

@@ -1,0 +1,24 @@
+@import "../global";
+
+/* @define utilities */
+.u-colorWhite { color: rgb(var(--color-white)) !important; }
+.u-colorGrayLight { color: rgb(var(--color-gray-light)) !important; }
+.u-colorGray { color: rgb(var(--color-gray)) !important; }
+.u-colorGrayDark { color: rgb(var(--color-gray-dark)) !important; }
+.u-colorBlack { color: rgb(var(--color-black)) !important; }
+.u-colorGreen { color: rgb(var(--color-green)) !important; }
+.u-colorPink { color: rgb(var(--color-pink)) !important; }
+.u-colorYellow { color: rgb(var(--color-yellow)) !important; }
+.u-colorBlue { color: rgb(var(--color-blue)) !important; }
+.u-colorTheme { color: rgb(var(--theme-color)) !important; }
+
+.u-bgWhite { background-color: rgb(var(--color-white)) !important; }
+.u-bgGrayLight { background-color: rgb(var(--color-gray-light)) !important; }
+.u-bgGray { background-color: rgb(var(--color-gray)) !important; }
+.u-bgGrayDark { background-color: rgb(var(--color-gray-dark)) !important; }
+.u-bgBlack { background-color: rgb(var(--color-black)) !important; }
+.u-bgGreen { background-color: rgb(var(--color-green)) !important; }
+.u-bgPink { background-color: rgb(var(--color-pink)) !important; }
+.u-bgYellow { background-color: rgb(var(--color-yellow)) !important; }
+.u-bgBlue { background-color: rgb(var(--color-blue)) !important; }
+.u-bgTheme { background-color: rgb(var(--theme-color)) !important; }

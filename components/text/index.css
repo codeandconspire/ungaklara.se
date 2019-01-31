@@ -38,9 +38,10 @@
  */
 
 .Text a {
+  display: inline-block;
+  border-bottom: 1px solid currentColor;
   position: relative; /* 1 */
   z-index: 2; /* 1 */
-  font-weight: 600;
   color: inherit;
   transition: color 50ms cubic-bezier(0,0,.2,1);
   text-decoration: var(--high-contrast-underline, none);
@@ -48,6 +49,10 @@
 
 .Text a:hover {
   color: inherit;
+}
+
+.Text strong a {
+  border-bottom-width: 2px;
 }
 
 .Text small {
@@ -283,11 +288,6 @@
 .Text-caption {
   margin-top: 1em;
   text-transform: uppercase;
-}
-
-.Text-caption a {
-  display: inline-block;
-  border-bottom: 1px solid currentColor;
 }
 
 /**

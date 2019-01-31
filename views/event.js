@@ -7,6 +7,7 @@ var view = require('../components/view')
 var grid = require('../components/grid')
 var event = require('../components/event')
 var intro = require('../components/intro')
+var button = require('../components/button')
 var ticket = require('../components/ticket')
 var spotify = require('../components/spotify')
 var Masonry = require('../components/masonry')
@@ -14,7 +15,7 @@ var factsBox = require('../components/facts-box')
 var details = require('../components/text/details')
 var Blockquote = require('../components/text/blockquote')
 var { serialize } = require('../components/text/serialize')
-var { asText, resolve, i18n, hexToRgb, vw } = require('../components/base')
+var { asText, resolve, i18n, hexToRgb, vw, filetype } = require('../components/base')
 
 var TIME_REG = /(\d{2})(?:.|:)(\d{2})/
 
@@ -172,6 +173,50 @@ function eventPage (state, emit) {
               </div>
             `)
           })
+        }
+
+        // resource link and blurb
+        if (doc.data.resource_heading.length) {
+          let blurb = doc.data.resource_blurb
+          let content = html`
+            <div>
+              <div class="Text Text--large">
+                <h2>${asText(doc.data.resource_heading)}</h2>
+                ${asElement(doc.data.resource_text, resolve, serialize)}
+              </div>
+              ${doc.data.resource_link.url ? button({
+                class: 'u-spaceT4',
+                href: resolve(doc.data.resource_link),
+                text: doc.data.resource_link_text || text(`Download ${filetype}`)
+              }) : null}
+            </div>
+          `
+
+          if (blurb.id) {
+            content = grid([
+              grid.cell({ size: { md: '2of3' } }, content),
+              grid.cell({ size: { md: '1of3' } }, html`
+                <div class="u-bgGrayLight">
+                  <div class="Text u-spaceV5 u-spaceH4">
+                    <p class="Text-h3">${asText(blurb.data.description)}</p>
+                    <strong>
+                      <a href="${resolve(blurb)}">
+                        ${blurb.data.cta || text`Read more`}
+                      </a>
+                    </strong>
+                  </div>
+                </div>
+              `)
+            ])
+          }
+
+          blocks.push(html`
+            <div class="u-container">
+              <hr class="u-spaceV8">
+              ${content}
+              <hr class="u-spaceV8">
+            </div>
+          `)
         }
 
         // list upcoming dates
