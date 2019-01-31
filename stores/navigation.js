@@ -4,7 +4,6 @@ function navigation (state, emitter) {
   state.referrer = null
 
   emitter.on('pushState', function (href, opts = {}) {
-    state.referrer = state.href
     if (!opts.persistScroll) onnavigate(href)
   })
 
@@ -14,9 +13,11 @@ function navigation (state, emitter) {
 
   function onnavigate (href) {
     var url = new window.URL(href)
-    if (url.pathname === state.href) return
-    window.requestAnimationFrame(function () {
-      window.scrollTo(0, 0)
-    })
+    if (url.pathname !== state.referrer) {
+      window.requestAnimationFrame(function () {
+        window.scrollTo(0, 0)
+      })
+    }
+    state.referrer = state.href
   }
 }

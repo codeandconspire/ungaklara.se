@@ -8,10 +8,16 @@
   background-color: rgb(var(--theme-color));
 }
 
+.Ticket--disabled {
+  color: rgba(var(--document-color), 0.5);
+  background-color: rgb(var(--color-gray-light));
+}
+
 .Ticket-main {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+  justify-content: space-between;
   margin-bottom: 2rem;
 
   font-weight: 600;
@@ -21,8 +27,22 @@
 }
 
 .Ticket-day {
+  display: block;
+  margin-bottom: 0.4em;
   text-align: left;
-  margin-right: auto;
+}
+
+.Ticket-status {
+  display: inline-block;
+  padding: 0.4em 0.8em;
+  color: #fff;
+  background-color: #000;
+  text-transform: uppercase;
+}
+
+.Ticket--disabled .Ticket-status {
+  color: rgb(var(--color-gray-light));
+  background-color: rgba(var(--document-color), 0.5);
 }
 
 .Ticket-date {

@@ -174,13 +174,18 @@ function eventPage (state, emit) {
           })
         }
 
+        // list upcoming dates
         if (doc.data.dates.length) {
           let page = +state.query.page
           if (isNaN(page) || page < 1) page = 1
           page = Math.min(page, Math.max(Math.ceil(doc.data.dates.length / 4), 0))
 
+          // sort out future dates
           let today = startOfDay(Date.now())
           let dates = doc.data.dates.map(function (item) {
+            var status = item.status.match(/^\d+/)
+            status = status ? +status[0] : null
+
             var href = item.link.url || resolve(item.link)
             var date = parse(item.date)
             var time = item.time.match(TIME_REG)
@@ -188,7 +193,7 @@ function eventPage (state, emit) {
               date.setHours(+time[1])
               date.setMinutes(+time[2])
             }
-            return Object.assign({}, item, { date, href })
+            return Object.assign({}, item, { date, href, status })
           }).filter((item) => item.date > today)
 
           if (dates.length) {
@@ -200,8 +205,8 @@ function eventPage (state, emit) {
                   </div>
                 ` : null}
                 ${grid({ slim: true, size: { lg: '1of2' } }, dates.slice(0, page * 4).map(function (item, index, list) {
-                  var attrs = { class: 'u-sizeFull' }
                   var prev = (page - 1) * 4
+                  var attrs = { class: 'u-sizeFull' }
                   if (state.referrer && index >= prev) {
                     attrs.class += ' u-slideUp'
                     attrs.style = `animation-delay: ${(index - prev) * 200}ms;`
@@ -311,7 +316,7 @@ function teamMember (props) {
   }
 
   return html`
-    <article class="Text">
+    <article class="Text u-sizeFull">
       ${image ? html`<img ${image} />` : null}
       ${props.label ? html`
         <strong class="u-block u-textUppercase u-textHeading">

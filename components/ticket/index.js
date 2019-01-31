@@ -15,10 +15,15 @@ function ticket (props) {
   else if (isTomorrow(props.date)) day = text`Tomorrow`
   else day = format(props.date, 'dddd', { locale: sv })
 
+  var status = getStatus(props.status)
+
   return html`
-    <article class="Ticket">
+    <article class="Ticket ${props.status === 3 ? 'Ticket--disabled' : ''}">
       <div class="Ticket-main">
-        <strong class="Ticket-day">${capitalize(day)}</strong>
+        <div>
+          <strong class="Ticket-day">${capitalize(day)}</strong>
+          ${status ? html`<span class="Ticket-status Ticket-status--${props.status}">${status}</span>` : null}
+        </div>
         <time datetime="${JSON.stringify(props.date).replace(/^"|"$/, '')}">
           <span class="Ticket-date">${props.date.getDate()}</span>
           <br>
@@ -31,7 +36,7 @@ function ticket (props) {
           <br>
           <span>${props.location}</span>
         </div>
-        ${props.href ? html`
+        ${props.status !== 3 && props.href ? html`
           <a class="Ticket-link" href="${props.href}" target="_blank" rel="noopener noreferrer">
             ${text`Buy ticket`}
           </a>
@@ -39,4 +44,12 @@ function ticket (props) {
       </div>
     </article>
   `
+}
+
+function getStatus (num) {
+  switch (num) {
+    case 2: return text`Few left`
+    case 3: return text`Sold out`
+    default: return null
+  }
 }
