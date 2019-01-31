@@ -29,7 +29,6 @@ function resolve (doc) {
     case 'about':
     case 'events':
     case 'teachers':
-    case 'pedagogue':
     case 'practical': return '/' + doc.uid
     case 'event': return `/pa-scen/${doc.uid}`
     case 'Web':
