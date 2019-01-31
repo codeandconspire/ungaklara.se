@@ -25,7 +25,7 @@
   "now": {
     "alias": "ungaklara.conspire.online",
     "env": {
-      "NODE_ENV": "production",
+      "NODE_ENV": "staging",
       "POLYFILL_FEATURES": "default-3.3,Array.prototype.find,Array.prototype.findIndex,Array.prototype.includes"
     }
   },

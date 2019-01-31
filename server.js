@@ -1,5 +1,6 @@
 var url = require('url')
 var jalla = require('jalla')
+var dedent = require('dedent')
 var { get } = require('koa-route')
 var Prismic = require('prismic-javascript')
 var { resolve } = require('./components/base')
@@ -17,6 +18,14 @@ app.use(get('/api/prismic-preview', async function (ctx) {
   var api = await Prismic.api(REPOSITORY, { req: ctx.req })
   var href = await api.previewSession(token, resolve, '/')
   ctx.redirect(href)
+}))
+
+app.use(get('/robots.txt', function (ctx, next) {
+  ctx.type = 'text/plain'
+  ctx.body = dedent`
+    User-agent: *
+    Disallow: ${app.env === 'production' ? '' : '/'}
+  `
 }))
 
 app.use(function (ctx, next) {
