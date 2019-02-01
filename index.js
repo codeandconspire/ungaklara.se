@@ -1,7 +1,11 @@
 var choo = require('choo')
 var app = choo({ hash: false })
+<<<<<<< HEAD
 var middleware = require('./lib/prismic-middleware')
 
+=======
+var middleware = require('./lib/prismic')
+>>>>>>> WIP cursor
 var REPOSITORY = 'https://unga-klara.cdn.prismic.io/api/v2'
 
 app.state.origin = process.env.NODE_ENV === 'development'

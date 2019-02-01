@@ -1,0 +1,43 @@
+@import "../base";
+
+/* @define Cursor */
+:root, * {
+  cursor: none !important;
+}
+
+.Cursor {
+  --x: -100px;
+  --y: -100px;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.Cursor-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+  transform: translate(var(--x), var(--y));
+}
+
+/* .Cursor.is-pressed .Cursor-item {
+  opacity: 0.5;
+} */
+
+.Cursor.is-hidden .Cursor-item {
+  display: none;
+}
+
+/**
+ * Type: Default
+ */
+
+.Cursor-default {
+  position: relative;
+  top: -5px;
+  left: -3px;
+}

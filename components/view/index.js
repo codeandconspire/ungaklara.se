@@ -5,6 +5,7 @@ var Component = require('choo/component')
 var error = require('./error')
 var Header = require('../header')
 var Footer = require('../footer')
+var cursor = require('../cursor')
 var { i18n, asText } = require('../base')
 var PrismicToolbar = require('../prismic-toolbar')
 
@@ -80,6 +81,7 @@ function createView (view, meta) {
           ${children}
           ${state.cache(Footer, 'footer').render()}
           ${state.cache(PrismicToolbar, 'prismic-toolbar').render()}
+          ${cursor.render()}
         </body>
       `
 
