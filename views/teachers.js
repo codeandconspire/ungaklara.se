@@ -144,12 +144,30 @@ function teachers (state, emit) {
             }, slice.primary.image.dimensions) : null
           })
         }
-        case 'links':
+        case 'links': {
+          let items = slice.items.filter((item) => item.link.id && !item.link.isBroken)
+          if (!items.length) return null
+          let opts = { size: { md: '1of2' } }
+          if (items.length === 3 || items.length > 4) {
+            opts.size.lg = '1of3'
+          }
+          let heading = asText(slice.primary.heading)
+          return html`
+            <div class="u-spaceV8">
+              ${heading ? html`
+                <div class="Text Text--large u-spaceB6">
+                  ${heading ? html`<h2>${heading}</h2>` : null}
+                </div>
+              ` : null}
+              ${grid(opts, items.map((item) => asCard(item.link, item.color)))}
+            </div>
+          `
+        }
         default: return null
       }
     })
 
-    if (index !== list.length - 1) blocks.push(html`<hr>`)
+    if (index !== list.length - 1) blocks.push(html`<hr class="u-spaceV8">`)
 
     return html`
       <div class="u-spaceV8">
