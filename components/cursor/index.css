@@ -1,9 +1,13 @@
 @import "../base";
 
 /* @define Cursor */
-:root, * {
+/* :root, * {
   cursor: none !important;
-}
+} */
+
+/**
+ * 1. Stay on top, I'm not kidding
+ */
 
 .Cursor {
   --x: -100px;
@@ -13,6 +17,7 @@
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1000; /* 1 */
   pointer-events: none;
 }
 
