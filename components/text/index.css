@@ -10,7 +10,7 @@
 }
 
 .Text-muted {
-  color: rgb(var(--color-gray-light));
+  color: rgb(var(--color-gray-dark));
 }
 
 .Text-small {
@@ -53,6 +53,10 @@
 
 .Text strong a {
   border-bottom-width: 2px;
+}
+
+.Text a.Text-reset:not(:hover) {
+  border-color: transparent;
 }
 
 .Text small {

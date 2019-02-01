@@ -8,8 +8,8 @@ var intro = require('../components/intro')
 var framed = require('../components/framed')
 var button = require('../components/button')
 var tablist = require('../components/tablist')
+var serialize = require('../components/text/serialize')
 var { asText, resolve, i18n, hexToRgb, loader } = require('../components/base')
-var { serialize } = require('../components/text/serialize')
 
 var text = i18n()
 var PAGE_SIZE = 9
@@ -32,7 +32,7 @@ function event (state, emit) {
 
           var attrs = {}
           if (doc.data.theme) {
-            attrs.style = `--theme-color: ${hexToRgb(doc.data.theme).join(', ')}`
+            attrs.style = `--theme-color: ${hexToRgb(doc.data.theme)}`
           }
 
           return html`
@@ -133,7 +133,7 @@ function event (state, emit) {
       }
 
       return response.results.map((doc) => html`
-        <li class="u-spaceV6" style="--theme-color: ${hexToRgb(doc.data.theme).join(', ')}">
+        <li class="u-spaceV6" style="--theme-color: ${hexToRgb(doc.data.theme)}">
           ${grid([
             grid.cell({ size: { md: '1of4' } }, framed(Object.assign({
               src: doc.data.poster.url
@@ -165,7 +165,8 @@ function meta (state) {
     if (!doc) return null
     var props = {
       title: asText(doc.data.title),
-      description: asText(doc.data.description)
+      description: asText(doc.data.description),
+      'theme-color': doc.data.theme
     }
 
     var image = doc.data.featured_image

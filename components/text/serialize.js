@@ -20,7 +20,11 @@ function serialize (type, node, content, children) {
       return html`
         <figure>
           <img ${attrs} src="${src}">
-          ${node.copyright ? html`<figcaption><small class="Text-muted">${node.copyright}</small></figcaption>` : null}
+          ${node.copyright ? html`
+            <figcaption>
+              <small class="Text-muted">${node.copyright}</small>
+            </figcaption>
+          ` : null}
         </figure>
       `
     }

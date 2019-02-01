@@ -4,9 +4,11 @@ var view = require('../components/view')
 var card = require('../components/card')
 var grid = require('../components/grid')
 var intro = require('../components/intro')
+var byline = require('../components/byline')
+var reset = require('../components/text/reset')
+var serialize = require('../components/text/serialize')
 var { asText, resolve } = require('../components/base')
 var Blockquote = require('../components/text/blockquote')
-var { serialize } = require('../components/text/serialize')
 
 module.exports = view(page, meta)
 
@@ -63,34 +65,17 @@ function page (state, emit) {
                     `
                   }
                   case 'author': {
-                    let rows = [
-                      [slice.primary.name, slice.primary.title].filter(Boolean).join(', ')
-                    ]
-
-                    if (slice.primary.email) {
-                      rows.push(html`
-                        <a href="mailto:${slice.primary.email}">${slice.primary.email}</a>
-                      `)
-                    }
-
-                    if (slice.primary.phone) {
-                      rows.push(html`
-                        <a href="tel:${slice.primary.phone.replace(/[^+\d]/g, '')}">${slice.primary.phone}</a>
-                      `)
-                    }
-
                     return html`
-                      <div class="Text u-spaceV6">
-                        <hr>
-                        ${slice.primary.heading.length ? html`
-                          <h2 class="Text-h3 u-spaceV2">${asText(slice.primary.heading)}</h2>
-                        ` : null}
-                        <p class="u-spaceT2">
-                          ${rows.filter(Boolean).reduce(function (all, row) {
-                            all.push(row, html`<br>`)
-                            return all
-                          }, [])}
-                        </p>
+                      <div class="u-spaceV8">
+                        <div class="Text"><hr class="u-spaceB1"></div>
+                        ${byline({
+                          heading: asText(slice.primary.heading),
+                          body: asElement(slice.primary.text, resolve, reset),
+                          image: slice.primary.image.url ? Object.assign({
+                            src: slice.primary.image.url,
+                            alt: slice.primary.image.alt
+                          }, slice.primary.image.dimensions) : null
+                        })}
                       </div>
                     `
                   }
@@ -186,7 +171,8 @@ function meta (state) {
     if (!doc) return null
     var props = {
       title: asText(doc.data.title),
-      description: asText(doc.data.description)
+      description: asText(doc.data.description),
+      'theme-color': doc.data.theme
     }
 
     var image = doc.data.featured_image

@@ -33,7 +33,7 @@ function card (props = {}, slot) {
       'Card--background': props.background
     })
   }
-  if (fill) attrs.style = `--Card-background-color: ${hexToRgb(fill).join(', ')}`
+  if (fill) attrs.style = `--Card-background-color: ${hexToRgb(fill)}`
 
   var cover = null
   if (slot) {

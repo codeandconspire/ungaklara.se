@@ -14,7 +14,7 @@ var Masonry = require('../components/masonry')
 var factsBox = require('../components/facts-box')
 var details = require('../components/text/details')
 var Blockquote = require('../components/text/blockquote')
-var { serialize } = require('../components/text/serialize')
+var serialize = require('../components/text/serialize')
 var { asText, resolve, i18n, hexToRgb, vw, filetype } = require('../components/base')
 
 var TIME_REG = /(\d{2})(?:.|:)(\d{2})/
@@ -270,7 +270,7 @@ function eventPage (state, emit) {
 
         var attrs = {}
         if (doc.data.theme) {
-          attrs.style = `--theme-color: ${hexToRgb(doc.data.theme).join(', ')}`
+          attrs.style = `--theme-color: ${hexToRgb(doc.data.theme)}`
         }
 
         return html`
@@ -383,7 +383,8 @@ function meta (state) {
     if (!doc) return null
     var props = {
       title: asText(doc.data.title),
-      description: asText(doc.data.description)
+      description: asText(doc.data.description),
+      'theme-color': doc.data.theme
     }
 
     var image = doc.data.featured_image.url ? doc.data.featured_image : doc.data.image

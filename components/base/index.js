@@ -25,11 +25,11 @@ exports.resolve = resolve
 function resolve (doc) {
   switch (doc.type) {
     case 'homepage': return '/'
-    case 'page':
-    case 'about':
-    case 'events':
-    case 'teachers':
-    case 'practical': return '/' + doc.uid
+    case 'events': return '/pa-scen'
+    case 'about': return '/om-unga-klara'
+    case 'teachers': return '/for-pedagoger'
+    case 'practical': return '/infor-besoket'
+    case 'page': return '/' + doc.uid
     case 'event': return `/pa-scen/${doc.uid}`
     case 'Web':
     case 'Media': return doc.url
@@ -228,7 +228,7 @@ function hexToRgb (hex) {
     parseInt(result[1], 16),
     parseInt(result[2], 16),
     parseInt(result[3], 16)
-  ] : null
+  ].join(', ') : null
 }
 
 // get HH:mm timestamp from date

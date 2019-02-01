@@ -22,6 +22,7 @@ app.use(require('choo-service-worker')('/sw.js'))
 app.route('/', require('./views/home'))
 app.route('/pa-scen', require('./views/events'))
 app.route('/pa-scen/:slug', require('./views/event'))
+app.route('/for-pedagoger', require('./views/teachers'))
 app.route('/:slug', require('./views/page'))
 
 try {

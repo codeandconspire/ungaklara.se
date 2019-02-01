@@ -3,27 +3,41 @@
 /* @define Framed */
 .Framed {
   flex: 0 1 auto;
-  padding: 0 0 2rem 2rem;
-  margin-top: 2rem;
+  padding: 0 0 1.5rem 1.5rem;
   position: relative;
 }
 
 .Framed::before {
-  display: block;
   content: "";
-  width: calc(100% - 2rem);
-  height: calc(100% - 2rem);
+  width: calc(100% - 1.5rem);
+  height: calc(100% - 1.5rem);
   position: absolute;
-  top: 0;
-  right: 2rem;
+  left: 0;
+  top: 1.5rem;
+  z-index: -1;
   background-color: rgb(var(--theme-color));
 }
 
 .Framed-image {
   width: 100%;
   height: auto;
-  position: relative;
-  top: -2rem;
+}
+
+.Framed--ellipse {
+  padding: 0 0 1rem 1rem;
+}
+
+.Framed--ellipse .Framed-image,
+.Framed--ellipse::before {
+  overflow: hidden;
+  border-radius: 100%;
+}
+
+.Framed--ellipse::before {
+  width: calc(100% - 1rem);
+  height: calc(100% - 1rem);
+  top: 1rem;
+  background: linear-gradient(-25deg, rgb(var(--theme-color)) 30%, rgba(var(--theme-color), 0) 85%, transparent);
 }
 
 /**
