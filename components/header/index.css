@@ -35,6 +35,7 @@
   text-transform: uppercase;
   word-spacing: -0.1em;
   margin: 1.7rem 0 0.25rem 0;
+  white-space: nowrap;
 }
 
 .Header-logo:focus-visible {

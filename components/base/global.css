@@ -27,6 +27,7 @@
   --document-background: 228, 230, 235;
   --document-color: 0, 0, 0;
 
+  --document-min-width: 300px;
   --document-max-width: 1800px;
   --document-margin: 1rem;
 

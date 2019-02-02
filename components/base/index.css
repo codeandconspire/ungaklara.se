@@ -29,27 +29,25 @@
 /**
  * Document styles
  * 1. Global box sizing
- * 2. Guard for horizontal scrolling
- * 3. Support sticky footer solutions
- * 4. Simply feels better then global text cursor
- * 5. Fabulous text rendering
- * 6. Fabulous svg text sizing
+ * 2. Support sticky footer
+ * 3. Simply feels better then global text cursor
+ * 4. Fabulous text rendering
+ * 5. Fabulous svg text sizing
  */
 
  :root {
   width: 100%; /* 2 */
-  height: 100%; /* 3 */
-  overflow-x: hidden; /* 2 */
-  cursor: default; /* 4 */
+  height: 100%; /* 2 */
+  cursor: default; /* 3 */
   font-family: var(--document-font-family);
   background: rgb(var(--theme-color, var(--document-background)));
   color: rgb(var(--document-color));
   font-size: 100%;
   line-height: var(--document-line-height);
   -webkit-tap-highlight-color: transparent;
-  -webkit-font-smoothing: antialiased; /* 5 */
-  -moz-osx-font-smoothing: grayscale; /* 5 */
-  text-rendering: geometricPrecision; /* 6 */
+  -webkit-font-smoothing: antialiased; /* 4 */
+  -moz-osx-font-smoothing: grayscale; /* 4 */
+  text-rendering: geometricPrecision; /* 5 */
 }
 
 @media (min-width: 1500px) {
