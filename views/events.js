@@ -138,12 +138,12 @@ function event (state, emit) {
         }
         return html`
           <ol class="u-spaceV8">
-            ${docs.map(current)}
+            ${docs.map(showing)}
           </ol>
         `
       }
       case 'kalendarium': {
-        // TODO: handle loading
+        if (!docs) return calendar.loading(6)
         return calendar(docs.reduce((dates, doc) => {
           var title = asText(doc.data.title)
           var image = Object.assign({
@@ -159,7 +159,9 @@ function event (state, emit) {
               date.setHours(+time[1])
               date.setMinutes(+time[2])
             }
-            dates.push(Object.assign({}, item, { title, image, date, status }))
+            dates.push(Object.assign({
+              href: resolve(doc)
+            }, item, { title, image, date, status }))
           }
 
           return dates
@@ -170,7 +172,9 @@ function event (state, emit) {
   }
 }
 
-function current (doc) {
+// render currently showing event
+// obj -> Element
+function showing (doc) {
   return html`
     <li class="u-spaceV6" style="--theme-color: ${hexToRgb(doc.data.theme)}">
       ${grid([

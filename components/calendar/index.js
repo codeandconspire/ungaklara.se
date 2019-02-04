@@ -4,11 +4,12 @@ var format = require('date-fns/format')
 var startOfDay = require('date-fns/start_of_day')
 var framed = require('../framed')
 var button = require('../button')
-var { timestamp, i18n, capitalize } = require('../base')
+var { timestamp, i18n, capitalize, loader } = require('../base')
 
 var text = i18n()
 
 module.exports = calendar
+module.exports.loading = loading
 
 function calendar (items) {
   items = items.slice()
@@ -57,6 +58,32 @@ function calendar (items) {
 
   return html`
     <ol class="Calendar">
+      ${rows}
+    </ol>
+  `
+}
+
+function loading (count = 3) {
+  var rows = []
+  for (let i = 0; i < count; i++) {
+    rows.push(html`
+    <li class="Calendar-row">
+      <div class="Calendar-poster">
+        ${framed.loading({ size: 'sm' })}
+      </div>
+      <div class="Calendar-body">
+        <span class="Calendar-link">${loader(6)}</span>
+        <br>
+        <div>
+          <span>${loader(2)}</span>
+          <span>${loader(3)}</span>
+        </div>
+      </div>
+    </li>
+  `)
+  }
+  return html`
+    <ol class="Calendar is-loading">
       ${rows}
     </ol>
   `

@@ -32,6 +32,10 @@
   line-height: var(--heading-line-height);
 }
 
+.Calendar.is-loading .Calendar-link {
+  border-bottom-color: transparent;
+}
+
 .Calendar-link::before {
   width: 100%;
   height: 100%;
