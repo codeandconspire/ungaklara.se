@@ -35,13 +35,15 @@ function teachers (state, emit) {
                 ${intro({ title: asText(doc.data.title), text: asElement(doc.data.description) })}
               </div>
               ${grid({ size: { md: '1of3' } }, doc.data.blurbs.map(function (item) {
+                var attrs
                 var { link } = item
-                if ((!link.url && !link.id) || link.isBroken) return null
-                var attrs = { href: resolve(link) }
-                if (link.target) {
-                  attrs.target = link.target
-                  if (link.target === '_blank') {
-                    attrs.rel = 'noopener noreferrer'
+                if ((link.id || link.url) && !link.isBroken) {
+                  attrs = { href: resolve(link) }
+                  if (link.target) {
+                    attrs.target = link.target
+                    if (link.target === '_blank') {
+                      attrs.rel = 'noopener noreferrer'
+                    }
                   }
                 }
                 return html`
@@ -52,9 +54,11 @@ function teachers (state, emit) {
                     <div class="Text-large u-spaceB3 u-textBold">
                       ${item.text.length ? asElement(item.text, resolve, reset) : null}
                     </div>
-                    <strong>
-                      <a ${attrs}>${item.link_text || text`Read more`}</a>
-                    </strong>
+                    ${attrs ? html`
+                      <strong>
+                        <a ${attrs}>${item.link_text || text`Read more`}</a>
+                      </strong>
+                    ` : null}
                   </div>
                 `
               }).filter(Boolean))}
