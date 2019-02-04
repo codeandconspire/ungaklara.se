@@ -6,16 +6,18 @@ var events = require('./events')
 var view = require('../components/view')
 var grid = require('../components/grid')
 var event = require('../components/event')
+var embed = require('../components/embed')
 var intro = require('../components/intro')
 var button = require('../components/button')
 var ticket = require('../components/ticket')
 var spotify = require('../components/spotify')
+var trailer = require('../components/trailer')
 var Masonry = require('../components/masonry')
 var factsBox = require('../components/facts-box')
 var details = require('../components/text/details')
 var Blockquote = require('../components/text/blockquote')
 var serialize = require('../components/text/serialize')
-var { asText, resolve, i18n, hexToRgb, vw, filetype } = require('../components/base')
+var { asText, resolve, i18n, hexToRgb, vw, filetype, srcset } = require('../components/base')
 
 var TIME_REG = /(\d{2})(?:.|:)(\d{2})/
 
@@ -75,6 +77,24 @@ function eventPage (state, emit) {
         }
 
         if (collapse) {
+          // videos media
+          let videos = doc.data.videos
+            .filter((group) => group.video.embed_url)
+            .map((group) => video(group.video))
+            .filter(Boolean)
+
+          if (videos.length) {
+            blocks.push(html`
+              <div class="u-container u-spaceV6">
+                ${videos.length > 1 ? html`
+                  <div class="u-uncontain">
+                    ${grid({ carousel: true }, videos)}
+                  </div>
+                ` : videos[0]}
+              </div>
+            `)
+          }
+
           // spotify media
           let spotify = doc.data.media
             .filter((slice) => slice.slice_type === 'spotify')
@@ -82,10 +102,10 @@ function eventPage (state, emit) {
             .filter(Boolean)
           if (spotify.length) {
             blocks.push(spotify.length > 1 ? html`
-              <div class="u-container u-uncontain">
+              <div class="u-uncontain u-spaceV6">
                 ${grid({ carousel: true }, spotify)}
               </div>
-            ` : spotify[0])
+            ` : html`<div class="u-container u-spaceV6">${spotify[0]}</div>`)
           }
 
           // some sections are arranged into an accordion
@@ -150,6 +170,46 @@ function eventPage (state, emit) {
                 ${state.cache(Masonry, doc.id + '-media').render(media)}
               </div>
             `)
+          }
+
+          // videos, featuring the first one as featured with background
+          let videos = doc.data.videos.filter((group) => group.video.embed_url)
+          if (videos.length) {
+            let first = doc.data.videos[0].video
+            let rest = videos
+              .slice(1)
+              .map(function (group, index, list) {
+                var cols = 2
+                if (list.length === 3 || list.length >= 6) cols = 3
+                if (list.length === 5) cols = index < 4 ? 3 : 2
+                var opts = { size: { md: `1of${cols}` } }
+                return grid.cell(opts, video(group.video, { size: 'sm' }))
+              })
+              .filter(Boolean)
+
+            let id = embed.id(first)
+            if (id) {
+              let bgProps = {}
+              let background = doc.data.featured_background
+              if (background.url) {
+                Object.assign(bgProps, {
+                  src: srcset(background.url, [900]).split(' ')[0],
+                  sizes: '100vw',
+                  srcset: srcset(background.url, [400, 900, [1800, 'q_50'], [2600, 'q_30']])
+                }, background.dimensions)
+              }
+
+              blocks.push(html`
+                <div class="u-spaceV8 u-narrow">
+                  ${trailer(bgProps, video(first))}
+                  ${rest.length > 1 ? html`
+                    <div class="u-container u-spaceT6">
+                      ${grid({ size: { md: `1of${rest.length < 3 ? 2 : 3}` } }, rest)}
+                    </div>
+                  ` : null}
+                </div>
+              `)
+            }
           }
 
           // teams are just listed one after another
@@ -343,6 +403,23 @@ function eventPage (state, emit) {
       default: return null
     }
   }
+}
+
+// render oembed object as embeded video
+// obj -> Element
+function video (props, opts) {
+  var provider = props.provider_name.toLowerCase()
+  var id = embed.id(props)
+  if (!id) return null
+  return embed(Object.assign({
+    url: props.embed_url,
+    title: props.title,
+    src: `/media/${provider}/w_900/${id}`,
+    width: props.thumbnail_width,
+    height: props.thumbnail_height,
+    sizes: '(min-width: 600px) 65vw, 100vw',
+    srcset: srcset(id, [400, 900, 1800], { type: provider })
+  }, opts))
 }
 
 // render team member

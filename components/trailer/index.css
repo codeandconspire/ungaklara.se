@@ -1,0 +1,23 @@
+@import "../base";
+
+/* @define Trailer */
+.Trailer {
+  position: relative;
+  margin: 4rem 0;
+}
+
+.Trailer-content {
+  width: var(--document-max-width);
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.Trailer-background {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: -1;
+  transform: translate(-50%, -50%);
+}

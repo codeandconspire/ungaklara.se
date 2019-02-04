@@ -5,6 +5,7 @@ var Component = require('choo/component')
 var error = require('./error')
 var Header = require('../header')
 var Footer = require('../footer')
+var Player = require('../embed/player')
 var { i18n, asText } = require('../base')
 var PrismicToolbar = require('../prismic-toolbar')
 
@@ -79,6 +80,7 @@ function createView (view, meta) {
           ${state.cache(Header, 'header').render()}
           ${children}
           ${state.cache(Footer, 'footer').render()}
+          ${Player.render()}
           ${state.cache(PrismicToolbar, 'prismic-toolbar').render()}
         </body>
       `
