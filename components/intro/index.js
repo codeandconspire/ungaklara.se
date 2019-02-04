@@ -11,7 +11,7 @@ function intro (props) {
         ${props.badge ? html`<span class="Intro-badge">${props.badge}</span>` : null}
         ${props.title}
       </div>
-      <div class="Intro-text">${props.text}</div>
+      ${props.text ? html`<div class="Intro-text">${props.text}</div>` : null}
       ${props.image ? html`
         <img class="Intro-image" ${props.image}>
       ` : null}
@@ -24,9 +24,9 @@ function loading (opts = {}) {
     <div class="Intro">
       <div class="Intro-title">
         ${opts.badge ? html`<span class="Intro-badge">${loader(4)}</span>` : null}
-        ${loader(8)}
+        ${loader(6)}
       </div>
-      <div class="Intro-text">${loader(82)}</div>
+      ${typeof opts.text === 'undefined' || opts.text ? html`<div class="Intro-text">${loader(82)}</div>` : null}
       ${opts.image ? html`
         <div class="Intro-image">
           <div class="u-loading u-aspect16-9"></div>

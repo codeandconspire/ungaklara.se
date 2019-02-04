@@ -16,7 +16,7 @@ function framed (opts) {
     }, {})
 
   return html`
-    <div class="Framed Framed--${format}">
+    <div class="Framed Framed--${format} ${opts.size ? `Framed--${opts.size}` : ''}">
       <img class="Framed-image" ${attrs} />
     </div>
   `
@@ -25,7 +25,7 @@ function framed (opts) {
 function loading (opts = {}) {
   var format = opts.format || 'rectangular'
   return html`
-    <div class="Framed Framed--${format} is-loading">
+    <div class="Framed Framed--${format} ${opts.size ? `Framed--${opts.size}` : ''} is-loading">
       <div class="Framed-image"></div>
     </div>
   `

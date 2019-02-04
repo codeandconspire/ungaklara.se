@@ -1,6 +1,7 @@
 var html = require('choo/html')
-var endOfDay = require('date-fns/end_of_day')
+var parse = require('date-fns/parse')
 var asElement = require('prismic-element')
+var endOfDay = require('date-fns/end_of_day')
 var { Predicates } = require('prismic-javascript')
 var view = require('../components/view')
 var grid = require('../components/grid')
@@ -8,15 +9,18 @@ var intro = require('../components/intro')
 var framed = require('../components/framed')
 var button = require('../components/button')
 var tablist = require('../components/tablist')
+var calendar = require('../components/calendar')
 var serialize = require('../components/text/serialize')
 var { asText, resolve, i18n, hexToRgb, loader } = require('../components/base')
 
 var text = i18n()
 var PAGE_SIZE = 9
+var TIME_REG = /(\d{2})(?:.|:)(\d{2})/
 
 module.exports = view(event, meta)
 
 function event (state, emit) {
+  var { slug } = state.params
   return html`
     <main class="View-main">
       <div class="u-container">
@@ -26,45 +30,44 @@ function event (state, emit) {
           var page = +state.query.page
           if (isNaN(page)) page = 1
           var pages = []
-          for (let i = 0; i < page; i++) pages.push(...getPage(i))
-
-          if (!doc) return intro.loading({ badge: true, image: true })
+          for (let i = 0; i < page; i++) {
+            let result = getPage(i)
+            if (result) pages.push(...result)
+          }
 
           var attrs = {}
-          if (doc.data.theme) {
+          if (doc && doc.data.theme) {
             attrs.style = `--theme-color: ${hexToRgb(doc.data.theme)}`
           }
 
           return html`
             <div ${attrs}>
               <div class="u-spaceB8">
-                ${intro({ title: asText(doc.data.title) })}
+                ${doc ? intro({ title: asText(doc.data.title) }) : intro.loading({ text: false })}
                 <div class="u-spaceT4">
                   ${tablist({ static: true }, [{
                     href: '/pa-scen',
-                    selected: !state.params.slug,
+                    selected: !slug,
                     text: text`Currently showing`,
                     onclick: onclick
                   }, {
                     href: '/pa-scen/kalendarium',
-                    selected: state.params.slug === 'kalendarium',
+                    selected: slug === 'kalendarium',
                     text: text`Calendar`,
                     onclick: onclick
                   }, {
                     href: '/pa-scen/arkiv',
-                    selected: state.params.slug === 'arkiv',
+                    selected: slug === 'arkiv',
                     text: text`Archive`,
                     onclick: onclick
                   }])}
                 </div>
-                <ol class="u-spaceT8">
-                  ${pages}
-                  ${pages.length === page * PAGE_SIZE ? button({
-                    href: state.href + `?page=${page + 1}`,
-                    disabled: state.ui.isLoading,
-                    text: text`Show more` })
-                  : null}
-                </ol>
+                ${list(pages)}
+                ${pages.length === page * PAGE_SIZE ? button({
+                  href: state.href + `?page=${page + 1}`,
+                  disabled: state.ui.isLoading,
+                  text: text`Show more` })
+                : null}
               </div>
             </div>
           `
@@ -81,82 +84,116 @@ function event (state, emit) {
   // get paginated result for page
   // num -> arr
   function getPage (page) {
-    var predicates = [Predicates.at('document.type', 'event')]
-    if (state.params.slug === 'arkiv') {
-      predicates.push(
-        Predicates.dateBefore('my.event.archive_on', endOfDay(Date.now()))
-      )
-    } else {
-      predicates.push(
-        Predicates.dateAfter('my.event.archive_on', endOfDay(Date.now()))
-      )
-    }
+    var selector = slug === 'arkiv' ? 'dateBefore' : 'dateAfter'
+    var predicates = [
+      Predicates.at('document.type', 'event'),
+      Predicates[selector]('my.event.archive_on', endOfDay(Date.now()))
+    ]
 
     var opts = {
       page: page,
-      pageSize: PAGE_SIZE,
+      pageSize: slug === 'kalendarium' ? PAGE_SIZE : 100,
       orderings: '[document.first_publication_date desc]'
     }
 
     return state.prismic.get(predicates, opts, (err, response) => {
       if (err) throw err
-      if (!response) {
-        let items = []
-        for (let i = 0; i < 6; i++) {
-          items.push(html`
-            <li class="u-spaceV6">
-              ${grid([
-                grid.cell({ size: { md: '1of4' } }, framed.loading()),
-                grid.cell({ size: { md: '3of4' } }, html`
-                  <div class="u-spaceT4">
-                    <div class="Text Text--large">
-                      <small>${loader(3)}</small>
-                      <h2 class="Text-h3 u-spaceT1">${loader(6)}</h2>
-                      <div class="u-spaceT2">${loader(80)}</div>
-                    </div>
-                  </div>
-                `)
-              ])}
-            </li>
-          `)
-        }
-        return items
-      }
-
-      if (!response.results_size) {
-        if (page > 1) return []
-        return [html`
-          <li class="Text u-textCenter u-sizeFull">
-            <p>${text`No more results`}</p>
-          </li>
-        `]
-      }
-
-      return response.results.map((doc) => html`
-        <li class="u-spaceV6" style="--theme-color: ${hexToRgb(doc.data.theme)}">
-          ${grid([
-            grid.cell({ size: { md: '1of4' } }, framed(Object.assign({
-              src: doc.data.poster.url
-            }, doc.data.poster.dimensions))),
-            grid.cell({ size: { md: '3of4' } }, html`
-              <div class="u-spaceT4">
-                <div class="Text Text--large u-spaceB4">
-                  <small class="u-textHeading u-textUppercase">
-                    ${[doc.data.category, doc.data.subheading].filter(Boolean).join(' – ')}
-                  </small>
-                  <h2 class="Text-h3 u-spaceT1">${asText(doc.data.title)}</h2>
-                  <div class="u-spaceT2">
-                    ${asElement(doc.data.description, resolve, serialize)}
-                  </div>
-                </div>
-                ${button({ text: text`Read more`, href: resolve(doc), primary: true, class: 'u-spaceR1' })}
-              </div>
-            `)
-          ])}
-        </li>
-      `)
+      return response ? response.results : null
     })
   }
+
+  // render document list
+  // arr? -> Element
+  function list (docs) {
+    if (docs && !docs.length) {
+      return html`
+        <div class="Text u-spaceV8 u-textCenter u-sizeFull">
+          <p>${text`No more results`}</p>
+        </div>
+      `
+    }
+
+    switch (slug) {
+      case undefined: {
+        let items = docs || []
+        if (!docs) {
+          for (let i = 0; i < 6; i++) {
+            items.push(html`
+              <li class="u-spaceV6">
+                ${grid([
+                  grid.cell({ size: { md: '1of4' } }, framed.loading()),
+                  grid.cell({ size: { md: '3of4' } }, html`
+                    <div class="u-spaceT4">
+                      <div class="Text Text--large">
+                        <small>${loader(3)}</small>
+                        <h2 class="Text-h3 u-spaceT1">${loader(6)}</h2>
+                        <div class="u-spaceT2">${loader(80)}</div>
+                      </div>
+                    </div>
+                  `)
+                ])}
+              </li>
+            `)
+          }
+        }
+        return html`
+          <ol class="u-spaceV8">
+            ${docs.map(current)}
+          </ol>
+        `
+      }
+      case 'kalendarium': {
+        // TODO: handle loading
+        return calendar(docs.reduce((dates, doc) => {
+          var title = asText(doc.data.title)
+          var image = Object.assign({
+            src: doc.data.poster.url
+          }, doc.data.poster.dimensions)
+
+          for (let i = 0, len = doc.data.dates.length; i < len; i++) {
+            let item = doc.data.dates[i]
+            let date = parse(item.date)
+            let status = +item.status.match(/^\d+/)
+            let time = item.time.match(TIME_REG)
+            if (time) {
+              date.setHours(+time[1])
+              date.setMinutes(+time[2])
+            }
+            dates.push(Object.assign({}, item, { title, image, date, status }))
+          }
+
+          return dates
+        }, []))
+      }
+      default: return null
+    }
+  }
+}
+
+function current (doc) {
+  return html`
+    <li class="u-spaceV6" style="--theme-color: ${hexToRgb(doc.data.theme)}">
+      ${grid([
+        grid.cell({ size: { md: '1of4' } }, framed(Object.assign({
+          src: doc.data.poster.url
+        }, doc.data.poster.dimensions))),
+        grid.cell({ size: { md: '3of4' } }, html`
+          <div class="u-spaceT4">
+            <div class="Text Text--large u-spaceB4">
+              <small class="u-textHeading u-textUppercase">
+                ${[doc.data.category, doc.data.subheading].filter(Boolean).join(' – ')}
+              </small>
+              <h2 class="Text-h3 u-spaceT1">${asText(doc.data.title)}</h2>
+              <div class="u-spaceT2">
+                ${asElement(doc.data.description, resolve, serialize)}
+              </div>
+            </div>
+            ${button({ text: text`Read more`, href: resolve(doc), primary: true, class: 'u-spaceR1' })}
+          </div>
+        `)
+      ])}
+    </li>
+  `
 }
 
 function meta (state) {

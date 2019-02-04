@@ -3,14 +3,14 @@
 /* @define Tablist */
 .Tablist {
   display: flex;
-  border: solid currentColor;
+  border: solid #000;
   border-width: 2px 0 2px 2px;
 }
 
 .Tablist-tab {
   flex: 1 1 auto;
   padding: 1em;
-  border-right: 2px solid currentColor;
+  border-right: 2px solid #000;
   font-size: 1.125rem;
   text-align: center;
   font-weight: 600;

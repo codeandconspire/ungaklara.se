@@ -7,6 +7,10 @@
   position: relative;
 }
 
+.Framed--sm {
+  padding: 0 0 0.75rem 0.75rem;
+}
+
 .Framed::before {
   content: "";
   width: calc(100% - 1.5rem);
@@ -16,6 +20,12 @@
   top: 1.5rem;
   z-index: -1;
   background-color: rgb(var(--theme-color));
+}
+
+.Framed--sm::before {
+  width: calc(100% - 0.75rem);
+  height: calc(100% - 0.75rem);
+  top: 0.75rem;
 }
 
 .Framed-image {
