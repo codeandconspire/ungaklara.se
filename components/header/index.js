@@ -24,7 +24,11 @@ module.exports = class Header extends Component {
             ${this.prismic.getSingle('website', function (err, doc) {
               if (err || !doc) return null
               return doc.data.primary_pages.map((item) => html`
-                <li class="u-inlineBlock"><a class="Header-link" href="${resolve(item.page)}">${asText(item.page.data.title)}</a></li>
+                <li class="u-inlineBlock">
+                  <a class="Header-link" href="${resolve(item.page)}">
+                    ${item.link_text || asText(item.page.data.title)}
+                  </a>
+                </li>
               `)
             })}
           </ul>
