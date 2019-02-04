@@ -35,11 +35,12 @@ function teachers (state, emit) {
                 ${intro({ title: asText(doc.data.title), text: asElement(doc.data.description) })}
               </div>
               ${grid({ size: { md: '1of3' } }, doc.data.blurbs.map(function (item) {
-                if (!item.link.url && !item.link.id) return null
-                var attrs = { href: resolve(item.link) }
-                if (item.link.target) {
-                  attrs.target = item.link.target
-                  if (item.link.target === '_blank') {
+                var { link } = item
+                if ((!link.url && !link.id) || link.isBroken) return null
+                var attrs = { href: resolve(link) }
+                if (link.target) {
+                  attrs.target = link.target
+                  if (link.target === '_blank') {
                     attrs.rel = 'noopener noreferrer'
                   }
                 }
@@ -102,9 +103,11 @@ function teachers (state, emit) {
               grid.cell({ size: { lg: '1of3' } }, html`
                 <div ${attrs}>
                   <div class="Text u-spaceA4">
-                    <h2 class="Text-h5 u-textUppercase u-spaceB1">
-                      <small>${text`Good to know`}</small>
-                    </h2>
+                    ${slice.primary.pointers_heading ? html`
+                      <h2 class="Text-h5 u-textUppercase u-spaceB1">
+                        <small>${slice.primary.pointers_heading}</small>
+                      </h2>
+                    ` : null}
                     ${asElement(slice.primary.pointers, resolve, serialize)}
                   </div>
                 </div>
