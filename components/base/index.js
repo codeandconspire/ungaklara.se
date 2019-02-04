@@ -26,7 +26,6 @@ function resolve (doc) {
   switch (doc.type) {
     case 'homepage': return '/'
     case 'events': return '/pa-scen'
-    case 'about': return '/om-unga-klara'
     case 'teachers': return '/for-pedagoger'
     case 'practical': return '/infor-besoket'
     case 'page': return '/' + doc.uid
