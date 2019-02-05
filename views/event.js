@@ -288,6 +288,8 @@ function eventPage (state, emit) {
           // sort out future dates
           let today = startOfDay(Date.now())
           let dates = doc.data.dates.map(function (item) {
+            if (!item.date) return null
+
             var status = item.status.match(/^\d+/)
             status = status ? +status[0] : null
 
@@ -299,7 +301,7 @@ function eventPage (state, emit) {
               date.setMinutes(+time[2])
             }
             return Object.assign({}, item, { date, href, status })
-          }).filter((item) => item.date > today)
+          }).filter((item) => item && item.date > today)
 
           if (dates.length) {
             blocks.push(html`

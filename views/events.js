@@ -158,13 +158,16 @@ function event (state, emit) {
 
           for (let i = 0, len = doc.data.dates.length; i < len; i++) {
             let item = doc.data.dates[i]
+            if (!item.date) continue
+
             let date = parse(item.date)
             let status = +item.status.match(/^\d+/)
-            let time = item.time.match(TIME_REG)
+            let time = item.time && item.time.match(TIME_REG)
             if (time) {
               date.setHours(+time[1])
               date.setMinutes(+time[2])
             }
+
             dates.push(Object.assign({
               href: resolve(doc)
             }, item, { title, image, date, status }))

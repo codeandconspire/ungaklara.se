@@ -20,13 +20,13 @@ function error (err) {
       <div class="Error">
         <img class="Error-img Error-img--1" alt="" src="/suzanne-osten-blink.gif" />
       </div>
-      
+
       <div class="u-container">
         <div class="u-spaceB8">
           ${intro({ title: text`Oops`, text: message(err.status) })}
-          ${!DEBUG ? html`<pre>${err.stack}</pre>` : null}
+          ${DEBUG ? html`<pre class="u-bgWhite">${err.stack}</pre>` : null}
         </div>
-        
+
       </div>
     </main>
   `
