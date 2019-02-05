@@ -181,8 +181,10 @@ function event (state, emit) {
 // render currently showing event
 // obj -> Element
 function showing (doc) {
+  var attrs = { class: 'u-spaceV6' }
+  if (doc.data.theme) attrs.style = `--theme-color: ${hexToRgb(doc.data.theme)}`
   return html`
-    <li class="u-spaceV6" style="--theme-color: ${hexToRgb(doc.data.theme)}">
+    <li ${attrs}>
       ${grid([
         grid.cell({ size: { md: '1of4' } }, framed(Object.assign({
           src: doc.data.poster.url
