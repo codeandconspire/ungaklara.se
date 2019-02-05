@@ -70,7 +70,7 @@ function eventPage (state, emit) {
         // about the production
         if (doc.data.details.length) {
           blocks.push(html`
-            <div class="u-container u-spaceV6">
+            <div class="u-md-container u-spaceV6">
               ${factsBox(doc.data.details)}
             </div>
           `)

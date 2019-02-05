@@ -5,7 +5,7 @@
   font-family: var(--default-font-family);
   line-height: var(--default-line-height);
   font-size: 1rem;
-  max-width: 39em;
+  max-width: 36em;
   text-align: left;
 }
 
@@ -23,6 +23,11 @@
 
 .Text:last-child {
   margin-bottom: 0;
+}
+
+.Text--large,
+.Text-large {
+  font-size: 1.125rem;
 }
 
 @media (min-width: 1000px) {
@@ -101,13 +106,13 @@
 .Text p:not(:first-child),
 .Text ul:not(:first-child),
 .Text ol:not(:first-child) {
-  margin-top: 1.3em;
+  margin-top: 1em;
 }
 
 .Text p:not(:last-child),
 .Text ul:not(:last-child),
 .Text ol:not(:last-child) {
-  margin-bottom: 1.3em;
+  margin-bottom: 1em;
 }
 
 .Text img,
@@ -172,7 +177,7 @@
   display: block;
   list-style: none;
   user-select: none;
-  padding: 1.4em 2.7em 1.4em 0;
+  padding: 1.3rem 1rem 1.4rem 0;
   position: relative;
   outline: 0;
   font-weight: 600;
@@ -192,7 +197,6 @@
 }
 
 .Text summary:active {
-  transition: opacity 100ms var(--ease-out);
   opacity: 0.5;
 }
 
@@ -204,7 +208,7 @@
   content: "";
   position: absolute;
   top: 50%;
-  right: 1em;
+  right: 0.7em;
   width: 1em;
   height: 3px;
   transform: translateY(-50%);
@@ -216,14 +220,14 @@
   content: "";
   position: absolute;
   top: 50%;
-  right: 1.5em;
+  right: 1.2em;
   width: 3px;
   height: 1em;
   transform: translate(50%, -50%);
   background-color: currentColor;
   border-radius: 1.5px;
   transform-origin: center;
-  transition: transform 250ms var(--ease-out);
+  transition: transform 200ms var(--ease-out);
   will-change: transform;
 }
 
@@ -386,6 +390,7 @@
 .Text .Text-h6 {
   margin: 0;
   color: rgb(var(--current-color));
+  letter-spacing: -0.02em;
 }
 
 .Text h1:not(:first-child),

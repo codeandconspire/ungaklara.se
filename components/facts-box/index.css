@@ -2,16 +2,22 @@
 
 /* @define FactsBox */
 .FactsBox {
-  padding: 2.75rem 2.75rem 2.75rem 6.5rem;
+  padding: 4.3rem 2.75rem 4.3rem 7rem;
   position: relative;
   background-color: rgb(var(--theme-color));
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
 }
 
-@media (min-wkidth: 600px) {
+@media (min-width: 600px) {
   .FactsBox {
-    padding: 2.75rem;
+    padding: 3.3rem 1.9rem 3.5rem 8rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .FactsBox {
+    padding: 2.5rem 2rem 2.5rem 2rem;
   }
 }
 
@@ -20,20 +26,23 @@
   font-size: 3.5625rem;
   position: absolute;
   left: 1.5rem;
-  top: 2.75rem;
+  top: 4.25rem;
   transform-origin: 100% 0;
   transform: translateX(-100%) rotate(-90deg);
 }
 
 @media (min-width: 600px) {
   .FactsBox-heading {
-    border: 0;
-    clip: rect(1px, 1px, 1px, 1px);
-    height: 1px;
-    overflow: hidden;
-    padding: 0;
+    left: 2.3rem;
+    top: 3.65rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .FactsBox-heading {
+    font-size: 0;
     position: absolute;
-    width: 1px;
+    opacity: 0;
   }
 }
 
@@ -46,7 +55,7 @@
   font-size: 1.125rem;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 1000px) {
   .FactsBox-list {
     text-align: center;
   }

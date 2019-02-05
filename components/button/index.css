@@ -8,14 +8,12 @@
   border: var(--border-width) solid rgb(var(--document-color));
   font-size: 1rem;
   color: rgb(var(--document-color));
-  background-color: transparent;
+  background: transparent;
   font-weight: 600;
   white-space: nowrap;
   user-select: none;
   text-align: center;
   font-family: var(--heading-font-family);
-  transition: 140ms var(--ease-out);
-  transition-property: background-color, color;
 }
 
 .Button--small {
@@ -25,7 +23,8 @@
 }
 
 .Button:not([disabled]):hover {
-  background-color: rgba(var(--color-gray), 0.22);
+  background: rgb(var(--document-color));
+  color: #fff;
 }
 
 .Button[disabled] {

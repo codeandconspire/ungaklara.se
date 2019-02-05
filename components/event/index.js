@@ -23,8 +23,9 @@ function event (props) {
 
   return html`
     <article class="Event">
-      <div class="Text Text--large">${asElement(body, resolve, middleman)}</div>
-      ${props.actions ? html`
+      <div class="Event-body">
+        <div class="Text Text--large">${asElement(body, resolve, middleman)}</div>
+        ${props.actions ? html`
         <div class="Event-actions">
           ${props.actions.map((attrs) => html`
             <span class="Event-action">
@@ -33,6 +34,10 @@ function event (props) {
           `)}
         </div>
       ` : null}
+      </div>
+      <div class="Event-image Event-image--outside">
+        ${framed(Object.assign({ src: image.url }, image.dimensions))}
+      </div>
     </article>
   `
 }
@@ -40,7 +45,7 @@ function event (props) {
 function middleman (type, node, content, children) {
   if (type === Elements.image) {
     return html`
-      <div class="Event-image">
+      <div class="Event-image Event-image--inside">
         ${framed(Object.assign({ src: node.url }, node.dimensions))}
       </div>
     `

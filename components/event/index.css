@@ -4,44 +4,75 @@
 .Event {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+}
+
+.Event-body {
+  display: flex;
+  flex-direction: column;
 }
 
 @media (min-width: 600px) {
   .Event {
-    position: relative;
-    padding-left: calc(20vw + 2rem);
+    flex-direction: row;
+    padding-top: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .Event-body {
+    flex-basis: 70%;
   }
 }
 
 @media (min-width: 1000px) {
-  .Event {
-    padding-left: calc(20vw + 3rem);
+  .Event-body {
+    flex-basis: 68%;
   }
 }
 
 .Event-image {
+  display: none;
+}
+
+.Event-image--inside {
+  display: block;
   float: right;
-  max-width: 50%;
-  margin: 0 0 1em 1em;
+  max-width: 38%;
+  margin: 0 0 0.5rem 1rem;
 }
 
 @media (min-width: 600px) {
-  .Event-image {
-    width: 20vw;
-    max-width: 16rem;
-    margin: 0;
-    position: absolute;
-    left: 0;
-    top: 0;
+  .Event-image--inside {
+    display: none;
+  }
+
+  .Event-image--outside {
+    display: block;
+    order: -1;
+    flex-basis: 30%;
+    padding-right: 2rem;
+    position: relative;
+    top: -2rem;
+  }
+}
+
+@media (min-width: 800px) {
+  .Event-image--outside {
+    padding-right: 3rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .Event-image--outside {
+    flex-basis: 32%;
+    padding-right: 6rem;
   }
 }
 
 .Event-actions {
   order: -1;
   display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 2rem;
+  flex-wrap: nowrap;
+  margin-bottom: 2.5rem;
 }
 
 .Event-action {
@@ -55,10 +86,16 @@
 @media (min-width: 600px) {
   .Event-actions {
     order: 2;
-    margin-top: 2rem;
+    margin: 2.5rem 0 1rem;
   }
 
   .Event-action {
     flex: 0 1 auto;
+  }
+}
+
+@media (min-width: 1000px) {
+  .Event-actions {
+    margin-bottom: 2rem;
   }
 }
