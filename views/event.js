@@ -54,7 +54,7 @@ function eventPage (state, emit) {
         // facts box
         if (doc.data.about.length) {
           blocks.push(html`
-            <div class="u-container u-spaceV6">
+            <div class="u-container">
               ${event({
                 image: doc.data.poster.url ? doc.data.poster : null,
                 body: doc.data.about,
@@ -335,7 +335,7 @@ function eventPage (state, emit) {
 
         return html`
           <div ${attrs}>
-            <div class="u-container u-spaceB6">
+            <div class="u-container">
               ${intro({
                 badge: [doc.data.category, doc.data.subheading].filter(Boolean).join(' – '),
                 title: asText(doc.data.title),

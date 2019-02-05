@@ -7,7 +7,7 @@ function home () {
   return html`
     <main class="View-main">
       <div class="u-container">
-        <h1>Hellooo!</h1>
+        
       </div>
     </main>
   `

@@ -2,24 +2,21 @@
 
 /** @define Intro */
 .Intro {
+  display: flex;
+  flex-direction: column;
   padding-top: 40vh;
+  margin-bottom: 3rem;
   font-family: var(--heading-font-family);
-  line-height: var(--heading-line-height);
 }
 
 .Intro-title {
   position: relative;
-  font-size: 2.7rem;
-  padding-top: 2rem;
-  margin: 0 0 0.75rem;
+  font-size: 2.1rem;
+  padding-top: 0.75em;
+  margin: 0 0 0.35em;
   letter-spacing: -0.02em;
-  word-break: break-all;
-}
-
-@media (min-width: 600px) {
-  .Intro-title {
-    font-size: 5.625rem;
-  }
+  hyphens: auto;
+  line-height: 1;
 }
 
 .Intro-badge {
@@ -31,25 +28,79 @@
   letter-spacing: 0.05em;
 }
 
-@media (min-width: 600px) {
-  .Intro-text {
-    font-size: 1.875rem;
-  }
-}
-
 .Intro-text a {
   border-bottom: 2px solid;
 }
 
 .Intro-image {
+  background: rgba(0, 0, 0, 0.05);
   display: block;
   width: 100%;
   height: auto;
-  margin-top: 2rem;
+  margin: -24vh 0 2rem;
+  order: -1;
+}
+
+@media (min-width: 350px) {
+  .Intro-title {
+    font-size: 2.5rem;
+  }
+
+  .Intro-text {
+    font-size: 1.3rem;
+  }
+}
+
+@media (min-width: 500px) {
+  .Intro-title {
+    font-size: 3.2rem;
+  }
+
+  .Intro-text {
+    font-size: 1.35rem;
+  }
 }
 
 @media (min-width: 600px) {
+  .Intro {
+    margin-bottom: 4rem;
+  }
+
   .Intro-image {
-    margin-top: 4rem;
+    margin: 3rem 0 0;
+    order: 0;
+  }
+}
+
+@media (min-width: 800px) {
+  .Intro {
+    margin-bottom: 5rem;
+  }
+
+  .Intro-title {
+    font-size: 4.5rem;
+    padding-top: 0.65em;
+  }
+
+  .Intro-text {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .Intro {
+    margin-bottom: 9rem;
+  }
+
+  .Intro-title {
+    font-size: 5.625rem;
+  }
+
+  .Intro-text {
+    font-size: 1.875rem;
+  }
+
+  .Intro-image {
+    margin: 4rem 0 -3rem;
   }
 }
