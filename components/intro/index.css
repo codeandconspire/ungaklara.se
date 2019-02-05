@@ -32,6 +32,11 @@
   border-bottom: 2px solid;
 }
 
+.Intro-text a {
+  display: inline-block;
+  border-bottom: 2px solid currentColor;
+}
+
 .Intro-image {
   background: rgba(0, 0, 0, 0.05);
   display: block;

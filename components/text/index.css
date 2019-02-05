@@ -51,8 +51,17 @@
   color: inherit;
 }
 
-.Text strong a {
+/**
+ * 1. Cover all bases for strong links
+ */
+
+.Text strong a /* 1 */ {
   border-bottom-width: 2px;
+}
+
+.Text a > strong:first-child:last-child /* 1 */ {
+  display: inline-block;
+  border-bottom: 1px solid currentColor;
 }
 
 .Text a.Text-reset:not(:hover) {

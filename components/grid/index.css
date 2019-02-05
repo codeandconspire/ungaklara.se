@@ -6,13 +6,13 @@
 
 @media (min-width: 1000px), print {
   :root {
-    --Grid-gutter: 2rem;
+    --Grid-gutter: 2.5rem;
   }
 }
 
 @media (min-width: 1200px), print {
   :root {
-    --Grid-gutter: 2.75rem;
+    --Grid-gutter: 3.5rem;
   }
 }
 

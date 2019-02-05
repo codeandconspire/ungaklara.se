@@ -1,10 +1,12 @@
 var html = require('choo/html')
 var asElement = require('prismic-element')
+var { Elements } = require('prismic-richtext')
 var view = require('../components/view')
 var card = require('../components/card')
 var grid = require('../components/grid')
 var intro = require('../components/intro')
 var byline = require('../components/byline')
+var reset = require('../components/text/reset')
 var reset = require('../components/text/reset')
 var serialize = require('../components/text/serialize')
 var { asText, resolve } = require('../components/base')
@@ -62,10 +64,20 @@ function page (state, emit) {
   function asSlice (slice, index) {
     switch (slice.slice_type) {
       case 'text': {
-        if (!slice.primary.text.length) return null
+        let items = slice.items.filter((item) => item.text.length)
+        if (!slice.primary.text.length && !items.length) return null
         return html`
-          <div class="Text Text--large u-spaceV6">
-            ${asElement(slice.primary.text, resolve, serialize)}
+          <div class="u-spaceV6">
+            ${slice.primary.text.length ? html`
+              <div class="Text Text--large">
+                ${asElement(slice.primary.text, resolve, serialize)}
+              </div>
+            ` : null}
+            ${items.length ? grid({ size: { md: '1of2' } }, items.map((item) => html`
+              <div class="Text Text--large u-spaceB2">
+                ${asElement(item.text, resolve, serializeColumn)}
+              </div>
+            `)) : null}
           </div>
         `
       }
@@ -142,6 +154,14 @@ function page (state, emit) {
           </section>
         `
       }
+      case 'team': {
+        if (!slice.items.length) return
+        let opts = { size: { lg: '1of4' } }
+        let hasImage = slice.items.find((item) => item.image.url)
+        if (hasImage) opts.size.xs = '1of2'
+        else opts.size.md = '1of2'
+        return grid(opts, slice.items.map(teamMember))
+      }
       case 'link_blurb': {
         let { primary } = slice
         if (!primary.link.id || primary.link.isBroken) return null
@@ -192,6 +212,37 @@ function page (state, emit) {
   }
 }
 
+// render team member
+// obj -> Element
+function teamMember (props) {
+  var image
+  if (props.image.url) {
+    image = {
+      class: 'u-spaceB2',
+      alt: props.image.alt || '',
+      src: props.image.url,
+      width: props.image.dimensions.width,
+      height: props.image.dimensions.height
+    }
+  }
+
+  return html`
+    <article class="Text u-sizeFull">
+      ${image ? html`<img ${image} />` : null}
+      ${props.label ? html`
+        <strong class="u-block u-textHeading">
+          ${props.label}
+        </strong>
+      ` : null}
+      ${props.text.length ? html`
+        <div class="u-spaceT2">
+          ${asElement(props.text, resolve, reset)}
+        </div>
+      ` : null}
+    </article>
+  `
+}
+
 // render linked document as card
 // obj -> Element
 function asCard (props) {
@@ -210,6 +261,18 @@ function asCard (props) {
   }
 
   return card(props)
+}
+
+function serializeColumn (type, node, content, children) {
+  switch (type) {
+    case Elements.heading1: return html`<h1 class="Text-h4">${children}</h1>`
+    case Elements.heading2: return html`<h2 class="Text-h4">${children}</h2>`
+    case Elements.heading3: return html`<h3 class="Text-h4">${children}</h3>`
+    case Elements.heading4: return html`<h4 class="Text-h4">${children}</h4>`
+    case Elements.heading5: return html`<h5 class="Text-h4">${children}</h5>`
+    case Elements.heading6: return html`<h6 class="Text-h4">${children}</h6>`
+    default: return serialize(type, node, content, children)
+  }
 }
 
 function meta (state) {
