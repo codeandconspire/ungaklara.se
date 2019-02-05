@@ -51,7 +51,7 @@ function page (state, emit) {
                 ${intro({
                   title: asText(doc.data.title),
                   text: asElement(doc.data.description),
-                  badge: doc.data.parent ? html`
+                  badge: doc.data.parent && doc.data.parent.id ? html`
                     <span>
                       <a href="${resolve(doc.data.parent)}">${asText(doc.data.parent.data.title)}</a> – ${asText(doc.data.title)}
                     </span>
