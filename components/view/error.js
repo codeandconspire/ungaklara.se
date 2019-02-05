@@ -1,5 +1,6 @@
 var html = require('choo/html')
 var { i18n } = require('../base')
+var intro = require('../intro')
 
 var text = i18n()
 
@@ -16,14 +17,16 @@ module.exports = error
 function error (err) {
   return html`
     <main class="View-main">
+      <div class="Error">
+        <img class="Error-img Error-img--1" alt="" src="/suzanne-osten-blink.gif" />
+      </div>
+      
       <div class="u-container">
-        <div class="u-spaceV8">
-          <div class="Text Text--center">
-            <h1>${text`Oops`}</h1>
-            ${message(err.status)}
-            ${DEBUG ? html`<pre>${err.stack}</pre>` : null}
-          </div>
+        <div class="u-spaceB8">
+          ${intro({ title: text`Oops`, text: message(err.status) })}
+          ${!DEBUG ? html`<pre>${err.stack}</pre>` : null}
         </div>
+        
       </div>
     </main>
   `

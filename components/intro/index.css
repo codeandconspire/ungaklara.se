@@ -37,6 +37,10 @@
   }
 }
 
+.Intro-text a {
+  border-bottom: 2px solid;
+}
+
 .Intro-image {
   display: block;
   width: 100%;

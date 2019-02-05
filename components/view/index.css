@@ -1,4 +1,5 @@
 @import "../base";
+@import "./error";
 
 /* @define View */
 .View {
@@ -6,6 +7,7 @@
   flex-direction: column;
   min-height: 100%;
   position: relative;
+  min-width: var(--document-min-width);
 
   --View-gradient-top-height: 100vh;
   --View-gradient-bottom-height: 100vh;
@@ -18,7 +20,7 @@
 .View-main {
   flex-grow: 1;
   z-index: 1;
-  min-height: calc(var(--View-gradient-top-height) + var(--View-gradient-bottom-height));
+  min-height: calc(var(--View-gradient-top-height));
   margin-bottom: 8rem;
 }
 
