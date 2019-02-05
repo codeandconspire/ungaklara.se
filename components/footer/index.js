@@ -24,10 +24,11 @@ module.exports = class Footer extends Component {
               <div class="Footer-cols">
                 ${doc.data.menu.map(function (slice) {
                   if (slice.slice_type !== 'link') return null
+                  var root = resolve(slice.primary.link)
                   return html`
                     <div class="Footer-section">
                       <h3 class="Footer-title">
-                        <a class="Footer-link" href="${resolve(slice.primary.link)}">
+                        <a class="Footer-link" href="${root}">
                           ${slice.primary.link_text || asText(slice.primary.link.data.title)}
                         </a>
                       </h3>
@@ -35,9 +36,15 @@ module.exports = class Footer extends Component {
                         ${slice.items.map(function (item) {
                           var link = item.link
                           if ((!link.id && !link.url) || link.isBroken) return null
+                          var url = resolve(link)
+                          if (item.link.link_type === 'Document') {
+                            url = root + url
+                          }
                           return html`
                             <li>
-                              <a href="${resolve(link)}">${item.link_text || asText(link.data.title)}</a>
+                              <a href="${url}">
+                                ${item.link_text || asText(link.data.title)}
+                              </a>
                             </li>
                           `
                         }).filter(Boolean)}
