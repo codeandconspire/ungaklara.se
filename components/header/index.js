@@ -23,13 +23,16 @@ module.exports = class Header extends Component {
           <ul class="Header-list">
             ${this.prismic.getSingle('website', function (err, doc) {
               if (err || !doc) return null
-              return doc.data.primary_pages.map((item) => html`
-                <li class="u-inlineBlock">
-                  <a class="Header-link" href="${resolve(item.page)}">
-                    ${item.link_text || asText(item.page.data.title)}
-                  </a>
-                </li>
-              `)
+              return doc.data.menu.map(function (slice) {
+                if (slice.slice_type !== 'link') return null
+                return html`
+                  <li class="u-inlineBlock">
+                    <a class="Header-link" href="${resolve(slice.primary.link)}">
+                      ${slice.primary.link_text || asText(slice.primary.link.data.title)}
+                    </a>
+                  </li>
+                `
+              }).filter(Boolean)
             })}
           </ul>
         </nav>
