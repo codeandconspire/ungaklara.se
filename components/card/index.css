@@ -110,7 +110,6 @@
   font-weight: 600;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
-  word-break: break-all;
 }
 
 .Card:not(.Card--fill) .Card-title:first-child {

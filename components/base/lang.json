@@ -25,5 +25,11 @@
   "Show more": "Visa mer",
   "Few left": "Fåtal kvar",
   "Sold out": "Slutsålt :(",
-  "Play %s": "Spela %s"
+  "Play %s": "Spela %s",
+  "Download image": "Ladda ner bild",
+  "Download video": "Ladda ner video",
+  "Download audio": "Ladda ner ljudfil",
+  "Download zip": "Ladda ner zip-fil",
+  "Download document": "Ladda ner dokument",
+  "Go to website": "Gå till webbsidan"
 }
