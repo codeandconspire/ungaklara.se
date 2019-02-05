@@ -138,9 +138,6 @@
   flex-grow: 0;
   width: 100%;
   padding-bottom: 2rem;
-}
-
-.Card--fill .Card-footer {
   margin-top: 1.25rem;
 }
 

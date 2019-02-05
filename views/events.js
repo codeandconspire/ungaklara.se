@@ -29,10 +29,13 @@ function event (state, emit) {
 
           var page = +state.query.page
           if (isNaN(page)) page = 1
-          var pages = []
+          var pages = null
           for (let i = 0; i < page; i++) {
-            let result = getPage(i)
-            if (result) pages.push(...result)
+            let docs = getPage(i)
+            if (docs) {
+              pages = pages || []
+              pages.push(...docs)
+            }
           }
 
           var attrs = {}
@@ -63,7 +66,7 @@ function event (state, emit) {
                   }])}
                 </div>
                 ${list(pages)}
-                ${pages.length === page * PAGE_SIZE ? button({
+                ${pages && pages.length === page * PAGE_SIZE ? button({
                   href: state.href + `?page=${page + 1}`,
                   disabled: state.ui.isLoading,
                   text: text`Show more` })
@@ -115,8 +118,10 @@ function event (state, emit) {
 
     switch (slug) {
       case undefined: {
-        let items = docs || []
-        if (!docs) {
+        let items = []
+        if (docs) {
+          items = docs.map(showing)
+        } else {
           for (let i = 0; i < 6; i++) {
             items.push(html`
               <li class="u-spaceV6">
@@ -136,9 +141,10 @@ function event (state, emit) {
             `)
           }
         }
+
         return html`
           <ol class="u-spaceV8">
-            ${docs.map(showing)}
+            ${items}
           </ol>
         `
       }
