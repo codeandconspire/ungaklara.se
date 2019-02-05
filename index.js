@@ -19,10 +19,17 @@ app.use(require('./stores/prismic')({ repository: REPOSITORY, middleware }))
 app.use(require('choo-meta')({ origin: app.state.origin }))
 app.use(require('choo-service-worker')('/sw.js'))
 
+/**
+ * 1. Clumpsy workaround for supporting wildcard parent path
+ * 2. Discard parent slug by letting tail override the `slug` param
+ */
+
 app.route('/', require('./views/home'))
 app.route('/pa-scen', require('./views/events'))
 app.route('/pa-scen/:slug', require('./views/event'))
 app.route('/for-pedagoger', require('./views/teachers'))
+app.route('/for-pedagoger/:slug', require('./views/page')) /* 1 */
+app.route('/:slug/:slug', require('./views/page')) /* 2 */
 app.route('/:slug', require('./views/page'))
 
 try {

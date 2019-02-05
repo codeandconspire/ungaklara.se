@@ -28,7 +28,14 @@ function resolve (doc) {
     case 'events': return '/pa-scen'
     case 'teachers': return '/for-pedagoger'
     case 'practical': return '/infor-besoket'
-    case 'page': return '/' + doc.uid
+    case 'page': {
+      let url = '/' + doc.uid
+      let data = doc.data
+      if (data && data.parent && data.parent.id && !data.parent.isBroken) {
+        url = resolve(doc.data.parent) + url
+      }
+      return url
+    }
     case 'event': return `/pa-scen/${doc.uid}`
     case 'Web':
     case 'Media': return doc.url

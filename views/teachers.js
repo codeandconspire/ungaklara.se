@@ -166,7 +166,16 @@ function teachers (state, emit) {
                   ${heading ? html`<h2>${heading}</h2>` : null}
                 </div>
               ` : null}
-              ${grid(opts, items.map((item) => asCard(item.link, item.color)))}
+              ${grid(opts, items.map(function (item) {
+                if (item.link.type === 'page') {
+                  return state.prismic.getByUID('page', item.link.uid, function (err, doc) {
+                    if (err) return null
+                    if (!doc) return card.loading()
+                    return asCard(doc, item.color)
+                  })
+                }
+                return asCard(item.link, item.color)
+              }))}
             </div>
           `
         }

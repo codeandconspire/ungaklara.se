@@ -7,7 +7,6 @@ var grid = require('../components/grid')
 var intro = require('../components/intro')
 var byline = require('../components/byline')
 var reset = require('../components/text/reset')
-var reset = require('../components/text/reset')
 var serialize = require('../components/text/serialize')
 var { asText, resolve } = require('../components/base')
 var Blockquote = require('../components/text/blockquote')
@@ -49,7 +48,15 @@ function page (state, emit) {
           return html`
             <div>
               <div class="u-spaceB8">
-                ${intro({ title: asText(doc.data.title), text: asElement(doc.data.description) })}
+                ${intro({
+                  title: asText(doc.data.title),
+                  text: asElement(doc.data.description),
+                  badge: doc.data.parent ? html`
+                    <span>
+                      <a href="${resolve(doc.data.parent)}">${asText(doc.data.parent.data.title)}</a> – ${asText(doc.data.title)}
+                    </span>
+                  ` : null
+                })}
               </div>
               ${body}
             </div>
@@ -163,18 +170,28 @@ function page (state, emit) {
         return grid(opts, slice.items.map(teamMember))
       }
       case 'link_blurb': {
-        let { primary } = slice
-        if (!primary.link.id || primary.link.isBroken) return null
-        blurbs.push(asCard({
-          title: primary.link.data.title,
-          body: primary.link.data.description,
-          image: primary.link.data.featured_image,
-          color: primary.color || primary.link.data.theme,
-          link: {
-            href: resolve(primary.link),
-            text: primary.link.data.cta
-          }
-        }))
+        let link = slice.primary.link
+        if (!link.id || link.isBroken) return null
+        if (link.type === 'page') {
+          link = state.prismic.getByUID('page', link.uid, function (err, doc) {
+            if (err) return null
+            return doc
+          })
+        }
+        if (!link) {
+          blurbs.push(card.loading())
+        } else {
+          blurbs.push(asCard({
+            title: link.data.title,
+            body: link.data.description,
+            image: link.data.featured_image,
+            color: slice.primary.color || link.data.theme,
+            link: {
+              href: resolve(link),
+              text: link.data.cta
+            }
+          }))
+        }
         return blurbs
       }
       case 'file_blurb': {
