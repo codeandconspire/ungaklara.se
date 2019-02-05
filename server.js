@@ -22,17 +22,43 @@ app.use(get('/media/:type/:transform/:uri(.+)', async function (ctx, type, trans
   ctx.body = stream
 }))
 
+// set preview cookie
 app.use(get('/api/prismic-preview', async function (ctx) {
   var host = process.env.NOW_URL && url.parse(process.env.NOW_URL).host
   if (host && ctx.host !== host) {
     return ctx.redirect(url.resolve(process.env.NOW_URL, ctx.url))
   }
+
   var token = ctx.query.token
   var api = await Prismic.api(REPOSITORY, { req: ctx.req })
   var href = await api.previewSession(token, resolve, '/')
+  var expires = app.env === 'development'
+    ? new Date(Date.now() + (1000 * 60 * 60 * 12))
+    : new Date(Date.now() + (1000 * 60 * 30))
+
+  ctx.set('Cache-Control', 'no-cache, private, max-age=0')
+  ctx.cookies.set(Prismic.previewCookie, token, { expires: expires, path: '/' })
   ctx.redirect(href)
 }))
 
+// set cache headers
+app.use(function (ctx, next) {
+  if (!ctx.accepts('html')) return next()
+  var previewCookie = ctx.cookies.get(Prismic.previewCookie)
+  if (previewCookie) {
+    ctx.state.ref = previewCookie
+    ctx.set('Cache-Control', 'no-cache, private, max-age=0')
+  } else {
+    ctx.state.ref = null
+  }
+  var allowCache = app.env !== 'development'
+  if (!previewCookie && allowCache && ctx.path !== '/api/prismic-preview') {
+    ctx.set('Cache-Control', `s-maxage=${60 * 60 * 24}, max-age=0`)
+  }
+  return next()
+})
+
+// disallow robots anywhere but live URL
 app.use(get('/robots.txt', function (ctx, next) {
   ctx.type = 'text/plain'
   ctx.body = dedent`
@@ -40,10 +66,5 @@ app.use(get('/robots.txt', function (ctx, next) {
     Disallow: ${app.env === 'production' ? '' : '/'}
   `
 }))
-
-app.use(function (ctx, next) {
-  ctx.state.preview = ctx.cookies.get(Prismic.previewCookie)
-  return next()
-})
 
 app.listen(8080)
