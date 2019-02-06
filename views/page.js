@@ -8,7 +8,7 @@ var intro = require('../components/intro')
 var byline = require('../components/byline')
 var reset = require('../components/text/reset')
 var serialize = require('../components/text/serialize')
-var { asText, resolve } = require('../components/base')
+var { asText, resolve, srcset } = require('../components/base')
 var Blockquote = require('../components/text/blockquote')
 
 module.exports = view(page, meta)
@@ -110,12 +110,14 @@ function page (state, emit) {
         `
       }
       case 'image': {
-        let attrs = {
-          alt: slice.primary.image.alt || '',
-          src: slice.primary.image.url,
-          width: slice.primary.image.dimensions.width,
-          height: slice.primary.image.dimensions.height
-        }
+        if (!slice.primary.url) return null
+        let sources = srcset(slice.primary.url, [400, 600, 900, [1600, 'q_60'], [3000, 'q_50']])
+        let attrs = Object.assign({
+          sizes: '100vw',
+          srcset: sources,
+          src: sources.split(' ')[0],
+          alt: slice.primary.image.alt || ''
+        }, slice.primary.image.dimensions)
         return html`
           <figure class="Text Text--large u-sizeFull u-spaceV6">
             <img ${attrs}>
@@ -135,8 +137,14 @@ function page (state, emit) {
               heading: asText(slice.primary.heading),
               body: asElement(slice.primary.text, resolve, reset),
               image: slice.primary.image.url ? Object.assign({
-                src: slice.primary.image.url,
-                alt: slice.primary.image.alt
+                src: srcset(slice.primary.image.url, [200, 'c_thumb']).split(' ')[0],
+                sizes: '15rem',
+                srcset: srcset(
+                  slice.primary.image.url,
+                  [200, 400, [800, 'q_50,c_thumb']],
+                  { transforms: 'c_thumb' }
+                ),
+                alt: slice.primary.image.alt || ''
               }, slice.primary.image.dimensions) : null
             })}
           </div>
@@ -234,13 +242,14 @@ function page (state, emit) {
 function teamMember (props) {
   var image
   if (props.image.url) {
-    image = {
+    let sources = srcset(props.image.url, [200, 400, 800, [1600, 'q_50']])
+    image = Object.assign({
       class: 'u-spaceB2',
+      srcset: sources,
+      sizes: '(min-width: 1000px) 25vw, 50vw',
       alt: props.image.alt || '',
-      src: props.image.url,
-      width: props.image.dimensions.width,
-      height: props.image.dimensions.height
-    }
+      src: sources.split(' ')[0]
+    }, props.image.dimensions)
   }
 
   return html`
@@ -269,12 +278,17 @@ function asCard (props) {
   })
 
   if (props.image && props.image.url) {
-    props.image = {
+    let sources = srcset(
+      props.image.url,
+      [200, 400, 600, 900, [1600, 'q_60,c_thumb']],
+      { transforms: 'c_thumb' }
+    )
+    props.image = Object.assign({
+      srcset: sources,
+      sizes: '(min-width: 600px) 50vw, 100vw',
       alt: props.image.alt || '',
-      src: props.image.url,
-      width: props.image.dimensions.width,
-      height: props.image.dimensions.height
-    }
+      src: srcset(props.image.url, [900, 'c_thumb']).split(' ')[0]
+    }, props.image.dimensions)
   }
 
   return card(props)

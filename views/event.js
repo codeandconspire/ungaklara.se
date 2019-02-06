@@ -211,7 +211,7 @@ function eventPage (state, emit) {
 
               blocks.push(html`
                 <div class="u-spaceV8 u-narrow">
-                  ${trailer(bgProps, video(first))}
+                  ${trailer(bgProps, video(first, { first: true }))}
                   ${rest.length > 1 ? html`
                     <div class="u-container u-spaceT6">
                       ${grid({ size: { md: `1of${rest.length < 3 ? 2 : 3}` } }, rest)}
@@ -350,12 +350,15 @@ function eventPage (state, emit) {
                 badge: [doc.data.category, doc.data.subheading].filter(Boolean).join(' – '),
                 title: asText(doc.data.title),
                 text: asElement(doc.data.description, resolve, serialize),
-                image: doc.data.image.url ? {
-                  alt: doc.data.image.alt,
-                  src: doc.data.image.url,
-                  width: doc.data.image.dimensions.width,
-                  height: doc.data.image.dimensions.height
-                } : null
+                image: doc.data.image.url ? Object.assign({
+                  alt: doc.data.image.alt || '',
+                  sizes: '100vw',
+                  srcset: srcset(
+                    doc.data.image.url,
+                    [400, 600, 800, 1200, [1800, 'q_80'], [2600, 'q_50']]
+                  ),
+                  src: srcset(doc.data.image.url, [900]).split(' ')[0]
+                }, doc.data.image.dimensions) : null
               })}
             </div>
             ${blocks}
@@ -378,12 +381,13 @@ function eventPage (state, emit) {
     switch (slice.slice_type) {
       case 'image': {
         if (!slice.primary.image.url) return null
-        let attrs = {
-          alt: slice.primary.image.alt || '',
-          src: slice.primary.image.url,
-          width: slice.primary.image.dimensions.width,
-          height: slice.primary.image.dimensions.height
-        }
+        let sources = srcset(slice.primary.image.url, [400, 599, 900, [1200, 'q_50']])
+        let attrs = Object.assign({
+          srcset: sources,
+          sizes: '(min-width: 1000px) 33vw, (min-width: 600px) 50vw, 100vw',
+          src: sources.split(' ')[0],
+          alt: slice.primary.image.alt || ''
+        }, slice.primary.image.dimensions)
         return html`
           <figure class="Text u-sizeFull u-spaceV3">
             <img ${attrs} />
@@ -424,11 +428,11 @@ function video (props, opts) {
   return embed(Object.assign({
     url: props.embed_url,
     title: props.title,
-    src: `/media/${provider}/w_900/${id}`,
+    src: `/media/${provider}/w_${opts.first ? 900 : 400}/${id}`,
     width: props.thumbnail_width,
     height: props.thumbnail_height,
-    sizes: '(min-width: 600px) 65vw, 100vw',
-    srcset: srcset(id, [400, 900, 1800], { type: provider })
+    sizes: opts.first ? '(min-width: 600px) 65vw, 100vw' : '50vw',
+    srcset: srcset(id, [400, 900, 1800, [2600, 'q_50']], { type: provider })
   }, opts))
 }
 
@@ -437,14 +441,15 @@ function video (props, opts) {
 function teamMember (props) {
   var image
   if (props.image.url) {
-    image = {
-      class: 'u-spaceB1',
+    let sources = srcset(props.image.url, [200, 400, [800, 'q_50']])
+    image = Object.assign({
+      class: 'u-spaceB2',
+      sizes: '13em',
+      srcset: sources,
       style: 'max-width: 13em;',
       alt: props.image.alt || '',
-      src: props.image.url,
-      width: props.image.dimensions.width,
-      height: props.image.dimensions.height
-    }
+      src: sources.split(' ')[0]
+    }, props.image.dimensions)
   }
 
   return html`

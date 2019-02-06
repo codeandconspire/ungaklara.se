@@ -7,7 +7,7 @@ var intro = require('../components/intro')
 var byline = require('../components/byline')
 var reset = require('../components/text/reset')
 var serialize = require('../components/text/serialize')
-var { asText, resolve, i18n, luma } = require('../components/base')
+var { asText, resolve, i18n, luma, srcset } = require('../components/base')
 
 var text = i18n()
 
@@ -146,8 +146,14 @@ function teachers (state, emit) {
             heading: asText(slice.primary.heading),
             body: asElement(slice.primary.text, resolve, reset),
             image: slice.primary.image.url ? Object.assign({
-              src: slice.primary.image.url,
-              alt: slice.primary.image.alt
+              src: srcset(slice.primary.image.url, [200, 'c_thumb']).split(' ')[0],
+              sizes: '15rem',
+              srcset: srcset(
+                slice.primary.image.url,
+                [200, 400, [800, 'q_50,c_thumb']],
+                { transforms: 'c_thumb' }
+              ),
+              alt: slice.primary.image.alt || ''
             }, slice.primary.image.dimensions) : null
           })
         }
@@ -208,12 +214,17 @@ function asCard (doc, color) {
 
   var image = doc.data.featured_image
   if (image && image.url) {
-    props.image = {
+    let sources = srcset(
+      image.url,
+      [200, 400, 800, [1600, 'q_70,c_thumb']],
+      { transforms: 'c_thumb' }
+    )
+    props.image = Object.assign({
       alt: image.alt || '',
-      src: image.url,
-      width: image.dimensions.width,
-      height: image.dimensions.height
-    }
+      srcset: sources,
+      sizes: '(min-width: 600px) 50vw, 100vw',
+      src: srcset(image.url, [900, 'c_thumb']).split(' ')[0]
+    }, image.dimensions)
   }
 
   return card(props)
