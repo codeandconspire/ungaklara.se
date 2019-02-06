@@ -53,15 +53,25 @@ function eventPage (state, emit) {
 
         // facts box
         if (doc.data.about.length) {
+          let actions = []
+          if (doc.data.dates.find((item) => item.date)) {
+            actions.push({ text: text`Show dates`, href: `#${doc.id}-dates` })
+          }
+          if (doc.data.buy_link.url) {
+            actions.push({
+              target: '_blank',
+              rel: 'noopener noreferrer',
+              text: text`Buy ticket`,
+              href: doc.data.buy_link.url,
+              primary: true
+            })
+          }
           blocks.push(html`
             <div class="u-container">
               ${event({
                 image: doc.data.poster.url ? doc.data.poster : null,
                 body: doc.data.about,
-                actions: [
-                  { text: text`Show dates`, href: '/' },
-                  { text: text`Buy ticket`, href: '/', primary: true }
-                ]
+                actions
               })}
             </div>
           `)
@@ -289,26 +299,26 @@ function eventPage (state, emit) {
           let today = startOfDay(Date.now())
           let dates = doc.data.dates
             .map(function (item) {
-            if (!item.date) return null
+              if (!item.date) return null
 
-            var status = item.status.match(/^\d+/)
-            status = status ? +status[0] : null
+              var status = item.status.match(/^\d+/)
+              status = status ? +status[0] : null
 
-            var href = item.link.url || resolve(item.link)
-            var date = parse(item.date)
-            var time = item.time.match(TIME_REG)
-            if (time) {
-              date.setHours(+time[1])
-              date.setMinutes(+time[2])
-            }
-            return Object.assign({}, item, { date, href, status })
+              var href = item.link.url || resolve(item.link)
+              var date = parse(item.date)
+              var time = item.time.match(TIME_REG)
+              if (time) {
+                date.setHours(+time[1])
+                date.setMinutes(+time[2])
+              }
+              return Object.assign({}, item, { date, href, status })
             })
             .filter((item) => item && item.date > today)
             .sort((a, b) => a.date > b.date ? 1 : -1)
 
           if (dates.length) {
             blocks.push(html`
-              <section class="u-narrow u-container u-spaceV6">
+              <section class="u-narrow u-container u-spaceV6" id="${doc.id}-dates">
                 ${doc.data.dates_heading.length ? html`
                   <div class="Text u-sizeFull u-textCenter u-spaceB6">
                     <h2>${asText(doc.data.dates_heading)}</h2>
