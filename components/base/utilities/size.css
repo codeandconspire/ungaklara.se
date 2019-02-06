@@ -1,9 +1,10 @@
+@import "../global";
+
 /**
  * Proportional widths
  */
 
 /* @define utilities */
-
 .u-sizeFull {
   width: 100% !important;
 }

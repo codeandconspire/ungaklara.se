@@ -2,16 +2,18 @@ var html = require('choo/html')
 var parse = require('date-fns/parse')
 var asElement = require('prismic-element')
 var endOfDay = require('date-fns/end_of_day')
+var startOfDay = require('date-fns/start_of_day')
 var { Predicates } = require('prismic-javascript')
 var view = require('../components/view')
 var grid = require('../components/grid')
+var card = require('../components/card')
 var intro = require('../components/intro')
 var framed = require('../components/framed')
 var button = require('../components/button')
 var tablist = require('../components/tablist')
 var calendar = require('../components/calendar')
 var serialize = require('../components/text/serialize')
-var { asText, resolve, i18n, hexToRgb, loader } = require('../components/base')
+var { asText, resolve, i18n, hexToRgb, loader, srcset } = require('../components/base')
 
 var text = i18n()
 var PAGE_SIZE = 9
@@ -30,7 +32,7 @@ function event (state, emit) {
           var page = +state.query.page
           if (isNaN(page)) page = 1
           var pages = null
-          for (let i = 0; i < page; i++) {
+          for (let i = 1; i <= page; i++) {
             let docs = getPage(i)
             if (docs) {
               pages = pages || []
@@ -95,12 +97,31 @@ function event (state, emit) {
 
     var opts = {
       page: page,
-      pageSize: slug === 'kalendarium' ? PAGE_SIZE : 100,
-      orderings: '[document.first_publication_date desc]'
+      pageSize: slug === 'arkiv' ? PAGE_SIZE : 100
+    }
+
+    if (slug === 'arkiv') {
+      opts.orderings = '[my.event.archive_on desc]'
+    } else {
+      opts.orderings = '[document.first_publication_date desc]'
     }
 
     return state.prismic.get(predicates, opts, (err, response) => {
       if (err) throw err
+      if (response && !slug) {
+        // sort currently showing events by premiere date
+        return response.results
+          .map(function (doc) {
+            var premiere
+            for (let i = 0, len = doc.data.dates.length; i < len; i++) {
+              let date = parse(doc.data.dates[i].date)
+              if (!premiere || date < premiere) premiere = date
+            }
+            return { doc, premiere }
+          })
+          .sort((a, b) => a.premiere > b.premiere ? -1 : 1)
+          .map(({ doc }) => doc)
+      }
       return response ? response.results : null
     })
   }
@@ -152,15 +173,23 @@ function event (state, emit) {
         if (!docs) return calendar.loading(6)
         return calendar(docs.reduce((dates, doc) => {
           var title = asText(doc.data.title)
-          var image = Object.assign({
-            src: doc.data.poster.url
-          }, doc.data.poster.dimensions)
+          var image
+          if (doc.data.poster.url) {
+            let sources = srcset(doc.data.poster.url, [75, 150, [300, 'q_50']])
+            image = Object.assign({
+              srcset: sources,
+              sizes: '4.5rem',
+              alt: doc.data.poster.alt || '',
+              src: sources.split(' ')[0]
+            }, doc.data.poster.dimensions)
+          }
 
           for (let i = 0, len = doc.data.dates.length; i < len; i++) {
             let item = doc.data.dates[i]
             if (!item.date) continue
 
             let date = parse(item.date)
+            if (date < startOfDay(Date.now())) continue
             let status = +item.status.match(/^\d+/)
             let time = item.time && item.time.match(TIME_REG)
             if (time) {
@@ -170,15 +199,57 @@ function event (state, emit) {
 
             dates.push(Object.assign({
               href: resolve(doc)
-            }, item, { title, image, date, status }))
+            }, item, { title, image, date, status, link: resolve(item.link) }))
           }
 
           return dates
         }, []))
       }
+      case 'arkiv': {
+        let items = []
+        if (!docs) {
+          for (let i = 0; i < 6; i++) items.push(card.loading({ shrink: true }))
+        } else {
+          items = docs.map(archived)
+        }
+
+        return html`
+          <ol class="u-spaceV8">
+            ${grid({ size: { md: '1of3' } }, items)}
+          </ol>
+        `
+      }
       default: return null
     }
   }
+}
+
+// render archived event
+// obj -> Element
+function archived (doc) {
+  var props = {
+    shrink: true,
+    title: asText(doc.data.title),
+    body: asText(doc.data.description),
+    link: {
+      href: resolve(doc),
+      text: doc.data.cta || text`Read more`
+    }
+  }
+
+  if (doc.data.poster.url) {
+    let sources = srcset(doc.data.poster.url, [400, 600, [900, 'q_50']])
+    props.image = Object.assign({
+      srcset: sources,
+      sizes: '(min-width: 600px) 33vw, 100vw',
+      alt: doc.data.poster.alt || '',
+      src: sources.split(' ')[0]
+    }, doc.data.poster.dimensions)
+  }
+
+  return card(props, props.image ? null : html`
+    <div class="u-loading u-aspectPoster"></div>
+  `)
 }
 
 // render currently showing event
@@ -186,12 +257,20 @@ function event (state, emit) {
 function showing (doc) {
   var attrs = { class: 'u-spaceV6' }
   if (doc.data.theme) attrs.style = `--theme-color: ${hexToRgb(doc.data.theme)}`
+  let image
+  if (doc.data.poster.url) {
+    let sources = srcset(doc.data.poster.url, [400, 600, [900, 'q_50']])
+    image = Object.assign({
+      srcset: sources,
+      sizes: '25vw',
+      alt: doc.data.poster.alt || '',
+      src: sources.split(' ')[0]
+    }, doc.data.poster.dimensions)
+  }
   return html`
     <li ${attrs}>
       ${grid([
-        grid.cell({ size: { md: '1of4' } }, framed(Object.assign({
-          src: doc.data.poster.url
-        }, doc.data.poster.dimensions))),
+        grid.cell({ size: { md: '1of4' } }, image ? framed(image) : framed.loading()),
         grid.cell({ size: { md: '3of4' } }, html`
           <div class="u-spaceT4">
             <div class="Text Text--large u-spaceB4">
