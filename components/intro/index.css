@@ -18,11 +18,12 @@
   margin: 0 0 0.35em;
   hyphens: auto;
   line-height: 1;
+  margin-left: -0.3rem;
 }
 
 .Intro-badge {
   position: absolute;
-  left: 0;
+  left: 0.3rem;
   top: 0;
   text-transform: uppercase;
   font-size: 1rem;
