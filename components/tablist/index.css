@@ -3,20 +3,28 @@
 /* @define Tablist */
 .Tablist {
   display: flex;
+  flex-wrap: wrap;
   border: solid #000;
-  border-width: 2px 0 2px 2px;
+  border-width: 2px 0 0 2px;
 }
 
 .Tablist-tab {
-  flex: 1 1 auto;
+  flex: 1 1 100%;
   padding: 1em;
-  border-right: 2px solid #000;
+  border: solid #000;
+  border-width: 0 2px 2px 0;
   font-size: 1.125rem;
   text-align: center;
   font-weight: 600;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
   background-color: transparent;
+}
+
+@media (min-width: 600px) {
+  .Tablist-tab {
+    flex: 1 1 auto;
+  }
 }
 
 .Tablist-tab.is-selected {
