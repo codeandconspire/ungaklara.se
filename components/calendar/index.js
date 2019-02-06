@@ -39,7 +39,7 @@ function calendar (items) {
           </div>
         ` : null}
         <div class="Calendar-body">
-          <a href="${items.href}" class="Calendar-link">${item.title}</a>
+          <a href="${item.href}" class="Calendar-link">${item.title}</a>
           <br>
           <div>
             <span>${timestamp(item.date)}</span>
