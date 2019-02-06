@@ -1,7 +1,7 @@
 module.exports = navigation
 
 function navigation (state, emitter) {
-  state.referrer = null
+  state.referrer = state.href
 
   emitter.on('pushState', function (href, opts = {}) {
     if (!opts.persistScroll) onnavigate(href)
