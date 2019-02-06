@@ -40,13 +40,8 @@ function event (state, emit) {
             }
           }
 
-          var attrs = {}
-          if (doc && doc.data.theme) {
-            attrs.style = `--theme-color: ${hexToRgb(doc.data.theme)}`
-          }
-
           return html`
-            <div ${attrs}>
+            <div>
               <div class="u-spaceB8">
                 ${doc ? intro({ title: asText(doc.data.title) }) : intro.loading({ text: false })}
                 <div class="u-spaceT4">

@@ -17,7 +17,7 @@ var factsBox = require('../components/facts-box')
 var details = require('../components/text/details')
 var Blockquote = require('../components/text/blockquote')
 var serialize = require('../components/text/serialize')
-var { asText, resolve, i18n, hexToRgb, vw, filetype, srcset } = require('../components/base')
+var { asText, resolve, i18n, vw, filetype, srcset } = require('../components/base')
 
 var TIME_REG = /(\d{2})(?:.|:)(\d{2})/
 
@@ -37,7 +37,7 @@ function catchall (state, emit) {
 
 function eventPage (state, emit) {
   return html`
-  <main class="View-main">
+    <main class="View-main">
       ${state.prismic.getByUID('event', state.params.slug, function (err, doc) {
         if (err) throw err
         if (!doc) {
@@ -343,13 +343,8 @@ function eventPage (state, emit) {
           }
         }
 
-        var attrs = {}
-        if (doc.data.theme) {
-          attrs.style = `--theme-color: ${hexToRgb(doc.data.theme)}`
-        }
-
         return html`
-          <div ${attrs}>
+          <div>
             <div class="u-container">
               ${intro({
                 badge: [doc.data.category, doc.data.subheading].filter(Boolean).join(' – '),
