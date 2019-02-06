@@ -34,7 +34,7 @@ function card (props = {}, slot) {
       'Card--background': props.background
     })
   }
-  if (fill) attrs.style = `--Card-background-color: ${hexToRgb(fill)}`
+  if (fill) attrs.style = `--Card-background-color: ${hexToRgb(fill)};`
   if (props.image && props.image.width && props.image.height) {
     if (!attrs.style) attrs.style = ''
     attrs.style += ` --Card-figure-aspect: ${100 * props.image.height / props.image.width}%;`
