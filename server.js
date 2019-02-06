@@ -67,4 +67,16 @@ app.use(get('/robots.txt', function (ctx, next) {
   `
 }))
 
+// redirect pages with parent to proper url
+app.use(get('/:slug', async function (ctx, slug, next) {
+  var api = await Prismic.api(REPOSITORY, { req: ctx.req })
+  try {
+    let doc = await api.getByUID('page', slug)
+    if (!doc.data.parent) return next()
+    ctx.redirect(resolve(doc))
+  } catch (err) {
+    return next()
+  }
+}))
+
 app.listen(8080)
