@@ -132,7 +132,6 @@ function page (state, emit) {
       case 'author': {
         return html`
           <div class="u-spaceV6">
-            <div class="Text"><hr class="u-spaceB1"></div>
             ${byline({
               heading: asText(slice.primary.heading),
               body: asElement(slice.primary.text, resolve, reset),

@@ -62,6 +62,14 @@ function event (state, emit) {
                     onclick: onclick
                   }])}
                 </div>
+                ${!slug && doc && doc.data.notice.length ? html`
+                  <div>
+                    <div class="Text u-spaceV6">
+                      ${asElement(doc.data.notice, resolve, serialize)}
+                    </div>
+                    <hr>
+                  </div>
+                ` : null}
                 ${list(pages)}
                 ${pages && pages.length === page * PAGE_SIZE ? button({
                   href: state.href + `?page=${page + 1}`,
