@@ -27,6 +27,7 @@ function card (props = {}, slot) {
 
   var attrs = {
     class: className('Card', {
+      'Card--shrink': props.shrink,
       'Card--interactive': props.link && (fill || props.background),
       'Card--dark': props.background || (fill && luma(fill) < 185),
       'Card--fill': fill || props.background,
@@ -34,6 +35,10 @@ function card (props = {}, slot) {
     })
   }
   if (fill) attrs.style = `--Card-background-color: ${hexToRgb(fill)}`
+  if (props.image && props.image.width && props.image.height) {
+    if (!attrs.style) attrs.style = ''
+    attrs.style += ` --Card-figure-aspect: ${100 * props.image.height / props.image.width}%;`
+  }
 
   var cover = null
   if (slot) {
@@ -74,17 +79,17 @@ function card (props = {}, slot) {
   `
 }
 
-function loading (props = {}) {
+function loading (opts = {}) {
   return html`
-    <article class="Card">
+    <article class="Card ${opts.shrink ? 'Card--shrink' : ''} is-loading">
       ${figure.loading()}
       <div class="Card-content">
         <div class="Card-body">
-          ${props.date ? html`
-            <time class="Card-meta"><span class="u-loading">${loader(8)}</span></time>
+          ${opts.date ? html`
+            <time class="Card-meta">${loader(8)}</time>
           ` : null}
-          <h3 class="Card-title"><span class="u-loading">${loader(24)}</span></h3>
-          <p class="Card-text"><span class="u-loading">${loader(4)}</span></p>
+          <h3 class="Card-title">${loader(8)}</h3>
+          <p class="Card-text">${loader(24)}</p>
         </div>
       </div>
     </article>

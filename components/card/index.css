@@ -1,5 +1,9 @@
 @import "../base";
 
+:root {
+  --Card-figure-aspect: calc(100% * 3/4);
+}
+
 /* @define Card */
 .Card {
   display: flex;
@@ -45,6 +49,10 @@
   flex-direction: column;
   flex: 1 0 auto;
   align-items: flex-start;
+}
+
+.Card-content:not(:first-child) {
+  padding-top: 1.5rem;
 }
 
 @media (min-width: 1000px) {
@@ -105,30 +113,41 @@
 }
 
 .Card-title {
-  margin-bottom: 1.5rem;
+  display: inline;
   font-size: 1.5rem;
   font-weight: 600;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
 }
 
-.Card:not(.Card--fill) .Card-title:first-child {
-  margin-top: 1.5rem;
+@media (max-width: 599px) {
+  .Card--shrink:not(.is-loading) .Card-title {
+    border-bottom: 2px solid currentColor;
+  }
 }
 
 .Card-text {
   font-size: 1rem;
-  margin-top: 0.3em;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 599px) {
+  .Card--shrink .Card-text {
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+  }
 }
 
 @media (min-width: 900px) {
   .Card-title {
     font-size: 2rem;
-    line-height: 1.05;
   }
-
-  .Card-text {
-    margin-top: 0.5em;
+  .Card:not(.is-loading) .Card-title {
+    line-height: 1.05;
   }
 }
 
@@ -162,7 +181,6 @@
 
 .Card-figure {
   margin: 0;
-  max-height: 24rem;
   position: relative;
   overflow: hidden;
   z-index: -1;
@@ -173,7 +191,7 @@
   content: "";
   display: block;
   height: 0;
-  padding-top: calc(100% * 3/4);
+  padding-top: var(--Card-figure-aspect);
 }
 
 .Card:not(.Card--interactive) .Card-figure:not(.is-loading)::after {
@@ -193,7 +211,7 @@
 }
 
 .Card-figure.is-loading {
-  background-color: rgba(var(--color-gray-light), 0.6);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .Card-figure--background {
@@ -271,4 +289,16 @@
   font-size: 0.75em;
   line-height: 0;
   margin-right: -0.3rem;
+}
+
+@media (max-width: 599px) {
+  .Card--shrink .Card-link {
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    width: 1px;
+  }
 }
