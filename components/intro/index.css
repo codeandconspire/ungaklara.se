@@ -19,6 +19,7 @@
   hyphens: auto;
   line-height: 1;
   margin-left: -0.3rem;
+  letter-spacing: -.025em;
 }
 
 .Intro-badge {
