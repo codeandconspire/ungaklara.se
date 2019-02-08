@@ -1,0 +1,45 @@
+@import "../base";
+
+/* @define Filter */
+.Filter {
+  display: flex;
+  justify-content: space-between;
+  margin: 1.5rem 0;
+}
+
+.Filter-tags {
+  flex: 1 0 auto;
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+.Filter-toggle {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.Filter-label {
+  float: left;
+  margin: 0 0.6rem;
+  border-bottom: 2px solid transparent;
+  font-weight: 600;
+  font-family: var(--heading-font-family);
+  line-height: var(--heading-line-height);
+  cursor: pointer;
+}
+
+.Filter-label:first-child {
+  margin-left: 0;
+}
+
+.Filter-label:hover,
+.Filter-toggle:checked + .Filter-label {
+  border-bottom-color: currentColor;
+}

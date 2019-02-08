@@ -1,7 +1,7 @@
 var html = require('choo/html')
 var { Elements } = require('prismic-richtext')
 var embed = require('../embed')
-var { srcset } = require('../base')
+var { srcset, resolve, filetype } = require('../base')
 
 module.exports = serialize
 
@@ -43,6 +43,17 @@ function serialize (type, node, content, children) {
           ` : null}
         </figure>
       `
+    }
+    case Elements.hyperlink: {
+      let attrs = { href: resolve(node.data) }
+      if (node.data.url && filetype(node.data.url)) attrs.download = ''
+      if (node.data.target && node.data.target === '_blank') {
+        attrs.target = node.data.target
+        if (node.data.target === '_blank') {
+          attrs.rel = 'noopener noreferrer'
+        }
+      }
+      return html`<a ${attrs}>${children}</a>`
     }
     default: return null
   }

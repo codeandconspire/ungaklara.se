@@ -9,6 +9,7 @@ var grid = require('../components/grid')
 var card = require('../components/card')
 var intro = require('../components/intro')
 var framed = require('../components/framed')
+var filter = require('../components/filter')
 var button = require('../components/button')
 var tablist = require('../components/tablist')
 var calendar = require('../components/calendar')
@@ -62,12 +63,19 @@ function event (state, emit) {
                     onclick: onclick
                   }])}
                 </div>
+                ${slug === 'arkiv'
+                  ? doc
+                    ? filter(doc.data.filters.map((item) => Object.assign({
+                      selected: state.query.tag === item.tag
+                    }, item)), onfilter)
+                    : filter.loading()
+                  : null}
                 ${!slug && doc && doc.data.notice.length ? html`
-                  <div>
-                    <div class="Text u-spaceV6">
+                  <div class="u-spaceV6">
+                    <div class="Text">
                       ${asElement(doc.data.notice, resolve, serialize)}
                     </div>
-                    <hr>
+                    <hr class="u-spaceV6">
                   </div>
                 ` : null}
                 ${list(pages)}
@@ -84,6 +92,14 @@ function event (state, emit) {
     </main>
   `
 
+  function onfilter (name, value) {
+    var query = state.query
+    var url = `${state.href}?${name}=${value}`
+    if (query.tag && name !== 'tag') url += `&tag=${query.tag}`
+    if (query.period && name !== 'period') url += `&period=${query.period}`
+    emit('replaceState', url, { persistScroll: true })
+  }
+
   function onclick (event) {
     emit('pushState', event.target.href, { persistScroll: true })
     event.preventDefault()
@@ -97,6 +113,10 @@ function event (state, emit) {
       Predicates.at('document.type', 'event'),
       Predicates[selector]('my.event.archive_on', endOfDay(Date.now()))
     ]
+
+    if (state.query.tag) {
+      predicates.push(Predicates.at('document.tags', [state.query.tag]))
+    }
 
     var opts = {
       page: page,
@@ -167,7 +187,7 @@ function event (state, emit) {
         }
 
         return html`
-          <ol class="u-spaceV8">
+          <ol>
             ${items}
           </ol>
         `
@@ -217,7 +237,7 @@ function event (state, emit) {
         }
 
         return html`
-          <ol class="u-spaceV8">
+          <ol>
             ${grid({ size: { md: '1of3' } }, items)}
           </ol>
         `

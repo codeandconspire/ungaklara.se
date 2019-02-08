@@ -1,6 +1,6 @@
 var html = require('choo/html')
 var assert = require('assert')
-var { loader, i18n, isSameDomain, filetype, className } = require('../base')
+var { loader, i18n, isSameDomain, filetype } = require('../base')
 
 var text = i18n(require('./lang.json'))
 
