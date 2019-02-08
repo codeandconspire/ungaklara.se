@@ -23,7 +23,7 @@ function calendar (items) {
 
     if (!day || date > day) {
       rows.push(html`
-        <li class="Calendar-row">
+        <li class="Calendar-row u-slideUp" style="animation-delay: ${i * 200}ms;">
           <h2 class="Calendar-day">
             ${capitalize(format(date, 'dddd, D MMMM YYYY', { locale: sv }))}
           </h2>
@@ -32,7 +32,7 @@ function calendar (items) {
     }
 
     rows.push(html`
-      <li class="Calendar-row">
+      <li class="Calendar-row u-slideUp" style="animation-delay: ${i * 200}ms;">
         ${item.image ? html`
           <div class="Calendar-poster">
             ${framed(Object.assign({ size: 'sm' }, item.image))}
@@ -67,7 +67,7 @@ function loading (count = 3) {
   var rows = []
   for (let i = 0; i < count; i++) {
     rows.push(html`
-    <li class="Calendar-row">
+    <li class="Calendar-row u-slideUp" style="animation-delay: ${i * 200}ms;">
       <div class="Calendar-poster">
         ${framed.loading({ size: 'sm' })}
       </div>

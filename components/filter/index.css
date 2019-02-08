@@ -3,8 +3,10 @@
 /* @define Filter */
 .Filter {
   display: flex;
+  flex-wrap: wrap-reverse;
+  align-items: center;
   justify-content: space-between;
-  margin: 1.5rem 0;
+  padding: 0.75rem 0;
 }
 
 .Filter-tags {
@@ -12,7 +14,13 @@
   display: inline-block;
   padding: 0;
   border: 0;
-  margin: 0;
+  margin: 0.75rem 0;
+}
+
+@media (max-width: 599px) {
+  .Filter-tags {
+    flex: 1 1 100%;
+  }
 }
 
 .Filter-toggle {
@@ -26,20 +34,47 @@
 }
 
 .Filter-label {
-  float: left;
-  margin: 0 0.6rem;
+  display: inline-block;
+  margin-right: 1.2rem;
   border-bottom: 2px solid transparent;
   font-weight: 600;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
+}
+
+.Filter-label--interactive:hover,
+.Filter-toggle:checked + .Filter-label {
+  border-bottom-color: currentColor;
+}
+
+.Filter-label--interactive {
   cursor: pointer;
 }
 
-.Filter-label:first-child {
-  margin-left: 0;
+.Filter-decade {
+  display: flex;
+  align-items: center;
+  margin: 0.75rem 0;
 }
 
-.Filter-label:hover,
-.Filter-toggle:checked + .Filter-label {
-  border-bottom-color: currentColor;
+@media (max-width: 599px) {
+  .Filter-decade {
+    flex: 1 1 100%;
+  }
+}
+
+.Filter-select {
+  padding: 0.5em 4em 0.5em 1em;
+  border: 0;
+  margin-left: 0.5em;
+  font-weight: 600;
+  font-family: var(--heading-font-family);
+  line-height: var(--heading-line-height);
+  background-image: url("./arrow.svg");
+  background-position: calc(100% - 1rem) 50%;
+  background-size: 0.7rem 0.45rem;
+  background-repeat: no-repeat;
+  border-radius: 0;
+  -webkit-appearance: none;
+  appearance: none;
 }

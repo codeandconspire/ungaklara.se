@@ -1,30 +1,44 @@
 var html = require('choo/html')
 var { i18n, loader } = require('../base')
 
+var YEARS = []
+var year = ((new Date()).getFullYear() + '').replace(/\d$/, '0')
+while (+year >= 1970) {
+  YEARS.push(year.toString())
+  year -= 10
+}
+
 var text = i18n()
 
 module.exports = filter
 module.exports.loading = loading
 
-function filter (tags, callback) {
+function filter (tags, period, callback) {
   var selected = tags.find((item) => item.selected)
   return html`
     <form class="Filter" method="GET">
       <fieldset class="Filter-tags">
-        <legend class="Filter-label">${text`Show:`}</legend>
-        <label>
+        <span class="Filter-label">${text`Show:`}</span>
+        <label class="u-inlineBlock">
           <input class="Filter-toggle" type="radio" name="tag" value="" checked=${!selected} onchange=${onchange}>
-          <span class="Filter-label">${text`All`}</span>
+          <span class="Filter-label Filter-label--interactive">${text`All`}</span>
         </label>
-        <div class="Filter-options">
-          ${tags.map((item) => html`
-            <label>
-              <input class="Filter-toggle" type="radio" name="tag" value="${item.tag}" checked=${item.selected} onchange=${onchange}>
-              <span class="Filter-label">${item.tag}</span>
-            </label>
-          `)}
-        </div>
+        ${tags.map((item) => html`
+          <label class="u-inlineBlock">
+            <input class="Filter-toggle" type="radio" name="tag" value="${item.tag}" checked=${item.selected} onchange=${onchange}>
+            <span class="Filter-label Filter-label--interactive">${item.tag}</span>
+          </label>
+        `)}
       </fieldset>
+      <label class="Filter-decade">
+        <span class="Filter-label">${text`From decade:`}</span>
+        <select name="period" class="Filter-select" onchange=${onchange}>
+          <option value="" selected=${!period}>${text`All`}</option>
+          ${YEARS.map((year) => html`
+            <option value="${year}" selected=${year === period}>${text`The ${year}'s`}</option>
+          `)}
+        </select>
+      </label>
       <input type="submit" class="u-hiddenVisually">
     </form>
   `

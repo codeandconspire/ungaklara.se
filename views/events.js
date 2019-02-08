@@ -1,6 +1,7 @@
 var html = require('choo/html')
 var parse = require('date-fns/parse')
 var asElement = require('prismic-element')
+var addYears = require('date-fns/add_years')
 var endOfDay = require('date-fns/end_of_day')
 var startOfDay = require('date-fns/start_of_day')
 var { Predicates } = require('prismic-javascript')
@@ -41,6 +42,10 @@ function event (state, emit) {
             }
           }
 
+          var tags = doc ? doc.data.filters.map((item) => Object.assign({
+            selected: state.query.tag === item.tag
+          }, item)) : null
+
           return html`
             <div>
               <div class="u-spaceB8">
@@ -65,9 +70,7 @@ function event (state, emit) {
                 </div>
                 ${slug === 'arkiv'
                   ? doc
-                    ? filter(doc.data.filters.map((item) => Object.assign({
-                      selected: state.query.tag === item.tag
-                    }, item)), onfilter)
+                    ? filter(tags, state.query.period, onfilter)
                     : filter.loading()
                   : null}
                 ${!slug && doc && doc.data.notice.length ? html`
@@ -108,7 +111,7 @@ function event (state, emit) {
   // get paginated result for page
   // num -> arr
   function getPage (page) {
-    var selector = slug === 'arkiv' ? 'dateBefore' : 'dateAfter'
+    let selector = slug === 'arkiv' ? 'dateBefore' : 'dateAfter'
     var predicates = [
       Predicates.at('document.type', 'event'),
       Predicates[selector]('my.event.archive_on', endOfDay(Date.now()))
@@ -116,6 +119,15 @@ function event (state, emit) {
 
     if (state.query.tag) {
       predicates.push(Predicates.at('document.tags', [state.query.tag]))
+    }
+
+    if (state.query.period) {
+      let min = parse(state.query.period)
+      let max = addYears(min, 10)
+      predicates.push(
+        Predicates.dateAfter('my.event.archive_on', min),
+        Predicates.dateBefore('my.event.archive_on', max)
+      )
     }
 
     var opts = {
@@ -168,7 +180,7 @@ function event (state, emit) {
         } else {
           for (let i = 0; i < 6; i++) {
             items.push(html`
-              <li class="u-spaceV6">
+              <li class="u-spaceV6 u-slideUp" style="animation-delay: ${i * 200}ms;">
                 ${grid([
                   grid.cell({ size: { md: '1of4' } }, framed.loading()),
                   grid.cell({ size: { md: '3of4' } }, html`
@@ -238,12 +250,53 @@ function event (state, emit) {
 
         return html`
           <ol>
-            ${grid({ size: { md: '1of3' } }, items)}
+            ${grid({ appear: true, size: { md: '1of3' } }, items)}
           </ol>
         `
       }
       default: return null
     }
+  }
+
+  // render currently showing event
+  // obj -> Element
+  function showing (doc, index) {
+    var attrs = {
+      class: 'u-spaceV6 u-slideUp',
+      style: `animation-delay: ${index * 200}ms;`
+    }
+    if (doc.data.theme) attrs.style = `--theme-color: ${hexToRgb(doc.data.theme)}`
+    let image
+    if (doc.data.poster.url) {
+      let sources = srcset(doc.data.poster.url, [400, 600, [900, 'q_50']])
+      image = Object.assign({
+        srcset: sources,
+        sizes: '25vw',
+        alt: doc.data.poster.alt || '',
+        src: sources.split(' ')[0]
+      }, doc.data.poster.dimensions)
+    }
+    return html`
+      <li ${attrs}>
+        ${grid([
+          grid.cell({ size: { md: '1of4' } }, image ? framed(image) : framed.loading()),
+          grid.cell({ size: { md: '3of4' } }, html`
+            <div class="u-spaceT4">
+              <div class="Text Text--large u-spaceB4">
+                <small class="u-textHeading u-textUppercase">
+                  ${[doc.data.category, doc.data.subheading].filter(Boolean).join(' – ')}
+                </small>
+                <h2 class="Text-h3 u-spaceT1">${asText(doc.data.title)}</h2>
+                <div class="u-spaceT2">
+                  ${asElement(doc.data.description, resolve, serialize)}
+                </div>
+              </div>
+              ${button({ text: text`Read more`, href: resolve(doc), primary: true, class: 'u-spaceR1' })}
+            </div>
+          `)
+        ])}
+      </li>
+    `
   }
 }
 
@@ -273,44 +326,6 @@ function archived (doc) {
   return card(props, props.image ? null : html`
     <div class="u-loading u-aspectPoster"></div>
   `)
-}
-
-// render currently showing event
-// obj -> Element
-function showing (doc) {
-  var attrs = { class: 'u-spaceV6' }
-  if (doc.data.theme) attrs.style = `--theme-color: ${hexToRgb(doc.data.theme)}`
-  let image
-  if (doc.data.poster.url) {
-    let sources = srcset(doc.data.poster.url, [400, 600, [900, 'q_50']])
-    image = Object.assign({
-      srcset: sources,
-      sizes: '25vw',
-      alt: doc.data.poster.alt || '',
-      src: sources.split(' ')[0]
-    }, doc.data.poster.dimensions)
-  }
-  return html`
-    <li ${attrs}>
-      ${grid([
-        grid.cell({ size: { md: '1of4' } }, image ? framed(image) : framed.loading()),
-        grid.cell({ size: { md: '3of4' } }, html`
-          <div class="u-spaceT4">
-            <div class="Text Text--large u-spaceB4">
-              <small class="u-textHeading u-textUppercase">
-                ${[doc.data.category, doc.data.subheading].filter(Boolean).join(' – ')}
-              </small>
-              <h2 class="Text-h3 u-spaceT1">${asText(doc.data.title)}</h2>
-              <div class="u-spaceT2">
-                ${asElement(doc.data.description, resolve, serialize)}
-              </div>
-            </div>
-            ${button({ text: text`Read more`, href: resolve(doc), primary: true, class: 'u-spaceR1' })}
-          </div>
-        `)
-      ])}
-    </li>
-  `
 }
 
 function meta (state) {
