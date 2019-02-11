@@ -8,6 +8,7 @@ module.exports = class Footer extends Component {
   constructor (id, state, emit) {
     super(id)
     this.prismic = state.prismic
+    this.local = state.components[id] = { id }
   }
 
   update () {
@@ -16,7 +17,7 @@ module.exports = class Footer extends Component {
 
   createElement () {
     return html`
-      <footer class="Footer u-container">
+      <footer class="Footer u-container" id="${this.local.id}">
         ${this.prismic.getSingle('website', function (err, doc) {
           if (err || !doc) return null
           return html`

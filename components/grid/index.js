@@ -12,11 +12,9 @@ function grid (opts, children) {
     opts = {}
   }
 
-  return html`
-    <div class="${className('Grid', { 'Grid--carousel': opts.carousel, 'Grid--slim': opts.slim })}">
-      ${children.map(child)}
-    </div>
-  `
+  var classes = className('Grid', { 'Grid--carousel': opts.carousel, 'Grid--slim': opts.slim })
+  if (opts.ordered) return html`<ol class="${classes}">${children.map(child)}</ol>`
+  return html`<div class="${classes}">${children.map(child)}</div>`
 
   // render grid cell
   // (Element|obj -> num) -> Element
@@ -30,16 +28,13 @@ function grid (opts, children) {
     var size = props.size || opts.size
     if (size) attrs.class += ' ' + sizes(size)
 
-    if (opts.appear) {
+    if (opts.appear || props.appear) {
       attrs.class += ' Grid-cell--appear'
       attrs.style = `animation-delay: ${index * 100}ms`
     }
 
-    return html`
-      <div ${attrs}>
-        ${children}
-      </div>
-    `
+    if (opts.ordered) return html`<li ${attrs}>${children}</li>`
+    return html`<div ${attrs}>${children}</div>`
   }
 }
 

@@ -8,6 +8,7 @@ module.exports = class Header extends Component {
   constructor (id, state, emit) {
     super(id)
     this.prismic = state.prismic
+    this.local = state.components[id] = { id }
   }
 
   update () {
@@ -16,7 +17,7 @@ module.exports = class Header extends Component {
 
   createElement () {
     return html`
-      <header class="Header u-container">
+      <header class="Header u-container" id="${this.local.id}">
         <h2 class="u-hiddenVisually">${text`Navigation`}</h2>
         <nav>
           <a class="Header-logo" href="/" rel="home">${text`SITE_NAME`}</a>

@@ -20,10 +20,15 @@ function calendar (items) {
     let item = items[i]
     let date = startOfDay(item.date)
     let available = item.status !== 3
+    let attrs = { class: 'Calendar-row' }
+    if (item.appear) {
+      attrs.class += ' u-slideUp'
+      attrs.style = `animation-delay: ${i * 200}ms;`
+    }
 
     if (!day || date > day) {
       rows.push(html`
-        <li class="Calendar-row u-slideUp" style="animation-delay: ${i * 200}ms;">
+        <li ${attrs}>
           <h2 class="Calendar-day">
             ${capitalize(format(date, 'dddd, D MMMM YYYY', { locale: sv }))}
           </h2>
@@ -32,7 +37,7 @@ function calendar (items) {
     }
 
     rows.push(html`
-      <li class="Calendar-row u-slideUp" style="animation-delay: ${i * 200}ms;">
+      <li ${attrs}>
         ${item.image ? html`
           <div class="Calendar-poster">
             ${framed(Object.assign({ size: 'sm' }, item.image))}

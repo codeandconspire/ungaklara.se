@@ -25,87 +25,90 @@ module.exports = view(event, meta)
 
 function event (state, emit) {
   var { slug } = state.params
+  var page = parseInt(state.query.page, 10)
+  if (isNaN(page)) page = 1
+
   return html`
     <main class="View-main">
-      <div class="u-container">
-        ${state.prismic.getSingle('events', (err, doc) => {
-          if (err) throw err
+      ${state.prismic.getSingle('events', (err, doc) => {
+        if (err) throw err
 
-          var page = +state.query.page
-          if (isNaN(page)) page = 1
-          var pages = null
-          for (let i = 1; i <= page; i++) {
-            let docs = getPage(i)
-            if (docs) {
-              pages = pages || []
-              pages.push(...docs)
-            }
-          }
+        var pages = []
+        for (let i = 1; i <= page; i++) pages.push(...getPage(i))
 
-          var tags = doc ? doc.data.filters.map((item) => Object.assign({
-            selected: state.query.tag === item.tag
-          }, item)) : null
+        var tags = doc ? doc.data.filters.map((item) => Object.assign({
+          selected: state.query.tag === item.tag
+        }, item)) : null
 
-          return html`
-            <div>
-              <div class="u-spaceB8">
-                ${doc ? intro({ title: asText(doc.data.title) }) : intro.loading({ text: false })}
-                <div class="u-spaceT4">
-                  ${tablist({ static: true }, [{
-                    href: '/pa-scen',
-                    selected: !slug,
-                    text: text`Currently showing`,
-                    onclick: onclick
-                  }, {
-                    href: '/pa-scen/kalendarium',
-                    selected: slug === 'kalendarium',
-                    text: text`Calendar`,
-                    onclick: onclick
-                  }, {
-                    href: '/pa-scen/arkiv',
-                    selected: slug === 'arkiv',
-                    text: text`Archive`,
-                    onclick: onclick
-                  }])}
-                </div>
-                ${slug === 'arkiv'
-                  ? doc
-                    ? filter(tags, state.query.period, onfilter)
-                    : filter.loading()
-                  : null}
-                ${!slug && doc && doc.data.notice.length ? html`
-                  <div class="u-spaceV6">
-                    <div class="Text">
-                      ${asElement(doc.data.notice, resolve, serialize)}
-                    </div>
-                    <hr class="u-spaceV6">
-                  </div>
-                ` : null}
-                ${list(pages)}
-                ${pages && pages.length === page * PAGE_SIZE ? button({
-                  href: state.href + `?page=${page + 1}`,
-                  disabled: state.ui.isLoading,
-                  text: text`Show more` })
-                : null}
-              </div>
+        return html`
+          <div class="u-container">
+            ${doc ? intro({ title: asText(doc.data.title) }) : intro.loading({ text: false })}
+            <div class="u-spaceT4">
+              ${tablist({ static: true }, [{
+                href: '/pa-scen',
+                selected: !slug,
+                text: text`Currently showing`,
+                onclick: onselect
+              }, {
+                href: '/pa-scen/kalendarium',
+                selected: slug === 'kalendarium',
+                text: text`Calendar`,
+                onclick: onselect
+              }, {
+                href: '/pa-scen/arkiv',
+                selected: slug === 'arkiv',
+                text: text`Archive`,
+                onclick: onselect
+              }])}
             </div>
-          `
-        })}
-      </div>
+            ${slug === 'arkiv'
+              ? doc
+                ? filter(tags, state.query.period, onfilter)
+                : filter.loading()
+              : null}
+            ${!slug && doc && doc.data.notice.length ? html`
+              <div class="u-spaceV6">
+                <div class="Text">
+                  ${asElement(doc.data.notice, resolve, serialize)}
+                </div>
+                <hr class="u-spaceV6">
+              </div>
+            ` : null}
+            ${list(pages)}
+            <div class="Text u-sizeFull u-spaceV6 u-textCenter">
+              ${pages && pages.length === page * PAGE_SIZE ? html`
+                <a href="${getHrefWithParam('page', page + 1)}" onclick=${onpaginate}>
+                  <strong>${text`Show more`}</strong>
+                </a>
+              ` : null}
+            </div>
+          </div>
+        `
+      })}
     </main>
   `
 
+  function onpaginate (event) {
+    if (state.ui.isLoading) return
+    emit('replaceState', event.currentTarget.href, { persistScroll: true })
+    event.preventDefault()
+  }
+
   function onfilter (name, value) {
+    emit('replaceState', getHrefWithParam(name, value), { persistScroll: true })
+  }
+
+  function onselect (event) {
+    emit('pushState', event.currentTarget.href, { persistScroll: true })
+    event.preventDefault()
+  }
+
+  function getHrefWithParam (name, value) {
     var query = state.query
     var url = `${state.href}?${name}=${value}`
     if (query.tag && name !== 'tag') url += `&tag=${query.tag}`
     if (query.period && name !== 'period') url += `&period=${query.period}`
-    emit('replaceState', url, { persistScroll: true })
-  }
-
-  function onclick (event) {
-    emit('pushState', event.target.href, { persistScroll: true })
-    event.preventDefault()
+    return url
   }
 
   // get paginated result for page
@@ -143,28 +146,34 @@ function event (state, emit) {
 
     return state.prismic.get(predicates, opts, (err, response) => {
       if (err) throw err
-      if (response && !slug) {
-        // sort currently showing events by premiere date
-        return response.results
-          .map(function (doc) {
-            var premiere
-            for (let i = 0, len = doc.data.dates.length; i < len; i++) {
-              let date = parse(doc.data.dates[i].date)
-              if (!premiere || date < premiere) premiere = date
-            }
-            return { doc, premiere }
-          })
-          .sort((a, b) => a.premiere > b.premiere ? -1 : 1)
-          .map(({ doc }) => doc)
+
+      if (!response) {
+        let items = []
+        for (let i = 0; i < PAGE_SIZE; i++) items.push(null)
+        return items
       }
-      return response ? response.results : null
+
+      if (slug) return response.results
+
+      // sort currently showing events by premiere date
+      return response.results
+        .map(function (doc) {
+          var premiere
+          for (let i = 0, len = doc.data.dates.length; i < len; i++) {
+            let date = parse(doc.data.dates[i].date)
+            if (!premiere || date < premiere) premiere = date
+          }
+          return { doc, premiere }
+        })
+        .sort((a, b) => a.premiere > b.premiere ? -1 : 1)
+        .map(({ doc }) => doc)
     })
   }
 
   // render document list
   // arr? -> Element
   function list (docs) {
-    if (docs && !docs.length) {
+    if (!docs.length) {
       return html`
         <div class="Text u-spaceV8 u-textCenter u-sizeFull">
           <p>${text`No more results`}</p>
@@ -174,39 +183,33 @@ function event (state, emit) {
 
     switch (slug) {
       case undefined: {
-        let items = []
-        if (docs) {
-          items = docs.map(showing)
-        } else {
-          for (let i = 0; i < 6; i++) {
-            items.push(html`
-              <li class="u-spaceV6 u-slideUp" style="animation-delay: ${i * 200}ms;">
-                ${grid([
-                  grid.cell({ size: { md: '1of4' } }, framed.loading()),
-                  grid.cell({ size: { md: '3of4' } }, html`
-                    <div class="u-spaceT4">
-                      <div class="Text Text--large">
-                        <small>${loader(3)}</small>
-                        <h2 class="Text-h3 u-spaceT1">${loader(6)}</h2>
-                        <div class="u-spaceT2">${loader(80)}</div>
-                      </div>
-                    </div>
-                  `)
-                ])}
-              </li>
-            `)
-          }
-        }
-
         return html`
           <ol>
-            ${items}
+            ${docs.map(function (doc, index) {
+              if (doc) return showing(doc, index)
+              return html`
+                <li class="u-spaceV6 u-slideUp" style="animation-delay: ${index * 200}ms;">
+                  ${grid([
+                    grid.cell({ size: { md: '1of4' } }, framed.loading()),
+                    grid.cell({ size: { md: '3of4' } }, html`
+                      <div class="u-spaceT4">
+                        <div class="Text Text--large">
+                          <small>${loader(3)}</small>
+                          <h2 class="Text-h3 u-spaceT1">${loader(6)}</h2>
+                          <div class="u-spaceT2">${loader(80)}</div>
+                        </div>
+                      </div>
+                    `)
+                  ])}
+                </li>
+              `
+            })}
           </ol>
         `
       }
       case 'kalendarium': {
-        if (!docs) return calendar.loading(6)
-        return calendar(docs.reduce((dates, doc) => {
+        if (!docs.find(Boolean)) return calendar.loading(6)
+        return calendar(docs.reduce(function (dates, doc, index) {
           var title = asText(doc.data.title)
           var image
           if (doc.data.poster.url) {
@@ -233,7 +236,8 @@ function event (state, emit) {
             }
 
             dates.push(Object.assign({
-              href: resolve(doc)
+              href: resolve(doc),
+              appear: index + 1 > PAGE_SIZE || Boolean(state.referrer)
             }, item, { title, image, date, status, link: resolve(item.link) }))
           }
 
@@ -241,18 +245,19 @@ function event (state, emit) {
         }, []))
       }
       case 'arkiv': {
-        let items = []
-        if (!docs) {
-          for (let i = 0; i < 6; i++) items.push(card.loading({ shrink: true }))
-        } else {
-          items = docs.map(archived)
-        }
-
-        return html`
-          <ol>
-            ${grid({ appear: true, size: { md: '1of3' } }, items)}
-          </ol>
-        `
+        return grid({ ordered: true, size: { md: '1of3' } }, docs.map(function (doc, index) {
+          var isLastBatch = page > 1 && index >= (PAGE_SIZE * page) - PAGE_SIZE
+          var attrs = { class: 'u-sizeFull' }
+          if (isLastBatch || Boolean(state.referrer)) {
+            attrs.class += ' u-slideUp'
+            attrs.style = `animation-delay: ${(index - ((PAGE_SIZE * page) - PAGE_SIZE)) * 200}ms;`
+          }
+          return html`
+            <div ${attrs}>
+              ${doc ? archived(doc) : card.loading()}
+            </div>
+          `
+        }))
       }
       default: return null
     }
@@ -261,10 +266,10 @@ function event (state, emit) {
   // render currently showing event
   // obj -> Element
   function showing (doc, index) {
-    var attrs = {
+    var attrs = index + 1 > PAGE_SIZE || Boolean(state.referrer) ? {
       class: 'u-spaceV6 u-slideUp',
       style: `animation-delay: ${index * 200}ms;`
-    }
+    } : {}
     if (doc.data.theme) attrs.style = `--theme-color: ${hexToRgb(doc.data.theme)}`
     let image
     if (doc.data.poster.url) {
@@ -302,7 +307,7 @@ function event (state, emit) {
 
 // render archived event
 // obj -> Element
-function archived (doc) {
+function archived (doc, index) {
   var props = {
     shrink: true,
     title: asText(doc.data.title),

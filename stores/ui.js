@@ -29,6 +29,6 @@ function ui (state, emitter) {
 
   function done () {
     queue--
-    state.ui.isLoading = queue === 0
+    state.ui.isLoading = queue !== 0
   }
 }
