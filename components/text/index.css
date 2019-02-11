@@ -13,8 +13,14 @@
   color: rgb(var(--color-gray-dark));
 }
 
+.Text--small,
 .Text-small {
-  font-size: 0.8em;
+  font-size: 0.875rem;
+}
+
+.Text--large,
+.Text-large {
+  font-size: 1.125rem;
 }
 
 .Text:first-child {
@@ -25,14 +31,34 @@
   margin-bottom: 0;
 }
 
-.Text--large,
-.Text-large {
-  font-size: 1.125rem;
+.Text-label {
+  display: block;
+  padding: 0;
+  margin: 0 0 0.3em 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.875em;
+}
+
+.Text--fat,
+.Text-fat {
+  font-weight: 600;
+  font-family: var(--heading-font-family);
+  line-height: var(--heading-line-height);
 }
 
 @media (min-width: 1000px) {
-  .Text--large,
-  .Text-large {
+  .Text:not(.Text--fixed) {
+    font-size: 1.125rem;
+  }
+
+  .Text--small:not(.Text--fixed),
+  .Text:not(.Text--fixed) .Text-small {
+    font-size: 0.875rem;
+  }
+
+  .Text--large:not(.Text--fixed),
+  .Text:not(.Text--fixed) .Text-large {
     font-size: 1.375rem;
   }
 }
@@ -134,7 +160,7 @@
 
 .Text img + figcaption,
 .Text pre + figcaption {
-  margin-top: -1em;
+  margin-top: -0.5em;
 }
 
 .Text img {
@@ -181,7 +207,7 @@
   position: relative;
   outline: 0;
   font-weight: 600;
-  font-size: 1.5em;
+  font-size: 1.5rem;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
 }
@@ -244,8 +270,6 @@
  */
 
 .Text-blockquote {
-  padding: 1.5em;
-  margin: 1.5em 0;
   position: relative;
   z-index: 0;
   font-weight: 600;
@@ -255,56 +279,82 @@
   word-break: break-word;
 }
 
+.Text-blockquote:not(:first-child) {
+  margin-top: 1.5rem;
+}
+
+.Text-blockquote:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
+.Text-blockquote .Text-label {
+  margin-top: 1.2rem;
+}
+
 @media (min-width: 600px) {
   .Text-blockquote {
+    margin: -1rem 0;
+    padding: 2.5rem 0 2rem 1.4em;
     font-size: 1.125em;
   }
-}
 
-.Text-blockquote::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: -1;
-}
+  .Text-blockquote::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+  }
 
-.Text-blockquote--variant1::before {
-  width: 5rem;
-  height: 5rem;
-  border-radius: 100%;
-  background: linear-gradient(53deg, rgb(var(--color-green)) 45%, rgba(var(--color-green), 0) 85%, transparent);
-}
+  .Text-blockquote--variant1::before {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 100%;
+    background: linear-gradient(53deg, rgb(var(--color-green)) 45%, rgba(var(--color-green), 0) 85%, transparent);
+  }
 
-.Text-blockquote--variant2::before {
-  width: 2rem;
-  height: 100%;
-  background: linear-gradient(rgba(var(--color-pink), 0) 5%, rgb(var(--color-pink)) 85%, rgb(var(--color-pink)));
-}
+  .Text-blockquote--variant2::before {
+    width: 2rem;
+    height: 100%;
+    background: linear-gradient(rgba(var(--color-pink), 0) 5%, rgb(var(--color-pink)) 85%, rgb(var(--color-pink)));
+  }
 
-.Text-blockquote--variant3::before {
-  width: 4.625rem;
-  height: 5rem;
-  max-height: 100%;
-  background-image:
-    linear-gradient(rgb(var(--color-yellow)) 20%, rgba(var(--color-yellow), 0)),
-    linear-gradient(rgb(var(--color-yellow)) 20%, rgba(var(--color-yellow), 0));
-  background-position: 0 0, 1.9rem 0;
-  background-size: 1.3rem 100%, 1.3rem 100%;
-  background-repeat: no-repeat;
-}
+  .Text-blockquote--variant3::before {
+    width: 4.625rem;
+    height: 5rem;
+    max-height: 100%;
+    background-image:
+      linear-gradient(rgb(var(--color-yellow)) 20%, rgba(var(--color-yellow), 0)),
+      linear-gradient(rgb(var(--color-yellow)) 20%, rgba(var(--color-yellow), 0));
+    background-position: 0 0, 1.9rem 0;
+    background-size: 1.3rem 100%, 1.3rem 100%;
+    background-repeat: no-repeat;
+  }
 
-.Text-blockquote--variant4::before {
-  width: 5rem;
-  height: 5rem;
-  border: 1.3rem solid transparent;
-  border-image: linear-gradient(135deg, rgb(var(--color-blue)) 10%, rgba(var(--color-blue), 0.25) 56%, rgba(var(--color-blue), 0));
-  border-image-slice: 1;
-}
+  .Text-blockquote--variant4 {
+    padding-top: 2rem;
+  }
 
-.Text-caption {
-  margin-top: 1em;
-  text-transform: uppercase;
+  .Text-blockquote--variant4::before,
+  .Text-blockquote--variant4::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    width: 5.4rem;
+    height: 5.4rem;
+    background-size: 100%;
+    background-image: linear-gradient(135deg, rgb(var(--color-blue)) 0%, rgba(var(--color-blue), 0) 100%);
+  }
+
+  .Text-blockquote--variant4::after {
+    width: 2.8rem;
+    height: 2.8rem;
+    top: 1.3rem;
+    left: 1.3rem;
+    background: rgb(var(--document-background));
+  }
 }
 
 /**
@@ -362,6 +412,7 @@
   max-width: 100%;
   vertical-align: top;
   user-select: none;
+  margin-top: 1em;
 }
 
 /**
@@ -405,7 +456,7 @@
 .Text .Text-h4:not(:first-child),
 .Text .Text-h5:not(:first-child),
 .Text .Text-h6:not(:first-child) {
-  margin-top: 1.3em;
+  margin-top: 1.3rem;
 }
 
 .Text h1,
@@ -414,7 +465,7 @@
 .Text .Text-h1,
 .Text .Text-h2,
 .Text .Text-h3 {
-  margin: 0 0 0.3em;
+  margin: 0 0 -0.5rem;
   font-weight: 600;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
@@ -423,33 +474,33 @@
 
 .Text h1,
 .Text .Text-h1 {
-  font-size: 3em;
+  font-size: 3rem;
   line-height: .95;
 }
 
 @media (min-width: 500px) {
   .Text h1,
   .Text .Text-h1  {
-    font-size: 2.4em;
+    font-size: 2.4rem;
   }
 }
 
 .Text h2,
 .Text .Text-h2 {
-  font-size: 1.8em;
+  font-size: 1.8rem;
   line-height: 1.1;
 }
 
 @media (min-width: 500px) {
   .Text h2,
   .Text .Text-h2 {
-    font-size: 2em;
+    font-size: 2rem;
   }
 }
 
 .Text h3,
 .Text .Text-h3 {
-  font-size: 1.4em;
+  font-size: 1.4rem;
   line-height: 1.15;
 }
 
@@ -459,7 +510,7 @@
 .Text .Text-h4,
 .Text .Text-h5,
 .Text .Text-h6 {
-  margin-bottom: 1.3em;
+  margin-bottom: 1.3rem;
   font-weight: 600;
   font-size: inherit;
   line-height: inherit;
@@ -468,12 +519,12 @@
 @media (min-width: 1200px) {
   .Text h1,
   .Text .Text-h1 {
-    font-size: 2.8em;
+    font-size: 2.8rem;
   }
 
   .Text h3,
   .Text .Text-h3 {
-    font-size: 1.6em;
+    font-size: 1.6rem;
     line-height: 1.1;
   }
 }

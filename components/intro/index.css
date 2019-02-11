@@ -18,17 +18,14 @@
   margin: 0 0 0.35em;
   hyphens: auto;
   line-height: 1;
-  margin-left: -0.3rem;
+  margin-left: -0.04em;
   letter-spacing: -.025em;
 }
 
 .Intro-badge {
   position: absolute;
-  left: 0.3rem;
+  left: 0.04em;
   top: 0;
-  text-transform: uppercase;
-  font-size: 1rem;
-  letter-spacing: 0.05em;
 }
 
 .Intro-text a {
@@ -109,6 +106,6 @@
   }
 
   .Intro-image {
-    margin: 4rem 0 -3rem;
+    margin: 4rem 0 -2rem;
   }
 }

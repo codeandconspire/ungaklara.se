@@ -13,6 +13,10 @@
   padding: 0 0.75rem;
 }
 
+.Masonry-cell {
+  padding: 1.25rem 0.75rem;
+}
+
 @media (min-width: 600px) {
   .Masonry-col {
     flex: 0 1 50%;
@@ -20,8 +24,6 @@
 
   .Masonry-col--1 {
     margin: 5rem 0 -5rem;
-    transform: translateY(calc(-6% * var(--offset)));
-    will-change: transform;
   }
 }
 
@@ -30,14 +32,7 @@
     flex: 0 1 calc(100% * 1/3);
   }
 
-  .Masonry-col--1 {
-    transform: translateY(calc(-6% * var(--offset)));
-    will-change: transform;
-  }
-
   .Masonry-col--3 {
     margin: 5rem 0 -5rem;
-    transform: translateY(calc(-3% * var(--offset)));
-    will-change: transform;
   }
 }

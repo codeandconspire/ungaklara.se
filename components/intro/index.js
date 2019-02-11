@@ -8,7 +8,7 @@ function intro (props) {
   return html`
     <div class="Intro">
       <div class="Intro-title">
-        ${props.badge ? html`<span class="Intro-badge">${props.badge}</span>` : null}
+        ${props.badge ? html`<span class="Intro-badge"><span class="u-textLabel">${props.badge}</span></span>` : null}
         ${props.title}
       </div>
       ${props.text ? html`<div class="Intro-text">${props.text}</div>` : null}
@@ -23,7 +23,7 @@ function loading (opts = {}) {
   return html`
     <div class="Intro">
       <div class="Intro-title">
-        ${opts.badge ? html`<span class="Intro-badge">${loader(4)}</span>` : null}
+        ${opts.badge ? html`<span class="Intro-badge"><span class="u-textLabel">${loader(4)}</span></span>` : null}
         ${loader(6)}
       </div>
       ${typeof opts.text === 'undefined' || opts.text ? html`<div class="Intro-text">${loader(82)}</div>` : null}

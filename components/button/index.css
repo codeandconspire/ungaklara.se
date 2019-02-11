@@ -3,7 +3,7 @@
 /* @define Button */
 .Button {
   display: inline-block;
-  line-height: 3.25rem;
+  line-height: 3.125rem;
   padding: 0 1.2rem;
   border: var(--border-width) solid rgb(var(--document-color));
   font-size: 1rem;

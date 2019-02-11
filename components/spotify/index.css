@@ -3,13 +3,6 @@
 /* @define Spotify */
 .Spotify {
   position: relative;
-  padding: 1.5rem;
   color: #fff;
   background-color: rgb(var(--document-color));
-}
-
-@media (min-width: 600px) {
-  .Spotify {
-    padding: 2rem;
-  }
 }

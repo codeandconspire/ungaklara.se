@@ -11,8 +11,8 @@ function spotify (uri, body) {
   if (!parts) return null
 
   return html`
-    <div class="Spotify">
-      <div class="Text">
+    <div class="Spotify u-paddedBox">
+      <div class="Text Text--fat Text--large">
         ${body || null}
         <iframe src="https://open.spotify.com/embed/${parts[1]}/${parts[2]}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
       </div>

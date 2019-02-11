@@ -15,6 +15,22 @@
   width: 1px !important;
 }
 
+.u-paddedBox {
+  padding: 2rem 1.2rem;
+}
+
+@media (min-width: 600px) {
+  .u-paddedBox {
+    padding: 2.8rem 1.8rem 2.6rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .u-paddedBox {
+    padding: 3.25rem 2rem 2.875rem;
+  }
+}
+
 @media print {
   .u-printHidden {
     display: none !important;

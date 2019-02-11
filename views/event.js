@@ -255,7 +255,7 @@ function eventPage (state, emit) {
                 ${asElement(doc.data.resource_text, resolve, serialize)}
               </div>
               ${doc.data.resource_link.url ? button({
-                class: 'u-spaceT4',
+                class: 'u-spaceT4 u-spaceB2',
                 href: resolve(doc.data.resource_link),
                 text: doc.data.resource_link_text || text(`Download ${filetype}`)
               }) : null}
@@ -264,11 +264,11 @@ function eventPage (state, emit) {
 
           if (blurb.id) {
             content = grid([
-              grid.cell({ size: { md: '2of3' } }, content),
-              grid.cell({ size: { md: '1of3' } }, html`
+              grid.cell({ size: { md: '1of2', lg: '2of3' } }, content),
+              grid.cell({ size: { md: '1of2', lg: '1of3' } }, html`
                 <div class="u-bgGrayLight">
-                  <div class="Text u-spaceV5 u-spaceH4">
-                    <p class="Text-h3">${asText(blurb.data.description)}</p>
+                  <div class="Text u-paddedBox">
+                    <p class="Text-fat Text-large">${asText(blurb.data.description)}</p>
                     <strong>
                       <a href="${resolve(blurb)}">
                         ${blurb.data.cta || text`Read more`}
@@ -389,10 +389,10 @@ function eventPage (state, emit) {
           alt: slice.primary.image.alt || ''
         }, slice.primary.image.dimensions)
         return html`
-          <figure class="Text u-sizeFull u-spaceV3">
+          <figure class="Text u-sizeFull">
             <img ${attrs} />
-            ${slice.primary.image.copyright ? html`
-              <figcaption class="Text-meta">${slice.primary.image.copyright}</figcaption>
+            ${slice.primary.caption ? html`
+              <figcaption class="Text-muted Text-small">${slice.primary.caption}</figcaption>
             ` : null}
           </figure>
         `
@@ -400,14 +400,10 @@ function eventPage (state, emit) {
       case 'quote': {
         if (!slice.primary.text.length) return null
         let blockquote = state.cache(Blockquote, `event-media-${index}`)
-        return html`
-          <div class="u-spaceV3">
-            ${blockquote.render({
-              content: asElement(slice.primary.text, resolve, serialize),
-              caption: asElement(slice.primary.cite, resolve, serialize)
-            })}
-          </div>
-        `
+        return blockquote.render({
+          content: asElement(slice.primary.text, resolve, serialize),
+          caption: asElement(slice.primary.cite, resolve, serialize)
+        })
       }
       case 'spotify': {
         if (!slice.primary.uri.embed_url) return null
@@ -421,7 +417,7 @@ function eventPage (state, emit) {
 
 // render oembed object as embeded video
 // obj -> Element
-function video (props, opts) {
+function video (props, opts = {}) {
   var provider = props.provider_name.toLowerCase()
   var id = embed.id(props)
   if (!id) return null
@@ -453,15 +449,15 @@ function teamMember (props) {
   }
 
   return html`
-    <article class="Text u-sizeFull">
+    <article class="Text Text--fat">
       ${image ? html`<img ${image} />` : null}
       ${props.label ? html`
-        <strong class="u-block u-textUppercase u-textHeading">
+        <strong class="Text-label">
           ${props.label}
         </strong>
       ` : null}
       ${props.text.length ? html`
-        <div class="u-spaceT1 u-textBold">
+        <div>
           ${asElement(props.text, resolve, serialize)}
         </div>
       ` : null}

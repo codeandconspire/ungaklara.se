@@ -74,6 +74,13 @@
   height: auto;
 }
 
+@supports (object-fit: cover) {
+  .Embed-image {
+    min-height: 40vh;
+    object-fit: cover;
+  }
+}
+
 .Embed-caption {
   display: none;
   flex-direction: column-reverse;

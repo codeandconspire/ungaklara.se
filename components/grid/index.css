@@ -90,7 +90,7 @@
   }
 
   .Grid--carousel .Grid-cell {
-    flex-basis: calc(100% - 3rem);
+    flex-basis: calc(100% - 2rem);
     padding-left: var(--document-margin);
     padding-right: 0;
     margin-right: calc((var(--document-margin) * -1) + 1rem);
@@ -99,8 +99,7 @@
   }
 
   .Grid--carousel .Grid-cell:last-child {
-    flex-basis: 100%;
-    margin-right: 0;
     padding-right: var(--document-margin);
+    flex-basis: calc(100% - 1rem);
   }
 }

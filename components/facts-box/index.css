@@ -78,11 +78,11 @@
 }
 
 .FactsBox-label {
-  padding: 0;
+  display: block;
   margin: 0 0 0.3em 0;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-
+  font-size: 0.875em;
 }
 
 .FactsBox-value {

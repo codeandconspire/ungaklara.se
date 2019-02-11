@@ -1,7 +1,6 @@
 var html = require('choo/html')
 var nanoraf = require('nanoraf')
 var Component = require('choo/component')
-var { vh } = require('../base')
 
 module.exports = class Masonry extends Component {
   update () {
@@ -19,21 +18,9 @@ module.exports = class Masonry extends Component {
 
   init (el) {
     var width = el.offsetWidth
-    var height = el.offsetHeight
     var prev = window.innerWidth
-    var top = el.offsetTop
 
     if (width >= 600) this.reflow(el)
-
-    var onscroll = nanoraf(function () {
-      var { scrollY } = window
-      if (width < 600) return
-      if (scrollY + vh() < top || scrollY > top + height) return
-      let inview = scrollY + vh() - top
-      let fraction = inview / height
-      el.style.setProperty('--offset', fraction.toFixed(6))
-    })
-
     var onresize = nanoraf(() => {
       var next = window.innerWidth
       if ((prev >= 1000 && next < 1000) || (prev < 1000 && next >= 1000)) {
@@ -41,16 +28,12 @@ module.exports = class Masonry extends Component {
         if (width < 600) return
         this.rerender()
         this.reflow(el)
-        height = el.offsetHeight
-        onscroll()
       }
       prev = next
     })
 
     window.addEventListener('resize', onresize)
-    window.addEventListener('scroll', onscroll)
     this.unload = function () {
-      window.removeEventListener('scroll', onscroll)
       window.removeEventListener('resize', onresize)
     }
   }
