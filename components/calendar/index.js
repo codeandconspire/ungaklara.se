@@ -4,7 +4,7 @@ var format = require('date-fns/format')
 var startOfDay = require('date-fns/start_of_day')
 var framed = require('../framed')
 var button = require('../button')
-var { timestamp, i18n, capitalize, loader } = require('../base')
+var { timestamp, i18n, capitalize, loader, hexToRgb } = require('../base')
 
 var text = i18n()
 
@@ -21,9 +21,11 @@ function calendar (items) {
     let date = startOfDay(item.date)
     let available = item.status !== 3
     let attrs = { class: 'Calendar-row' }
+    if (item.theme) attrs.style = `--theme-color: ${hexToRgb(item.theme)};`
     if (item.appear) {
+      attrs.style = attrs.style || ''
       attrs.class += ' u-slideUp'
-      attrs.style = `animation-delay: ${i * 200}ms;`
+      attrs.style += ` animation-delay: ${i * 200}ms;`
     }
 
     if (!day || date > day) {

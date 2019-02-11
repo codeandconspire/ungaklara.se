@@ -237,6 +237,7 @@ function event (state, emit) {
 
             dates.push(Object.assign({
               href: resolve(doc),
+              theme: doc.data.theme,
               appear: index + 1 > PAGE_SIZE || Boolean(state.referrer)
             }, item, { title, image, date, status, link: resolve(item.link) }))
           }
