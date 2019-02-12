@@ -27,38 +27,36 @@ module.exports = class Subscribe extends Component {
         <div class="Text u-textCenter">
           ${props.title ? html`<h2>${props.title}</h2>` : null}
           ${this.local.subscribed ? html`
-            <div>
+            <div class="u-spaceT3">
               ${props.success || html`<p>${text`Thanks for signing up!`}</p>`}
-              <br>
-              ${button({ href: props.action, text: text`Sign up another e-mail address`, onclick: onreset })}
+              <strong><a href="${props.action}" onclick=${onreset}>${text`Sign up another e-mail address`}</a></strong>
             </div>
           ` : props.body}
         </div>
         ${!this.local.subscribed ? html`
-          <fieldset class="Subscribe-fieldset js-fieldset">
+          <div class="Subscribe-form">
             ${props.ref ? html`<input type="hidden" name="REF" value="${props.ref}">` : null}
-            <div class="Subscribe-form">
-              <label class="Subscribe-label">
-                <span class="u-hiddenVisually">${text`Enter your e-mail address`}</span>
-                <input type="email" name="EMAIL" class="Subscribe-input" autocomplete="email" placeholder="${text`Enter your e-mail address`}" required>
-              </label>
-              <button type="submit" class="Subscribe-button">
-                ${text`Subscribe`}
-              </button>
-            </div>
-          </fieldset>
+            <label class="Subscribe-label">
+              <span class="u-hiddenVisually">${text`Enter your e-mail address`}</span>
+              <input type="email" name="EMAIL" class="Subscribe-input" autocomplete="email" placeholder="${text`Enter your e-mail address`}" required>
+            </label>
+            <button type="submit" class="Subscribe-button js-button">
+              ${text`Subscribe`}
+            </button>
+          </div>
         ` : null}
       </form>
     `
 
-    function onreset () {
+    function onreset (event) {
       self.local.subscribed = false
       self.rerender()
+      event.preventDefault()
     }
 
     function onsubmit (event) {
       var data = new window.FormData(this)
-      var fieldset = this.querySelector('.js-fieldset')
+      var button = this.querySelector('.js-button')
 
       var body = {}
       data.forEach(function (value, key) {
@@ -83,7 +81,7 @@ module.exports = class Subscribe extends Component {
         window.location = url.toString()
       })
 
-      fieldset.disabled = true
+      button.disabled = true
       event.preventDefault()
     }
   }

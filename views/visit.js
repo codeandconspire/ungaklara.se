@@ -7,6 +7,7 @@ var intro = require('../components/intro')
 var framed = require('../components/framed')
 var jigsaw = require('../components/jigsaw')
 var reset = require('../components/text/reset')
+var Subscribe = require('../components/subscribe')
 var cap = require('../components/text/cap-heading')
 var serialize = require('../components/text/serialize')
 var { asText, resolve, srcset } = require('../components/base')
@@ -65,7 +66,7 @@ function visit (state, emit) {
 
   // render slice as element
   // (obj, num) -> Element
-  function asSlice (slice, index) {
+  function asSlice (slice, index, list) {
     switch (slice.slice_type) {
       case 'text': {
         let items = slice.items.filter((item) => item.text.length)
@@ -111,6 +112,21 @@ function visit (state, emit) {
               }).filter(Boolean)}
             </div>
           </section>
+        `
+      }
+      case 'newsletter': {
+        return html`
+          <div class="u-spaceV8">
+            ${index !== 0 ? html`<hr class="u-spaceV8">` : null}
+            ${state.cache(Subscribe, `${state.params.slug}-${index}`).render({
+              action: state.mailchimp,
+              title: asText(slice.primary.heading),
+              body: slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null,
+              success: slice.primary.success_message.length ? asElement(slice.primary.success_message, resolve, serialize) : null,
+              ref: slice.primary.ref
+            })}
+            ${index < list.length - 1 ? html`<hr class="u-spaceV8">` : null}
+          </div>
         `
       }
       default: return null

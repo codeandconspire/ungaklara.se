@@ -7,10 +7,6 @@
   flex-direction: column;
 }
 
-.Subscribe-fieldset {
-  border: 0;
-}
-
 .Subscribe-form {
   display: flex;
   flex-wrap: wrap;
@@ -44,4 +40,8 @@
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
   background-color: #000;
+}
+
+.Subscribe-button:disabled {
+  opacity: 0.6;
 }
