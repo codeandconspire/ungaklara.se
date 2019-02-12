@@ -29,6 +29,8 @@ app.route('/pa-scen', require('./views/events'))
 app.route('/pa-scen/:slug', require('./views/event'))
 app.route('/for-pedagoger', require('./views/teachers'))
 app.route('/for-pedagoger/:slug', require('./views/page')) /* 1 */
+app.route('/infor-besoket', require('./views/visit'))
+app.route('/infor-besoket/:slug', require('./views/visit')) /* 1 */
 app.route('/:slug/:slug', require('./views/page')) /* 2 */
 app.route('/:slug', require('./views/page'))
 

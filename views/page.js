@@ -1,12 +1,12 @@
 var html = require('choo/html')
 var asElement = require('prismic-element')
-var { Elements } = require('prismic-richtext')
 var view = require('../components/view')
 var card = require('../components/card')
 var grid = require('../components/grid')
 var intro = require('../components/intro')
 var byline = require('../components/byline')
 var reset = require('../components/text/reset')
+var cap = require('../components/text/cap-heading')
 var serialize = require('../components/text/serialize')
 var { asText, resolve, srcset } = require('../components/base')
 var Blockquote = require('../components/text/blockquote')
@@ -82,7 +82,7 @@ function page (state, emit) {
             ` : null}
             ${items.length ? grid({ size: { md: '1of2' } }, items.map((item) => html`
               <div class="Text Text--large u-spaceB2">
-                ${asElement(item.text, resolve, serializeColumn)}
+                ${asElement(item.text, resolve, cap)}
               </div>
             `)) : null}
           </div>
@@ -291,18 +291,6 @@ function asCard (props) {
   }
 
   return card(props)
-}
-
-function serializeColumn (type, node, content, children) {
-  switch (type) {
-    case Elements.heading1: return html`<h1 class="Text-h4">${children}</h1>`
-    case Elements.heading2: return html`<h2 class="Text-h4">${children}</h2>`
-    case Elements.heading3: return html`<h3 class="Text-h4">${children}</h3>`
-    case Elements.heading4: return html`<h4 class="Text-h4">${children}</h4>`
-    case Elements.heading5: return html`<h5 class="Text-h4">${children}</h5>`
-    case Elements.heading6: return html`<h6 class="Text-h4">${children}</h6>`
-    default: return serialize(type, node, content, children)
-  }
 }
 
 function meta (state) {

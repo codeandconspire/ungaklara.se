@@ -6,7 +6,7 @@ module.exports.loading = loading
 
 function intro (props) {
   return html`
-    <div class="Intro">
+    <div class="Intro ${props.collapse ? 'Intro--collapse' : ''}">
       <div class="Intro-title">
         ${props.badge ? html`<span class="Intro-badge"><span class="u-textLabel">${props.badge}</span></span>` : null}
         ${props.title}
@@ -21,7 +21,7 @@ function intro (props) {
 
 function loading (opts = {}) {
   return html`
-    <div class="Intro">
+    <div class="Intro ${opts.collapse ? 'Intro--collapse' : ''}">
       <div class="Intro-title">
         ${opts.badge ? html`<span class="Intro-badge"><span class="u-textLabel">${loader(4)}</span></span>` : null}
         ${loader(6)}

@@ -3,6 +3,7 @@ var asElement = require('prismic-element')
 var view = require('../components/view')
 var card = require('../components/card')
 var grid = require('../components/grid')
+var blurb = require('../components/blurb')
 var intro = require('../components/intro')
 var byline = require('../components/byline')
 var reset = require('../components/text/reset')
@@ -35,33 +36,23 @@ function teachers (state, emit) {
                 ${intro({ title: asText(doc.data.title), text: asElement(doc.data.description) })}
               </div>
               ${grid({ size: { md: '1of3' } }, doc.data.blurbs.map(function (item) {
-                var attrs
+                if (!item.text.length) return null
+                var props = {
+                  heading: asText(item.heading),
+                  body: asElement(item.text, resolve, reset)
+                }
+
                 var { link } = item
                 if ((link.id || link.url) && !link.isBroken) {
-                  attrs = { href: resolve(link) }
-                  if (link.target) {
-                    attrs.target = link.target
-                    if (link.target === '_blank') {
-                      attrs.rel = 'noopener noreferrer'
-                    }
+                  props.link = {
+                    href: resolve(link),
+                    text: item.link_text,
+                    external: link.target === '_blank'
                   }
                 }
-                return html`
-                  <div class="Text">
-                    <h2 class="Text-h5 u-textUppercase u-spaceB1">
-                      <small>${asText(item.heading)}</small>
-                    </h2>
-                    <div class="Text-large u-spaceB3 u-textBold">
-                      ${item.text.length ? asElement(item.text, resolve, reset) : null}
-                    </div>
-                    ${attrs ? html`
-                      <strong>
-                        <a ${attrs}>${item.link_text || text`Read more`}</a>
-                      </strong>
-                    ` : null}
-                  </div>
-                `
-              }).filter(Boolean))}
+
+                return blurb(props)
+              }))}
               <hr class="u-spaceV8">
               ${sections.map(section)}
             </div>

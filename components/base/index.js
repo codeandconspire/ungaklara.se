@@ -27,7 +27,7 @@ function resolve (doc) {
     case 'homepage': return '/'
     case 'events': return '/pa-scen'
     case 'teachers': return '/for-pedagoger'
-    case 'practical': return '/infor-besoket'
+    case 'your_visit': return '/infor-besoket'
     case 'page': {
       let url = '/' + doc.uid
       let data = doc.data

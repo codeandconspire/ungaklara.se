@@ -1,0 +1,29 @@
+@import "../base";
+
+/* @define Blurb */
+.Blurb {
+  display: block;
+}
+
+.Blurb-heading {
+  margin-bottom: 0.7rem;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: var(--heading-font-family);
+  line-height: var(--heading-line-height);
+}
+
+.Blurb-body {
+  font-weight: 600;
+  font-family: var(--heading-font-family);
+  line-height: var(--heading-line-height);
+}
+
+.Blurb-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-weight: 600;
+  line-height: 1.6;
+  border-bottom: 2px solid currentColor;
+}

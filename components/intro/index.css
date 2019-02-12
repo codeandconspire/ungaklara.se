@@ -1,14 +1,22 @@
 @import "../base";
 
+:root {
+  --Intro-spacing: 3rem;
+}
+
 /** @define Intro */
 .Intro {
   display: flex;
   flex-direction: column;
   padding-top: 37vh;
-  margin-bottom: 3rem;
+  margin-bottom: calc(var(--Intro-spacing) * 1);
   font-family: var(--heading-font-family);
   letter-spacing: -0.025em;
   line-height: 1.3;
+}
+
+.Intro--collapse {
+  --Intro-spacing: 2rem;
 }
 
 .Intro-title {
@@ -26,6 +34,7 @@
   position: absolute;
   left: 0.04em;
   top: 0;
+  white-space: nowrap;
 }
 
 .Intro-text a {
@@ -79,7 +88,7 @@
 
 @media (min-width: 800px) {
   .Intro {
-    margin-bottom: 5rem;
+    margin-bottom: calc(var(--Intro-spacing) * 1.5);
   }
 
   .Intro-title {
@@ -94,7 +103,7 @@
 
 @media (min-width: 1000px) {
   .Intro {
-    margin-bottom: 9rem;
+    margin-bottom: calc(var(--Intro-spacing) * 3);
   }
 
   .Intro-title {

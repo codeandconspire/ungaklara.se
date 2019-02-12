@@ -1,0 +1,54 @@
+@import "../base";
+
+/* @define Jigsaw */
+.Jigsaw {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+@media (min-width: 1000px) {
+  .Jigsaw {
+    padding-right: 600px;
+  }
+}
+
+.Jigsaw-heading {
+  flex: 1 1 100%;
+}
+
+.Jigsaw-body {
+  flex: 0 1 100%;
+}
+
+@media (min-width: 600px) {
+  .Jigsaw-body {
+    flex: 0 1 50%;
+  }
+}
+
+@media (min-width: 1000px) {
+  .Jigsaw-body {
+    flex: 0 1 700px;
+  }
+}
+
+.Jigsaw-image {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .Jigsaw-image {
+    display: block;
+    flex: 1 1 50%;
+  }
+}
+
+@media (min-width: 1000px) {
+  .Jigsaw-image {
+    max-width: 450px;
+    position: absolute;
+    right: 2vw;
+    bottom: 0;
+  }
+}

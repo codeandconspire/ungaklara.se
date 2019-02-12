@@ -475,7 +475,9 @@ function meta (state) {
       'theme-color': doc.data.theme
     }
 
-    var image = doc.data.featured_image.url ? doc.data.featured_image : doc.data.image
+    var image = doc.data.featured_image
+    if (!image.url) image = doc.data.poster
+    if (!image.url) image = doc.data.image
     if (image.url) {
       Object.assign(props, {
         'og:image': image.url,
