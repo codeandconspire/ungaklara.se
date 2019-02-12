@@ -7,8 +7,7 @@ function navigation (state, emitter) {
   emitter.prependListener('replaceState', onnavigate)
 
   function onnavigate (href, opts = {}) {
-    var url = new window.URL(href)
-    if (url.pathname !== state.href) {
+    if (pathname(href) !== state.href) {
       if (!opts.persistScroll) {
         window.requestAnimationFrame(function () {
           window.scrollTo(0, 0)
@@ -17,4 +16,14 @@ function navigation (state, emitter) {
       state.referrer = state.href
     }
   }
+}
+
+// reduce href to only its pathname
+// str -> str
+function pathname (href) {
+  return href
+    .replace(/^https?:\/\/.+?\//, '/')
+    .replace(/\?.+$/, '')
+    .replace(/\/$/, '')
+    .replace(/#.+$/, '')
 }
