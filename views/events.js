@@ -45,17 +45,17 @@ function event (state, emit) {
             ${doc ? intro({ title: asText(doc.data.title) }) : intro.loading({ text: false })}
             <div class="u-spaceT4">
               ${tablist({ static: true }, [{
-                href: '/pa-scen',
+                href: '/scen',
                 selected: !slug,
                 text: text`Currently showing`,
                 onclick: onselect
               }, {
-                href: '/pa-scen/kalendarium',
+                href: '/scen/kalendarium',
                 selected: slug === 'kalendarium',
                 text: text`Calendar`,
                 onclick: onselect
               }, {
-                href: '/pa-scen/arkiv',
+                href: '/scen/arkiv',
                 selected: slug === 'arkiv',
                 text: text`Archive`,
                 onclick: onselect

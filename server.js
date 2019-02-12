@@ -95,7 +95,7 @@ app.use(get('/:slug', async function (ctx, slug, next) {
 }))
 
 // prevent cache of queried archive pages as they change periodically
-app.use(get('/pa-scen/arkiv', function (ctx, next) {
+app.use(get('/scen/arkiv', function (ctx, next) {
   if (Object.keys(ctx.query).length) {
     ctx.set('Cache-Control', 'private, no-cache, max-age=0')
   }

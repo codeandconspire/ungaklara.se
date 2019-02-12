@@ -25,7 +25,7 @@ exports.resolve = resolve
 function resolve (doc) {
   switch (doc.type) {
     case 'homepage': return '/'
-    case 'events': return '/pa-scen'
+    case 'events': return '/scen'
     case 'teachers': return '/for-pedagoger'
     case 'your_visit': return '/infor-besoket'
     case 'page': {
@@ -36,7 +36,7 @@ function resolve (doc) {
       }
       return url
     }
-    case 'event': return `/pa-scen/${doc.uid}`
+    case 'event': return `/scen/${doc.uid}`
     case 'Web':
     case 'Media': return doc.url
     default: {
