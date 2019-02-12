@@ -3,14 +3,16 @@
 /* @define Ticket */
 .Ticket {
   width: 100%;
-  padding: 2rem;
   position: relative;
   background-color: rgb(var(--theme-color));
+  font-size: 1.125rem;
+  box-shadow: 0 0.25rem 0.625rem 0 rgba(0, 0, 0, 0.1);
 }
 
 .Ticket--disabled {
-  color: rgba(var(--document-color), 0.5);
-  background-color: rgb(var(--color-gray-light));
+  color: rgb(108, 109, 112);
+  background: rgb(218, 220, 226);
+  box-shadow: none;
 }
 
 .Ticket-main {
@@ -34,15 +36,14 @@
 
 .Ticket-status {
   display: inline-block;
-  padding: 0.4em 0.8em;
+  padding: 0.5em 0.7em;
   color: #fff;
   background-color: #000;
-  text-transform: uppercase;
 }
 
 .Ticket--disabled .Ticket-status {
-  color: rgb(var(--color-gray-light));
-  background-color: rgba(var(--document-color), 0.5);
+  color: rgb(218, 220, 226);
+  background: rgb(108, 109, 112);
 }
 
 .Ticket-date {
@@ -51,10 +52,6 @@
   margin-right: -0.15em;
   font-size: 3.75rem;
   line-height: 0.7;
-}
-
-.Ticket-month {
-  text-transform: uppercase;
 }
 
 .Ticket-details {

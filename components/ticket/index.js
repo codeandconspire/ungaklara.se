@@ -18,16 +18,16 @@ function ticket (props) {
   var status = getStatus(props.status)
 
   return html`
-    <article class="Ticket ${props.status === 3 ? 'Ticket--disabled' : ''}">
+    <article class="Ticket u-paddedBox ${props.status === 3 ? 'Ticket--disabled' : ''}">
       <div class="Ticket-main">
         <div>
           <strong class="Ticket-day">${capitalize(day)}</strong>
-          ${status ? html`<span class="Ticket-status Ticket-status--${props.status}">${status}</span>` : null}
+          ${status ? html`<span class="Ticket-status Ticket-status--${props.status} u-textLabel">${status}</span>` : null}
         </div>
         <time datetime="${JSON.stringify(props.date).replace(/^"|"$/, '')}">
           <span class="Ticket-date">${props.date.getDate()}</span>
           <br>
-          <span class="Ticket-month">${format(props.date, 'MMMM', { locale: sv })}</span>
+          <span class="Ticket-month u-textLabel">${format(props.date, 'MMMM', { locale: sv })}</span>
         </time>
       </div>
       <div class="Ticket-details">
