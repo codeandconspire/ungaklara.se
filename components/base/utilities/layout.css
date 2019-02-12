@@ -5,7 +5,8 @@
   display: none !important;
 }
 
-.u-hiddenVisually {
+.u-hiddenVisually,
+:root[scripting-enabled] .u-js-hiddenVisually {
   border: 0 !important;
   clip: rect(1px, 1px, 1px, 1px) !important;
   height: 1px !important;

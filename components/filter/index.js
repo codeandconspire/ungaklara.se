@@ -1,4 +1,5 @@
 var html = require('choo/html')
+var button = require('../button')
 var { i18n, loader } = require('../base')
 
 var YEARS = []
@@ -18,7 +19,7 @@ function filter (tags, period, callback) {
   return html`
     <form class="Filter" method="GET">
       <fieldset class="Filter-tags">
-        <span class="Filter-label">${text`Show:`}</span>
+        <span class="Filter-label">${text`Show`}:</span>
         <label class="u-inlineBlock">
           <input class="Filter-toggle" type="radio" name="tag" value="" checked=${!selected} onchange=${onchange}>
           <span class="Filter-label Filter-label--interactive">${text`All`}</span>
@@ -31,7 +32,7 @@ function filter (tags, period, callback) {
         `)}
       </fieldset>
       <label class="Filter-decade">
-        <span class="Filter-label">${text`From decade:`}</span>
+        <span class="Filter-label">${text`From decade`}:</span>
         <select name="period" class="Filter-select" onchange=${onchange}>
           <option value="" selected=${!period}>${text`All`}</option>
           ${YEARS.map((year) => html`
@@ -39,7 +40,7 @@ function filter (tags, period, callback) {
           `)}
         </select>
       </label>
-      <input type="submit" class="u-hiddenVisually">
+      ${button({ type: 'submit', class: 'u-js-hiddenVisually u-spaceL4', text: text`Show` })}
     </form>
   `
 
@@ -52,7 +53,7 @@ function loading () {
   return html`
     <div class="Filter">
       <div class="Filter-tags">
-        <span class="Filter-label">${text`Show:`}</span>
+        <span class="Filter-label">${text`Show`}:</span>
         <span class="Filter-label">${loader(3)}</span>
         <span class="Filter-label">${loader(3)}</span>
         <span class="Filter-label">${loader(3)}</span>

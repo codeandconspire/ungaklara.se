@@ -120,7 +120,7 @@ function event (state, emit) {
       Predicates[selector]('my.event.archive_on', endOfDay(Date.now()))
     ]
 
-    if (state.query.tag) {
+    if (state.query.tag && state.query.tag !== 'on') {
       predicates.push(Predicates.at('document.tags', [state.query.tag]))
     }
 
