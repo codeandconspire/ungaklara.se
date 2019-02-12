@@ -56,7 +56,8 @@ function createView (view, meta) {
 
         var defaults = {
           title: doc ? asText(doc.data.title) : `${text`Loading`} | ${DEFAULT_TITLE}`,
-          description: doc && asText(doc.data.description)
+          description: doc && asText(doc.data.description),
+          'theme-color': state.meta['theme-color']
         }
 
         if (doc && doc.data.featured_image.url) {

@@ -29,6 +29,7 @@
   top: 4.25rem;
   transform-origin: 100% 0;
   transform: translateX(-100%) rotate(-90deg);
+  user-select: none;
 }
 
 @media (min-width: 600px) {

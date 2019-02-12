@@ -5,6 +5,7 @@
   width: 100%;
   position: relative;
   color: #fff;
+  user-select: none;
 }
 
 .Embed-link {

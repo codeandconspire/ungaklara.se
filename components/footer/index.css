@@ -41,6 +41,7 @@
   white-space: nowrap;
   text-transform: lowercase;
   word-spacing: -0.15em;
+  user-select: none;
 }
 
 .Footer-logo:focus-visible {

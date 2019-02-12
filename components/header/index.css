@@ -1,6 +1,10 @@
 @import "../base";
 
 /* @define Header */
+.Header {
+  user-select: none;
+}
+
 .Header-list {
   margin-left: -0.8rem;
 }

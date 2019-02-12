@@ -6,6 +6,7 @@
   flex-wrap: wrap;
   border: solid #000;
   border-width: 2px 0 0 2px;
+  user-select: none;
 }
 
 .Tablist-tab {
