@@ -69,7 +69,7 @@ app.use(function (ctx, next) {
     ctx.state.ref = null
     if (app.env !== 'development') {
       ctx.set('Cache-Control', `s-maxage=${60 * 60 * 24 * 30}, max-age=0`)
-  }
+    }
   }
   return next()
 })
@@ -93,6 +93,14 @@ app.use(get('/:slug', async function (ctx, slug, next) {
   } catch (err) {
     return next()
   }
+}))
+
+// prevent cache of queried archive pages as they change periodically
+app.use(get('/pa-scen/arkiv', function (ctx, next) {
+  if (Object.keys(ctx.query).length) {
+    ctx.set('Cache-Control', 'private, no-cache, max-age=0')
+  }
+  return next()
 }))
 
 app.listen(process.env.PORT || 8080, function () {
