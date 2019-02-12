@@ -13,7 +13,7 @@ var subscribe = require('./lib/mailchimp-proxy')
 var imageproxy = require('./lib/cloudinary-proxy')
 
 var REPOSITORY = 'https://unga-klara.cdn.prismic.io/api/v2'
-var MAILCHIMP = 'https://hempur.us17.list-manage.com/subscribe/post?u=f370c1cff5e90925d5bbd63fe&id='
+var MAILCHIMP = 'https://ungaklara.us1.list-manage.com/subscribe/post?u=b07292bdb82e39f1819a83c1a&amp;id=6a10f52682'
 
 var app = jalla('index.js', { sw: 'sw.js' })
 
