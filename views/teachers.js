@@ -50,30 +50,10 @@ function teachers (state, emit) {
                     external: link.target === '_blank'
                   }
                 }
-<<<<<<< HEAD
 
                 return blurb(props)
               }))}
               <hr class="u-spaceV8">
-=======
-                return html`
-                  <div class="Text">
-                    <h2 class="Text-h5 u-textUppercase u-spaceB1">
-                      <small>${asText(item.heading)}</small>
-                    </h2>
-                    <div class="Text-large u-spaceB3 u-textBold">
-                      ${item.text.length ? asElement(item.text, resolve, reset) : null}
-                    </div>
-                    ${attrs ? html`
-                      <strong>
-                        <a ${attrs}>${item.link_text || text`Read more`}</a>
-                      </strong>
-                    ` : null}
-                  </div>
-                `
-              }).filter(Boolean))}
-              <hr>
->>>>>>> Spacing and design tweaks most on event page
               ${sections.map(section)}
             </div>
           `
