@@ -136,12 +136,16 @@ function page (state, emit) {
               heading: asText(slice.primary.heading),
               body: asElement(slice.primary.text, resolve, reset),
               image: slice.primary.image.url ? Object.assign({
-                src: srcset(slice.primary.image.url, [200, 'c_thumb']).split(' ')[0],
+                src: srcset(
+                  slice.primary.image.url,
+                  [200, 'c_thumb'],
+                  { aspect: 278 / 195 }
+                ).split(' ')[0],
                 sizes: '15rem',
                 srcset: srcset(
                   slice.primary.image.url,
                   [200, 400, [800, 'q_50,c_thumb']],
-                  { transforms: 'c_thumb' }
+                  { transforms: 'c_thumb', aspect: 278 / 195 }
                 ),
                 alt: slice.primary.image.alt || ''
               }, slice.primary.image.dimensions) : null
