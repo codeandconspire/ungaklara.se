@@ -82,7 +82,7 @@ function page (state, emit) {
             ` : null}
             ${items.length ? grid({ size: { md: '1of2' } }, items.map((item) => html`
               <div class="Text Text--large u-spaceB2">
-                ${asElement(item.text, resolve, cap)}
+                ${asElement(item.text, resolve, cap('h4'))}
               </div>
             `)) : null}
           </div>
