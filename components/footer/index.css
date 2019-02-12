@@ -87,11 +87,13 @@
 
   .Footer-logo {
     font-size: 8.4vw;
+    margin: 4rem 0 7rem;
   }
 }
 
 @media (min-width: 1800px) {
   .Footer-logo {
     font-size: 7rem;
+    margin: 5rem 0 10rem;
   }
 }

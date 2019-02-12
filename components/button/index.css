@@ -16,6 +16,10 @@
   font-family: var(--heading-font-family);
 }
 
+.Button::first-letter {
+  text-transform: capitalize;
+}
+
 .Button--small {
   padding: 0 0.9rem;
   min-width: 0;

@@ -28,7 +28,7 @@
 
 @media (min-width: 1000px) {
   .u-paddedBox {
-    padding: 3.25rem 2rem 2.875rem;
+    padding: 3.1rem 2rem 2.7rem;
   }
 }
 
@@ -46,6 +46,12 @@
 .u-inlineBlock { display: inline-block !important; }
 .u-inline { display: inline !important; }
 .u-flex { display: flex !important; }
+
+@media (max-width: 399px) {
+  .u-sm-show {
+    display: none;
+  }
+}
 
 /**
  * Flex
@@ -100,12 +106,18 @@
  */
 
 .u-narrow {
-  --document-max-width: 960px !important;
+  --document-max-width: 1000px !important;
+}
+
+@media (min-width: 1500px) {
+  .u-narrow {
+    --document-max-width: 1100px !important;
+  }
 }
 
 @media (min-width: 1800px) {
   .u-narrow {
-    --document-max-width: 1200px !important;
+    --document-max-width: 1500px !important;
   }
 }
 

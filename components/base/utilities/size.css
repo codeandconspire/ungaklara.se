@@ -135,7 +135,7 @@
  * Extra Large
  */
 
-@media (min-width: 1500px) {
+@media (min-width: 1800px) {
   .u-xl-size1of4 {
     flex-basis: auto !important;
     width: 25% !important;

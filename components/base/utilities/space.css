@@ -1,13 +1,31 @@
 @import "../global";
 
 /**
+ * Custom
+ */
+
+.u-pushDown1 {
+  margin-top: 4rem;
+}
+
+.u-pushDown2 {
+  margin-top: 5rem;
+} 
+
+@media (min-width: 1000px) {
+  .u-pushDown2 {
+    margin-top: 7rem;
+  } 
+}
+
+/**
  * All
  */
 
 /* @define utilities */
- .u-spaceA0 {
-   margin: 0 !important;
- }
+.u-spaceA0 {
+  margin: 0 !important;
+}
 
 .u-spaceA1 {
   margin: 0.5rem !important;
@@ -31,6 +49,10 @@
 
 .u-spaceA6 {
   margin: 3rem !important;
+}
+
+.u-spaceA7 {
+  margin: 4rem !important;
 }
 
 .u-spaceA8 {
@@ -69,6 +91,10 @@
   margin-top: 3rem !important;
 }
 
+.u-spaceT7 {
+  margin-top: 4rem !important;
+}
+
 .u-spaceT8 {
   margin-top: 5rem !important;
 }
@@ -103,6 +129,10 @@
 
 .u-spaceR6 {
   margin-right: 3rem !important;
+}
+
+.u-spaceR7 {
+  margin-right: 4rem !important;
 }
 
 .u-spaceR8 {
@@ -141,6 +171,10 @@
   margin-bottom: 3rem !important;
 }
 
+.u-spaceB7 {
+  margin-bottom: 4rem !important;
+}
+
 .u-spaceB8 {
   margin-bottom: 5rem !important;
 }
@@ -175,6 +209,10 @@
 
 .u-spaceL6 {
   margin-left: 3rem !important;
+}
+
+.u-spaceL7 {
+  margin-left: 4rem !important;
 }
 
 .u-spaceL8 {
@@ -220,6 +258,11 @@
   margin-bottom: 3rem !important;
 }
 
+.u-spaceV7 {
+  margin-top: 4rem !important;
+  margin-bottom: 4rem !important;
+}
+
 .u-spaceV8 {
   margin-top: 5rem !important;
   margin-bottom: 5rem !important;
@@ -262,6 +305,11 @@
 .u-spaceH6 {
   margin-left: 3rem !important;
   margin-right: 3rem !important;
+}
+
+.u-spaceH7 {
+  margin-left: 4rem !important;
+  margin-right: 4rem !important;
 }
 
 .u-spaceH8 {

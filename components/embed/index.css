@@ -75,7 +75,7 @@
 }
 
 @supports (object-fit: cover) {
-  .Embed-image {
+  .Embed:not(.Embed--sm) .Embed-image {
     min-height: 40vh;
     object-fit: cover;
   }

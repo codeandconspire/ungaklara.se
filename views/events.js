@@ -71,7 +71,7 @@ function event (state, emit) {
                 <div class="Text">
                   ${asElement(doc.data.notice, resolve, serialize)}
                 </div>
-                <hr class="u-spaceV6">
+                <hr>
               </div>
             ` : null}
             ${list(pages)}

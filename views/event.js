@@ -55,7 +55,7 @@ function eventPage (state, emit) {
         if (doc.data.about.length) {
           let actions = []
           if (doc.data.dates.find((item) => item.date)) {
-            actions.push({ text: text`Show dates`, href: `#${doc.id}-dates` })
+            actions.push({ text: html`<span class="u-sm-show">${text`Show`}</span> ${text`showdates`}`, href: `#${doc.id}-dates` })
           }
           if (doc.data.buy_link.url) {
             actions.push({
@@ -80,7 +80,7 @@ function eventPage (state, emit) {
         // about the production
         if (doc.data.details.length) {
           blocks.push(html`
-            <div class="u-md-container u-spaceV6">
+            <div class="u-md-container u-pushDown1">
               ${factsBox(doc.data.details)}
             </div>
           `)
@@ -95,7 +95,7 @@ function eventPage (state, emit) {
 
           if (videos.length) {
             blocks.push(html`
-              <div class="u-container u-spaceV6">
+              <div class="u-container u-spaceT7">
                 ${videos.length > 1 ? html`
                   <div class="u-uncontain">
                     ${grid({ carousel: true }, videos)}
@@ -112,7 +112,7 @@ function eventPage (state, emit) {
             .filter(Boolean)
           if (spotify.length) {
             blocks.push(spotify.length > 1 ? html`
-              <div class="u-uncontain u-spaceV6">
+              <div class="u-uncontain u-spaceV5">
                 ${grid({ carousel: true }, spotify)}
               </div>
             ` : html`<div class="u-container u-spaceV6">${spotify[0]}</div>`)
@@ -149,11 +149,11 @@ function eventPage (state, emit) {
             if (slice.slice_type !== 'group') return
             if (!slice.primary.heading.length) return
 
-            var opts = { size: { lg: '1of4' } }
+            var opts = { size: { md: '1of3', lg: '1of4' } }
             var heading = asText(slice.primary.heading)
             var hasImage = slice.items.find((item) => item.image.url)
             if (hasImage) opts.size.xs = '1of2'
-            else opts.size.md = '1of2'
+            else opts.size.md = '1of3'
 
             accordion.push(details(
               html`<h2>${heading}</h2>`,
@@ -165,7 +165,7 @@ function eventPage (state, emit) {
             // add accordion to blocks
             blocks.push(html`
               <div class="u-container">
-                <div class="Text u-sizeFull u-spaceV6">
+                <div class="Text u-sizeFull u-spaceV5">
                   ${accordion}
                 </div>
               </div>
@@ -176,7 +176,7 @@ function eventPage (state, emit) {
           let media = doc.data.media.map(mediaSlice).filter(Boolean)
           if (media.length) {
             blocks.push(html`
-              <div class="u-container u-spaceV8">
+              <div class="u-container">
                 ${state.cache(Masonry, doc.id + '-media').render(media)}
               </div>
             `)
@@ -209,14 +209,11 @@ function eventPage (state, emit) {
                 }, background.dimensions)
               }
 
+              var other = rest.length > 1 ? grid({ size: { md: `1of${rest.length < 3 ? 2 : 3}` } }, rest) : null
+
               blocks.push(html`
-                <div class="u-spaceV8 u-narrow">
-                  ${trailer(bgProps, video(first, { first: true }))}
-                  ${rest.length > 1 ? html`
-                    <div class="u-container u-spaceT6">
-                      ${grid({ size: { md: `1of${rest.length < 3 ? 2 : 3}` } }, rest)}
-                    </div>
-                  ` : null}
+                <div class="u-narrow">
+                  ${trailer(bgProps, video(first, { first: true }), other)}
                 </div>
               `)
             }
@@ -228,15 +225,15 @@ function eventPage (state, emit) {
             if (slice.slice_type !== 'group') return
             if (!slice.primary.heading.length) return
 
-            var opts = { size: { lg: '1of4' } }
+            var opts = { size: { md: '1of3', lg: '1of4' } }
             var heading = asText(slice.primary.heading)
             var hasImage = slice.items.find((item) => item.image.url)
             if (hasImage) opts.size.xs = '1of2'
-            else opts.size.md = '1of2'
+            else opts.size.md = '1of3'
 
             blocks.push(html`
-              <div class="u-container u-spaceV8">
-                <div class="Text u-spaceB6">
+              <div class="u-container u-pushDown2">
+                <div class="Text u-spaceB4">
                   <h2>${heading}</h2>
                 </div>
                 ${grid(opts, slice.items.map(teamMember))}
@@ -282,9 +279,9 @@ function eventPage (state, emit) {
 
           blocks.push(html`
             <div class="u-container">
-              <hr class="u-spaceV8">
+              <hr>
               ${content}
-              <hr class="u-spaceV8">
+              <hr>
             </div>
           `)
         }
@@ -318,13 +315,13 @@ function eventPage (state, emit) {
 
           if (dates.length) {
             blocks.push(html`
-              <section class="u-narrow u-container u-spaceV6" id="${doc.id}-dates">
+              <section class="u-narrow u-container" id="${doc.id}-dates">
                 ${doc.data.dates_heading.length ? html`
-                  <div class="Text u-sizeFull u-textCenter u-spaceB6">
+                  <div class="Text u-sizeFull u-textCenter ${collapse ? 'u-spaceB4' : 'u-spaceB7'}">
                     <h2>${asText(doc.data.dates_heading)}</h2>
                   </div>
                 ` : null}
-                ${grid({ slim: true, size: { lg: '1of2' } }, dates.slice(0, page * 4).map(function (item, index, list) {
+                ${grid({ slim: true, size: { md: '1of2', xl: '1of3' } }, dates.slice(0, page * 4).map(function (item, index, list) {
                   var prev = (page - 1) * 4
                   var attrs = { class: 'u-sizeFull' }
                   if (state.referrer && index >= prev) {

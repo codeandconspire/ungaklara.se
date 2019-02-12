@@ -21,7 +21,19 @@
   flex-grow: 1;
   z-index: 1;
   min-height: calc(var(--View-gradient-top-height));
-  margin-bottom: 8rem;
+  margin-bottom: 10rem;
+}
+
+@media (min-width: 600px) {
+  .View-main {
+    margin-bottom: 13rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .View-main {
+    margin-bottom: 16rem;
+  }
 }
 
 /**

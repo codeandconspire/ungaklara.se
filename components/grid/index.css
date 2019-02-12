@@ -26,12 +26,12 @@
 }
 
 .Grid--slim {
-  --Grid-gutter: 0.75rem;
+  --Grid-gutter: 1.25rem;
 }
 
-@media (min-width: 1000px), print {
+@media (min-width: 600px), print {
   .Grid--slim {
-    --Grid-gutter: 1rem;
+    --Grid-gutter: 1.375rem;
   }
 }
 

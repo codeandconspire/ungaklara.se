@@ -54,5 +54,6 @@ function sizes (opts) {
   if (opts.sm) size += `u-sm-size${opts.sm} `
   if (opts.md) size += `u-md-size${opts.md} `
   if (opts.lg) size += `u-lg-size${opts.lg} `
+  if (opts.xl) size += `u-xl-size${opts.xl} `
   return size
 }

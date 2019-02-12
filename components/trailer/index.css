@@ -3,21 +3,40 @@
 /* @define Trailer */
 .Trailer {
   position: relative;
-  margin: 4rem 0;
-}
-
-.Trailer-content {
-  width: var(--document-max-width);
-  max-width: 80%;
-  margin: 0 auto;
+  margin: 1.5rem 0;
 }
 
 .Trailer-background {
+  display: none; /* todo */
   width: 100%;
+  max-width: 2000px;
   height: auto;
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: 0;
+  top: 0;
   z-index: -1;
-  transform: translate(-50%, -50%);
+}
+
+.Trailer-children {
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 1000px) {
+  .Trailer {
+    margin: 5rem 0;
+  }
+
+  .Trailer-children {
+    margin-top: 2.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .Trailer {
+    margin: 8rem 0;
+  }
+
+  .Trailer-children {
+    margin-top: 3.5rem;
+  }
 }
