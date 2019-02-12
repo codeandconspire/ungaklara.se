@@ -25,7 +25,7 @@
   "now": {
     "alias": "ungaklara.conspire.online",
     "env": {
-      "NODE_ENV": "staging",
+      "NODE_ENV": "production",
       "CLOUDINARY_KEY": "@cloudinary-key",
       "CLOUDINARY_SECRET": "@cloudinary-secret",
       "PRISMIC_SECRET": "@prismic-ungaklara-secret",
