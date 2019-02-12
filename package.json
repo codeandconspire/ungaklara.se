@@ -28,6 +28,10 @@
       "NODE_ENV": "staging",
       "CLOUDINARY_KEY": "@cloudinary-key",
       "CLOUDINARY_SECRET": "@cloudinary-secret",
+      "PRISMIC_SECRET": "@prismic-ungaklara-secret",
+      "CLOUDFLARE_ZONE": "@cloudflare-ungaklara-zone",
+      "CLOUDFLARE_EMAIL": "@cloudflare-ungaklara-email",
+      "CLOUDFLARE_KEY": "@cloudflare-ungaklara-key",
       "POLYFILL_FEATURES": "default-3.3,Array.prototype.find,Array.prototype.findIndex,Array.prototype.includes"
     }
   },
