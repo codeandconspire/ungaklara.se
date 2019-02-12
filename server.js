@@ -9,9 +9,11 @@ var { get, post } = require('koa-route')
 var Prismic = require('prismic-javascript')
 var purge = require('./lib/purge')
 var { resolve } = require('./components/base')
+var subscribe = require('./lib/mailchimp-proxy')
 var imageproxy = require('./lib/cloudinary-proxy')
 
 var REPOSITORY = 'https://unga-klara.cdn.prismic.io/api/v2'
+var MAILCHIMP = 'https://hempur.us17.list-manage.com/subscribe/post?u=f370c1cff5e90925d5bbd63fe&id='
 
 var app = jalla('index.js', { sw: 'sw.js' })
 
@@ -24,6 +26,19 @@ app.use(get('/media/:type/:transform/:uri(.+)', async function (ctx, type, trans
   ctx.set('Cache-Control', `public, max-age=${60 * 60 * 24 * 365}`)
   ctx.body = stream
 }))
+
+app.use(compose([
+  // expose mailchimp endpoint on state
+  function (ctx, next) {
+    ctx.state.mailchimp = MAILCHIMP
+    return next()
+  },
+  // newsletter subscription endpoint
+  post('/api/subscribe', compose([body(), async function (ctx, next) {
+    ctx.set('Cache-Control', 'private, no-cache')
+    ctx.body = await subscribe(ctx.request.body, MAILCHIMP)
+  }]))
+]))
 
 // add webhook for prismic updates
 app.use(post('/api/prismic-hook', compose([body(), function (ctx) {
@@ -58,22 +73,6 @@ app.use(get('/api/prismic-preview', async function (ctx) {
   ctx.redirect(href)
 }))
 
-// set cache headers
-app.use(function (ctx, next) {
-  if (!ctx.accepts('html')) return next()
-  var previewCookie = ctx.cookies.get(Prismic.previewCookie)
-  if (previewCookie) {
-    ctx.state.ref = previewCookie
-    ctx.set('Cache-Control', 'no-cache, private, max-age=0')
-  } else {
-    ctx.state.ref = null
-    if (app.env !== 'development') {
-      ctx.set('Cache-Control', `s-maxage=${60 * 60 * 24 * 30}, max-age=0`)
-    }
-  }
-  return next()
-})
-
 // disallow robots anywhere but live URL
 app.use(get('/robots.txt', function (ctx, next) {
   ctx.type = 'text/plain'
@@ -102,6 +101,22 @@ app.use(get('/pa-scen/arkiv', function (ctx, next) {
   }
   return next()
 }))
+
+// set cache headers
+app.use(function (ctx, next) {
+  if (!ctx.accepts('html')) return next()
+  var previewCookie = ctx.cookies.get(Prismic.previewCookie)
+  if (previewCookie) {
+    ctx.state.ref = previewCookie
+    ctx.set('Cache-Control', 'no-cache, private, max-age=0')
+  } else {
+    ctx.state.ref = null
+    if (app.env !== 'development') {
+      ctx.set('Cache-Control', `s-maxage=${60 * 60 * 24 * 30}, max-age=0`)
+    }
+  }
+  return next()
+})
 
 app.listen(process.env.PORT || 8080, function () {
   if (process.env.NOW && app.env === 'production') {

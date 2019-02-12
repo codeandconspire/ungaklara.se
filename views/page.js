@@ -6,10 +6,11 @@ var grid = require('../components/grid')
 var intro = require('../components/intro')
 var byline = require('../components/byline')
 var reset = require('../components/text/reset')
+var Subscribe = require('../components/subscribe')
 var cap = require('../components/text/cap-heading')
 var serialize = require('../components/text/serialize')
-var { asText, resolve, srcset } = require('../components/base')
 var Blockquote = require('../components/text/blockquote')
+var { asText, resolve, srcset } = require('../components/base')
 
 module.exports = view(page, meta)
 
@@ -26,7 +27,7 @@ function page (state, emit) {
 
           var body = []
           for (let i = 0, len = doc.data.body.length; i < len; i++) {
-            let el = asSlice(doc.data.body[i], i)
+            let el = asSlice(doc.data.body[i], i, doc.data.body)
             if (el !== blurbs || i === doc.data.body.length - 1) {
               if (blurbs.length) {
                 // render aggregated blurbs as grid
@@ -68,7 +69,7 @@ function page (state, emit) {
 
   // render slice as element
   // (obj, num) -> Element
-  function asSlice (slice, index) {
+  function asSlice (slice, index, list) {
     switch (slice.slice_type) {
       case 'text': {
         let items = slice.items.filter((item) => item.text.length)
@@ -179,6 +180,21 @@ function page (state, emit) {
         if (hasImage) opts.size.xs = '1of2'
         else opts.size.md = '1of2'
         return grid(opts, slice.items.map(teamMember))
+      }
+      case 'newsletter': {
+        return html`
+          <div class="u-spaceV8">
+            ${index !== 0 ? html`<hr class="u-spaceV8">` : null}
+            ${state.cache(Subscribe, `${state.params.slug}-${index}`).render({
+              action: state.mailchimp,
+              title: asText(slice.primary.heading),
+              body: slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null,
+              success: slice.primary.success_message.length ? asElement(slice.primary.success_message, resolve, serialize) : null,
+              ref: slice.primary.ref
+            })}
+            ${index < list.length - 1 ? html`<hr class="u-spaceV8">` : null}
+          </div>
+        `
       }
       case 'link_blurb': {
         let link = slice.primary.link

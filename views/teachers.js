@@ -7,6 +7,7 @@ var blurb = require('../components/blurb')
 var intro = require('../components/intro')
 var byline = require('../components/byline')
 var reset = require('../components/text/reset')
+var Subscribe = require('../components/subscribe')
 var serialize = require('../components/text/serialize')
 var { asText, resolve, i18n, luma, srcset } = require('../components/base')
 
@@ -151,6 +152,21 @@ function teachers (state, emit) {
               alt: slice.primary.image.alt || ''
             }, slice.primary.image.dimensions) : null
           })
+        }
+        case 'newsletter': {
+          return html`
+            <div class="u-spaceV8">
+              ${index !== 0 ? html`<hr class="u-spaceV8">` : null}
+              ${state.cache(Subscribe, `${state.params.slug}-${index}`).render({
+                action: state.mailchimp,
+                title: asText(slice.primary.heading),
+                body: slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null,
+                success: slice.primary.success_message.length ? asElement(slice.primary.success_message, resolve, serialize) : null,
+                ref: slice.primary.ref
+              })}
+              ${index < list.length - 1 ? html`<hr class="u-spaceV8">` : null}
+            </div>
+          `
         }
         case 'links': {
           let items = slice.items.filter((item) => item.link.id && !item.link.isBroken)
