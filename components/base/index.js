@@ -26,8 +26,8 @@ function resolve (doc) {
   switch (doc.type) {
     case 'homepage': return '/'
     case 'events': return '/scen'
-    case 'teachers': return '/for-pedagoger'
-    case 'your_visit': return '/infor-besoket'
+    case 'teachers': return '/pedagoger'
+    case 'your_visit': return '/besoket'
     case 'page': {
       let url = '/' + doc.uid
       let data = doc.data

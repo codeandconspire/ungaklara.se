@@ -27,10 +27,10 @@ app.use(require('choo-service-worker')('/sw.js'))
 app.route('/', require('./views/home'))
 app.route('/scen', require('./views/events'))
 app.route('/scen/:slug', require('./views/event'))
-app.route('/for-pedagoger', require('./views/teachers'))
-app.route('/for-pedagoger/:slug', require('./views/page')) /* 1 */
-app.route('/infor-besoket', require('./views/visit'))
-app.route('/infor-besoket/:slug', require('./views/visit')) /* 1 */
+app.route('/pedagoger', require('./views/teachers'))
+app.route('/pedagoger/:slug', require('./views/page')) /* 1 */
+app.route('/besoket', require('./views/visit'))
+app.route('/besoket/:slug', require('./views/visit')) /* 1 */
 app.route('/:slug/:slug', require('./views/page')) /* 2 */
 app.route('/:slug', require('./views/page'))
 
