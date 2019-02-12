@@ -50,15 +50,21 @@
   text-rendering: geometricPrecision; /* 5 */
 }
 
-@media (min-width: 1500px) {
+@media (min-width: 1600px) {
   :root {
-    font-size: 120%;
+    font-size: 110%;
   }
 }
 
 @media (min-width: 1800px) {
   :root {
-    font-size: 140%;
+    font-size: 120%;
+  }
+}
+
+@media (min-width: 2000px) {
+  :root {
+    font-size: 130%;
   }
 }
 
