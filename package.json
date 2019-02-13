@@ -6,6 +6,7 @@
   "scripts": {
     "build": "jalla index.js --sw sw.js --build",
     "start": "node server.js",
+    "deploy": "npx now -T codeandconspire && npx now alias -T codeandconspire",
     "test": "standard"
   },
   "documentify": {
