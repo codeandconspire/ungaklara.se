@@ -9,6 +9,7 @@ var event = require('../components/event')
 var embed = require('../components/embed')
 var intro = require('../components/intro')
 var button = require('../components/button')
+var pagination = require('../components/pagination')
 var ticket = require('../components/ticket')
 var spotify = require('../components/spotify')
 var trailer = require('../components/trailer')
@@ -330,11 +331,7 @@ function eventPage (state, emit) {
                   }
                   return html`<div ${attrs}>${ticket(item)}</div>`
                 }))}
-                ${dates.length > page * 4 ? html`
-                  <div class="Text u-spaceT4 u-sizeFull u-textCenter">
-                    <a href="${state.href}?page=${page + 1}" onclick=${paginate}>${text`Show more`}</a>
-                  </div>
-                ` : null}
+                ${dates.length > page * 4 ? pagination({ href: `${state.href}?page=${page + 1}`, onclick: paginate }) : null}
               </section>
             `)
           }

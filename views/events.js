@@ -12,6 +12,7 @@ var intro = require('../components/intro')
 var framed = require('../components/framed')
 var filter = require('../components/filter')
 var button = require('../components/button')
+var pagination = require('../components/pagination')
 var tablist = require('../components/tablist')
 var calendar = require('../components/calendar')
 var serialize = require('../components/text/serialize')
@@ -75,13 +76,7 @@ function event (state, emit) {
               </div>
             ` : null}
             ${list(pages)}
-            <div class="Text u-sizeFull u-spaceV6 u-textCenter">
-              ${pages && pages.length === page * PAGE_SIZE ? html`
-                <a href="${getHrefWithParam('page', page + 1)}" onclick=${onpaginate}>
-                  <strong>${text`Show more`}</strong>
-                </a>
-              ` : null}
-            </div>
+            ${pages && pages.length === page * PAGE_SIZE ? pagination({ href: getHrefWithParam('page', page + 1), onclick: onpaginate}) : null}
           </div>
         `
       })}

@@ -1,0 +1,18 @@
+@import "../base";
+
+/* @define Pagination */
+.Pagination {
+  text-align: center;
+}
+
+.Pagination-link {
+  display: inline-block;
+  padding: 1rem 1rem 2rem;
+  margin: 1rem 0 -1rem;
+  font-size: 1.125rem;
+  letter-spacing: 0;
+  background-image: url("./arrow.svg");
+  background-position: center 2.8rem;
+  background-size: 0.625rem auto;
+  background-repeat: no-repeat;
+}
