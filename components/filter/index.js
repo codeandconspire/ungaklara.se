@@ -32,9 +32,9 @@ function filter (tags, period, callback) {
         `)}
       </fieldset>
       <label class="Filter-decade">
-        <span class="Filter-label">${text`From decade`}:</span>
+        <span class="Filter-label">${text`Time period`}:</span>
         <select name="period" class="Filter-select" onchange=${onchange}>
-          <option value="" selected=${!period}>${text`All`}</option>
+          <option value="" selected=${!period}>${text`Everything`}</option>
           ${YEARS.map((year) => html`
             <option value="${year}" selected=${year === period}>${text`The ${year}'s`}</option>
           `)}

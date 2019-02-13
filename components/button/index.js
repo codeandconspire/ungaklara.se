@@ -18,7 +18,8 @@ function button (props) {
   }
   attrs.class = className('Button', {
     [props.class]: props.class,
-    'Button--primary': props.primary
+    'Button--primary': props.primary,
+    'Button--cover': props.cover
   })
   if (attrs.href) return html`<a ${attrs}>${props.text}</a>`
   return html`<button ${attrs}>${props.text}</button>`

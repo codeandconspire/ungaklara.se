@@ -59,7 +59,7 @@ function card (props = {}, slot) {
   return html`
     <article ${attrs}>
       ${cover}
-      <div class="Card-content ${fill ? 'u-hoverTriggerTarget' : ''}">
+      <div class="Card-content ${fill ? 'u-hoverTriggerTarget' : ''}" style="--Card-figure-aspect: 142.8%">
         <div class="Card-body">
           ${date && date.text && date.datetime ? html`
             <time class="Card-meta" datetime="${JSON.stringify(date.datetime).replace(/"/g, '')}">

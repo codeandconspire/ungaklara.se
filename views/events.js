@@ -19,7 +19,7 @@ var serialize = require('../components/text/serialize')
 var { asText, resolve, i18n, hexToRgb, loader, srcset } = require('../components/base')
 
 var text = i18n()
-var PAGE_SIZE = 9
+var PAGE_SIZE = 12
 var TIME_REG = /(\d{2})(?:.|:)(\d{2})/
 
 module.exports = view(event, meta)
@@ -43,36 +43,33 @@ function event (state, emit) {
 
         return html`
           <div class="u-container">
-            ${doc ? intro({ title: asText(doc.data.title) }) : intro.loading({ text: false })}
-            <div class="u-spaceT4">
-              ${tablist({ static: true }, [{
-                href: '/scen',
-                selected: !slug,
-                text: text`Currently showing`,
-                onclick: onselect
-              }, {
-                href: '/scen/kalendarium',
-                selected: slug === 'kalendarium',
-                text: text`Calendar`,
-                onclick: onselect
-              }, {
-                href: '/scen/arkiv',
-                selected: slug === 'arkiv',
-                text: text`Archive`,
-                onclick: onselect
-              }])}
-            </div>
+            ${doc ? intro({ title: asText(doc.data.title), adapt: true }) : intro.loading({ text: false, adapt: true })}
+            ${tablist({ static: true }, [{
+              href: '/scen',
+              selected: !slug,
+              text: text`Currently showing`,
+              onclick: onselect
+            }, {
+              href: '/scen/kalendarium',
+              selected: slug === 'kalendarium',
+              text: text`Calendar`,
+              onclick: onselect
+            }, {
+              href: '/scen/arkiv',
+              selected: slug === 'arkiv',
+              text: text`Archive`,
+              onclick: onselect
+            }])}
             ${slug === 'arkiv'
               ? doc
                 ? filter(tags, state.query.period, onfilter)
                 : filter.loading()
               : null}
             ${!slug && doc && doc.data.notice.length ? html`
-              <div class="u-spaceV6">
+              <div class="u-tablistAlign u-md-show">  
                 <div class="Text">
                   ${asElement(doc.data.notice, resolve, serialize)}
                 </div>
-                <hr>
               </div>
             ` : null}
             ${list(pages)}
@@ -183,7 +180,7 @@ function event (state, emit) {
             ${docs.map(function (doc, index) {
               if (doc) return showing(doc, index)
               return html`
-                <li class="u-spaceV6 u-slideUp" style="animation-delay: ${index * 200}ms;">
+                <li class="u-slideUp" style="animation-delay: ${index * 100}ms;">
                   ${grid([
                     grid.cell({ size: { md: '1of4' } }, framed.loading()),
                     grid.cell({ size: { md: '3of4' } }, html`
@@ -241,12 +238,12 @@ function event (state, emit) {
         }, []))
       }
       case 'arkiv': {
-        return grid({ ordered: true, size: { md: '1of3' } }, docs.map(function (doc, index) {
+        return grid({ ordered: true, size: { xs: '1of2', md: '1of3', lg: '1of4' } }, docs.map(function (doc, index) {
           var isLastBatch = page > 1 && index >= (PAGE_SIZE * page) - PAGE_SIZE
           var attrs = { class: 'u-sizeFull' }
           if (isLastBatch || Boolean(state.referrer)) {
             attrs.class += ' u-slideUp'
-            attrs.style = `animation-delay: ${(index - ((PAGE_SIZE * page) - PAGE_SIZE)) * 200}ms;`
+            attrs.style = `animation-delay: ${(index - ((PAGE_SIZE * page) - PAGE_SIZE)) * 100}ms;`
           }
           return html`
             <div ${attrs}>
@@ -263,9 +260,11 @@ function event (state, emit) {
   // obj -> Element
   function showing (doc, index) {
     var attrs = index + 1 > PAGE_SIZE || Boolean(state.referrer) ? {
-      class: 'u-spaceV6 u-slideUp',
-      style: `animation-delay: ${index * 200}ms;`
-    } : {}
+      class: 'Event Event--teaser u-slideUp',
+      style: `animation-delay: ${index * 100}ms;`
+    } : {
+      class: 'Event Event--teaser'
+    }
     if (doc.data.theme) attrs.style = `--theme-color: ${hexToRgb(doc.data.theme)}`
     let image
     if (doc.data.poster.url) {
@@ -273,29 +272,30 @@ function event (state, emit) {
       image = Object.assign({
         srcset: sources,
         sizes: '25vw',
+        size: 'flexible',
         alt: doc.data.poster.alt || '',
         src: sources.split(' ')[0]
       }, doc.data.poster.dimensions)
     }
     return html`
       <li ${attrs}>
-        ${grid([
-          grid.cell({ size: { md: '1of4' } }, image ? framed(image) : framed.loading()),
-          grid.cell({ size: { md: '3of4' } }, html`
-            <div class="u-spaceT4">
-              <div class="Text Text--large u-spaceB4">
-                <small class="u-textHeading u-textUppercase">
-                  ${[doc.data.category, doc.data.subheading].filter(Boolean).join(' – ')}
-                </small>
-                <h2 class="Text-h3 u-spaceT1">${asText(doc.data.title)}</h2>
-                <div class="u-spaceT2">
-                  ${asElement(doc.data.description, resolve, serialize)}
-                </div>
-              </div>
-              ${button({ text: text`Read more`, href: resolve(doc), primary: true, class: 'u-spaceR1' })}
-            </div>
-          `)
-        ])}
+        <div class="Event-image">
+          ${image ? framed(image) : framed.loading()}
+        </div>
+        <div class="Event-body">
+          <span class="u-textLabelLarge u-textHeading">
+            ${[doc.data.category, doc.data.subheading].filter(Boolean).join(' – ')}
+          </span>
+          <div class="Text Text--large">
+            <h2>${asText(doc.data.title)}</h2>
+              ${asElement(doc.data.description, resolve, serialize)}
+          </div>
+          <div class="Event-actions">
+            <span class="Event-action">
+              ${button({ text: text`Read more`, href: resolve(doc), primary: true, cover: true })}
+            </span>
+          </div>
+        </div>
       </li>
     `
   }

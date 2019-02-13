@@ -19,6 +19,10 @@
   background-color: rgb(var(--theme-color));
 }
 
+.Framed--flexible {
+  --Framed-distance: 1.4rem;
+}
+
 @media (min-width: 800px) {
   .Framed:not(.Framed--sm) {
     --Framed-distance: 1.4rem;
@@ -26,7 +30,7 @@
 }
 
 @media (min-width: 1000px) {
-  .Framed:not(.Framed--sm) {
+  .Framed:not(.Framed--sm):not(.Framed--flexible) {
     --Framed-distance: 2.3rem;
   }
 }

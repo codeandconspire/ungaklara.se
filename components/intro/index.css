@@ -19,6 +19,10 @@
   --Intro-spacing: 2rem;
 }
 
+.Intro--adapt {
+  margin-bottom: 1rem;
+}
+
 .Intro-title {
   position: relative;
   font-size: 2.1rem;
@@ -76,7 +80,7 @@
 }
 
 @media (min-width: 600px) {
-  .Intro {
+  .Intro:not(.Intro--adapt) {
     margin-bottom: 4rem;
   }
 
@@ -87,13 +91,15 @@
 }
 
 @media (min-width: 800px) {
-  .Intro {
+  .Intro:not(.Intro--adapt) {
     margin-bottom: calc(var(--Intro-spacing) * 1.5);
+    letter-spacing: -0.035em;
   }
 
   .Intro-title {
     font-size: 4.5rem;
     padding-top: 0.6em;
+    letter-spacing: -0.035em;
   }
 
   .Intro-text {
@@ -102,7 +108,7 @@
 }
 
 @media (min-width: 1000px) {
-  .Intro {
+  .Intro:not(.Intro--adapt) {
     margin-bottom: calc(var(--Intro-spacing) * 3);
   }
 

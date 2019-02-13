@@ -4,10 +4,16 @@
 .Filter {
   display: flex;
   flex-wrap: wrap-reverse;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  padding: 0.75rem 0;
+  margin: -0.75em 0 0.75em;
   user-select: none;
+}
+
+@media (min-width: 800px) {
+  .Filter {
+    font-size: 1.125rem;
+  }
 }
 
 .Filter-tags {
@@ -15,7 +21,7 @@
   display: inline-block;
   padding: 0;
   border: 0;
-  margin: 0.75rem 0;
+  margin: 0.35em 0.5em 0.75em 0;
 }
 
 @media (max-width: 599px) {
@@ -25,18 +31,14 @@
 }
 
 .Filter-toggle {
-  border: 0;
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px;
-  overflow: hidden;
-  padding: 0;
+  font-size: 0;
+  opacity: 0;
   position: absolute;
-  width: 1px;
 }
 
 .Filter-label {
   display: inline-block;
-  margin-right: 1.2rem;
+  margin-right: 0.6em;
   border-bottom: 2px solid transparent;
   font-weight: 600;
   font-family: var(--heading-font-family);
@@ -55,7 +57,7 @@
 .Filter-decade {
   display: flex;
   align-items: center;
-  margin: 0.75rem 0;
+  margin: 0.75em 0;
 }
 
 @media (max-width: 599px) {
@@ -65,17 +67,23 @@
 }
 
 .Filter-select {
-  padding: 0.5em 4em 0.5em 1em;
+  padding: 0.5em 3em 0.5em 1em;
   border: 0;
-  margin-left: 0.5em;
+  margin-left: 0.3em;
   font-weight: 600;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
   background-image: url("./arrow.svg");
-  background-position: calc(100% - 1rem) 50%;
-  background-size: 0.7rem 0.45rem;
+  background-position: calc(100% - 1em) 50%;
+  background-size: 0.7em 0.45em;
   background-repeat: no-repeat;
   border-radius: 0;
   -webkit-appearance: none;
   appearance: none;
+}
+
+@media (min-width: 800px) {
+  .Filter-select {
+    width: 12em;
+  }
 }

@@ -42,19 +42,26 @@
 .u-textHeading {
   font-family: var(--heading-font-family) !important;
   line-height: var(--heading-line-height) !important;
+  font-weight: 600;
+  letter-spacing: -0.025em;
 }
 
 .u-nowrap {
   white-space: nowrap !important;
 }
 
-.u-textLabel {
+.u-textLabel,
+.u-textLabelLarge {
   display: block;
   padding: 0;
-  margin: 0 0 0.3em 0;
+  margin: 0 0 0.35em 0;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-size: 0.875rem;
+}
+
+.u-textLabelLarge {
+  font-size: 1rem;
 }
 
 /**

@@ -1,39 +1,43 @@
 @import "../base";
 
 /* @define Calendar */
-.Calendar {
-
-}
-
 .Calendar-row {
   display: flex;
-  align-items: center;
-  padding: 1.75rem 0;
-  border-bottom: 1px solid rgb(var(--color-gray));
+  padding: 1.2rem 0 1.4rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   position: relative;
 }
 
 .Calendar-poster {
-  width: 4.5rem;
+  width: 6rem;
 }
 
 .Calendar-body {
   flex: 1 1 auto;
-  margin: 0 2.375rem;
+  margin: 0.8rem 0 0 1.5rem;
+  font-size: 1rem;
 }
 
 .Calendar-link {
   display: inline-block;
-  padding-bottom: 0.05em;
+  padding-bottom: 0.05rem;
   margin: 0 0 0.5rem;
   border-bottom: 2px solid currentColor;
-  font-size: 1.875rem;
+  font-size: 1.25rem;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
 }
 
 .Calendar.is-loading .Calendar-link {
   border-bottom-color: transparent;
+}
+
+.Calendar-meta {
+  margin-bottom: 0.8rem;
+}
+
+.Calendar-time {
+  display: block
 }
 
 .Calendar-link::before {
@@ -46,8 +50,56 @@
 }
 
 .Calendar-day {
-  margin: 3.5rem 0 1.5rem;
-  font-size: 1.5rem;
+  margin: 1.35rem 0 0.1rem;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
+  font-size: 1.125rem;
+}
+
+.Calendar-row:first-child {
+  padding-top: 0;
+  margin-top: -0.5rem;
+}
+
+@media (min-width: 600px) {
+  .Calendar-row {
+    align-items: center;
+  }
+
+  .Calendar-body {
+    font-size: 1.125rem;
+    display: flex;
+    margin-top: 0;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .Calendar-meta {
+    margin: 0;
+  }
+
+  .Calendar-time,
+  .Calendar-location {
+    display: inline-block;
+    margin-right: 1.8rem;
+  }
+
+  .Calendar-link {
+    font-size: 1.5rem;
+  }
+
+  .Calendar-poster {
+    width: 4.4rem;
+  }
+}
+
+@media (min-width: 800px) {
+  .Calendar-day {
+    font-size: 1.5rem;
+    margin-top: 1.2rem;
+  }
+
+  .Calendar-link {
+    font-size: 1.875rem;
+  }
 }

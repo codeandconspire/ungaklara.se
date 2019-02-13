@@ -1,7 +1,7 @@
 @import "../base";
 
 :root {
-  --Card-figure-aspect: calc(100% * 3/4);
+  --Card-figure-aspect: 142.8%;
 }
 
 /* @define Card */
@@ -12,7 +12,6 @@
   position: relative;
   z-index: 0;
   color: rgb(var(--current-color));
-  user-select: none;
 }
 
 @media print {
@@ -49,33 +48,22 @@
   display: flex;
   flex-direction: column;
   flex: 1 0 auto;
+  padding-bottom: 1.5rem;
   align-items: flex-start;
 }
 
 .Card-content:not(:first-child) {
-  padding-top: 1.5rem;
+  padding-top: 1rem;
 }
 
-@media (min-width: 1000px) {
-  .Card-content {
-    padding-bottom: 1rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  .Card-content {
-    padding-bottom: 0.8rem;
+@media (min-width: 800px) {
+  .Card-content:not(:first-child) {
+    padding-top: 1.5rem;
   }
 }
 
 .Card--fill .Card-content {
   padding: 1.2rem 1.2rem 0.2rem;
-}
-
-@media (min-width: 1200px) {
-  .Card--fill .Card-content {
-    padding: 2rem 2rem 0.5rem;
-  }
 }
 
 .Card--background .Card-content {
@@ -115,10 +103,16 @@
 
 .Card-title {
   display: inline;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
+}
+
+@media (min-width: 800px) {
+  .Card-title {
+    font-size: 1.5rem;
+  }
 }
 
 @media (max-width: 599px) {
@@ -129,26 +123,16 @@
 
 .Card-text {
   font-size: 1rem;
-  margin-top: 1.5rem;
+  margin-top: 0.75rem;
+  font-size: 1rem;
 }
 
 @media (max-width: 599px) {
   .Card--shrink .Card-text {
-    clip: rect(1px, 1px, 1px, 1px);
-    height: 1px;
+    font-size: 0;
+    opacity: 0;
+    height: 0;
     margin: 0;
-    overflow: hidden;
-    position: absolute;
-    width: 1px;
-  }
-}
-
-@media (min-width: 900px) {
-  .Card-title {
-    font-size: 2rem;
-  }
-  .Card:not(.is-loading) .Card-title {
-    line-height: 1.05;
   }
 }
 
@@ -156,8 +140,7 @@
   --current-background: 0, 0, 0;
   flex-grow: 0;
   width: 100%;
-  padding-bottom: 2rem;
-  margin-top: 1.25rem;
+  margin-top: 0.75rem;
 }
 
 .Card--fill.Card--dark {
@@ -261,7 +244,6 @@
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 0.5em;
   border-bottom: 2px solid currentColor;
   font-size: 1rem;
   font-family: var(--heading-font-family);
@@ -294,12 +276,14 @@
 
 @media (max-width: 599px) {
   .Card--shrink .Card-link {
-    clip: rect(1px, 1px, 1px, 1px);
-    height: 1px;
-    overflow: hidden;
-    padding: 0;
+    font-size: 0;
+    opacity: 0;
+    height: 0;
+  }
+
+  .Card--shrink .Card-footer {
     margin: 0;
-    border: 0;
-    width: 1px;
+    padding: 0;
+    height: 0;
   }
 }

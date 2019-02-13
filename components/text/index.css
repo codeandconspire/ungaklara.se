@@ -50,6 +50,7 @@
   font-weight: 600;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
+  letter-spacing: -0.025em;
 }
 
 @media (min-width: 1000px) {
@@ -75,7 +76,7 @@
 
 .Text a {
   display: inline-block;
-  border-bottom: 1px solid currentColor;
+  border-bottom: 2px solid currentColor;
   position: relative; /* 1 */
   z-index: 2; /* 1 */
   color: inherit;
@@ -90,15 +91,6 @@
 /**
  * 1. Cover all bases for strong links
  */
-
-.Text strong a /* 1 */ {
-  border-bottom-width: 2px;
-}
-
-.Text a > strong:first-child:last-child /* 1 */ {
-  display: inline-block;
-  border-bottom: 1px solid currentColor;
-}
 
 .Text a.Text-reset:not(:hover) {
   border-color: transparent;
@@ -502,8 +494,8 @@
 
 .Text h3,
 .Text .Text-h3 {
-  font-size: 1.4rem;
-  line-height: 1.15;
+  font-size: 1.5rem;
+  line-height: 1.1;
 }
 
 .Text h4,
@@ -522,11 +514,5 @@
   .Text h1,
   .Text .Text-h1 {
     font-size: 2.8rem;
-  }
-
-  .Text h3,
-  .Text .Text-h3 {
-    font-size: 1.6rem;
-    line-height: 1.1;
   }
 }

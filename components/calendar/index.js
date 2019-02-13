@@ -25,7 +25,7 @@ function calendar (items) {
     if (item.appear) {
       attrs.style = attrs.style || ''
       attrs.class += ' u-slideUp'
-      attrs.style += ` animation-delay: ${i * 200}ms;`
+      attrs.style += ` animation-delay: ${i * 100}ms;`
     }
 
     if (!day || date > day) {
@@ -46,19 +46,21 @@ function calendar (items) {
           </div>
         ` : null}
         <div class="Calendar-body">
-          <a href="${item.href}" class="Calendar-link">${item.title}</a>
-          <br>
           <div>
-            <span>${timestamp(item.date)}</span>
-            <span>${item.location}</span>
+            <a href="${item.href}" class="Calendar-link">${item.title}</a>
+            <br>
+            <div class="Calendar-meta">
+              <span class="Calendar-time">${timestamp(item.date)}</span>
+              <span class="Calendar-location">${item.location}</span>
+            </div>
           </div>
+          ${button({
+            primary: true,
+            href: item.link,
+            disabled: !available,
+            text: available ? text`Buy ticket` : text`Sold out`
+          })}
         </div>
-        ${button({
-          primary: true,
-          href: item.link,
-          disabled: !available,
-          text: available ? text`Buy ticket` : text`Sold out`
-        })}
       </li>
     `)
   }
@@ -74,16 +76,18 @@ function loading (count = 3) {
   var rows = []
   for (let i = 0; i < count; i++) {
     rows.push(html`
-    <li class="Calendar-row u-slideUp" style="animation-delay: ${i * 200}ms;">
+    <li class="Calendar-row u-slideUp" style="animation-delay: ${i * 100}ms;">
       <div class="Calendar-poster">
         ${framed.loading({ size: 'sm' })}
       </div>
       <div class="Calendar-body">
-        <span class="Calendar-link">${loader(6)}</span>
-        <br>
         <div>
-          <span>${loader(2)}</span>
-          <span>${loader(3)}</span>
+          <span class="Calendar-link">${loader(6)}</span>
+          <br>
+          <div class="Calendar-meta">
+            <span>${loader(2)}</span><br>
+            <span>${loader(3)}</span>
+          </div>
         </div>
       </div>
     </li>
