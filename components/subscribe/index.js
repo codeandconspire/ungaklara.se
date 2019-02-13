@@ -1,6 +1,5 @@
 var html = require('choo/html')
 var Component = require('choo/component')
-var button = require('../button')
 var { i18n } = require('../base')
 
 var text = i18n()

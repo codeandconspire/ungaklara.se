@@ -73,7 +73,7 @@ function event (state, emit) {
               </div>
             ` : null}
             ${list(pages)}
-            ${pages && pages.length === page * PAGE_SIZE ? pagination({ href: getHrefWithParam('page', page + 1), onclick: onpaginate}) : null}
+            ${pages && pages.length === page * PAGE_SIZE ? pagination({ href: getHrefWithParam('page', page + 1), onclick: onpaginate }) : null}
           </div>
         `
       })}

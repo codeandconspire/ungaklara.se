@@ -66,7 +66,7 @@ module.exports = class Masonry extends Component {
       cols.push([])
     }
 
-    for (let i = 0, len = items.length, col = 0; i < len; i++){
+    for (let i = 0, len = items.length, col = 0; i < len; i++) {
       cols[col].push(items[i])
       if (col === cols.length - 1) col = 0
       else col += 1
