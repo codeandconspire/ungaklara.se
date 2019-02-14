@@ -183,8 +183,8 @@ function page (state, emit) {
       }
       case 'newsletter': {
         return html`
-          <div class="u-spaceV8">
-            ${index !== 0 ? html`<hr class="u-spaceV8">` : null}
+          <div>
+            ${index !== 0 ? html`<hr class="u-invisible">` : null}
             ${state.cache(Subscribe, `${state.params.slug}-${index}`).render({
               action: state.mailchimp,
               title: asText(slice.primary.heading),
@@ -192,7 +192,7 @@ function page (state, emit) {
               success: slice.primary.success_message.length ? asElement(slice.primary.success_message, resolve, serialize) : null,
               ref: slice.primary.ref
             })}
-            ${index < list.length - 1 ? html`<hr class="u-spaceV8">` : null}
+            ${index < list.length - 1 ? html`<hr />` : null}
           </div>
         `
       }
