@@ -111,8 +111,8 @@ function page (state, emit) {
         `
       }
       case 'image': {
-        if (!slice.primary.url) return null
-        let sources = srcset(slice.primary.url, [400, 600, 900, [1600, 'q_60'], [3000, 'q_50']])
+        if (!slice.primary.image.url) return null
+        let sources = srcset(slice.primary.image.url, [400, 600, 900, [1600, 'q_60'], [3000, 'q_50']])
         let attrs = Object.assign({
           sizes: '100vw',
           srcset: sources,
