@@ -21,10 +21,10 @@
   user-select: none;
 }
 
-.Button--small {
-  padding: 0 0.9rem;
-  min-width: 0;
-  line-height: 2.7rem;
+@media (min-width: 1000px) {
+  .Button {
+    font-size: 1.125rem;
+  }
 }
 
 .Button:not([disabled]):hover {

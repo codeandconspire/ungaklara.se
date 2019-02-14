@@ -9,11 +9,10 @@
 
 .Subscribe-form {
   display: flex;
-  flex-wrap: wrap;
-  width: 30rem;
-  max-width: 100%;
+  width: 23em;
+  max-width: 90%;
   border: 2px solid #000;
-  margin: 2rem auto 0;
+  margin: 2.5em auto 0;
   overflow: hidden;
   border-radius: 3px;
 }
@@ -25,11 +24,22 @@
 .Subscribe-input {
   display: block;
   width: 100%;
-  padding: 0 1rem;
+  padding: 0 1.2em;
   border: solid #000;
   border-width: 0 2px 0 0;
-  font-size: 1rem;
+  font-size: inherit;
   line-height: 3.2;
+  background: transparent;
+}
+
+.Subscribe-input::placeholder {
+  color: inherit;
+  opacity: 1;
+}
+
+.Subscribe-input:focus {
+  outline: 0 !important;
+  background: #fff;
 }
 
 .Subscribe-button {
@@ -41,6 +51,19 @@
   line-height: var(--heading-line-height);
   background-color: #000;
 }
+
+@media (min-width: 400px) {
+  .Subscribe-form {
+    font-size: 1.125rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .Subscribe-form {
+    font-size: 1.25rem;
+  }
+}
+
 
 .Subscribe-button:disabled {
   opacity: 0.6;

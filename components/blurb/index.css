@@ -3,6 +3,7 @@
 /* @define Blurb */
 .Blurb {
   display: block;
+  margin-bottom: 0.4rem;
 }
 
 .Blurb-body {

@@ -23,8 +23,8 @@ module.exports = class Subscribe extends Component {
 
     return html`
       <form method="POST" action="${props.action}" class="Subscribe" onsubmit=${onsubmit} target="_blank" id="${this.local.id}">
-        <div class="Text u-textCenter">
-          ${props.title ? html`<h2>${props.title}</h2>` : null}
+        <div class="Text Text--large u-textCenter">
+          ${props.title ? html`<h1>${props.title}</h1>` : null}
           ${this.local.subscribed ? html`
             <div class="u-spaceT3">
               ${props.success || html`<p>${text`Thanks for signing up!`}</p>`}
