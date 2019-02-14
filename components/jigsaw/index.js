@@ -2,7 +2,7 @@ var html = require('choo/html')
 
 module.exports = jigsaw
 
-function jigsaw (heading, body, image) {
+function jigsaw (heading, body, image, gallery) {
   return html`
     <div class="Jigsaw">
       <div class="Jigsaw-heading">${heading}</div>

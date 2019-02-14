@@ -54,7 +54,7 @@
   width: calc(100% - 1rem);
   height: calc(100% - 1rem);
   top: 1rem;
-  background: linear-gradient(-25deg, rgb(var(--theme-color)) 30%, rgba(var(--theme-color), 0) 85%, transparent);
+  background: linear-gradient(-25deg, rgb(var(--color-pink)) 30%, rgba(var(--color-pink), 0) 85%, transparent);
 }
 
 /**
@@ -74,5 +74,5 @@
 }
 
 .Framed.is-loading .Framed-image {
-  background-color: rgb(var(--color-gray));
+  background-color: #000;
 }

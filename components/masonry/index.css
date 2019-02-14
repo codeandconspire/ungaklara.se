@@ -23,7 +23,7 @@
   }
 
   .Masonry-col--1 {
-    margin: 5rem 0 -5rem;
+    margin: 5rem 0 0;
   }
 }
 
@@ -43,7 +43,7 @@
 
 @media (min-width: 1000px) {
   .Masonry {
-    margin: 4rem -0.72rem;
+    margin: 7rem -0.72rem;
   }
 
   .Masonry-col {
@@ -52,7 +52,7 @@
   }
 
   .Masonry-col--3 {
-    margin: 5rem 0 -5rem;
+    margin: 5rem 0 0;
   }
 
   .Masonry-cell {

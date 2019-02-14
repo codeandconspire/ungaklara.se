@@ -3,11 +3,11 @@
 /* @define utilities */
 .u-loading,
 .u-loadingLight {
-  background: rgba(0, 0, 0, 0.05) !important;
+  background: #000 !important;
   color: transparent !important;
   user-select: none !important;
 }
 
 .u-loadingLight {
-  background: rgba(255, 255, 255, 0.3) !important;
+  background: rgba(255, 255, 255, 0.9) !important;
 }

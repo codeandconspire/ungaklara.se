@@ -7,6 +7,7 @@ var intro = require('../components/intro')
 var framed = require('../components/framed')
 var jigsaw = require('../components/jigsaw')
 var reset = require('../components/text/reset')
+var Masonry = require('../components/masonry')
 var Subscribe = require('../components/subscribe')
 var cap = require('../components/text/cap-heading')
 var serialize = require('../components/text/serialize')
@@ -46,7 +47,7 @@ function visit (state, emit) {
                     }
                   }
 
-                  return html`<div class="u-spaceV2">${blurb(props)}</div>`
+                  return html`<div class="u-spaceB1">${blurb(props)}</div>`
                 })),
                 doc.data.image.url ? framed(Object.assign({
                   format: 'ellipse',
@@ -56,6 +57,11 @@ function visit (state, emit) {
                   src: srcset(doc.data.image.url, [200]).split(' ')[0]
                 }, doc.data.image.dimensions)) : null
               )}
+              ${doc.data.gallery ? html`
+                <div class="u-spaceV2">
+                  ${state.cache(Masonry, doc.id + '-visit-media').render(doc.data.gallery.map(galleryItem).filter(Boolean))}
+                </div>
+              ` : null}
               ${doc.data.body.map(asSlice)}
             </div>
           `
@@ -63,6 +69,21 @@ function visit (state, emit) {
       </div>
     </main>
   `
+
+  // render media element from slice
+  // (obj, num) -> Element
+  function galleryItem (item) {
+    var image = item.gallery_item
+    if (!image.url) return null
+    let sources = srcset(image.url, [400, 599, 900, [1200, 'q_50']])
+    let attrs = Object.assign({
+      srcset: sources,
+      sizes: '(min-width: 1000px) 33vw, (min-width: 600px) 50vw, 100vw',
+      src: sources.split(' ')[0],
+      alt: image.alt || ''
+    }, image.dimensions)
+    return html`<div class="Text u-sizeFull"><img ${attrs} /></div>`
+  }
 
   // render slice as element
   // (obj, num) -> Element
