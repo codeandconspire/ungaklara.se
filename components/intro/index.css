@@ -23,6 +23,20 @@
   margin-bottom: 1rem;
 }
 
+.Intro--blurb {
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  text-align: center;
+}
+
+.Intro--blurb .Intro-title {
+  padding-top: 0;
+}
+
+.Intro-action {
+  margin-top: 1.6rem;  
+}
+
 .Intro-title {
   position: relative;
   font-size: 2.1rem;

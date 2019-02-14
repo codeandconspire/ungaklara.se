@@ -359,6 +359,16 @@ function eventPage (state, emit) {
           </div>
         `
       })}
+
+      ${intro({
+        title: text`On stage right now`,
+        blurb: true,
+        action: button({
+          primary: true,
+          href: '/scen',
+          text: text`Explore`
+        })
+      })}
     </main>
   `
 

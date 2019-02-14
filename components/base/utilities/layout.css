@@ -16,6 +16,10 @@
   width: 1px !important;
 }
 
+.u-invisible {
+  opacity: 0;
+}
+
 .u-paddedBox {
   padding: 2rem 1.2rem;
 }

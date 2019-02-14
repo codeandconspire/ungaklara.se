@@ -6,7 +6,8 @@ module.exports.loading = loading
 
 function intro (props) {
   return html`
-    <div class="Intro ${props.collapse ? 'Intro--collapse' : ''} ${props.adapt ? 'Intro--adapt' : ''}">
+    <div class="Intro ${props.collapse ? 'Intro--collapse' : ''} ${props.blurb ? 'Intro--blurb' : ''} ${props.adapt ? 'Intro--adapt' : ''}">
+      ${props.action && props.blurb ? html`<div class="u-container u-invisible"><hr />` : null}
       <div class="Intro-title">
         ${props.badge ? html`<span class="Intro-badge"><span class="u-textLabel">${props.badge}</span></span>` : null}
         ${props.title}
@@ -14,6 +15,11 @@ function intro (props) {
       ${props.text ? html`<div class="Intro-text">${props.text}</div>` : null}
       ${props.image ? html`
         <img class="Intro-image" ${props.image}>
+      ` : null}
+      ${props.action && props.blurb ? html`
+        <div class="Intro-action">
+          ${props.action}
+        </div>
       ` : null}
     </div>
   `
