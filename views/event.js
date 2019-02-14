@@ -282,7 +282,6 @@ function eventPage (state, emit) {
             <div class="u-container">
               <hr>
               ${content}
-              <hr>
             </div>
           `)
         }
@@ -316,23 +315,26 @@ function eventPage (state, emit) {
 
           if (dates.length) {
             blocks.push(html`
-              <section class="u-narrow u-container" id="${doc.id}-dates">
-                ${doc.data.dates_heading.length ? html`
-                  <div class="Text u-sizeFull u-textCenter ${collapse ? 'u-spaceB4' : 'u-spaceB7'}">
-                    <h2>${asText(doc.data.dates_heading)}</h2>
-                  </div>
-                ` : null}
-                ${grid({ slim: true, size: { md: '1of2', xl: '1of3' } }, dates.slice(0, page * 4).map(function (item, index, list) {
-                  var prev = (page - 1) * 4
-                  var attrs = { class: 'u-sizeFull' }
-                  if (state.referrer && index >= prev) {
-                    attrs.class += ' u-slideUp'
-                    attrs.style = `animation-delay: ${(index - prev) * 200}ms;`
-                  }
-                  return html`<div ${attrs}>${ticket(item)}</div>`
-                }))}
-                ${dates.length > page * 4 ? pagination({ href: `${state.href}?page=${page + 1}`, onclick: paginate }) : null}
-              </section>
+              <div>
+                <hr />
+                <section class="u-narrow u-container" id="${doc.id}-dates">
+                  ${doc.data.dates_heading.length ? html`
+                    <div class="Text u-sizeFull u-textCenter ${collapse ? 'u-spaceB4' : 'u-spaceB7'}">
+                      <h2>${asText(doc.data.dates_heading)}</h2>
+                    </div>
+                  ` : null}
+                  ${grid({ slim: true, size: { md: '1of2', xl: '1of3' } }, dates.slice(0, page * 4).map(function (item, index, list) {
+                    var prev = (page - 1) * 4
+                    var attrs = { class: 'u-sizeFull' }
+                    if (state.referrer && index >= prev) {
+                      attrs.class += ' u-slideUp'
+                      attrs.style = `animation-delay: ${(index - prev) * 200}ms;`
+                    }
+                    return html`<div ${attrs}>${ticket(item)}</div>`
+                  }))}
+                  ${dates.length > page * 4 ? pagination({ href: `${state.href}?page=${page + 1}`, onclick: paginate }) : null}
+                </section>
+              </div>
             `)
           }
         }
