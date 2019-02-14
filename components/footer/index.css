@@ -24,8 +24,12 @@
   padding: 0.15rem 0;
 }
 
-.Footer-link:hover {
-
+.Footer-link:hover,
+.Footer-link:active {
+  outline: 2px solid rgb(var(--document-color));
+  background: rgb(var(--document-color));
+  color: rgb(255, 255, 255);
+  mix-blend-mode: darken;
 }
 
 .Footer-logo {

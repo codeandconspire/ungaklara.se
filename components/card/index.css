@@ -148,7 +148,7 @@
 }
 
 .Card--fill:not(.Card-dark) {
-  --current-color: var(--high-contrast-light, 0, 0, 0);
+  --current-color: var(0, 0, 0);
 }
 
 .Card--dark .Card-footer {
@@ -156,7 +156,7 @@
 }
 
 .Card--fill {
-  background-color: rgb(var(--high-contrast-dark, var(--Card-background-color, var(--current-background))));
+  background-color: rgb(var(--Card-background-color, var(--current-background)));
 }
 
 /**

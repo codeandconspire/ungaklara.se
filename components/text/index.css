@@ -80,12 +80,24 @@
   position: relative; /* 1 */
   z-index: 2; /* 1 */
   color: inherit;
-  transition: color 50ms cubic-bezier(0,0,.2,1);
-  text-decoration: var(--high-contrast-underline, none);
+  text-decoration: none;
 }
 
-.Text a:hover {
-  color: inherit;
+.Text a:hover,
+.Text a:active {
+  border-color: rgb(var(--document-color));
+  background: rgb(var(--document-color));
+  color: rgb(255, 255, 255);
+  mix-blend-mode: darken;
+}
+
+.Text-muted a:hover,
+a.Text-muted:hover,
+.Text-muted a:active,
+a.Text-muted:active {
+  border-color: rgb(var(--color-gray-dark));
+  background: rgb(var(--color-gray-dark));
+  color: rgb(255, 255, 255);
 }
 
 /**

@@ -49,6 +49,14 @@
   z-index: -1;
 }
 
+.Calendar-link:hover,
+.Calendar-link:active {
+  border-color: rgb(var(--document-color));
+  background: rgb(var(--document-color));
+  color: rgb(255, 255, 255);
+  mix-blend-mode: darken;
+}
+
 .Calendar-day {
   margin: 1.35rem 0 0.1rem;
   font-family: var(--heading-font-family);
