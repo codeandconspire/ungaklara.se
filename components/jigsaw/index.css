@@ -2,53 +2,72 @@
 
 /* @define Jigsaw */
 .Jigsaw {
-  display: flex;
-  flex-wrap: wrap;
   position: relative;
-}
-
-@media (min-width: 1000px) {
-  .Jigsaw {
-    padding-right: 600px;
-  }
-}
-
-.Jigsaw-heading {
-  flex: 1 1 100%;
-}
-
-.Jigsaw-body {
-  flex: 0 1 100%;
-}
-
-@media (min-width: 600px) {
-  .Jigsaw-body {
-    flex: 0 1 50%;
-  }
-}
-
-@media (min-width: 1000px) {
-  .Jigsaw-body {
-    flex: 0 1 700px;
-  }
+  width: 100%;
+  overflow: hidden;
 }
 
 .Jigsaw-image {
-  display: none;
+  position: absolute;
+  bottom: 0;
+  width: 38vw;
+  right: -13vw;
+  max-width: 21rem;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 500px) {
+  .Jigsaw {
+    padding-right: 5rem;
+    overflow: visible;
+  }
+
   .Jigsaw-image {
-    display: block;
-    flex: 1 1 50%;
+    bottom: 0rem;
+    right: 1rem;
+    width: 36vw;
   }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 600px) {
+  .Jigsaw {
+    padding-right: 30vw;
+  }
+
   .Jigsaw-image {
-    max-width: 450px;
-    position: absolute;
-    right: 2vw;
-    bottom: 0;
+
+  }
+}
+
+@media (min-width: 700px) {
+  .Jigsaw {
+    padding-right: 40vw;
+  }
+
+  .Jigsaw-image {
+    bottom: 2rem;
+    right: 1rem;
+    width: 36vw;
+  }
+}
+
+
+@media (min-width: 1000px) {
+  .Jigsaw {
+    padding-right: 0;
+  }
+
+  .Jigsaw-heading,
+  .Jigsaw-body {
+    width: 63.6%;
+  }
+
+  .Jigsaw-figure {
+    position: relative;
+  }
+
+  .Jigsaw-image {
+    bottom: 2rem;
+    right: 0;
+    width: 100%;
   }
 }

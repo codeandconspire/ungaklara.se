@@ -18,45 +18,46 @@ module.exports = view(visit, meta)
 function visit (state, emit) {
   return html`
     <main class="View-main">
-      <div class="u-container">
-        ${state.prismic.getSingle('your_visit', function (err, doc) {
-          if (err) throw err
-          if (!doc) return intro.loading({ badge: true })
-          return html`
-            <div>
-              ${jigsaw(
-                intro({
-                  collapse: true,
-                  title: asText(doc.data.title),
-                  badge: doc.data.subheading,
-                  text: asElement(doc.data.description, resolve, serialize)
-                }),
-                grid({ size: { lg: '1of2' } }, doc.data.blurbs.map(function (item) {
-                  if (!item.text.length) return null
-                  var props = {
-                    heading: asText(item.heading),
-                    body: asElement(item.text, resolve, reset)
-                  }
+      ${state.prismic.getSingle('your_visit', function (err, doc) {
+        if (err) throw err
+        if (!doc) return intro.loading({ badge: true })
+        return html`
+          <div>
+            ${jigsaw(
+              intro({
+                collapse: true,
+                title: asText(doc.data.title),
+                badge: doc.data.subheading,
+                text: asElement(doc.data.description, resolve, serialize)
+              }),
+              grid({ size: { lg: '1of2' } }, doc.data.blurbs.map(function (item) {
+                if (!item.text.length) return null
+                var props = {
+                  heading: asText(item.heading),
+                  body: asElement(item.text, resolve, reset)
+                }
 
-                  var { link } = item
-                  if ((link.id || link.url) && !link.isBroken) {
-                    props.link = {
-                      href: resolve(link),
-                      text: item.link_text,
-                      external: link.target === '_blank'
-                    }
+                var { link } = item
+                if ((link.id || link.url) && !link.isBroken) {
+                  props.link = {
+                    href: resolve(link),
+                    text: item.link_text,
+                    external: link.target === '_blank'
                   }
+                }
 
-                  return html`<div class="u-spaceB1">${blurb(props)}</div>`
-                })),
-                doc.data.image.url ? framed(Object.assign({
-                  format: 'ellipse',
-                  alt: doc.data.image.alt || '',
-                  srcset: srcset(doc.data.image.url, [200, 400, [800, 'q_50']], { aspect: 278 / 195, transforms: 'c_thumb' }),
-                  sizes: '(min-width: 1000px) 33vw, (min-width: 600px) 50vw, 100vw',
-                  src: srcset(doc.data.image.url, [200]).split(' ')[0]
-                }, doc.data.image.dimensions)) : null
-              )}
+                return html`<div class="u-spaceB1">${blurb(props)}</div>`
+              })),
+              doc.data.image.url ? framed(Object.assign({
+                format: 'ellipse',
+                alt: doc.data.image.alt || '',
+                srcset: srcset(doc.data.image.url, [200, 400, [800, 'q_50']], { aspect: 278 / 195, transforms: 'c_thumb' }),
+                sizes: '(min-width: 1000px) 33vw, (min-width: 600px) 50vw, 100vw',
+                src: srcset(doc.data.image.url, [200]).split(' ')[0]
+              }, doc.data.image.dimensions)) : null
+            )}
+            
+            <div class="u-container">
               ${doc.data.gallery ? html`
                 <div class="u-spaceV2">
                   ${state.cache(Masonry, doc.id + '-visit-media').render(doc.data.gallery.map(galleryItem).filter(Boolean))}
@@ -64,9 +65,9 @@ function visit (state, emit) {
               ` : null}
               ${doc.data.body.map(asSlice)}
             </div>
-          `
-        })}
-      </div>
+          </div>
+        `
+      })}
     </main>
   `
 

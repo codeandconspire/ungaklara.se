@@ -30,7 +30,7 @@
 }
 
 @media (min-width: 1000px) {
-  .Framed:not(.Framed--sm):not(.Framed--flexible) {
+  .Framed:not(.Framed--sm):not(.Framed--flexible):not(.Framed--ellipse) {
     --Framed-distance: 2.3rem;
   }
 }
@@ -41,7 +41,7 @@
 }
 
 .Framed--ellipse {
-  padding: 0 0 1rem 1rem;
+  padding: 0 0 var(--Framed-distance) var(--Framed-distance);
 }
 
 .Framed--ellipse .Framed-image,
@@ -51,9 +51,6 @@
 }
 
 .Framed--ellipse::before {
-  width: calc(100% - 1rem);
-  height: calc(100% - 1rem);
-  top: 1rem;
   background: linear-gradient(-25deg, rgb(var(--color-pink)) 30%, rgba(var(--color-pink), 0) 85%, transparent);
 }
 
