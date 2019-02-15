@@ -89,7 +89,7 @@ function teachers (state, emit) {
             let attrs = {}
             if (color) {
               attrs.style = `background-color: ${color};`
-              if (luma(color) < 185) attrs.class = 'u-colorWhite'
+              if (luma(color) < 110) attrs.class = 'u-colorWhite'
             } else {
               attrs.class = 'u-bgTheme'
             }
@@ -171,10 +171,7 @@ function teachers (state, emit) {
         case 'links': {
           let items = slice.items.filter((item) => item.link.id && !item.link.isBroken)
           if (!items.length) return null
-          let opts = { size: { md: '1of2' } }
-          if (items.length === 3 || items.length > 4) {
-            opts.size.lg = '1of3'
-          }
+          let opts = { size: { md: '1of2', lg: '1of3' } }
           let heading = asText(slice.primary.heading)
           return html`
             <div class="u-spaceV8">

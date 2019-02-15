@@ -31,10 +31,7 @@ function page (state, emit) {
             if (el !== blurbs || i === doc.data.body.length - 1) {
               if (blurbs.length) {
                 // render aggregated blurbs as grid
-                let opts = { size: { md: '1of2' } }
-                if (blurbs.length === 3 || blurbs.length > 4) {
-                  opts.size.lg = '1of3'
-                }
+                let opts = { size: { md: '1of2', lg: '1of3' } }
                 body.push(html`
                   <div class="u-spaceV8">
                     ${grid(opts, blurbs)}

@@ -283,7 +283,7 @@ function event (state, emit) {
           ${image ? framed(image) : framed.loading()}
         </div>
         <div class="Event-body">
-          <span class="u-textLabelLarge u-textHeading">
+          <span class="u-textHeading">
             ${[doc.data.category, doc.data.subheading].filter(Boolean).join(' – ')}
           </span>
           <div class="Text Text--large">
