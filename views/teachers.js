@@ -77,7 +77,7 @@ function teachers (state, emit) {
                 ${slice.primary.link.id && !slice.primary.link.isBroken ? html`
                   <strong class="u-spaceT3">
                     <a href="${resolve(slice.primary.link)}">
-                      ${slice.primary.link.data.cta || text(`Read more`)}
+                      ${text(`Read more`)}
                     </a>
                   </strong>
                 ` : null}
