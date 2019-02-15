@@ -44,7 +44,7 @@ function page (state, emit) {
             blurbs = []
           }
         }
-
+        console.log(doc.data.cta)
         return html`
           <div>
             ${jigsaw(
@@ -55,7 +55,7 @@ function page (state, emit) {
               }),
               doc.data.cta ? html`
                 <div class="View-action">
-                  ${button({ text: text`Read more`, href: doc.data.cta.url, primary: true })}
+                  ${button({ text: text`Read more`, href: resolve(doc.data.cta), primary: true })}
                 </div>
               ` : null,
               doc.data.image.url ? framed(Object.assign({
