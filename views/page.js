@@ -220,6 +220,7 @@ function page (state, emit) {
         let { primary } = slice
         if (!primary.file.url || primary.file.isBroken) return null
         blurbs.push(asCard({
+          file: true,
           image: primary.image,
           title: primary.title,
           body: primary.text,
