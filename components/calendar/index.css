@@ -19,9 +19,7 @@
 }
 
 .Calendar-link {
-  display: inline-block;
   padding-bottom: 0.05rem;
-  margin: 0 0 0.5rem;
   border-bottom: 2px solid currentColor;
   font-size: 1.25rem;
   font-family: var(--heading-font-family);
@@ -33,7 +31,7 @@
 }
 
 .Calendar-meta {
-  margin-bottom: 0.8rem;
+  margin: 0.5rem 0 0.8rem
 }
 
 .Calendar-time {
@@ -66,7 +64,7 @@
 
 .Calendar-row:first-child {
   padding-top: 0;
-  margin-top: -0.5rem;
+  margin-top: -1rem;
 }
 
 @media (min-width: 600px) {
@@ -83,7 +81,7 @@
   }
 
   .Calendar-meta {
-    margin: 0;
+    margin-bottom: 0;
   }
 
   .Calendar-time,

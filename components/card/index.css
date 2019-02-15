@@ -123,6 +123,10 @@
   font-size: 1rem;
 }
 
+.Card-text:first-child {
+  margin-top: -0.5rem;
+}
+
 @media (max-width: 599px) {
   .Card--shrink .Card-text {
     font-size: 0;
@@ -137,6 +141,7 @@
   flex-grow: 0;
   width: 100%;
   margin-top: 0.45rem;
+  margin-bottom: 0.4rem;
 }
 
 .Card--fill.Card--dark {
@@ -248,7 +253,7 @@
   user-select: none;
 }
 
-.Card-link::before {
+.Card-link:not(.Card-link--simple)::before {
   content: "";
   width: 100%;
   height: 100%;

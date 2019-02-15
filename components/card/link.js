@@ -20,6 +20,8 @@ function link (opts = {}) {
   }
   if (opts.file) attrs.download = ''
 
+  if (opts.file) attrs.class += ' Card-link--simple'
+
   return html`
     <a ${attrs}>
       ${label(opts)}
