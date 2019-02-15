@@ -42,10 +42,8 @@ module.exports = class Footer extends Component {
                             url = root + url
                           }
                           return html`
-                            <li>
-                              <a href="${url}">
-                                ${item.link_text || asText(link.data.title)}
-                              </a>
+                            <li class="Footer-item">
+                              <a class="Footer-link" href="${url}">${item.link_text || asText(link.data.title)}</a>
                             </li>
                           `
                         }).filter(Boolean)}
