@@ -256,27 +256,28 @@ function page (state, emit) {
 function teamMember (props) {
   var image
   if (props.image.url) {
-    let sources = srcset(props.image.url, [200, 400, 800, [1600, 'q_50']])
+    let sources = srcset(props.image.url, [200, 400, [800, 'q_50']])
     image = Object.assign({
       class: 'u-spaceB2',
+      sizes: '13em',
       srcset: sources,
-      sizes: '(min-width: 1000px) 25vw, 50vw',
+      style: 'max-width: 13em;',
       alt: props.image.alt || '',
       src: sources.split(' ')[0]
     }, props.image.dimensions)
   }
 
   return html`
-    <article class="Text u-sizeFull">
+    <article class="Text Text--fat">
       ${image ? html`<img ${image} />` : null}
       ${props.label ? html`
-        <strong class="u-block u-textHeading">
+        <strong class="Text-label">
           ${props.label}
         </strong>
       ` : null}
       ${props.text.length ? html`
-        <div class="u-spaceT2">
-          ${asElement(props.text, resolve, reset)}
+        <div>
+          ${asElement(props.text, resolve, serialize)}
         </div>
       ` : null}
     </article>

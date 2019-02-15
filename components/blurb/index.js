@@ -16,7 +16,7 @@ function blurb (props) {
   }
   return html`
     <div class="Blurb">
-      ${props.heading ? html`<h2 class="u-spaceB1 u-textHeading u-textLabel">${props.heading}</h2>` : null}
+      ${props.heading ? html`<h2 class="u-spaceB1 u-textLabel">${props.heading}</h2>` : null}
       <div class="Blurb-body">
         <div class="Text Text--large">
           ${props.body}

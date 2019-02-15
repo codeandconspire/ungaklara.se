@@ -8,7 +8,7 @@ module.exports = pagination
 function pagination (props) {
   return html`
     <div class="Pagination">
-      <a class="Pagination-link u-textHeading" href="${props.href}" onclick=${props.onclick}>${text`Show more`}</a>
+      <a class="Pagination-link u-textLabel" href="${props.href}" onclick=${props.onclick}>${text`Show more`}</a>
     </div>
   `
 }

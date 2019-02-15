@@ -108,7 +108,7 @@ function visit (state, emit) {
       case 'heading': {
         if (!slice.primary.heading.length) return null
         return html`
-          <div class="Text Text--large u-spaceT8 u-spaceB6">
+          <div class="Text Text--large u-spaceB5 u-pushDown">
             <h2>${asText(slice.primary.heading)}</h2>
             ${slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null}
           </div>
@@ -144,7 +144,7 @@ function visit (state, emit) {
               success: slice.primary.success_message.length ? asElement(slice.primary.success_message, resolve, serialize) : null,
               ref: slice.primary.ref
             })}
-            ${index < list.length - 1 ? html`<hr>` : null}
+            ${index < list.length - 1 ? html`<hr />` : null}
           </div>
         `
       }

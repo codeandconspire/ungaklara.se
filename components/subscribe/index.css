@@ -30,6 +30,8 @@
   font-size: inherit;
   line-height: normal;
   background: transparent;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .Subscribe-input::placeholder {
