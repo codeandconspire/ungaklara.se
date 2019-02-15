@@ -317,7 +317,7 @@ function eventPage (state, emit) {
           if (dates.length) {
             blocks.push(html`
               <div>
-                <hr />
+                <hr class="u-container" />
                 <section class="u-narrow u-container" id="${doc.id}-dates">
                   ${doc.data.dates_heading.length ? html`
                     <div class="Text u-sizeFull u-textCenter ${collapse ? 'u-spaceB4' : 'u-spaceB7'}">

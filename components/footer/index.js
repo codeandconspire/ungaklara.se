@@ -55,7 +55,7 @@ module.exports = class Footer extends Component {
 
               <div class="Footer-cols">
                 <div class="Footer-section">
-                  <h3 class="Footer-title">${text`Call us`}</h3>
+                  <h3 class="Footer-title">${text`Book ticket`}</h3>
                   <div class="Footer-item">
                     <a class="Footer-link" href="tel:${doc.data.phone}">${doc.data.phone}</a>
                   </div>
