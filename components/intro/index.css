@@ -8,7 +8,7 @@
 .Intro {
   display: flex;
   flex-direction: column;
-  padding-top: 37vh;
+  padding-top: 35vh;
   margin-bottom: calc(var(--Intro-spacing) * 1);
   font-family: var(--heading-font-family);
   letter-spacing: -0.025em;
@@ -111,7 +111,7 @@
 
 @media (min-width: 800px) {
   .Intro:not(.Intro--adapt) {
-    margin-bottom: calc(var(--Intro-spacing) * 1.5);
+    margin-bottom: calc(var(--Intro-spacing) * 1.4);
     letter-spacing: -0.035em;
   }
 
@@ -132,11 +132,11 @@
 
 @media (min-width: 1000px) {
   .Intro:not(.Intro--adapt) {
-    margin-bottom: calc(var(--Intro-spacing) * 3);
+    margin-bottom: 5.9rem;
   }
 
   .Intro-title {
-    font-size: 5.625rem;
+    font-size: 5.025rem;
   }
 
   .Intro-text {
