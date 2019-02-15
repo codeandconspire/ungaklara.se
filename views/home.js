@@ -1,7 +1,7 @@
 var html = require('choo/html')
 var view = require('../components/view')
 
-module.exports = view(home)
+module.exports = view(home, meta)
 
 function home () {
   return html`
@@ -190,4 +190,11 @@ function home () {
       </div>
     </main>
   `
+}
+
+function meta (state) {
+  var props = {
+    'theme-color': '0, 255, 54'
+  }
+  return props
 }
