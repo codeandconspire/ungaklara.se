@@ -53,12 +53,12 @@
 
 @media (min-width: 1000px) {
   :root {
-    --document-margin: 4rem;
+    --document-margin: 3rem;
   }
 }
 
 @media (min-width: 1200px) {
   :root {
-    --document-margin: 6rem;
+    --document-margin: 5rem;
   }
 }
