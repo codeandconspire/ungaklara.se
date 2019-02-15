@@ -24,11 +24,11 @@
 .Subscribe-input {
   display: block;
   width: 100%;
-  padding: 0 1.2em;
+  padding: 1.1em 1.2em;
   border: solid #000;
   border-width: 0 2px 0 0;
   font-size: inherit;
-  line-height: 3.2;
+  line-height: normal;
   background: transparent;
 }
 
