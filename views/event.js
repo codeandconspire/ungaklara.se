@@ -18,6 +18,7 @@ var factsBox = require('../components/facts-box')
 var details = require('../components/text/details')
 var Blockquote = require('../components/text/blockquote')
 var serialize = require('../components/text/serialize')
+var figure = require('../components/text/figure')
 var { asText, resolve, i18n, vw, filetype, srcset } = require('../components/base')
 
 var TIME_REG = /(\d{2})(?:.|:)(\d{2})/
@@ -387,21 +388,12 @@ function eventPage (state, emit) {
     switch (slice.slice_type) {
       case 'image': {
         if (!slice.primary.image.url) return null
-        let sources = srcset(slice.primary.image.url, [400, 599, 900, [1200, 'q_50']])
-        let attrs = Object.assign({
-          srcset: sources,
-          sizes: '(min-width: 1000px) 33vw, (min-width: 600px) 50vw, 100vw',
-          src: sources.split(' ')[0],
-          alt: slice.primary.image.alt || ''
-        }, slice.primary.image.dimensions)
-        return html`
-          <figure class="Text u-sizeFull">
-            <img ${attrs} />
-            ${slice.primary.caption ? html`
-              <figcaption class="Text-muted Text-small">${slice.primary.caption}</figcaption>
-            ` : null}
-          </figure>
-        `
+        return figure({
+          image: slice.primary.image,
+          caption: slice.primary.caption,
+          sources: [400, 599, 900, [1500, 'q_40']],
+          sizes: '(min-width: 1000px) 33vw, (min-width: 600px) 50vw, 100vw'
+        })
       }
       case 'quote': {
         if (!slice.primary.text.length) return null

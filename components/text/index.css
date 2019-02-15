@@ -147,18 +147,21 @@ a.Text-muted:active {
 }
 
 .Text img:not(:first-child),
+.Text .Text-aspect:not(:first-child),
 .Text pre:not(:first-child),
 .Text figure:not(:first-child) {
   margin-top: 1.5em;
 }
 
 .Text img:not(:last-child),
+.Text .Text-aspect:not(:last-child),
 .Text pre:not(:last-child),
 .Text figure:not(:last-child) {
   margin-bottom: 1.5em;
 }
 
 .Text img + figcaption,
+.Text-aspect + figcaption,
 .Text pre + figcaption {
   margin-top: -0.5em;
 }
@@ -166,6 +169,20 @@ a.Text-muted:active {
 .Text img {
   width: 100%;
   height: auto;
+}
+
+.Text-aspect {
+  position: relative;
+  padding-bottom: var(--Text-figure-aspect);
+  background: #000;
+}
+
+.Text-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .Text pre {
@@ -253,8 +270,6 @@ a.Text-muted:active {
   background-color: currentColor;
   border-radius: 1.5px;
   transform-origin: center;
-  transition: transform 200ms var(--ease-out);
-  will-change: transform;
 }
 
 .Text details[open] summary::after {
@@ -263,6 +278,16 @@ a.Text-muted:active {
 
 .Text details[open] {
   padding-bottom: 1.4em;
+}
+
+@media (min-width: 600px) {
+  .Text summary {
+    padding: 2.2rem 1rem 2.4rem 0;
+  }
+
+  .Text details[open] {
+    padding-bottom: 2.4rem;
+  }
 }
 
 /**
@@ -471,17 +496,18 @@ a.Text-muted:active {
 .Text .Text-h1,
 .Text .Text-h2,
 .Text .Text-h3 {
-  margin: 0 0 -0.3rem;
+  margin: 0 0 -0.1rem;
   font-weight: 600;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
-  hyphens: auto;
 }
 
 .Text h1,
 .Text .Text-h1 {
-  font-size: 3rem;
+  font-size: 2rem;
+  margin: 0 0 1.5rem;
   line-height: .95;
+  hyphens: auto;
 }
 
 @media (min-width: 500px) {

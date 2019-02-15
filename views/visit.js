@@ -8,6 +8,7 @@ var framed = require('../components/framed')
 var jigsaw = require('../components/jigsaw')
 var reset = require('../components/text/reset')
 var Masonry = require('../components/masonry')
+var figure = require('../components/text/figure')
 var Subscribe = require('../components/subscribe')
 var cap = require('../components/text/cap-heading')
 var serialize = require('../components/text/serialize')
@@ -74,16 +75,12 @@ function visit (state, emit) {
   // render media element from slice
   // (obj, num) -> Element
   function galleryItem (item) {
-    var image = item.gallery_item
-    if (!image.url) return null
-    let sources = srcset(image.url, [400, 599, 900, [1200, 'q_50']])
-    let attrs = Object.assign({
-      srcset: sources,
-      sizes: '(min-width: 1000px) 33vw, (min-width: 600px) 50vw, 100vw',
-      src: sources.split(' ')[0],
-      alt: image.alt || ''
-    }, image.dimensions)
-    return html`<div class="Text u-sizeFull"><img ${attrs} /></div>`
+    if (!item.gallery_item.url) return null
+    return figure({
+      image: item.gallery_item,
+      sources: [400, 599, 900, [1500, 'q_40']],
+      sizes: '(min-width: 1000px) 33vw, (min-width: 600px) 50vw, 100vw'
+    })
   }
 
   // render slice as element
