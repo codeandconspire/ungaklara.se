@@ -31,7 +31,7 @@
   --document-max-width: 1800px;
   --document-margin: 1rem;
 
-  --theme-color: var(--color-green);
+  --theme-color: 156, 252, 35;
 
   --focus-ring-width: 0.2rem;
   --focus-ring-color: var(--color-black);
