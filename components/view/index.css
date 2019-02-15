@@ -13,6 +13,16 @@
   --View-gradient-bottom-height: 100vh;
 }
 
+.View-poster {
+  position: absolute;
+  right: 0;
+  height: 100vh;
+  z-index: -10000;
+  top: 20vh;
+  max-height: 83vh;
+  max-width: 100vw;
+}
+
 /**
  * Main content area
  */
