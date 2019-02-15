@@ -4,16 +4,12 @@
  * Custom
  */
 
-.u-pushDown1 {
-  margin-top: 4rem;
-}
-
-.u-pushDown2 {
+.u-pushDown {
   margin-top: 5rem;
 } 
 
 @media (min-width: 1000px) {
-  .u-pushDown2 {
+  .u-pushDown {
     margin-top: 7rem;
   } 
 }

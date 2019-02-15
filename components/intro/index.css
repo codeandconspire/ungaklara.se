@@ -41,7 +41,7 @@
   position: relative;
   font-size: 2.1rem;
   padding-top: 0.75em;
-  margin: 0 0 0.35em;
+  margin: 0 0 0.55em;
   hyphens: auto;
   line-height: 1;
   margin-left: -0.04em;
@@ -49,10 +49,11 @@
 }
 
 .Intro-badge {
-  position: absolute;
+  position: relative;
   left: 0.04em;
-  top: 0;
-  white-space: nowrap;
+  line-height: 1.4;
+  margin: -2rem 0 0.9rem;
+  display: block;
 }
 
 .Intro-text a {
@@ -91,6 +92,10 @@
   .Intro-text {
     font-size: 1.35rem;
   }
+
+  .Intro-badge {
+    margin: -2.4rem 0 1.3rem;
+  }
 }
 
 @media (min-width: 600px) {
@@ -119,6 +124,10 @@
   .Intro-text {
     font-size: 1.5rem;
   }
+
+  .Intro-badge {
+    margin: -2.9rem 0 1.8rem;
+  }
 }
 
 @media (min-width: 1000px) {
@@ -136,5 +145,9 @@
 
   .Intro-image {
     margin: 4rem 0 -2rem;
+  }
+
+  .Intro-badge {
+    margin: -3.4rem 0 2.1rem;
   }
 }

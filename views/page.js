@@ -33,7 +33,7 @@ function page (state, emit) {
                 // render aggregated blurbs as grid
                 let opts = { size: { md: '1of2', lg: '1of3' } }
                 body.push(html`
-                  <div class="u-spaceV8">
+                  <div class="u-spaceV5">
                     ${grid(opts, blurbs)}
                   </div>
                 `)
@@ -45,17 +45,15 @@ function page (state, emit) {
 
           return html`
             <div>
-              <div class="u-spaceB8">
-                ${intro({
-                  title: asText(doc.data.title),
-                  text: asElement(doc.data.description),
-                  badge: doc.data.parent && doc.data.parent.id ? html`
-                    <span>
-                      <a href="${resolve(doc.data.parent)}">${asText(doc.data.parent.data.title)}</a> – ${asText(doc.data.title)}
-                    </span>
-                  ` : null
-                })}
-              </div>
+              ${intro({
+                title: asText(doc.data.title),
+                text: asElement(doc.data.description),
+                badge: doc.data.parent && doc.data.parent.id ? html`
+                  <span>
+                    <a class="u-inlineBlock" href="${resolve(doc.data.parent)}">${asText(doc.data.parent.data.title)}</a> – <span class="u-inlineBlock">${asText(doc.data.title)}</span>
+                  </span>
+                ` : null
+              })}
               ${body}
             </div>
           `
@@ -89,7 +87,7 @@ function page (state, emit) {
       case 'heading': {
         if (!slice.primary.heading.length) return null
         return html`
-          <div class="Text Text--large u-spaceT8 u-spaceB6">
+          <div class="Text Text--large u-spaceB5 u-pushDown">
             <h2>${asText(slice.primary.heading)}</h2>
             ${slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null}
           </div>
@@ -98,7 +96,7 @@ function page (state, emit) {
       case 'quote': {
         let blockquote = state.cache(Blockquote, `${state.params.slug}-${index}`)
         return html`
-          <div class="u-spaceV3">
+          <div class="u-spaceV5">
             ${blockquote.render({
               large: true,
               content: asElement(slice.primary.text, resolve, serialize),

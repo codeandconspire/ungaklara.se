@@ -21,7 +21,7 @@ module.exports = class Blockquote extends Component {
       <div class="Text ${large ? 'Text--large' : ''}" data-variant="${this.local.variant}" id="${this.local.id}">
         <figure class="Text-blockquote Text-blockquote--variant${this.local.variant}">
           <blockquote>${content}</blockquote>
-          ${caption ? html`<figcaption class="Text-label">${caption}</figcaption>` : null}
+          ${caption && caption.length > 0 ? html`<figcaption class="Text-label">${caption}</figcaption>` : null}
         </figure>
       </div>
     `

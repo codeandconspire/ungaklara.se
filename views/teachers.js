@@ -174,9 +174,9 @@ function teachers (state, emit) {
           let opts = { size: { md: '1of2', lg: '1of3' } }
           let heading = asText(slice.primary.heading)
           return html`
-            <div class="u-spaceV8">
+            <div class="u-pushDown">
               ${heading ? html`
-                <div class="Text Text--large u-spaceB6">
+                <div class="Text Text--large u-spaceB5">
                   ${heading ? html`<h2>${heading}</h2>` : null}
                 </div>
               ` : null}
@@ -200,7 +200,7 @@ function teachers (state, emit) {
     if (index !== list.length - 1) blocks.push(html`<hr>`)
 
     return html`
-      <div class="u-spaceV8">
+      <div>
         ${blocks}
       </div>
     `

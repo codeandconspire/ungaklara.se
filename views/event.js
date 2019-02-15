@@ -82,7 +82,7 @@ function eventPage (state, emit) {
         // about the production
         if (doc.data.details.length) {
           blocks.push(html`
-            <div class="u-md-container u-pushDown1">
+            <div class="u-md-container u-spaceT7">
               ${factsBox(doc.data.details)}
             </div>
           `)
@@ -234,7 +234,7 @@ function eventPage (state, emit) {
             else opts.size.md = '1of3'
 
             blocks.push(html`
-              <div class="u-container u-pushDown2">
+              <div class="u-container u-pushDown">
                 <div class="Text u-spaceB4">
                   <h2>${heading}</h2>
                 </div>
@@ -363,15 +363,17 @@ function eventPage (state, emit) {
         `
       })}
 
-      ${intro({
-        title: text`On stage right now`,
-        blurb: true,
-        action: button({
-          primary: true,
-          href: '/scen',
-          text: text`Explore`
-        })
-      })}
+      <div class="u-container">
+        ${intro({
+          title: text`On stage right now`,
+          blurb: true,
+          action: button({
+            primary: true,
+            href: '/scen',
+            text: text`Explore`
+          })
+        })}
+      </div>
     </main>
   `
 

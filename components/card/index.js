@@ -29,7 +29,7 @@ function card (props = {}, slot) {
     class: className('Card', {
       'Card--shrink': props.shrink,
       'Card--interactive': props.link && (fill || props.background),
-      'Card--dark': props.background || (fill && luma(fill) < 185),
+      'Card--dark': props.background || (fill && luma(fill) < 110),
       'Card--fill': fill || props.background,
       'Card--background': props.background
     })
@@ -59,7 +59,7 @@ function card (props = {}, slot) {
   return html`
     <article ${attrs}>
       ${cover}
-      <div class="Card-content ${fill ? 'u-hoverTriggerTarget' : ''}" style="--Card-figure-aspect: 142.8%">
+      <div class="Card-content ${fill ? 'u-hoverTriggerTarget u-paddedBox' : ''}" style="--Card-figure-aspect: 142.8%">
         <div class="Card-body">
           ${date && date.text && date.datetime ? html`
             <time class="Card-meta" datetime="${JSON.stringify(date.datetime).replace(/"/g, '')}">

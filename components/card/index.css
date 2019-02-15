@@ -62,10 +62,6 @@
   }
 }
 
-.Card--fill .Card-content {
-  padding: 1.2rem 1.2rem 0.2rem;
-}
-
 .Card--background .Card-content {
   height: 100%;
   flex: 0 0 auto;
@@ -106,7 +102,7 @@
   font-size: 1.25rem;
   font-weight: 600;
   font-family: var(--heading-font-family);
-  line-height: var(--heading-line-height);
+  line-height: 1;
 }
 
 @media (min-width: 800px) {
@@ -123,7 +119,7 @@
 
 .Card-text {
   font-size: 1rem;
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
   font-size: 1rem;
 }
 
@@ -140,7 +136,7 @@
   --current-background: 0, 0, 0;
   flex-grow: 0;
   width: 100%;
-  margin-top: 0.75rem;
+  margin-top: 0.45rem;
 }
 
 .Card--fill.Card--dark {

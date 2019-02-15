@@ -506,7 +506,7 @@ a.Text-muted:active {
 .Text .Text-h1 {
   font-size: 2rem;
   margin: 0 0 1.5rem;
-  line-height: .95;
+  line-height: 1.05;
   hyphens: auto;
 }
 
@@ -514,6 +514,7 @@ a.Text-muted:active {
   .Text h1,
   .Text .Text-h1  {
     font-size: 2.4rem;
+    line-height: .95;
   }
 }
 
