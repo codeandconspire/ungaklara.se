@@ -77,7 +77,7 @@ function createView (view, meta) {
         <body class="View" id="view">
           <script type="application/ld+json">${raw(JSON.stringify(linkedData(state)))}</script>
           <div class="View-gradient"></div>
-          ${state.cache(Header, 'header').render()}
+          ${state.cache(Header, 'header').render(state.href)}
           ${children}
           ${state.cache(Footer, 'footer').render()}
           ${Player.render()}
