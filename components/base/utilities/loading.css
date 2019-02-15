@@ -1,13 +1,8 @@
 @import "../global";
 
 /* @define utilities */
-.u-loading,
-.u-loadingLight {
-  background: #000 !important;
+.u-loading {
+  background: transparent !important;
   color: transparent !important;
   user-select: none !important;
-}
-
-.u-loadingLight {
-  background: rgba(255, 255, 255, 0.9) !important;
 }
