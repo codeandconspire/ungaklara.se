@@ -80,11 +80,21 @@ module.exports = class Footer extends Component {
                 <div class="Footer-section">
                   <h3 class="Footer-title">${text`Boring pages`}</h3>
                   <ul>
-                    ${doc.data.links.map((data) => html`
-                      <li class="Footer-item">
-                        <a class="Footer-link" target="_blank" rel="noopener noreferer" href="${data.link.url}">${data.text}</a>
-                      </li>
-                    `)}
+                    ${doc.data.links.map(function (data) {
+                      var attrs = {
+                        class: 'Footer-link',
+                        href: data.link.url || resolve(data.link)
+                      }
+                      if (data.link.link_type === 'Web') {
+                        attrs.target = '_blank'
+                        attrs.rel = 'noopener noreferrer'
+                      }
+                      return html`
+                        <li class="Footer-item">
+                          <a ${attrs}>${data.text}</a>
+                        </li>
+                      `
+                    })}
                   </ul>
                 </div>
               </div>
