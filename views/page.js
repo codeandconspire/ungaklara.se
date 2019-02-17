@@ -5,6 +5,7 @@ var card = require('../components/card')
 var grid = require('../components/grid')
 var intro = require('../components/intro')
 var byline = require('../components/byline')
+var button = require('../components/button')
 var reset = require('../components/text/reset')
 var Subscribe = require('../components/subscribe')
 var cap = require('../components/text/cap-heading')
@@ -65,6 +66,7 @@ function page (state, emit) {
   // render slice as element
   // (obj, num) -> Element
   function asSlice (slice, index, list) {
+    console.log(slice.slice_type)
     switch (slice.slice_type) {
       case 'text': {
         let items = slice.items.filter((item) => item.text.length)
@@ -246,6 +248,19 @@ function page (state, emit) {
           }
         }))
         return blurbs
+      }
+      case 'button': {
+        if (!slice.primary.text && !slice.primary.link) return
+        return html`
+          <div class="u-spaceV5">
+            ${button({
+              primary: true,
+              external: slice.primary.link.link_type === 'Web',
+              href: slice.primary.link.url,
+              text: slice.primary.text
+            })}
+          </div>
+        `
       }
       default: return null
     }

@@ -10,6 +10,10 @@ function button (props) {
   var attrs = {}
   if (props.href) {
     attrs = { href: props.href }
+    if (props.external) {
+      attrs.rel = 'noopener noreferrer'
+      attrs.target = '_blank'
+    }
   }
 
   var keys = Object.keys(props).filter(isAttribute)
