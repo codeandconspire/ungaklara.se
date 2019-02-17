@@ -344,7 +344,7 @@ function eventPage (state, emit) {
           <div>
             <div class="u-container">
               ${intro({
-                badge: [doc.data.category, doc.data.subheading].filter(Boolean).join(' – '),
+                badge: [doc.data.category, doc.data.shortname].filter(Boolean).join(' – '),
                 title: asText(doc.data.title),
                 text: asElement(doc.data.description, resolve, serialize),
                 image: doc.data.image.url ? Object.assign({
@@ -470,8 +470,8 @@ function meta (state) {
     if (err) throw err
     if (!doc) return null
     var props = {
-      title: asText(doc.data.title),
-      description: asText(doc.data.description),
+      title: doc.data.shortname && doc.data.shortname.length ? asText(doc.data.shortname) : asText(doc.data.title),
+      description: doc.data.shortname ? `${asText(doc.data.title)}. ${asText(doc.data.description)}` : asText(doc.data.description),
       'theme-color': doc.data.theme
     }
 

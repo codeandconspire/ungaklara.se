@@ -28,7 +28,7 @@ function visit (state, emit) {
               intro({
                 collapse: true,
                 title: asText(doc.data.title),
-                badge: doc.data.subheading,
+                badge: asText(doc.data.shortname),
                 text: asElement(doc.data.description, resolve, serialize)
               }),
               grid({ size: { lg: '1of2' } }, doc.data.blurbs.map(function (item) {
@@ -158,8 +158,8 @@ function meta (state) {
     if (err) throw err
     if (!doc) return null
     var props = {
-      title: doc.data.subheading || asText(doc.data.title),
-      description: asText(doc.data.description),
+      title: doc.data.shortname && doc.data.shortname.length ? asText(doc.data.shortname) : asText(doc.data.title),
+      description: doc.data.shortname ? `${asText(doc.data.title)}. ${asText(doc.data.description)}` : asText(doc.data.description),
       'theme-color': doc.data.theme
     }
 

@@ -34,7 +34,7 @@ function teachers (state, emit) {
           return html`
             <div>
               <div class="u-spaceB8">
-                ${intro({ title: asText(doc.data.title), text: asElement(doc.data.description) })}
+                ${intro({ title: asText(doc.data.title), badge: asText(doc.data.shortname), text: asElement(doc.data.description) })}
               </div>
               ${grid({ size: { md: '1of3' } }, doc.data.blurbs.map(function (item) {
                 if (!item.text.length) return null
@@ -243,8 +243,8 @@ function meta (state) {
     if (err) throw err
     if (!doc) return null
     var props = {
-      title: asText(doc.data.title),
-      description: asText(doc.data.description),
+      title: doc.data.shortname && doc.data.shortname.length ? asText(doc.data.shortname) : asText(doc.data.title),
+      description: doc.data.shortname ? `${asText(doc.data.title)}. ${asText(doc.data.description)}` : asText(doc.data.description),
       'theme-color': doc.data.theme
     }
 

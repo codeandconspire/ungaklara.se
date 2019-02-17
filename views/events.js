@@ -284,7 +284,7 @@ function event (state, emit) {
         </div>
         <div class="Event-body">
           <span class="u-textLabel">
-            ${[doc.data.category, doc.data.subheading].filter(Boolean).join(' – ')}
+            ${[doc.data.category, doc.data.shortname].filter(Boolean).join(' – ')}
           </span>
           <div class="Text Text--large">
             <h2>${asText(doc.data.title)}</h2>
@@ -334,8 +334,8 @@ function meta (state) {
     if (err) throw err
     if (!doc) return null
     var props = {
-      title: asText(doc.data.title),
-      description: asText(doc.data.description),
+      title: doc.data.shortname && doc.data.shortname.length ? asText(doc.data.shortname) : asText(doc.data.title),
+      description: doc.data.shortname ? `${asText(doc.data.title)}. ${asText(doc.data.description)}` : asText(doc.data.description),
       'theme-color': doc.data.theme
     }
 

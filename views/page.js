@@ -50,8 +50,8 @@ function page (state, emit) {
                 title: asText(doc.data.title),
                 text: asElement(doc.data.description),
                 badge: doc.data.parent && doc.data.parent.id ? html`
-                  <span>
-                    <a class="u-inlineBlock" href="${resolve(doc.data.parent)}">${asText(doc.data.parent.data.title)}</a> – <span>${asText(doc.data.title)}</span>
+                  <span class="Text">
+                    <a class="u-inlineBlock" href="${resolve(doc.data.parent)}">${doc.data.parent.data.shortname ? asText(doc.data.parent.data.shortname) : asText(doc.data.parent.data.title)}</a>:
                   </span>
                 ` : null
               })}
@@ -329,8 +329,8 @@ function meta (state) {
     if (err) throw err
     if (!doc) return null
     var props = {
-      title: asText(doc.data.title),
-      description: asText(doc.data.description),
+      title: doc.data.shortname && doc.data.shortname.length ? asText(doc.data.shortname) : asText(doc.data.title),
+      description: doc.data.shortname ? `${asText(doc.data.title)}. ${asText(doc.data.description)}` : asText(doc.data.description),
       'theme-color': doc.data.theme
     }
 
