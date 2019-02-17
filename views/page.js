@@ -66,7 +66,6 @@ function page (state, emit) {
   // render slice as element
   // (obj, num) -> Element
   function asSlice (slice, index, list) {
-    console.log(slice.slice_type)
     switch (slice.slice_type) {
       case 'text': {
         let items = slice.items.filter((item) => item.text.length)

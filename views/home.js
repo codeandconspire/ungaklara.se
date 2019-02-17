@@ -44,7 +44,6 @@ function page (state, emit) {
             blurbs = []
           }
         }
-        console.log(doc.data.cta)
         return html`
           <div>
             ${jigsaw(

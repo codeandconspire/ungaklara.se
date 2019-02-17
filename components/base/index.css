@@ -195,7 +195,7 @@ button {
  */
 
 :focus-visible {
-  outline: rgb(var(--focus-ring-color)) solid var(--focus-ring-width) !important;
+  outline: rgb(var(--focus-ring-color)) dashed var(--focus-ring-width) !important;
 }
 
 /**

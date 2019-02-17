@@ -33,7 +33,7 @@
 
   --theme-color: 156, 252, 35;
 
-  --focus-ring-width: 0.2rem;
+  --focus-ring-width: 2px;
   --focus-ring-color: var(--color-black);
 
   --border-width: 0.125rem;
