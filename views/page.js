@@ -51,7 +51,7 @@ function page (state, emit) {
                 text: asElement(doc.data.description),
                 badge: doc.data.parent && doc.data.parent.id ? html`
                   <span>
-                    <a class="u-inlineBlock" href="${resolve(doc.data.parent)}">${asText(doc.data.parent.data.title)}</a> – <span class="u-inlineBlock">${asText(doc.data.title)}</span>
+                    <a class="u-inlineBlock" href="${resolve(doc.data.parent)}">${asText(doc.data.parent.data.title)}</a> – <span>${asText(doc.data.title)}</span>
                   </span>
                 ` : null
               })}
