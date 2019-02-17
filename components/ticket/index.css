@@ -8,6 +8,7 @@
   font-size: 1.125rem;
   box-shadow: 0 0.25rem 0.625rem 0 rgba(0, 0, 0, 0.1);
   user-select: none;
+  color: rgb(var(--theme-color-is-dark, 0, 0, 0));
 }
 
 .Ticket--disabled {

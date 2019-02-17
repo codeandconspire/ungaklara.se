@@ -30,15 +30,6 @@
   border-bottom-color: currentColor;
 }
 
-.Header-link:focus-visible {
-  padding: 0.1em 0.2em;
-  border: 0;
-  margin: 0.1em -0.2em 0.1em calc(0.8rem - 0.2em);
-  outline: 0 !important;
-  color: #fff;
-  background: #000;
-}
-
 .Header-logo {
   display: inline-block;
   padding: 0 0.2em;
@@ -51,11 +42,6 @@
   word-spacing: -0.1em;
   margin: 1.7rem 0 0.25rem 0;
   white-space: nowrap;
-}
-
-.Header-logo:focus-visible {
-  outline: 0 !important;
-  text-transform: lowercase;
 }
 
 .Header-logo:hover {

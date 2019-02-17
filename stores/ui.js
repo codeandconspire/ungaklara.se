@@ -1,4 +1,4 @@
-var { hexToRgb } = require('../components/base')
+var { hexToRgb, luma } = require('../components/base')
 
 module.exports = ui
 
@@ -10,11 +10,17 @@ function ui (state, emitter) {
   if (typeof window !== 'undefined') {
     emitter.on('meta', function (props) {
       var theme = props['theme-color']
-      theme = theme && hexToRgb(theme)
-      if (theme) {
-        document.documentElement.style.setProperty('--theme-color', theme)
+      var rgb = theme && hexToRgb(theme)
+      if (rgb) {
+        document.documentElement.style.setProperty('--theme-color', rgb)
+        if (luma(theme) < 110) {
+          document.documentElement.style.setProperty('--theme-color-is-dark', '255, 255, 255')
+        } else {
+          document.documentElement.style.removeProperty('--theme-color-is-dark')
+        }
       } else {
         document.documentElement.style.removeProperty('--theme-color')
+        document.documentElement.style.removeProperty('--theme-color-is-dark')
       }
     })
   }
