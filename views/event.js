@@ -344,7 +344,7 @@ function eventPage (state, emit) {
           <div>
             <div class="u-container">
               ${intro({
-                badge: [doc.data.category, doc.data.shortname].filter(Boolean).join(' – '),
+                badge: [doc.data.category, doc.data.subheading].filter(Boolean).join(' – '),
                 title: asText(doc.data.title),
                 text: asElement(doc.data.description, resolve, serialize),
                 image: doc.data.image.url ? Object.assign({
