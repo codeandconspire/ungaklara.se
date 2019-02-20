@@ -9,6 +9,7 @@ var byline = require('../components/byline')
 var reset = require('../components/text/reset')
 var Subscribe = require('../components/subscribe')
 var serialize = require('../components/text/serialize')
+var checklist = require('../components/text/checklist')
 var { asText, resolve, i18n, luma, srcset } = require('../components/base')
 
 var text = i18n()
@@ -104,7 +105,7 @@ function teachers (state, emit) {
                         <small>${slice.primary.pointers_heading}</small>
                       </h2>
                     ` : null}
-                    ${asElement(slice.primary.pointers, resolve, serialize)}
+                    ${asElement(slice.primary.pointers, resolve, checklist)}
                   </div>
                 </div>
               `)

@@ -9,7 +9,7 @@
 
 .Subscribe-form {
   display: flex;
-  width: 23em;
+  width: 28em;
   max-width: 90%;
   border: 2px solid #000;
   margin: 2.5em auto 0;
@@ -45,13 +45,25 @@
 }
 
 .Subscribe-button {
-  padding: 0 1.5em;
+  padding: 0 1em;
   border: 0;
   color: #fff;
   font-weight: 600;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
   background-color: #000;
+}
+
+@media (max-width: 599px) {
+  .Subscribe-action {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
 }
 
 @media (min-width: 400px) {

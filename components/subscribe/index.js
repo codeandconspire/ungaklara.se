@@ -1,5 +1,6 @@
 var html = require('choo/html')
 var Component = require('choo/component')
+var symbol = require('../symbol')
 var { i18n } = require('../base')
 
 var text = i18n()
@@ -40,7 +41,7 @@ module.exports = class Subscribe extends Component {
               <input type="email" name="EMAIL" class="Subscribe-input" autocomplete="email" placeholder="${text`Enter your e-mail address`}" required>
             </label>
             <button type="submit" class="Subscribe-button js-button">
-              ${text`Subscribe`}
+              ${symbol.check()} <span class="Subscribe-action">${text`Subscribe`}</span>
             </button>
           </div>
         ` : null}
