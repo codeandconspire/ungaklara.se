@@ -23,7 +23,7 @@ module.exports = class Header extends Component {
     if (match) {
       current = '/' + match[1].substring(0, match[1].length - 1)
     }
-    
+
     return html`
       <header class="Header u-container" id="${this.local.id}">
         <h2 class="u-hiddenVisually">${text`Navigation`}</h2>
