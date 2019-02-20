@@ -55,10 +55,24 @@ module.exports = class Footer extends Component {
 
               <div class="Footer-cols">
                 <div class="Footer-section">
-                  <h3 class="Footer-title">${text`Book ticket`}</h3>
-                  <div class="Footer-item">
-                    <a class="Footer-link" href="tel:${doc.data.phone}">${doc.data.phone}</a>
-                  </div>
+                  <h3 class="Footer-title">${text`Contact`}</h3>
+                  <ul>
+                    ${doc.data.phone ? html`
+                      <li class="Footer-item">
+                        <a class="Footer-link" href="tel:${doc.data.phone}">${doc.data.phone}</a>
+                      </li>
+                    ` : null}
+                    ${doc.data.email ? html`
+                      <li class="Footer-item">
+                        <a class="Footer-link" href="mailto:${doc.data.email}">${doc.data.email}</a>
+                      </li>
+                    ` : null}
+                    ${doc.data.contact_page.id && !doc.data.contact_page.isBroken ? html`
+                      <li class="Footer-item">
+                        <a class="Footer-link" href="${resolve(doc.data.contact_page)}">${text`More ways of contact`}</a>
+                      </li>
+                    ` : null}
+                  </ul>
                 </div>
 
                 <div class="Footer-section">
