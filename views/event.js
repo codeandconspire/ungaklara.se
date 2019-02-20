@@ -11,14 +11,15 @@ var intro = require('../components/intro')
 var button = require('../components/button')
 var pagination = require('../components/pagination')
 var ticket = require('../components/ticket')
+var symbol = require('../components/symbol')
 var spotify = require('../components/spotify')
 var trailer = require('../components/trailer')
 var Masonry = require('../components/masonry')
 var factsBox = require('../components/facts-box')
+var figure = require('../components/text/figure')
 var details = require('../components/text/details')
 var Blockquote = require('../components/text/blockquote')
 var serialize = require('../components/text/serialize')
-var figure = require('../components/text/figure')
 var { asText, resolve, i18n, vw, filetype, srcset } = require('../components/base')
 
 var TIME_REG = /(\d{2})(?:.|:)(\d{2})/
@@ -53,17 +54,25 @@ function eventPage (state, emit) {
         var blocks = []
         var collapse = typeof window !== 'undefined' && vw() < 600
 
-        // facts box
+        // about the production
         if (doc.data.about.length) {
           let actions = []
           if (doc.data.dates.find((item) => item.date)) {
-            actions.push({ text: html`<span class="u-sm-show">${text`Show`}</span> ${text`showdates`}`, href: `#${doc.id}-dates` })
+            actions.push({
+              text: html`
+                <span>
+                  <span class="u-sm-show">${text`Show`}</span> ${text`showdates`}
+                </span>
+              `,
+              icon: symbol.calendar(),
+              href: `#${doc.id}-dates` })
           }
           if (doc.data.buy_link.url) {
             actions.push({
               target: '_blank',
               rel: 'noopener noreferrer',
               text: text`Buy ticket`,
+              icon: symbol.arrow(),
               href: doc.data.buy_link.url,
               primary: true
             })
@@ -79,7 +88,7 @@ function eventPage (state, emit) {
           `)
         }
 
-        // about the production
+        // facts box
         if (doc.data.details.length) {
           blocks.push(html`
             <div class="u-md-container u-spaceT7">
@@ -255,6 +264,7 @@ function eventPage (state, emit) {
               </div>
               ${doc.data.resource_link.url ? button({
                 class: 'u-spaceT4 u-spaceB2',
+                icon: symbol.download(),
                 href: resolve(doc.data.resource_link),
                 text: doc.data.resource_link_text || text(`Download ${filetype}`)
               }) : null}
@@ -362,7 +372,6 @@ function eventPage (state, emit) {
           </div>
         `
       })}
-
       <div class="u-container">
         ${intro({
           title: text`On stage right now`,
@@ -370,6 +379,7 @@ function eventPage (state, emit) {
           action: button({
             primary: true,
             href: '/scen',
+            icon: symbol.arrow(),
             text: text`Explore`
           })
         })}

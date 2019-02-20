@@ -29,7 +29,7 @@ function event (props) {
         <div class="Event-actions">
           ${props.actions.map((attrs) => html`
             <span class="Event-action">
-              ${button(Object.assign({}, attrs, { class: attrs.class || '' + 'u-block' }))}
+              ${button(attrs)}
             </span>
           `)}
         </div>

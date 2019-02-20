@@ -1,5 +1,6 @@
-var html = require('choo/html')
 var assert = require('assert')
+var html = require('choo/html')
+var symbol = require('../symbol')
 var { loader, i18n, isSameDomain, filetype } = require('../base')
 
 var text = i18n(require('./lang.json'))
@@ -18,14 +19,17 @@ function link (opts = {}) {
     attrs.rel = 'noopener noreferrer'
     attrs.target = '_blank'
   }
-  if (opts.file) attrs.download = ''
-
-  if (opts.file) attrs.class += ' Card-link--simple'
+  if (opts.file) {
+    attrs.download = ''
+    attrs.class += ' Card-link--simple'
+  }
 
   return html`
     <a ${attrs}>
+      ${opts.icon || opts.file ? html`
+        <span class="Card-icon">${opts.icon || symbol.download()}</span>
+      ` : null}
       ${label(opts)}
-      ${opts.icon ? html`<span class="Card-icon">${opts.icon}</span>` : null}
     </a>
   `
 }

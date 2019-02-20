@@ -12,6 +12,7 @@ var intro = require('../components/intro')
 var framed = require('../components/framed')
 var filter = require('../components/filter')
 var button = require('../components/button')
+var symbol = require('../components/symbol')
 var pagination = require('../components/pagination')
 var tablist = require('../components/tablist')
 var calendar = require('../components/calendar')
@@ -66,7 +67,7 @@ function event (state, emit) {
                 : filter.loading()
               : null}
             ${!slug && doc && doc.data.notice.length ? html`
-              <div class="u-tablistAlign u-md-show">  
+              <div class="u-tablistAlign u-md-show">
                 <div class="Text">
                   ${asElement(doc.data.notice, resolve, serialize)}
                 </div>
@@ -294,6 +295,11 @@ function event (state, emit) {
             <span class="Event-action">
               ${button({ text: text`Read more`, href: resolve(doc), primary: true, cover: true })}
             </span>
+            ${doc.data.buy_link.url ? html`
+              <span class="Event-action">
+                ${button({ text: text`Buy ticket`, href: doc.data.buy_link.url, icon: symbol.arrow(), external: true, secondary: true })}
+              </span>
+            ` : null}
           </div>
         </div>
       </li>

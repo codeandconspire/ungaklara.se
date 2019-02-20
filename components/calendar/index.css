@@ -34,6 +34,10 @@
   margin: 0.5rem 0 0.8rem
 }
 
+.Calendar-icon {
+  font-size: 0.8em;
+}
+
 .Calendar-time {
   display: block
 }

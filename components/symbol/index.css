@@ -1,0 +1,31 @@
+@import "../base";
+
+/* @define Symbol */
+.Symbol {
+  display: inline-block;
+  width: 1.45em;
+  height: 1.45em;
+  color: currentColor;
+  position: relative;
+  vertical-align: middle;
+}
+
+.Symbol--calendar {
+  top: -0.15em;
+}
+
+.Symbol--arrow {
+  top: -0.08em;
+}
+
+.Symbol--download {
+  top: -0.05em;
+}
+
+.Symbol--clock {
+  top: -0.15em;
+}
+
+.Symbol--location {
+  top: -0.17em;
+}

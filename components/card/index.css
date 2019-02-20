@@ -140,7 +140,7 @@
   --current-background: 0, 0, 0;
   flex-grow: 0;
   width: 100%;
-  margin-top: 0.45rem;
+  margin-top: 1rem;
   margin-bottom: 0.25rem;
 }
 
@@ -269,10 +269,8 @@
 }
 
 .Card-icon {
-  padding-left: 0.4em;
-  font-size: 0.75em;
+  padding-right: 0.4em;
   line-height: 0;
-  margin-right: -0.3rem;
 }
 
 @media (max-width: 599px) {

@@ -4,6 +4,7 @@ var format = require('date-fns/format')
 var startOfDay = require('date-fns/start_of_day')
 var framed = require('../framed')
 var button = require('../button')
+var symbol = require('../symbol')
 var { timestamp, i18n, capitalize, loader, hexToRgb } = require('../base')
 
 var text = i18n()
@@ -50,8 +51,12 @@ function calendar (items) {
             <a href="${item.href}" class="Calendar-link">${item.title}</a>
             <br>
             <div class="Calendar-meta">
-              <span class="Calendar-time">${timestamp(item.date)}</span>
-              <span class="Calendar-location">${item.location}</span>
+              <span class="Calendar-time">
+                <span class="Calendar-icon">${symbol.clock()}</span> ${timestamp(item.date)}
+              </span>
+              <span class="Calendar-location">
+                <span class="Calendar-icon">${symbol.location()}</span> ${item.location}
+              </span>
             </div>
           </div>
           ${button({

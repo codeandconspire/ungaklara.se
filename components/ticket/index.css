@@ -48,6 +48,10 @@
   background: rgb(108, 109, 112);
 }
 
+.Ticket-icon {
+  font-size: 0.8em;
+}
+
 .Ticket-date {
   display: inline-block;
   margin-bottom: 0.25em;
@@ -61,6 +65,12 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-end;
+}
+
+.Ticket-link {
+  display: inline-block;
+  margin-bottom: -0.35em;
+  font-size: 1.5rem;
 }
 
 .Ticket-link::before {

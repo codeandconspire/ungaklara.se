@@ -3,6 +3,7 @@ var sv = require('date-fns/locale/sv')
 var format = require('date-fns/format')
 var isToday = require('date-fns/is_today')
 var isTomorrow = require('date-fns/is_tomorrow')
+var symbol = require('../symbol')
 var { i18n, timestamp, capitalize } = require('../base')
 
 var text = i18n()
@@ -32,13 +33,13 @@ function ticket (props) {
       </div>
       <div class="Ticket-details">
         <div>
-          <span>${timestamp(props.date)}</span>
+          <span><span class="Ticket-icon">${symbol.clock()}</span> ${timestamp(props.date)}</span>
           <br>
-          <span>${props.location}</span>
+          <span><span class="Ticket-icon">${symbol.location()}</span> ${props.location}</span>
         </div>
         ${props.status !== 3 && props.href ? html`
           <a class="Ticket-link" href="${props.href}" target="_blank" rel="noopener noreferrer">
-            ${text`Buy ticket`}
+            ${symbol.arrow()} <span class="u-hiddenVisually">${text`Buy ticket`}</span>
           </a>
         ` : null}
       </div>

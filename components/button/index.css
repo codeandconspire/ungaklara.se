@@ -3,9 +3,12 @@
 /* @define Button */
 .Button {
   display: inline-block;
+  display: inline-flex;
+  align-items: center;
   line-height: 2.925rem;
   padding: 0 1.2rem;
   border: var(--border-width) solid rgb(var(--document-color));
+  position: relative;
   font-size: 1rem;
   color: rgb(var(--document-color));
   background: transparent;
@@ -47,8 +50,24 @@
 }
 
 /**
+ * Secondary button
+ */
+
+.Button--secondary,
+.Button--secondary:hover,
+.Button--secondary:active {
+  color: currentColor !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+/**
  * Click cover button
  */
+
+.Button--cover {
+  position: static;
+}
 
 .Button--cover::before {
   content: "";
@@ -57,4 +76,14 @@
   position: absolute;
   left: 0;
   top: 0;
+}
+
+/**
+ * Icons
+ */
+
+.Button-icon {
+  display: inline-block;
+  margin-right: 1ch;
+  margin-top: -0.05em;
 }

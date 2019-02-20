@@ -23,10 +23,17 @@ function button (props) {
   attrs.class = className('Button', {
     [props.class]: props.class,
     'Button--primary': props.primary,
+    'Button--secondary': props.secondary,
     'Button--cover': props.cover
   })
-  if (attrs.href) return html`<a ${attrs}>${props.text}</a>`
-  return html`<button ${attrs}>${props.text}</button>`
+
+  var children = [props.text]
+  if (props.icon) {
+    children.unshift(html`<span class="Button-icon">${props.icon}</span>`)
+  }
+
+  if (attrs.href) return html`<a ${attrs}>${children}</a>`
+  return html`<button ${attrs}>${children}</button>`
 }
 
 // check if str is applicable element attribute
