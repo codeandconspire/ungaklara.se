@@ -15,7 +15,10 @@ var imageproxy = require('./lib/cloudinary-proxy')
 var REPOSITORY = 'https://unga-klara.cdn.prismic.io/api/v2'
 var MAILCHIMP = 'https://ungaklara.us1.list-manage.com/subscribe/post?u=b07292bdb82e39f1819a83c1a&amp;id=6a10f52682'
 
-var app = jalla('index.js', { sw: 'sw.js' })
+var app = jalla('index.js', {
+  sw: 'sw.js',
+  serve: process.env.NODE_ENV === 'production'
+})
 
 // proxy cloudinary on-demand-transform API
 app.use(get('/media/:type/:transform/:uri(.+)', async function (ctx, type, transform, uri) {
