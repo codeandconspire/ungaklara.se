@@ -45,7 +45,7 @@
 }
 
 .Subscribe-button {
-  padding: 0 1em;
+  padding: 0 1em 0 0.8em;
   border: 0;
   color: #fff;
   font-weight: 600;
@@ -55,6 +55,10 @@
 }
 
 @media (max-width: 599px) {
+  .Subscribe-button {
+    padding: 0 1em;
+  }
+
   .Subscribe-action {
     border: 0;
     clip: rect(1px, 1px, 1px, 1px);
