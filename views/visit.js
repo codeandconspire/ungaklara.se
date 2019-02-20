@@ -28,8 +28,7 @@ function visit (state, emit) {
               intro({
                 collapse: true,
                 title: asText(doc.data.title),
-                badge: asText(doc.data.shortname),
-                text: asElement(doc.data.description, resolve, serialize)
+                badge: asText(doc.data.shortname)
               }),
               grid({ size: { lg: '1of2' } }, doc.data.blurbs.map(function (item) {
                 if (!item.text.length) return null
@@ -57,7 +56,7 @@ function visit (state, emit) {
                 src: srcset(doc.data.image.url, [200]).split(' ')[0]
               }, doc.data.image.dimensions)) : null
             )}
-            
+
             <div class="u-container">
               ${doc.data.gallery ? html`
                 <div class="u-spaceV2">
@@ -159,7 +158,7 @@ function meta (state) {
     if (!doc) return null
     var props = {
       title: doc.data.shortname && doc.data.shortname.length ? asText(doc.data.shortname) : asText(doc.data.title),
-      description: doc.data.shortname ? `${asText(doc.data.title)}. ${asText(doc.data.description)}` : asText(doc.data.description),
+      description: asText(doc.data.description),
       'theme-color': doc.data.theme
     }
 

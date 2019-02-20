@@ -245,7 +245,7 @@ function meta (state) {
     if (!doc) return null
     var props = {
       title: doc.data.shortname && doc.data.shortname.length ? asText(doc.data.shortname) : asText(doc.data.title),
-      description: doc.data.shortname ? `${asText(doc.data.title)}. ${asText(doc.data.description)}` : asText(doc.data.description),
+      description: asText(doc.data.description),
       'theme-color': doc.data.theme
     }
 
