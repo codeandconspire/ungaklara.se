@@ -24,6 +24,7 @@ if (typeof window !== 'undefined') {
 exports.resolve = resolve
 function resolve (doc) {
   switch (doc.type) {
+    case 'website':
     case 'homepage': return '/'
     case 'events': return '/scen'
     case 'teachers': return '/pedagoger'
