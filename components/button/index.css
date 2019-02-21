@@ -87,3 +87,9 @@
   margin-right: 1ch;
   margin-top: -0.05em;
 }
+
+@media (max-width: 399px) {
+  .Button-icon {
+    display: none;
+  }
+}

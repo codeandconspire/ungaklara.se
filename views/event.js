@@ -9,17 +9,18 @@ var event = require('../components/event')
 var embed = require('../components/embed')
 var intro = require('../components/intro')
 var button = require('../components/button')
-var pagination = require('../components/pagination')
 var ticket = require('../components/ticket')
 var symbol = require('../components/symbol')
+var Hashtag = require('../components/hashtag')
 var spotify = require('../components/spotify')
 var trailer = require('../components/trailer')
 var Masonry = require('../components/masonry')
 var factsBox = require('../components/facts-box')
 var figure = require('../components/text/figure')
 var details = require('../components/text/details')
-var Blockquote = require('../components/text/blockquote')
+var pagination = require('../components/pagination')
 var serialize = require('../components/text/serialize')
+var Blockquote = require('../components/text/blockquote')
 var { asText, resolve, i18n, vw, filetype, srcset } = require('../components/base')
 
 var TIME_REG = /(\d{2})(?:.|:)(\d{2})/
@@ -53,6 +54,19 @@ function eventPage (state, emit) {
 
         var blocks = []
         var collapse = typeof window !== 'undefined' && vw() < 600
+        var videos = doc.data.videos.filter((group) => group.video.embed_url)
+
+        var hashtag = null
+        if (doc.data.hashtag) {
+          let link = doc.data.hashtag_link
+          let component = state.cache(Hashtag, doc.id + '-hashtag')
+          if (!link || link.isBroken || (!link.id && !link.url)) {
+            hashtag = component.render(doc.data.hashtag)
+          } else {
+            let href = resolve(link)
+            hashtag = component.render(doc.data.hashtag, href, link)
+          }
+        }
 
         // about the production
         if (doc.data.about.length) {
@@ -61,7 +75,8 @@ function eventPage (state, emit) {
             actions.push({
               text: html`
                 <span>
-                  <span class="u-sm-show">${text`Show`}</span> ${text`showdates`}
+                  <span class="u-sm-show">${text`Show showdates`}</span>
+                  <span class="u-sm-hide">${text`Showdates`}</span>
                 </span>
               `,
               icon: symbol.calendar(),
@@ -99,17 +114,12 @@ function eventPage (state, emit) {
 
         if (collapse) {
           // videos media
-          let videos = doc.data.videos
-            .filter((group) => group.video.embed_url)
-            .map((group) => video(group.video))
-            .filter(Boolean)
-
           if (videos.length) {
             blocks.push(html`
               <div class="u-container u-spaceT7">
                 ${videos.length > 1 ? html`
                   <div class="u-uncontain">
-                    ${grid({ carousel: true }, videos)}
+                    ${grid({ carousel: true }, videos.map((group) => video(group.video)))}
                   </div>
                 ` : videos[0]}
               </div>
@@ -194,19 +204,15 @@ function eventPage (state, emit) {
           }
 
           // videos, featuring the first one as featured with background
-          let videos = doc.data.videos.filter((group) => group.video.embed_url)
           if (videos.length) {
-            let first = doc.data.videos[0].video
-            let rest = videos
-              .slice(1)
-              .map(function (group, index, list) {
-                var cols = 2
-                if (list.length === 3 || list.length >= 6) cols = 3
-                if (list.length === 5) cols = index < 4 ? 3 : 2
-                var opts = { size: { md: `1of${cols}` } }
-                return grid.cell(opts, video(group.video, { size: 'sm' }))
-              })
-              .filter(Boolean)
+            let first = videos[0].video
+            let rest = videos.slice(1).map(function (group, index, list) {
+              var cols = 2
+              if (list.length === 3 || list.length >= 6) cols = 3
+              if (list.length === 5) cols = index < 4 ? 3 : 2
+              var opts = { size: { md: `1of${cols}` } }
+              return grid.cell(opts, video(group.video, { size: 'sm' }))
+            }).filter(Boolean)
 
             let id = embed.id(first)
             if (id) {
@@ -220,11 +226,23 @@ function eventPage (state, emit) {
                 }, background.dimensions)
               }
 
-              var other = rest.length > 1 ? grid({ size: { md: `1of${rest.length < 3 ? 2 : 3}` } }, rest) : null
+              let other = rest.length > 1 ? grid({ size: { md: `1of${rest.length < 3 ? 2 : 3}` } }, rest) : null
+
+              // attach hashtag to first video
+              if (hashtag) {
+                first = html`
+                  <div class="u-posRelative">
+                    ${hashtag}
+                    ${video(first, { first: true })}
+                  </div>
+                `
+              } else {
+                first = video(first, { first: true })
+              }
 
               blocks.push(html`
                 <div class="u-narrow">
-                  ${trailer(bgProps, video(first, { first: true }), other)}
+                  ${trailer(bgProps, first, other)}
                 </div>
               `)
             }
@@ -326,9 +344,9 @@ function eventPage (state, emit) {
 
           if (dates.length) {
             blocks.push(html`
-              <div>
-                <hr class="u-container" />
+              <div class="u-spaceV8">
                 <section class="u-narrow u-container" id="${doc.id}-dates">
+                  <hr class="u-spaceB8" />
                   ${doc.data.dates_heading.length ? html`
                     <div class="Text u-sizeFull u-textCenter ${collapse ? 'u-spaceB4' : 'u-spaceB7'}">
                       <h2>${asText(doc.data.dates_heading)}</h2>
@@ -357,6 +375,7 @@ function eventPage (state, emit) {
                 badge: [doc.data.category, doc.data.subheading].filter(Boolean).join(' – '),
                 title: asText(doc.data.title),
                 text: asElement(doc.data.description, resolve, serialize),
+                slot: videos.length ? null : hashtag,
                 image: doc.data.image.url ? Object.assign({
                   alt: doc.data.image.alt || '',
                   sizes: '100vw',

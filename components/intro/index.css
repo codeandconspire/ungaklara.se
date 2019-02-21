@@ -13,6 +13,8 @@
   font-family: var(--heading-font-family);
   letter-spacing: -0.025em;
   line-height: 1.3;
+  position: relative;
+  overflow: hidden;
 }
 
 .Intro--collapse {
@@ -33,8 +35,21 @@
   padding-top: 0;
 }
 
+.Intro-slot {
+  position: absolute;
+  top: 10vh;
+  right: 4vh;
+}
+
+@media (min-width: 600px) {
+  .Intro-slot {
+    top: 19vh;
+    right: 14vh;
+  }
+}
+
 .Intro-action {
-  margin-top: 1.6rem;  
+  margin-top: 1.6rem;
 }
 
 .Intro-title {

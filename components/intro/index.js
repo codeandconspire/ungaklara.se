@@ -5,8 +5,12 @@ module.exports = intro
 module.exports.loading = loading
 
 function intro (props) {
+  var slot = props.slot || null
+  if (typeof slot === 'function') slot = slot()
+  if (slot) slot = html`<div class="Intro-slot">${slot}</div>`
   return html`
     <div class="Intro ${props.collapse ? 'Intro--collapse' : ''} ${props.blurb ? 'Intro--blurb' : ''} ${props.adapt ? 'Intro--adapt' : ''}">
+      ${slot}
       ${props.action && props.blurb ? html`<div class="u-container u-invisible"><hr />` : null}
       <div class="Intro-title">
         ${props.badge ? html`<span class="Intro-badge"><span class="u-textLabel">${props.badge}</span></span>` : null}
