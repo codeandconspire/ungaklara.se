@@ -26,7 +26,7 @@
 @media (min-width: 600px) {
   .View-action {
     margin-top: -2rem;
-  } 
+  }
 }
 
 /**
@@ -82,4 +82,51 @@
   height: var(--View-gradient-bottom-height);
   top: calc(100% - 1px);
   transform: rotate(180deg);
+}
+
+/**
+ * Items displayed in rows (events listing)
+ */
+
+.View-row:not(:first-child) {
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 600px) {
+  .View-row:not(:first-child) {
+    padding-top: 2rem;
+    margin-top: 4rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .View-row:not(:first-child) {
+    margin-top: 5rem;
+  }
+}
+
+/**
+ * Notice (used in events listing)
+ */
+
+.View-notice {
+  padding: 0.2rem 0 2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  margin-bottom: 2.8rem !important;
+}
+
+@media (min-width: 600px) {
+  .View-notice {
+    padding: 0.4rem 0 2.75rem;
+    margin-bottom: 3.75rem !important;
+  }
+}
+
+@media (min-width: 1000px) {
+  .View-notice {
+    padding: 1.6rem 0 3.75rem;
+    margin-bottom: 4.75rem !important;
+  }
 }

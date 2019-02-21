@@ -1,30 +1,64 @@
 var html = require('choo/html')
+var Component = require('choo/component')
 var asElement = require('prismic-element')
 var { Elements } = require('prismic-richtext')
 var button = require('../button')
 var framed = require('../framed')
-var { resolve } = require('../base')
 var serialize = require('../text/serialize')
+var { resolve, srcset } = require('../base')
 
-module.exports = event
+module.exports = class Event extends Component {
+  constructor (id, state, emit) {
+    super(id)
+    this.local = state.components[id] = { id }
+  }
+
+  static render (props) {
+    return render(props)
+  }
+
+  createElement (props) {
+    return render(Object.assign({ id: this.local.id }, props))
+  }
+}
 
 // orchestrate layout of common components
 // obj -> Element
-function event (props) {
-  var body = props.body.slice()
-  var image = Object.assign({ type: Elements.image }, props.image)
+function render (props) {
+  var sources = srcset(props.image.url, [400, 600, [900, 'q_50']])
+  var image = Object.assign({
+    srcset: sources,
+    sizes: '(min-width: 600px) 25vw, 50vw',
+    size: 'flexible',
+    alt: props.image.alt || '',
+    src: sources.split(' ')[0]
+  }, props.image.dimensions)
 
-  for (let i = body.length - 1; i >= 0; i--) {
-    if (body[i].type === Elements.paragraph) {
-      body.splice(i, 0, image)
-      break
+  var body = props.body
+  if (!props.teaser) {
+    body = body.slice()
+    for (let i = body.length - 1; i >= 0; i--) {
+      if (body[i].type === Elements.paragraph) {
+        body.splice(i, 0, Object.assign({ type: Elements.image }, props.image))
+        break
+      }
     }
+    body = asElement(body, resolve, middleman)
   }
 
+  var attrs = { class: 'Event' }
+  if (props.teaser) attrs.class += ' Event--teaser'
+  if (props.id) attrs.id = props.id
+
   return html`
-    <article class="Event">
+    <div ${attrs}>
       <div class="Event-body">
-        <div class="Text Text--large">${asElement(body, resolve, middleman)}</div>
+        ${props.label ? html`
+          <span class="u-textLabel">
+            ${props.label}
+          </span>
+        ` : null}
+        <div class="Text Text--large">${body}</div>
         ${props.actions ? html`
         <div class="Event-actions">
           ${props.actions.map((attrs) => html`
@@ -36,19 +70,18 @@ function event (props) {
       ` : null}
       </div>
       <div class="Event-image Event-image--outside">
-        ${framed(Object.assign({ src: image.url }, image.dimensions))}
+        ${framed(image)}
       </div>
-    </article>
+    </div>
   `
-}
 
-function middleman (type, node, content, children) {
-  if (type === Elements.image) {
-    return html`
-      <div class="Event-image Event-image--inside">
-        ${framed(Object.assign({ src: node.url }, node.dimensions))}
-      </div>
-    `
+  function middleman (type, node, content, children) {
+    if (type === Elements.image) {
+      return html`<div class="Event-image Event-image--inside">
+          ${framed(image)}
+        </div>
+      `
+    }
+    return serialize(type, node, content, children)
   }
-  return serialize(type, node, content, children)
 }

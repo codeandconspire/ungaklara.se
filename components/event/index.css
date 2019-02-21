@@ -5,30 +5,11 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  z-index: 0;
 }
 
 .Event--teaser {
   margin-top: 2.3rem;
-}
-
-.Event--teaser + .Event--teaser {
-  padding-top: 2.8rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.15);
-  margin-top: 2rem;
-}
-
-@media (min-width: 600px) {
-  .Event--teaser + .Event--teaser {
-    padding-top: 4.75rem;
-    margin-top: 2.75rem;
-  }
-}
-
-@media (min-width: 1000px) {
-  .Event--teaser + .Event--teaser {
-    padding-top: 5.75rem;
-    margin-top: 3.75rem;
-  }
 }
 
 .Event-body {
@@ -54,9 +35,15 @@
   }
 }
 
+.Event-image {
+  position: relative;
+  z-index: -1;
+}
+
 .Event--teaser .Event-image {
   margin-bottom: 2rem;
   max-width: 14rem;
+  order: -1;
 }
 
 .Event:not(.Event--teaser) .Event-image {
@@ -114,14 +101,14 @@
 }
 
 .Event-actions {
+  display: flex;
+  flex-wrap: nowrap;
   margin: 1.5rem 0 1rem;
 }
 
 .Event:not(.Event--teaser) .Event-actions {
-  order: -1;
-  display: flex;
-  flex-wrap: nowrap;
   margin: 0 0 2.5rem;
+  order: -1;
 }
 
 .Event:not(.Event--teaser) .Event-action {

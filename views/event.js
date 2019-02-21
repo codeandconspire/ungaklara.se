@@ -5,7 +5,7 @@ var startOfDay = require('date-fns/start_of_day')
 var events = require('./events')
 var view = require('../components/view')
 var grid = require('../components/grid')
-var event = require('../components/event')
+var Event = require('../components/event')
 var embed = require('../components/embed')
 var intro = require('../components/intro')
 var button = require('../components/button')
@@ -94,7 +94,8 @@ function eventPage (state, emit) {
           }
           blocks.push(html`
             <div class="u-container">
-              ${event({
+              ${state.cache(Event, doc.id + '-about').render({
+                sticky: true,
                 image: doc.data.poster.url ? doc.data.poster : null,
                 body: doc.data.about,
                 actions

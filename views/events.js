@@ -9,9 +9,9 @@ var view = require('../components/view')
 var grid = require('../components/grid')
 var card = require('../components/card')
 var intro = require('../components/intro')
+var Event = require('../components/event')
 var framed = require('../components/framed')
 var filter = require('../components/filter')
-var button = require('../components/button')
 var symbol = require('../components/symbol')
 var pagination = require('../components/pagination')
 var tablist = require('../components/tablist')
@@ -23,9 +23,9 @@ var text = i18n()
 var PAGE_SIZE = 12
 var TIME_REG = /(\d{2})(?:.|:)(\d{2})/
 
-module.exports = view(event, meta)
+module.exports = view(events, meta)
 
-function event (state, emit) {
+function events (state, emit) {
   var { slug } = state.params
   var page = parseInt(state.query.page, 10)
   if (isNaN(page)) page = 1
@@ -46,7 +46,7 @@ function event (state, emit) {
         if (!slug) {
           if (doc && doc.data.notice.length) {
             notice = html`
-              <div class="u-tablistAlign u-md-show">
+              <div class="View-notice">
                 <div class="Text">
                   ${asElement(doc.data.notice, resolve, serialize)}
                 </div>
@@ -54,7 +54,7 @@ function event (state, emit) {
             `
           } else if (!doc) {
             notice = html`
-              <div class="u-tablistAlign u-md-show">
+              <div class="View-notice">
                 <div class="Text">
                   <h2>${loader(8)}</h2>
                   <p>${loader(48)}</p>
@@ -67,7 +67,7 @@ function event (state, emit) {
         return html`
           <div class="u-container">
             <header>
-            ${doc ? intro({ title: asText(doc.data.title), adapt: true }) : intro.loading({ text: false, adapt: true })}
+              ${doc ? intro({ title: asText(doc.data.title), adapt: true }) : intro.loading({ text: false, adapt: true })}
             </header>
             ${tablist({ static: true }, [{
               href: '/scen',
@@ -278,48 +278,44 @@ function event (state, emit) {
   // render currently showing event
   // obj -> Element
   function showing (doc, index) {
-    var attrs = index + 1 > PAGE_SIZE || Boolean(state.referrer) ? {
-      class: 'Event Event--teaser u-slideUp',
-      style: `animation-delay: ${index * 100}ms;`
-    } : {
-      class: 'Event Event--teaser'
+    var actions = [{
+      text: text`Read more`,
+      href: resolve(doc),
+      primary: true,
+      cover: true
+    }]
+
+    if (doc.data.buy_link.url) {
+      actions.push({
+        text: text`Buy ticket`,
+        href: doc.data.buy_link.url,
+        icon: symbol.arrow(),
+        external: true,
+        secondary: true
+      })
+    }
+
+    var attrs = { class: 'View-row' }
+    if (index + 1 > PAGE_SIZE || Boolean(state.referrer)) {
+      attrs.class += ' u-slideUp'
+      attrs.style = `animation-delay: ${index * 100}ms;`
     }
     if (doc.data.theme) attrs.style = `--theme-color: ${hexToRgb(doc.data.theme)}`
-    let image
-    if (doc.data.poster.url) {
-      let sources = srcset(doc.data.poster.url, [400, 600, [900, 'q_50']])
-      image = Object.assign({
-        srcset: sources,
-        sizes: '25vw',
-        size: 'flexible',
-        alt: doc.data.poster.alt || '',
-        src: sources.split(' ')[0]
-      }, doc.data.poster.dimensions)
-    }
+
     return html`
       <li ${attrs}>
-        <div class="Event-image">
-          ${image ? framed(image) : framed.loading()}
-        </div>
-        <div class="Event-body">
-          <span class="u-textLabel">
-            ${[doc.data.category, doc.data.shortname].filter(Boolean).join(' – ')}
-          </span>
-          <div class="Text Text--large">
-            <h2>${asText(doc.data.title)}</h2>
-              ${asElement(doc.data.description, resolve, serialize)}
-          </div>
-          <div class="Event-actions">
-            <span class="Event-action">
-              ${button({ text: text`Read more`, href: resolve(doc), primary: true, cover: true })}
-            </span>
-            ${doc.data.buy_link.url ? html`
-              <span class="Event-action">
-                ${button({ text: text`Buy ticket`, href: doc.data.buy_link.url, icon: symbol.arrow(), external: true, secondary: true })}
-              </span>
-            ` : null}
-          </div>
-        </div>
+        <article>
+          ${Event.render({
+            teaser: true,
+            image: doc.data.poster.url ? doc.data.poster : null,
+            label: [doc.data.category, doc.data.shortname].filter(Boolean).join(' – '),
+            body: [
+              html`<h2>${asText(doc.data.title)}</h2>`,
+              asElement(doc.data.description, resolve, serialize)
+            ],
+            actions
+          })}
+        </article>
       </li>
     `
   }

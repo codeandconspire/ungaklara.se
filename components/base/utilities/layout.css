@@ -36,26 +36,6 @@
   }
 }
 
-.u-tablistAlign {
-  padding: 0.2rem 0 2rem !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15) !important;
-  margin-bottom: 2.8rem !important;
-}
-
-@media (min-width: 600px) {
-  .u-tablistAlign {
-    padding: 0.4rem 0 2.75rem !important;
-    margin-bottom: 3.75rem !important;
-  }
-}
-
-@media (min-width: 1000px) {
-  .u-tablistAlign {
-    padding: 1.6rem 0 3.75rem !important;
-    margin-bottom: 4.75rem !important;
-  }
-}
-
 @media print {
   .u-printHidden {
     display: none !important;
