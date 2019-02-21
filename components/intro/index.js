@@ -17,9 +17,7 @@ function intro (props) {
         ${props.title}
       </div>
       ${props.text ? html`<div class="Intro-text">${props.text}</div>` : null}
-      ${props.image ? html`
-        <img class="Intro-image" ${props.image}>
-      ` : null}
+      ${props.image ? image(props.image) : null}
       ${props.action && props.blurb ? html`
         <div class="Intro-action">
           ${props.action}
@@ -27,6 +25,19 @@ function intro (props) {
       ` : null}
     </div>
   `
+}
+
+// render image
+// obj -> Element
+function image (props) {
+  if (props.width && props.height) {
+    return html`
+      <div class="Intro-container" style="--Intro-aspect: ${props.height / props.width};">
+        <img class="Intro-image" ${props}>
+      </div>
+    `
+  }
+  return html`<img class="Intro-image" ${props}>`
 }
 
 function loading (opts = {}) {
