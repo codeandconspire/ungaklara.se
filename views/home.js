@@ -22,7 +22,7 @@ function page (state, emit) {
 
   return html`
     <main class="View-main">
-    
+
       ${state.prismic.getSingle('homepage', function (err, doc) {
         if (err) throw err
         if (!doc) return intro.loading()
@@ -46,26 +46,28 @@ function page (state, emit) {
         }
         return html`
           <div>
-            ${jigsaw(
-              intro({
-                collapse: true,
-                title: asText(doc.data.title),
-                text: asElement(doc.data.description, resolve, serialize)
-              }),
-              doc.data.cta ? html`
-                <div class="View-action">
-                  ${button({ text: text`Read more`, href: resolve(doc.data.cta), primary: true })}
-                </div>
-              ` : null,
-              doc.data.image.url ? framed(Object.assign({
-                alt: doc.data.image.alt || '',
-                srcset: srcset(doc.data.image.url, [200, 400, [800, 'q_50']], { aspect: 100 / 100, transforms: 'c_thumb' }),
-                sizes: '(min-width: 1000px) 33vw, (min-width: 600px) 50vw, 100vw',
-                src: srcset(doc.data.image.url, [200]).split(' ')[0]
-              }, doc.data.image.dimensions)) : null,
-              null,
-              true
-            )}
+            <header>
+              ${jigsaw(
+                intro({
+                  collapse: true,
+                  title: asText(doc.data.title),
+                  text: asElement(doc.data.description, resolve, serialize)
+                }),
+                doc.data.cta ? html`
+                  <div class="View-action">
+                    ${button({ text: text`Read more`, href: resolve(doc.data.cta), primary: true })}
+                  </div>
+                ` : null,
+                doc.data.image.url ? framed(Object.assign({
+                  alt: doc.data.image.alt || '',
+                  srcset: srcset(doc.data.image.url, [200, 400, [800, 'q_50']], { aspect: 100 / 100, transforms: 'c_thumb' }),
+                  sizes: '(min-width: 1000px) 33vw, (min-width: 600px) 50vw, 100vw',
+                  src: srcset(doc.data.image.url, [200]).split(' ')[0]
+                }, doc.data.image.dimensions)) : null,
+                null,
+                true
+              )}
+            </header>
             <div class="u-container">
               <hr class="u-invisible" />
               ${body}

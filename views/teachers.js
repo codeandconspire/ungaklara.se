@@ -24,10 +24,10 @@ function teachers (state, emit) {
           if (err) throw err
           if (!doc) {
             return html`
-              <div>
+              <header>
                 <div class="u-spaceB8">${intro.loading()}</div>
                 ${grid({ size: { md: '1of3' } }, [blurb.loading(), blurb.loading(), blurb.loading()])}
-              </div>
+              </header>
             `
           }
 
@@ -41,27 +41,29 @@ function teachers (state, emit) {
 
           return html`
             <div>
-              <div class="u-spaceB8">
-                ${intro({ title: asText(doc.data.title), badge: asText(doc.data.shortname), text: asElement(doc.data.description) })}
-              </div>
-              ${grid({ size: { md: '1of3' } }, doc.data.blurbs.map(function (item) {
-                if (!item.text.length) return null
-                var props = {
-                  heading: asText(item.heading),
-                  body: asElement(item.text, resolve, reset)
-                }
-
-                var { link } = item
-                if ((link.id || link.url) && !link.isBroken) {
-                  props.link = {
-                    href: resolve(link),
-                    text: item.link_text,
-                    external: link.target === '_blank'
+              <header>
+                <div class="u-spaceB8">
+                  ${intro({ title: asText(doc.data.title), badge: asText(doc.data.shortname), text: asElement(doc.data.description) })}
+                </div>
+                ${grid({ size: { md: '1of3' } }, doc.data.blurbs.map(function (item) {
+                  if (!item.text.length) return null
+                  var props = {
+                    heading: asText(item.heading),
+                    body: asElement(item.text, resolve, reset)
                   }
-                }
 
-                return blurb(props)
-              }))}
+                  var { link } = item
+                  if ((link.id || link.url) && !link.isBroken) {
+                    props.link = {
+                      href: resolve(link),
+                      text: item.link_text,
+                      external: link.target === '_blank'
+                    }
+                  }
+
+                  return blurb(props)
+                }))}
+              </header>
               <hr />
               ${sections.map(section)}
             </div>

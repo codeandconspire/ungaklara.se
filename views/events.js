@@ -66,7 +66,9 @@ function event (state, emit) {
 
         return html`
           <div class="u-container">
+            <header>
             ${doc ? intro({ title: asText(doc.data.title), adapt: true }) : intro.loading({ text: false, adapt: true })}
+            </header>
             ${tablist({ static: true }, [{
               href: '/scen',
               selected: !slug,

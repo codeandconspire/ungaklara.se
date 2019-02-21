@@ -22,47 +22,53 @@ function visit (state, emit) {
       ${state.prismic.getSingle('your_visit', function (err, doc) {
         if (err) throw err
         if (!doc) {
-          return jigsaw(
-            intro.loading({ badge: true }),
-            grid({ size: { lg: '1of2' } }, [blurb.loading(), blurb.loading()]),
-            framed.loading({ format: 'ellipse' })
-          )
+          return html`
+            <header>
+              ${jigsaw(
+                intro.loading({ badge: true }),
+                grid({ size: { lg: '1of2' } }, [blurb.loading(), blurb.loading()]),
+                framed.loading({ format: 'ellipse' })
+              )}
+            </header>
+          `
         }
 
         return html`
           <div>
-            ${jigsaw(
-              intro({
-                collapse: true,
-                title: asText(doc.data.title),
-                badge: asText(doc.data.shortname)
-              }),
-              grid({ size: { lg: '1of2' } }, doc.data.blurbs.map(function (item) {
-                if (!item.text.length) return null
-                var props = {
-                  heading: asText(item.heading),
-                  body: asElement(item.text, resolve, reset)
-                }
-
-                var { link } = item
-                if ((link.id || link.url) && !link.isBroken) {
-                  props.link = {
-                    href: resolve(link),
-                    text: item.link_text,
-                    external: link.target === '_blank'
+            <header>
+              ${jigsaw(
+                intro({
+                  collapse: true,
+                  title: asText(doc.data.title),
+                  badge: asText(doc.data.shortname)
+                }),
+                grid({ size: { lg: '1of2' } }, doc.data.blurbs.map(function (item) {
+                  if (!item.text.length) return null
+                  var props = {
+                    heading: asText(item.heading),
+                    body: asElement(item.text, resolve, reset)
                   }
-                }
 
-                return html`<div class="u-spaceB1">${blurb(props)}</div>`
-              })),
-              doc.data.image.url ? framed(Object.assign({
-                format: 'ellipse',
-                alt: doc.data.image.alt || '',
-                srcset: srcset(doc.data.image.url, [200, 400, [800, 'q_50']], { aspect: 278 / 195, transforms: 'c_thumb' }),
-                sizes: '(min-width: 1000px) 33vw, (min-width: 600px) 50vw, 100vw',
-                src: srcset(doc.data.image.url, [200]).split(' ')[0]
-              }, doc.data.image.dimensions)) : null
-            )}
+                  var { link } = item
+                  if ((link.id || link.url) && !link.isBroken) {
+                    props.link = {
+                      href: resolve(link),
+                      text: item.link_text,
+                      external: link.target === '_blank'
+                    }
+                  }
+
+                  return html`<div class="u-spaceB1">${blurb(props)}</div>`
+                })),
+                doc.data.image.url ? framed(Object.assign({
+                  format: 'ellipse',
+                  alt: doc.data.image.alt || '',
+                  srcset: srcset(doc.data.image.url, [200, 400, [800, 'q_50']], { aspect: 278 / 195, transforms: 'c_thumb' }),
+                  sizes: '(min-width: 1000px) 33vw, (min-width: 600px) 50vw, 100vw',
+                  src: srcset(doc.data.image.url, [200]).split(' ')[0]
+                }, doc.data.image.dimensions)) : null
+              )}
+            </header>
             <div class="u-container">
               ${doc.data.gallery ? html`
                 <div class="u-spaceV2">

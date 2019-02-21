@@ -370,7 +370,7 @@ function eventPage (state, emit) {
 
         return html`
           <div>
-            <div class="u-container">
+            <header class="u-container">
               ${intro({
                 badge: [doc.data.category, doc.data.subheading].filter(Boolean).join(' – '),
                 title: asText(doc.data.title),
@@ -386,7 +386,7 @@ function eventPage (state, emit) {
                   src: srcset(doc.data.image.url, [900]).split(' ')[0]
                 }, doc.data.image.dimensions) : null
               })}
-            </div>
+            </header>
             ${blocks}
           </div>
         `

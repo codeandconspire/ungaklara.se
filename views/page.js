@@ -46,15 +46,17 @@ function page (state, emit) {
 
           return html`
             <div>
-              ${intro({
-                title: asText(doc.data.title),
-                text: asElement(doc.data.description),
-                badge: doc.data.parent && doc.data.parent.id ? html`
-                  <span class="Text">
-                    <a class="u-inlineBlock" href="${resolve(doc.data.parent)}">${doc.data.parent.data.shortname ? asText(doc.data.parent.data.shortname) : asText(doc.data.parent.data.title)}</a>:
-                  </span>
-                ` : null
-              })}
+              <header>
+                ${intro({
+                  title: asText(doc.data.title),
+                  text: asElement(doc.data.description),
+                  badge: doc.data.parent && doc.data.parent.id ? html`
+                    <span class="Text">
+                      <a class="u-inlineBlock" href="${resolve(doc.data.parent)}">${doc.data.parent.data.shortname ? asText(doc.data.parent.data.shortname) : asText(doc.data.parent.data.title)}</a>:
+                    </span>
+                  ` : null
+                })}
+              </header>
               ${body}
             </div>
           `
