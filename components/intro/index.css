@@ -38,13 +38,13 @@
 .Intro-slot {
   position: absolute;
   top: 10vh;
-  right: 4vh;
+  right: 14vw;
 }
 
 @media (min-width: 600px) {
   .Intro-slot {
     top: 19vh;
-    right: 14vh;
+    right: 20vw;
   }
 }
 
