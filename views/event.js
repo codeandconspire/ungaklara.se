@@ -94,6 +94,7 @@ function eventPage (state, emit) {
               primary: true
             }))
           }
+
           blocks.push(html`
             <div class="u-container">
               ${event({
@@ -103,14 +104,16 @@ function eventPage (state, emit) {
                 actions: actions.map((action) => action())
               })}
             </div>
-          `,
-            state.cache(Toolbar, doc.id + '-toolbar').render({
+          `)
+
+          if (actions.length) {
+            blocks.push(state.cache(Toolbar, doc.id + '-toolbar').render({
               heading: asText(doc.data.shortname) || asText(doc.data.title),
               actions: actions.map((action) => button(Object.assign({
                 class: 'u-block'
               }, action())))
-            })
-          )
+            }))
+          }
         }
 
         // facts box
