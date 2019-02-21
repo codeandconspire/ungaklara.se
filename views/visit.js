@@ -21,7 +21,14 @@ function visit (state, emit) {
     <main class="View-main">
       ${state.prismic.getSingle('your_visit', function (err, doc) {
         if (err) throw err
-        if (!doc) return intro.loading({ badge: true })
+        if (!doc) {
+          return jigsaw(
+            intro.loading({ badge: true }),
+            grid({ size: { lg: '1of2' } }, [blurb.loading(), blurb.loading()]),
+            framed.loading({ format: 'ellipse' })
+          )
+        }
+
         return html`
           <div>
             ${jigsaw(
@@ -56,7 +63,6 @@ function visit (state, emit) {
                 src: srcset(doc.data.image.url, [200]).split(' ')[0]
               }, doc.data.image.dimensions)) : null
             )}
-
             <div class="u-container">
               ${doc.data.gallery ? html`
                 <div class="u-spaceV2">

@@ -22,7 +22,14 @@ function teachers (state, emit) {
       <div class="u-container">
         ${state.prismic.getSingle('teachers', function (err, doc) {
           if (err) throw err
-          if (!doc) return intro.loading()
+          if (!doc) {
+            return html`
+              <div>
+                <div class="u-spaceB8">${intro.loading()}</div>
+                ${grid({ size: { md: '1of3' } }, [blurb.loading(), blurb.loading(), blurb.loading()])}
+              </div>
+            `
+          }
 
           // group section slices separated by certain types
           var sections = doc.data.sections.reduce(function (list, slice) {

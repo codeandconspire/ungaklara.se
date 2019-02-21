@@ -42,6 +42,28 @@ function event (state, emit) {
           selected: state.query.tag === item.tag
         }, item)) : null
 
+        var notice = null
+        if (!slug) {
+          if (doc && doc.data.notice.length) {
+            notice = html`
+              <div class="u-tablistAlign u-md-show">
+                <div class="Text">
+                  ${asElement(doc.data.notice, resolve, serialize)}
+                </div>
+              </div>
+            `
+          } else if (!doc) {
+            notice = html`
+              <div class="u-tablistAlign u-md-show">
+                <div class="Text">
+                  <h2>${loader(8)}</h2>
+                  <p>${loader(48)}</p>
+                </div>
+              </div>
+            `
+          }
+        }
+
         return html`
           <div class="u-container">
             ${doc ? intro({ title: asText(doc.data.title), adapt: true }) : intro.loading({ text: false, adapt: true })}
@@ -66,13 +88,7 @@ function event (state, emit) {
                 ? filter(tags, state.query.period, onfilter)
                 : filter.loading()
               : null}
-            ${!slug && doc && doc.data.notice.length ? html`
-              <div class="u-tablistAlign u-md-show">
-                <div class="Text">
-                  ${asElement(doc.data.notice, resolve, serialize)}
-                </div>
-              </div>
-            ` : null}
+            ${notice}
             ${list(pages)}
             ${pages && pages.length === page * PAGE_SIZE ? pagination({ href: getHrefWithParam('page', page + 1), onclick: onpaginate }) : null}
           </div>
