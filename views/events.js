@@ -9,7 +9,7 @@ var view = require('../components/view')
 var grid = require('../components/grid')
 var card = require('../components/card')
 var intro = require('../components/intro')
-var Event = require('../components/event')
+var event = require('../components/event')
 var framed = require('../components/framed')
 var filter = require('../components/filter')
 var symbol = require('../components/symbol')
@@ -305,7 +305,7 @@ function events (state, emit) {
     return html`
       <li ${attrs}>
         <article>
-          ${Event.render({
+          ${event({
             teaser: true,
             image: doc.data.poster.url ? doc.data.poster : null,
             label: [doc.data.category, doc.data.shortname].filter(Boolean).join(' – '),

@@ -5,7 +5,7 @@ var startOfDay = require('date-fns/start_of_day')
 var events = require('./events')
 var view = require('../components/view')
 var grid = require('../components/grid')
-var Event = require('../components/event')
+var event = require('../components/event')
 var embed = require('../components/embed')
 var intro = require('../components/intro')
 var button = require('../components/button')
@@ -15,6 +15,7 @@ var Hashtag = require('../components/hashtag')
 var spotify = require('../components/spotify')
 var trailer = require('../components/trailer')
 var Masonry = require('../components/masonry')
+var Toolbar = require('../components/toolbar')
 var factsBox = require('../components/facts-box')
 var figure = require('../components/text/figure')
 var details = require('../components/text/details')
@@ -72,7 +73,7 @@ function eventPage (state, emit) {
         if (doc.data.about.length) {
           let actions = []
           if (doc.data.dates.find((item) => item.date)) {
-            actions.push({
+            actions.push(() => ({
               text: html`
                 <span>
                   <span class="u-sm-show">${text`Show showdates`}</span>
@@ -80,28 +81,36 @@ function eventPage (state, emit) {
                 </span>
               `,
               icon: symbol.calendar(),
-              href: `#${doc.id}-dates` })
+              href: `#${doc.id}-dates`
+            }))
           }
           if (doc.data.buy_link.url) {
-            actions.push({
+            actions.push(() => ({
               target: '_blank',
               rel: 'noopener noreferrer',
               text: text`Buy ticket`,
               icon: symbol.arrow(),
               href: doc.data.buy_link.url,
               primary: true
-            })
+            }))
           }
           blocks.push(html`
             <div class="u-container">
-              ${state.cache(Event, doc.id + '-about').render({
+              ${event({
                 sticky: true,
                 image: doc.data.poster.url ? doc.data.poster : null,
                 body: doc.data.about,
-                actions
+                actions: actions.map((action) => action())
               })}
             </div>
-          `)
+          `,
+            state.cache(Toolbar, doc.id + '-toolbar').render({
+              heading: asText(doc.data.shortname) || asText(doc.data.title),
+              actions: actions.map((action) => button(Object.assign({
+                class: 'u-block'
+              }, action())))
+            })
+          )
         }
 
         // facts box

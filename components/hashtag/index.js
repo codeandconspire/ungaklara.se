@@ -28,18 +28,22 @@ module.exports = class Hashtag extends Component {
       }
       var ratio = 1 - ((offset + height - scrollY) / (vh() + height))
       element.style.setProperty('--Hashtag-offset', ratio.toFixed(3))
+      inview = true
     })
     var onresize = nanoraf(function () {
       height = element.offsetHeight
       offset = element.offsetTop
       var parent = element
       while ((parent = parent.offsetParent)) offset += parent.offsetTop
+      onscroll()
     })
 
     onresize()
     onscroll()
+    window.addEventListener('resize', onresize)
     window.addEventListener('scroll', onscroll, { passive: true })
     return function () {
+      window.removeEventListener('resize', onscroll)
       window.removeEventListener('scroll', onscroll)
     }
   }

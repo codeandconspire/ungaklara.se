@@ -1,5 +1,4 @@
 var html = require('choo/html')
-var Component = require('choo/component')
 var asElement = require('prismic-element')
 var { Elements } = require('prismic-richtext')
 var button = require('../button')
@@ -7,24 +6,11 @@ var framed = require('../framed')
 var serialize = require('../text/serialize')
 var { resolve, srcset } = require('../base')
 
-module.exports = class Event extends Component {
-  constructor (id, state, emit) {
-    super(id)
-    this.local = state.components[id] = { id }
-  }
-
-  static render (props) {
-    return render(props)
-  }
-
-  createElement (props) {
-    return render(Object.assign({ id: this.local.id }, props))
-  }
-}
+module.exports = event
 
 // orchestrate layout of common components
 // obj -> Element
-function render (props) {
+function event (props) {
   var sources = srcset(props.image.url, [400, 600, [900, 'q_50']])
   var image = Object.assign({
     srcset: sources,
