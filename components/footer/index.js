@@ -69,7 +69,7 @@ module.exports = class Footer extends Component {
                     ` : null}
                     ${doc.data.contact_page.id && !doc.data.contact_page.isBroken ? html`
                       <li class="Footer-item">
-                        <a class="Footer-link" href="${resolve(doc.data.contact_page)}">${text`More ways of contact`}</a>
+                        <a class="Footer-link" href="${resolve(doc.data.contact_page)}">${text`Staff`}</a>
                       </li>
                     ` : null}
                   </ul>
