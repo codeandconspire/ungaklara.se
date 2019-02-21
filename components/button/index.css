@@ -6,7 +6,7 @@
   display: inline-flex;
   align-items: center;
   line-height: 2.925rem;
-  padding: 0 1.2rem;
+  padding: 0 1rem;
   border: var(--border-width) solid rgb(var(--document-color));
   position: relative;
   font-size: 1rem;
@@ -84,11 +84,11 @@
 
 .Button-icon {
   display: inline-block;
-  margin-right: 1ch;
+  margin-right: 0.4em;
   margin-top: -0.05em;
 }
 
-@media (max-width: 399px) {
+@media (max-width: 349px) {
   .Button-icon {
     display: none;
   }
