@@ -38,7 +38,7 @@ module.exports = class Footer extends Component {
                           var link = item.link
                           if ((!link.id && !link.url) || link.isBroken) return null
                           var url = resolve(link)
-                          if (item.link.link_type === 'Document') {
+                          if (item.link.link_type === 'Document' && item.link.type === 'page') {
                             url = root + url
                           }
                           return html`
