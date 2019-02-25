@@ -55,7 +55,7 @@
     "date-fns": "^1.30.1",
     "dotenv": "^6.2.0",
     "focus-visible": "^4.1.5",
-    "jalla": "^0.12.0-3",
+    "jalla": "^0.12.0-4",
     "koa-body": "^4.0.8",
     "koa-compose": "^4.1.0",
     "nanolru": "^1.0.0",
