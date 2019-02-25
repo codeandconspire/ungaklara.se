@@ -38,9 +38,6 @@ module.exports = class Footer extends Component {
                           var link = item.link
                           if ((!link.id && !link.url) || link.isBroken) return null
                           var url = resolve(link)
-                          if (item.link.link_type === 'Document' && item.link.type === 'page') {
-                            url = root + url
-                          }
                           return html`
                             <li class="Footer-item">
                               <a class="Footer-link" href="${url}">${item.link_text || asText(link.data.title)}</a>
