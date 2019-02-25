@@ -54,6 +54,7 @@ function eventPage (state, emit) {
         }
 
         var blocks = []
+        var title = asText(doc.data.title)
         var collapse = typeof window !== 'undefined' && vw() < 600
         var videos = doc.data.videos.filter((group) => group.video.embed_url)
 
@@ -81,7 +82,8 @@ function eventPage (state, emit) {
                 </span>
               `,
               icon: symbol.calendar(),
-              href: `#${doc.id}-dates`
+              href: `#${doc.id}-dates`,
+              onclick: () => emit('track:view_item_list', title, 'Tickets', 'Show tickets')
             }))
           }
           if (doc.data.buy_link.url) {
@@ -91,7 +93,8 @@ function eventPage (state, emit) {
               text: text`Buy ticket`,
               icon: symbol.arrow(),
               href: doc.data.buy_link.url,
-              primary: true
+              primary: true,
+              onclick: () => emit('track:purchase', title)
             }))
           }
 
@@ -108,7 +111,7 @@ function eventPage (state, emit) {
 
           if (actions.length) {
             blocks.push(state.cache(Toolbar, doc.id + '-toolbar').render({
-              heading: asText(doc.data.shortname) || asText(doc.data.title),
+              heading: asText(doc.data.shortname) || title,
               actions: actions.map((action) => button(Object.assign({
                 class: 'u-block'
               }, action())))
@@ -372,7 +375,7 @@ function eventPage (state, emit) {
                       attrs.class += ' u-slideUp'
                       attrs.style = `animation-delay: ${(index - prev) * 200}ms;`
                     }
-                    return html`<div ${attrs}>${ticket(item)}</div>`
+                    return html`<div ${attrs}>${ticket(item, () => emit('track:purchase', title))}</div>`
                   }))}
                   ${dates.length > page * 4 ? pagination({ href: `${state.href}?page=${page + 1}`, onclick: paginate }) : null}
                 </section>
@@ -386,7 +389,7 @@ function eventPage (state, emit) {
             <header class="u-container">
               ${intro({
                 badge: [doc.data.category, doc.data.subheading].filter(Boolean).join(' – '),
-                title: asText(doc.data.title),
+                title: title,
                 text: asElement(doc.data.description, resolve, serialize),
                 slot: videos.length ? null : hashtag,
                 image: doc.data.image.url ? Object.assign({
@@ -455,23 +458,24 @@ function eventPage (state, emit) {
       default: return null
     }
   }
-}
 
-// render oembed object as embeded video
-// obj -> Element
-function video (props, opts = {}) {
-  var provider = props.provider_name.toLowerCase()
-  var id = embed.id(props)
-  if (!id) return null
-  return embed(Object.assign({
-    url: props.embed_url,
-    title: props.title,
-    src: `/media/${provider}/w_${opts.first ? 900 : 400}/${id}`,
-    width: props.thumbnail_width,
-    height: props.thumbnail_height,
-    sizes: opts.first ? '(min-width: 600px) 65vw, 100vw' : '50vw',
-    srcset: srcset(id, [400, 900, 1800, [2600, 'q_50']], { type: provider })
-  }, opts))
+  // render oembed object as embeded video
+  // obj -> Element
+  function video (props, opts = {}) {
+    var provider = props.provider_name.toLowerCase()
+    var id = embed.id(props)
+    if (!id) return null
+    return embed(Object.assign({
+      url: props.embed_url,
+      title: props.title,
+      onplay: () => emit('track:view_item', props.embed_url, 'Media', 'Play video'),
+      src: `/media/${provider}/w_${opts.first ? 900 : 400}/${id}`,
+      width: props.thumbnail_width,
+      height: props.thumbnail_height,
+      sizes: opts.first ? '(min-width: 600px) 65vw, 100vw' : '50vw',
+      srcset: srcset(id, [400, 900, 1800, [2600, 'q_50']], { type: provider })
+    }, opts))
+  }
 }
 
 // render team member

@@ -38,5 +38,5 @@ function button (props) {
 
 // check if str is applicable element attribute
 function isAttribute (str) {
-  return !!ATTRS.find((value) => str.indexOf(value) === 0)
+  return Boolean(ATTRS.find((value) => str.indexOf(value) === 0))
 }

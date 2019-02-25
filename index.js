@@ -15,6 +15,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(require('./stores/reset'))
 app.use(require('./stores/ui'))
 app.use(require('./stores/favicon'))
+app.use(require('./stores/tracking'))
 app.use(require('./stores/navigation'))
 app.use(require('./stores/prismic')({ repository: REPOSITORY, middleware }))
 app.use(require('choo-meta')({ origin: app.state.origin }))

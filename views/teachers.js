@@ -218,7 +218,7 @@ function teachers (state, emit) {
 }
 
 // render linked document as card
-// obj -> Element
+// (obj, str?) -> Element
 function asCard (doc, color) {
   var props = {
     title: asText(doc.data.title),

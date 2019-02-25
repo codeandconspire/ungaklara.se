@@ -23,6 +23,7 @@ function link (opts = {}) {
     attrs.download = ''
     attrs.class += ' Card-link--simple'
   }
+  if (typeof opts.onclick === 'function') attrs.onclick = opts.onclick
 
   return html`
     <a ${attrs}>

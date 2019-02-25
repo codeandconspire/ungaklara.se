@@ -15,12 +15,13 @@ class Player extends Component {
     return shouldUpdate
   }
 
-  close (onclose = Function.prototype) {
+  close (onclose) {
     var element = this.element
     var onanimationend = () => {
       element.removeEventListener('animationend', onanimationend)
       window.removeEventListener('wheel', preventScroll)
       window.removeEventListener('touchmove', preventScroll)
+      if (typeof onclose === 'function') onclose()
       this.render(null)
     }
     element.addEventListener('animationend', onanimationend)

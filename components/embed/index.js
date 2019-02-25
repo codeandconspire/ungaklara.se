@@ -33,7 +33,8 @@ function embed (props) {
   `
 
   function onclick (event) {
-    player.render(props.url)
+    if (typeof props.onplay === 'function') props.onplay()
+    player.render(props.url, props.onstop)
     event.preventDefault()
   }
 }

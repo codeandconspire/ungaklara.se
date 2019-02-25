@@ -10,7 +10,7 @@ var text = i18n()
 
 module.exports = ticket
 
-function ticket (props) {
+function ticket (props, onclick = null) {
   var day
   if (isToday(props.date)) day = text`Today`
   else if (isTomorrow(props.date)) day = text`Tomorrow`
@@ -38,7 +38,7 @@ function ticket (props) {
           <span><span class="Ticket-icon">${symbol.location()}</span> ${props.location}</span>
         </div>
         ${props.status !== 3 && props.href ? html`
-          <a class="Ticket-link" href="${props.href}" target="_blank" rel="noopener noreferrer">
+          <a class="Ticket-link" href="${props.href}" target="_blank" rel="noopener noreferrer" onclick=${onclick}>
             ${symbol.arrow()} <span class="u-hiddenVisually">${text`Buy ticket`}</span>
           </a>
         ` : null}

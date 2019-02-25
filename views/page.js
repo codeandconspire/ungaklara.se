@@ -237,7 +237,8 @@ function page (state, emit) {
           body: primary.text,
           color: primary.color,
           link: {
-            href: primary.file.url
+            href: primary.file.url,
+            onclick: () => emit('track:view_item', asText(primary.title), 'Media', 'Download media')
           }
         }))
         return blurbs
