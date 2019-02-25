@@ -10,13 +10,19 @@ function trailer (props, content, children) {
 
   return html`
     <div class="Trailer">
-      ${props.src ? html`<img ${attrs} class="Trailer-background" src="${src}" />` : null}
-      <div class="u-container">
-        <div class="Trailer-content">${content}</div>
-        <div class="Trailer-children">
-          ${children}
+      <div class="Trailer-content">
+        <div class="Trailer-background">
+          ${props.src ? html`<img ${attrs} class="Trailer-image" src="${src}" />` : null}
+        </div>
+        <div class="u-container">
+          ${content}
         </div>
       </div>
+      ${children ? html`
+        <div class="Trailer-children u-container">
+          ${children}
+        </div>
+      ` : null}
     </div>
   `
 }

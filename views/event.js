@@ -234,7 +234,7 @@ function eventPage (state, emit) {
               if (background.url) {
                 Object.assign(bgProps, {
                   src: srcset(background.url, [900]).split(' ')[0],
-                  sizes: '100vw',
+                  sizes: '(min-width: 2000px) 100vw, (min-width: 1600px) 120vw, (min-width: 1400px) 110vw, (min-width: 1000px) 130vw, 150vw',
                   srcset: srcset(background.url, [400, 900, [1800, 'q_50'], [2600, 'q_30']])
                 }, background.dimensions)
               }
