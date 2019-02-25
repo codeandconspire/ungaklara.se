@@ -44,17 +44,25 @@ function page (state, emit) {
             }
           }
 
+          var badge = asText(doc.data.shortname)
+          var parent = doc.data.parent
+          if (parent && parent.id && !parent.isBroken) {
+            badge = html`
+              <span>
+                <a href="${resolve(doc.data.parent)}">
+                  ${parent.data.shortname ? asText(parent.data.shortname) : asText(parent.data.title)}
+                </a>:
+              </span>
+            `
+          }
+
           return html`
             <div>
               <header>
                 ${intro({
+                  badge: badge,
                   title: asText(doc.data.title),
-                  text: asElement(doc.data.description),
-                  badge: doc.data.parent && doc.data.parent.id ? html`
-                    <span class="Text">
-                      <a class="u-inlineBlock" href="${resolve(doc.data.parent)}">${doc.data.parent.data.shortname ? asText(doc.data.parent.data.shortname) : asText(doc.data.parent.data.title)}</a>:
-                    </span>
-                  ` : null
+                  text: asElement(doc.data.description)
                 })}
               </header>
               ${body}
