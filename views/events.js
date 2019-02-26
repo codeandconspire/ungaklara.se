@@ -69,27 +69,29 @@ function events (state, emit) {
             <header>
               ${doc ? intro({ title: asText(doc.data.title), adapt: true }) : intro.loading({ text: false, adapt: true })}
             </header>
-            ${tablist({ static: true }, [{
-              href: '/scen',
-              selected: !slug,
-              text: text`Currently showing`,
-              onclick: onselect
-            }, {
-              href: '/scen/kalendarium',
-              selected: slug === 'kalendarium',
-              text: text`Calendar`,
-              onclick: onselect
-            }, {
-              href: '/scen/arkiv',
-              selected: slug === 'arkiv',
-              text: text`Archive`,
-              onclick: onselect
-            }])}
-            ${slug === 'arkiv'
-              ? doc
+            <nav>
+              ${tablist({ static: true }, [{
+                href: '/scen',
+                selected: !slug,
+                text: text`Currently showing`,
+                onclick: onselect
+              }, {
+                href: '/scen/kalendarium',
+                selected: slug === 'kalendarium',
+                text: text`Calendar`,
+                onclick: onselect
+              }, {
+                href: '/scen/arkiv',
+                selected: slug === 'arkiv',
+                text: text`Archive`,
+                onclick: onselect
+              }])}
+              ${slug === 'arkiv'
+                ? doc
                 ? filter(tags, state.query.period, onfilter)
                 : filter.loading()
-              : null}
+                : null}
+            </nav>
             ${notice}
             ${list(pages)}
             ${pages && pages.length === page * PAGE_SIZE ? pagination({ href: getHrefWithParam('page', page + 1), onclick: onpaginate }) : null}

@@ -22,10 +22,17 @@ function page (state, emit) {
 
   return html`
     <main class="View-main">
-
       ${state.prismic.getSingle('homepage', function (err, doc) {
         if (err) throw err
-        if (!doc) return intro.loading()
+        if (!doc) {
+          return jigsaw(
+            intro.loading({ collapse: true }),
+            null,
+            framed.loading(),
+            null,
+            { alt: true }
+          )
+        }
 
         var body = []
         for (let i = 0, len = doc.data.body.length; i < len; i++) {
@@ -65,7 +72,7 @@ function page (state, emit) {
                   src: srcset(doc.data.image.url, [200]).split(' ')[0]
                 }, doc.data.image.dimensions)) : null,
                 null,
-                true
+                { alt: true }
               )}
             </header>
             <div class="u-container">

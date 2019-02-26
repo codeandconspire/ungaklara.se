@@ -40,7 +40,8 @@
   height: 100%; /* 2 */
   cursor: default; /* 3 */
   font-family: var(--document-font-family);
-  background: rgb(var(--theme-color, var(--document-background)));
+  background-color: rgb(var(--theme-color, var(--document-background)));
+  transition: background-color 250ms var(--ease);
   color: rgb(var(--document-color));
   font-size: 100%;
   line-height: var(--document-line-height);

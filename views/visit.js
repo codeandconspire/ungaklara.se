@@ -22,15 +22,11 @@ function visit (state, emit) {
       ${state.prismic.getSingle('your_visit', function (err, doc) {
         if (err) throw err
         if (!doc) {
-          return html`
-            <header>
-              ${jigsaw(
-                intro.loading({ badge: true }),
-                grid({ size: { lg: '1of2' } }, [blurb.loading(), blurb.loading()]),
-                framed.loading({ format: 'ellipse' })
-              )}
-            </header>
-          `
+          return jigsaw(
+            intro.loading({ badge: true }),
+            grid({ size: { lg: '1of2' } }, [blurb.loading(), blurb.loading()]),
+            framed.loading({ format: 'ellipse' })
+          )
         }
 
         return html`
