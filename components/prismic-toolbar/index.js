@@ -64,12 +64,18 @@ module.exports = class PrismicToolbar extends Component {
         <h2 class="PrismicToolbar-title">${text`Preview`}</h2>
         <div class="PrismicToolbar-share">
           <input type="url" autocomplete="off" value="${this.href()}?token=${this.local.token}" class="PrismicToolbar-url js-preview" readonly>
-          ${button({ type: 'button', text: text`Copy`, primary: true, onclick: onclick })}
+          ${button({ type: 'button', text: text`Copy`, primary: true, onclick: copy })}
         </div>
+        <button class="PrismicToolbar-close" title="${text`Close`}" onclick=${close}>✕</button>
       </aside>
     `
 
-    function onclick (event) {
+    function close () {
+      document.cookie = `${Prismic.previewCookie}=; path=/; Max-Age=-99999999;`
+      window.location.reload()
+    }
+
+    function copy (event) {
       var input = document.querySelector('.js-preview')
       input.select()
       document.execCommand('Copy')
