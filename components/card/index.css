@@ -14,34 +14,36 @@
   color: rgb(var(--current-color));
 }
 
+.Card-everything {
+  position: relative;
+  z-index: 1;
+}
+
+.Card--interactive.Card--fill .Card-everything {
+  transition: transform 150ms 20ms var(--ease-out);
+}
+
+.Card--interactive.Card--fill:hover .Card-everything {
+  transform: translateY(-0.8rem);
+}
+
+.Card--interactive.Card--fill::before {
+  content: "";
+  display: block;
+  width: 92%;
+  height: 100%;
+  position: absolute;
+  left: 4%;
+  bottom: 0;
+  z-index: -1;
+  background: black;
+}
+
 @media print {
   .Card {
     page-break-inside: avoid;
     page-break-after: avoid;
   }
-}
-
-.Card--background {
-  --current-color: 255, 255, 255;
-  --current-background: 0, 0, 0;
-  justify-content: flex-end;
-}
-
-.Card--interactive .Card-content::before {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  z-index: -1;
-  background: rgba(0, 0, 0, 0.09);
-  transition: opacity 180ms var(--ease-out);
-}
-
-.Card--interactive:hover .Card-content::before {
-  opacity: 1;
 }
 
 .Card-content {
@@ -62,13 +64,6 @@
   }
 }
 
-.Card--background .Card-content {
-  height: 100%;
-  flex: 0 0 auto;
-  min-height: auto;
-  background-image: var(--figure-gradient);
-}
-
 /**
  * 1. Get a z-index to put ontop of hover shading
  */
@@ -83,11 +78,6 @@
   flex-grow: 0;
 }
 
-.Card--background .Card-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
 
 .Card-meta {
   display: block;
@@ -141,7 +131,6 @@
   flex-grow: 0;
   width: 100%;
   margin-top: 1rem;
-  margin-bottom: 0.25rem;
 }
 
 .Card--fill.Card--dark {
@@ -156,7 +145,7 @@
   --current-background: 255, 255, 255;
 }
 
-.Card--fill {
+.Card--fill .Card-everything {
   background-color: rgb(var(--Card-background-color, var(--current-background)));
 }
 
@@ -169,7 +158,6 @@
   position: relative;
   overflow: hidden;
   z-index: -1;
-  background-color: #000;
 }
 
 .Card-figure::before {
@@ -179,34 +167,19 @@
   padding-top: var(--Card-figure-aspect);
 }
 
-.Card:not(.Card--interactive) .Card-figure:not(.is-loading)::after {
+.Card:not(.Card--simple):not(.Card--fill) .Card-figure::after {
   content: "";
   width: 100%;
   height: 100%;
+  border: 2px solid black;
   position: absolute;
   top: 0;
   left: 0;
-  opacity: 0;
-  background: rgba(0, 0, 0, 0.09);
-  transition: opacity 180ms var(--ease-out);
+  z-index: -1;
 }
 
-.Card:not(.Card--interactive):hover .Card-figure:not(.is-loading)::after {
-  opacity: 1;
-}
-
-.Card-figure.is-loading {
-  background-color: #000;
-}
-
-.Card-figure--background {
-  object-fit: cover;
-  max-height: none;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
+.Card:not(.Card--simple):not(.Card--fill):hover .Card-figure::after {
+  z-index: 1;
 }
 
 .Card-caption {
@@ -262,6 +235,14 @@
   top: 0;
 }
 
+.Card:not(.Card--fill) .Card-link:hover {
+  background: black;
+  color: #fff;
+  mix-blend-mode: darken;
+  border-color: transparent;
+  box-shadow: 3px 0 0 black, -3px 0 0 black;
+}
+
 @media print {
   .Card-link {
     display: none !important;
@@ -269,8 +250,9 @@
 }
 
 .Card-icon {
-  padding-right: 0.4em;
+  padding-right: 0.2em;
   line-height: 0;
+  margin: -0.1rem 0;
 }
 
 @media (max-width: 599px) {

@@ -33,9 +33,10 @@ function card (props = {}, slot) {
       'Card--interactive': props.link && (fill || props.background),
       'Card--dark': props.background || (fill && luma(fill) < 110),
       'Card--fill': fill || props.background,
-      'Card--background': props.background
+      'Card--simple': props.file
     })
   }
+
   if (fill) attrs.style = `--Card-background-color: ${hexToRgb(fill)};`
   if (props.image && props.image.width && props.image.height) {
     if (!attrs.style) attrs.style = ''
@@ -60,22 +61,24 @@ function card (props = {}, slot) {
 
   return html`
     <article ${attrs}>
-      ${cover}
-      <div class="Card-content ${fill ? 'u-hoverTriggerTarget u-paddedBox' : ''}" style="--Card-figure-aspect: 142.8%">
-        <div class="Card-body">
-          ${date && date.text && date.datetime ? html`
-            <time class="Card-meta" datetime="${JSON.stringify(date.datetime).replace(/"/g, '')}">
-              ${date.text}
-            </time>
-          ` : null}
-          <h3 class="Card-title">${props.title}</h3>
-          ${body}
-        </div>
-        ${props.link ? html`
-          <div class="Card-footer">
-            ${link(props.link)}
+      <div class="Card-everything">
+        ${cover}
+        <div class="Card-content ${fill ? 'u-hoverTriggerTarget u-paddedBox' : ''}" style="--Card-figure-aspect: 142.8%">
+          <div class="Card-body">
+            ${date && date.text && date.datetime ? html`
+              <time class="Card-meta" datetime="${JSON.stringify(date.datetime).replace(/"/g, '')}">
+                ${date.text}
+              </time>
+            ` : null}
+            <h3 class="Card-title">${props.title}</h3>
+            ${body}
           </div>
-        ` : null}
+          ${props.link ? html`
+            <div class="Card-footer">
+              ${link(props.link)}
+            </div>
+          ` : null}
+        </div>
       </div>
     </article>
   `

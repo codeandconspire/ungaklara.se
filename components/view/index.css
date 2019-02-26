@@ -38,7 +38,7 @@
   max-width: 100%;
   min-height: calc(var(--View-gradient-top-height));
   margin-bottom: 10rem;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   z-index: 1;
 }
 

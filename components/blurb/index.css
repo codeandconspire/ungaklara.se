@@ -20,6 +20,14 @@
   border-bottom: 2px solid currentColor;
 }
 
+.Blurb-link:hover {
+  background: black;
+  color: #fff;
+  mix-blend-mode: darken;
+  border-color: transparent;
+  box-shadow: 3px 0 0 black, -3px 0 0 black;
+}
+
 .Blurb.is-loading .Blurb-link {
   border-bottom-color: transparent;
 }

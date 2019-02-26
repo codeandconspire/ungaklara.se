@@ -93,6 +93,7 @@
   background: rgb(var(--document-color));
   color: rgb(255, 255, 255);
   mix-blend-mode: darken;
+  box-shadow: 0.1em 0 0 black, -0.1em 0 0 black;
 }
 
 .Text-muted a:hover,
@@ -231,6 +232,17 @@ a.Text-muted:active {
   font-size: 1.5rem;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
+}
+
+.Text summary h3 {
+  border-bottom: 2px solid transparent;
+  display: inline;
+  padding-bottom: 0.1rem;
+  margin-bottom: calc((2px + 0.1rem) * -1);
+}
+
+.Text summary:hover h3 {
+  border-bottom-color: black;
 }
 
 .Text summary h1,

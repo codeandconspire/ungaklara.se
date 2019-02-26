@@ -21,18 +21,36 @@
 }
 
 .u-paddedBox {
-  padding: 2rem 1.2rem !important;
+  padding: 1.4rem 1.1rem !important;
+}
+
+@media (min-width: 350px) {
+  .u-paddedBox {
+    padding: 1.5rem 1.2rem !important;
+  }
 }
 
 @media (min-width: 600px) {
   .u-paddedBox {
-    padding: 2.8rem 1.8rem 2.6rem !important;
+    padding: 1.8rem 1.5rem !important;
+  }
+}
+
+@media (min-width: 800px) {
+  .u-paddedBox {
+    padding: 2.3rem 2rem !important;
   }
 }
 
 @media (min-width: 1000px) {
   .u-paddedBox {
-    padding: 3.1rem 2rem 2.7rem !important;
+    padding: 1.8rem 1.5rem !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .u-paddedBox {
+    padding: 2.4rem 2rem !important;
   }
 }
 

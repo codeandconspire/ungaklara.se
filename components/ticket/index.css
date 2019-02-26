@@ -4,17 +4,42 @@
 .Ticket {
   width: 100%;
   position: relative;
-  background-color: rgb(var(--theme-color));
-  font-size: 1.125rem;
-  box-shadow: 0 0.25rem 0.625rem 0 rgba(0, 0, 0, 0.1);
-  user-select: none;
-  color: rgb(var(--theme-color-is-dark, 0, 0, 0));
 }
 
 .Ticket--disabled {
   color: rgb(108, 109, 112);
   background: rgb(218, 220, 226);
   box-shadow: none;
+}
+
+.Ticket-everything {
+  position: relative;
+  z-index: 1;
+  background-color: rgb(var(--theme-color));
+  font-size: 1.125rem;
+  user-select: none;
+  color: rgb(var(--theme-color-is-dark, 0, 0, 0));
+  border: 2px solid black;
+}
+
+.Ticket:not(.Ticket--disabled) .Ticket-everything {
+  transition: transform 150ms 20ms var(--ease-out);
+}
+
+.Ticket:not(.Ticket--disabled):hover .Ticket-everything {
+  transform: translateY(-0.8rem);
+}
+
+.Ticket:not(.Ticket--disabled)::before {
+  content: "";
+  display: block;
+  width: 92%;
+  height: 100%;
+  position: absolute;
+  left: 4%;
+  bottom: 0;
+  z-index: -1;
+  background: black;
 }
 
 .Ticket-main {
