@@ -2,6 +2,7 @@
 
 :root {
   --Intro-spacing: 3rem;
+  --Intro-aspect: 0.5625;
 }
 
 /** @define Intro */
@@ -93,6 +94,7 @@
   margin: -24vh 0 2rem;
   order: -1;
   position: relative;
+  overflow: hidden;
 }
 
 .Intro-container::before {
