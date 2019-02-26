@@ -4,6 +4,7 @@
 .Pagination {
   text-align: center;
   margin: 3rem 0 0;
+  user-select: none;
 }
 
 .Pagination-link {

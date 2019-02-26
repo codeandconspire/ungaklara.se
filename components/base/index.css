@@ -49,6 +49,10 @@
   -webkit-font-smoothing: antialiased; /* 4 */
   -moz-osx-font-smoothing: grayscale; /* 4 */
   text-rendering: geometricPrecision; /* 5 */
+
+  width: 100vw;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 @media (min-width: 1600px) {
