@@ -1,0 +1,49 @@
+@import "../base";
+
+/* @define PrismicToolbar */
+.PrismicToolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 25rem;
+  padding: 1rem;
+  border: 2px solid #fff;
+  position: fixed;
+  bottom: calc(var(--document-margin) / 2);
+  right: calc(var(--document-margin) / 2);
+  z-index: 1;
+  background-color: #4356af;
+  color: #fff;
+}
+
+.PrismicToolbar-logo {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.75rem;
+}
+
+.PrismicToolbar-title {
+  font-size: 1.25rem;
+  font-family: var(--heading-font-family);
+  line-height: var(--heading-line-height);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.PrismicToolbar-share {
+  flex: 1 1 100%;
+  display: flex;
+  margin-top: 1rem;
+}
+
+.PrismicToolbar-url {
+  flex: 1 1 auto;
+  display: block;
+  padding: 0 0.5em;
+  border: 2px solid rgb(var(--document-color));
+  font-size: 0.8rem;
+  color: rgb(var(--color-gray-dark));
+  -webkit-appearance: none;
+  appearance: none;
+}

@@ -23,6 +23,15 @@ function prismicStore (opts) {
       cache.clear()
     }
 
+    // expose clear via event
+    emitter.on('prismic:clear', function () {
+      cache.clear()
+      // reinitialize api to account for new preview cookie
+      init = Prismic.getApi(opts.repository, Object.assign({
+        req: state.req
+      }, opts))
+    })
+
     // parse SSR-provided initial state
     if (state.prismic) {
       assert(typeof state.prismic === 'object', 'choo-prismic: state.prismic should be type object')

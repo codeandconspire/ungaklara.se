@@ -1,11 +1,9 @@
 var choo = require('choo')
-var app = choo({ hash: false })
 var middleware = require('./lib/prismic-middleware')
+
 var REPOSITORY = 'https://unga-klara.cdn.prismic.io/api/v2'
 
-app.state.origin = process.env.NODE_ENV === 'development'
-  ? 'http://localhost:8080'
-  : process.env.npm_package_now_alias
+var app = choo({ hash: false })
 
 if (process.env.NODE_ENV === 'development') {
   app.use(require('choo-devtools')())
