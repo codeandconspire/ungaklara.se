@@ -51,12 +51,12 @@
   z-index: -1;
 }
 
-.Calendar-link:hover,
-.Calendar-link:active {
+.Calendar-link:hover {
   border-color: rgb(var(--document-color));
   background: rgb(var(--document-color));
   color: rgb(255, 255, 255);
   mix-blend-mode: darken;
+  box-shadow: 0.1em 0 0 black, -0.1em 0 0 black;
 }
 
 .Calendar-day {

@@ -240,7 +240,7 @@
   color: #fff;
   mix-blend-mode: darken;
   border-color: transparent;
-  box-shadow: 3px 0 0 black, -3px 0 0 black;
+  box-shadow: 0.1em 0 0 black, -0.1em 0 0 black;
 }
 
 @media print {

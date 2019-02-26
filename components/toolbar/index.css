@@ -13,7 +13,7 @@
 
 .Toolbar.is-fixed {
   width: 100%;
-  padding: 1em 0;
+  padding: 0.7em 0;
   border-bottom: 2px solid currentColor;
   position: fixed;
   top: 0;
@@ -36,6 +36,12 @@
   line-height: var(--heading-line-height);
   font-weight: 600;
   letter-spacing: -0.025em;
+}
+
+@media (min-width: 500px) {
+  .Toolbar-actions {
+    flex: 0 1 auto;
+  }
 }
 
 @media (min-width: 900px) {
