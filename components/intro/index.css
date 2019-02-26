@@ -90,11 +90,16 @@
 }
 
 .Intro-container {
-  height: 0;
-  padding-top: calc(100% * var(--Intro-aspect));
   margin: -24vh 0 2rem;
   order: -1;
   position: relative;
+}
+
+.Intro-container::before {
+  content: "";
+  display: block;
+  height: 0;
+  padding-top: calc(100% * var(--Intro-aspect));
 }
 
 @media (min-width: 350px) {
