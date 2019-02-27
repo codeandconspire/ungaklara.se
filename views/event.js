@@ -132,12 +132,13 @@ function eventPage (state, emit) {
           // videos media
           if (videos.length) {
             blocks.push(html`
-              <div class="u-container u-spaceT7">
+              <div class="u-container u-spaceT7 u-posRelative">
+                ${hashtag}
                 ${videos.length > 1 ? html`
                   <div class="u-uncontain">
                     ${grid({ carousel: true }, videos.map((group) => video(group.video)))}
                   </div>
-                ` : videos[0]}
+                ` : video(videos[0].video)}
               </div>
             `)
           }
