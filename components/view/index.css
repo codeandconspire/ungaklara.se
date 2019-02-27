@@ -57,7 +57,7 @@
 
 .View-gradient {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 200vh);
   position: absolute;
   top: 100vh;
   left: 0;
