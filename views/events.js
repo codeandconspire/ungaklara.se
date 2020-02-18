@@ -179,6 +179,12 @@ function events (state, emit) {
           return { doc, premiere }
         })
         .sort((a, b) => a.premiere > b.premiere ? -1 : 1)
+        .sort(function (a, b) {
+          // Editorial force soring
+          var ao = a.doc.data.order ? a.doc.data.order : 10
+          var bo = b.doc.data.order ? b.doc.data.order : 10
+          return ao > bo
+        })
         .map(({ doc }) => doc)
     })
   }
