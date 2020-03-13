@@ -6,7 +6,6 @@
   "scripts": {
     "build": "jalla build index.js --sw sw.js",
     "start": "node server.js",
-    "deploy": "npx now -T codeandconspire && npx now alias -T codeandconspire",
     "test": "standard"
   },
   "documentify": {
@@ -22,19 +21,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/codeandconspire/ungaklara.se.git"
-  },
-  "now": {
-    "alias": "www.ungaklara.se",
-    "env": {
-      "NODE_ENV": "production",
-      "CLOUDINARY_KEY": "@cloudinary-key",
-      "CLOUDINARY_SECRET": "@cloudinary-secret",
-      "PRISMIC_SECRET": "@prismic-ungaklara-secret",
-      "CLOUDFLARE_ZONE": "@cloudflare-ungaklara-zone",
-      "CLOUDFLARE_EMAIL": "@cloudflare-ungaklara-email",
-      "CLOUDFLARE_KEY": "@cloudflare-ungaklara-key",
-      "POLYFILL_FEATURES": "default-3.3,Array.prototype.find,Array.prototype.findIndex,Array.prototype.includes"
-    }
   },
   "author": "code and conspire",
   "license": "CC-BY-SA-4.0",

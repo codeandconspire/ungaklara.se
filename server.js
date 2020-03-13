@@ -1,4 +1,4 @@
-if (!process.env.NOW) require('dotenv/config')
+if (!process.env.HEROKU) require('dotenv/config')
 
 var jalla = require('jalla')
 var dedent = require('dedent')
@@ -128,7 +128,7 @@ app.use(function (ctx, next) {
 })
 
 app.listen(process.env.PORT || 8080, function () {
-  if (process.env.NOW && app.env === 'production') {
+  if (process.env.HEROKU && app.env === 'production') {
     purge(['/sw.js'], function (err) {
       if (err) app.emit('error', err)
     })
