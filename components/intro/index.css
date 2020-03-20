@@ -81,6 +81,46 @@
   border-bottom: 2px solid currentColor;
 }
 
+.Intro-text p:not(:first-child),
+.Intro-text ul:not(:first-child),
+.Intro-text ol:not(:first-child) {
+  margin-top: 1em;
+}
+
+/**
+ * Lists
+ */
+
+.Intro-text ul {
+  list-style-type: none;
+}
+
+.Intro-text ol {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+}
+
+.Intro-text ul > li {
+  padding-left: 1.5em;
+  position: relative;
+}
+
+.Intro-text ol > li {
+  padding-left: 0.5em;
+}
+
+.Intro-text ul > li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  font-weight: 600;
+  color: var(--color-theme)
+}
+
+.Intro-text li + li {
+  margin-top: 0.8em;
+}
+
 .Intro-image {
   background: rgba(0, 0, 0, 0.05);
   display: block;
