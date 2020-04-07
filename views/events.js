@@ -85,6 +85,11 @@ function events (state, emit) {
                 selected: slug === 'arkiv',
                 text: text`Archive`,
                 onclick: onselect
+              }, {
+                href: '/scen/on-demand',
+                selected: slug === 'on-demand',
+                text: text`On Demand`,
+                onclick: onselect
               }])}
               ${slug === 'arkiv'
                 ? doc
