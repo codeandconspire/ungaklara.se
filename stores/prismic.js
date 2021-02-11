@@ -1,5 +1,6 @@
 var LRU = require('nanolru')
 var assert = require('assert')
+var html = require('choo/html')
 var Prismic = require('prismic-javascript')
 
 module.exports = prismicStore
@@ -23,13 +24,11 @@ function prismicStore (opts) {
       cache.clear()
     }
 
-    // expose clear via event
-    emitter.on('prismic:clear', function () {
-      cache.clear()
-      // reinitialize api to account for new preview cookie
-      init = Prismic.getApi(opts.repository, Object.assign({
-        req: state.req
-      }, opts))
+    emitter.on('DOMContentLoaded', function () {
+      var [, name] = opts.repository.match(/https?:\/\/(.+?)\./)
+      if (document.cookie.includes(Prismic.previewCookie)) {
+        document.head.appendChild(html`<script async defer src="https://static.cdn.prismic.io/prismic.js?new=true&repo=${name}"></script>`)
+      }
     })
 
     // parse SSR-provided initial state

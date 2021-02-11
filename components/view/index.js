@@ -7,7 +7,6 @@ var Header = require('../header')
 var Footer = require('../footer')
 var Player = require('../embed/player')
 var { i18n, asText } = require('../base')
-var PrismicToolbar = require('../prismic-toolbar')
 
 var text = i18n()
 
@@ -82,7 +81,6 @@ function createView (view, meta) {
           ${children}
           ${state.cache(Footer, 'footer').render()}
           ${Player.render()}
-          ${state.cache(PrismicToolbar, 'prismic-toolbar').placeholder(state.href)}
         </body>
       `
 
