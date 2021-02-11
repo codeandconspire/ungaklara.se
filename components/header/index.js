@@ -37,7 +37,7 @@ module.exports = class Header extends Component {
                 var href = resolve(slice.primary.link)
                 return html`
                   <li class="u-inlineBlock">
-                    <a class=${className('Header-link', { 'is-current': current === href })}" href="${href}">
+                    <a class="${className('Header-link', { 'is-current': current === href })}" href="${href}">
                       ${slice.primary.link_text || asText(slice.primary.link.data.title)}
                     </a>
                   </li>
