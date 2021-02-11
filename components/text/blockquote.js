@@ -6,7 +6,7 @@ module.exports = class Blockquote extends Component {
     super(id)
     var variant = Math.ceil(Math.random() * 4)
     if (typeof window !== 'undefined') {
-      let el = document.getElementById(id)
+      const el = document.getElementById(id)
       if (el) variant = el.dataset.variant
     }
     this.local = state.components[id] = { id, variant }

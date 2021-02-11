@@ -21,7 +21,7 @@ module.exports = class PrismicToolbar extends Component {
     this.href = () => state.origin + state.href
 
     if (state.query.token && typeof window !== 'undefined') {
-      let expires = process.env.NODE_ENV === 'development'
+      const expires = process.env.NODE_ENV === 'development'
         ? new Date(Date.now() + (1000 * 60 * 60 * 12))
         : new Date(Date.now() + (1000 * 60 * 30))
       document.cookie = `${Prismic.previewCookie}=${state.query.token}; path=/; expires=${expires.toUTCString()};`
@@ -33,7 +33,7 @@ module.exports = class PrismicToolbar extends Component {
   placeholder (href) {
     if (!this.local.enabled) return null
     if (!this.local.token) {
-      let cookie = document.cookie.match(COOKIE_REGEX)
+      const cookie = document.cookie.match(COOKIE_REGEX)
       if (!cookie) {
         this.local.enabled = false
         return null

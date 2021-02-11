@@ -8,8 +8,8 @@ module.exports = serialize
 function serialize (type, node, content, children) {
   switch (type) {
     case Elements.embed: {
-      let provider = node.oembed.provider_name.toLowerCase()
-      let id = embed.id(node.oembed)
+      const provider = node.oembed.provider_name.toLowerCase()
+      const id = embed.id(node.oembed)
       if (!id) return null
 
       return embed({
@@ -23,11 +23,11 @@ function serialize (type, node, content, children) {
       })
     }
     case Elements.image: {
-      let sizes = [400, 600, 800, 1200].map(function (size, index) {
+      const sizes = [400, 600, 800, 1200].map(function (size, index) {
         return Math.min(size, node.dimensions.width * (index + 1))
       })
       let src = node.url
-      let attrs = { alt: node.alt || '' }
+      const attrs = { alt: node.alt || '' }
       if (!/\.svg$/.test(node.url)) {
         attrs.sizes = '39em'
         attrs.srcset = srcset(node.url, sizes)
@@ -45,7 +45,7 @@ function serialize (type, node, content, children) {
       `
     }
     case Elements.hyperlink: {
-      let attrs = { href: resolve(node.data) }
+      const attrs = { href: resolve(node.data) }
       if (node.data.url && filetype(node.data.url)) attrs.download = ''
       if (node.data.target && node.data.target === '_blank') {
         attrs.target = node.data.target

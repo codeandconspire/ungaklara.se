@@ -87,7 +87,7 @@ function teachers (state, emit) {
                 ${slice.primary.link.id && !slice.primary.link.isBroken ? html`
                   <strong class="u-spaceT3">
                     <a href="${resolve(slice.primary.link)}">
-                      ${slice.primary.link_text || slice.primary.link.data.cta || text(`Read more`)}
+                      ${slice.primary.link_text || slice.primary.link.data.cta || text('Read more')}
                     </a>
                   </strong>
                 ` : null}
@@ -96,7 +96,7 @@ function teachers (state, emit) {
           `
 
           if (slice.primary.pointers.length) {
-            let attrs = {}
+            const attrs = {}
             if (color) {
               attrs.style = `background-color: ${color};`
               if (luma(color) < 110) attrs.class = 'u-colorWhite'
@@ -124,7 +124,7 @@ function teachers (state, emit) {
           return content
         }
         case 'text': {
-          let items = slice.items.filter((item) => item.text.length)
+          const items = slice.items.filter((item) => item.text.length)
           if (!items.length) return null
 
           let cols
@@ -179,10 +179,10 @@ function teachers (state, emit) {
           `
         }
         case 'links': {
-          let items = slice.items.filter((item) => item.link.id && !item.link.isBroken)
+          const items = slice.items.filter((item) => item.link.id && !item.link.isBroken)
           if (!items.length) return null
-          let opts = { size: { md: '1of2', lg: '1of3' } }
-          let heading = asText(slice.primary.heading)
+          const opts = { size: { md: '1of2', lg: '1of3' } }
+          const heading = asText(slice.primary.heading)
           return html`
             <div class="u-pushDown">
               ${heading ? html`
@@ -232,7 +232,7 @@ function asCard (doc, color) {
 
   var image = doc.data.featured_image
   if (image && image.url) {
-    let sources = srcset(
+    const sources = srcset(
       image.url,
       [200, 400, 800, [1600, 'q_70,c_thumb']],
       { transforms: 'c_thumb' }

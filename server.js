@@ -87,7 +87,7 @@ app.use(get('/robots.txt', function (ctx, next) {
 app.use(get('/:slug', async function (ctx, slug, next) {
   var api = await Prismic.api(REPOSITORY, { req: ctx.req })
   try {
-    let doc = await api.getByUID('page', slug)
+    const doc = await api.getByUID('page', slug)
     if (!doc.data.parent || !doc.data.parent.id) return next()
     ctx.redirect(resolve(doc))
   } catch (err) {

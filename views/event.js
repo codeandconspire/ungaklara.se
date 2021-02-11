@@ -60,19 +60,19 @@ function eventPage (state, emit) {
 
         var hashtag = null
         if (doc.data.hashtag) {
-          let link = doc.data.hashtag_link
-          let component = state.cache(Hashtag, doc.id + '-hashtag')
+          const link = doc.data.hashtag_link
+          const component = state.cache(Hashtag, doc.id + '-hashtag')
           if (!link || link.isBroken || (!link.id && !link.url)) {
             hashtag = component.render(doc.data.hashtag)
           } else {
-            let href = resolve(link)
+            const href = resolve(link)
             hashtag = component.render(doc.data.hashtag, href, link)
           }
         }
 
         // about the production
         if (doc.data.about.length) {
-          let actions = []
+          const actions = []
           if (doc.data.dates.find((item) => item.date)) {
             actions.push(() => ({
               text: html`
@@ -144,7 +144,7 @@ function eventPage (state, emit) {
           }
 
           // spotify media
-          let spotify = doc.data.media
+          const spotify = doc.data.media
             .filter((slice) => slice.slice_type === 'spotify')
             .map(mediaSlice)
             .filter(Boolean)
@@ -157,10 +157,10 @@ function eventPage (state, emit) {
           }
 
           // some sections are arranged into an accordion
-          let accordion = []
+          const accordion = []
 
           // images (accordion)
-          let images = doc.data.media
+          const images = doc.data.media
             .filter((slice) => slice.slice_type === 'image')
             .map(mediaSlice)
             .filter(Boolean)
@@ -173,7 +173,7 @@ function eventPage (state, emit) {
           }
 
           // quotes (accordion)
-          let quotes = doc.data.media
+          const quotes = doc.data.media
             .filter((slice) => slice.slice_type === 'quote')
             .map(mediaSlice)
             .filter(Boolean)
@@ -211,7 +211,7 @@ function eventPage (state, emit) {
           }
         } else {
           // on large screens media is displayed in a masonry grid
-          let media = doc.data.media.map(mediaSlice).filter(Boolean)
+          const media = doc.data.media.map(mediaSlice).filter(Boolean)
           if (media.length) {
             blocks.push(html`
               <div class="u-container">
@@ -223,7 +223,7 @@ function eventPage (state, emit) {
           // videos, featuring the first one as featured with background
           if (videos.length) {
             let first = videos[0].video
-            let rest = videos.slice(1).map(function (group, index, list) {
+            const rest = videos.slice(1).map(function (group, index, list) {
               var cols = 2
               if (list.length === 3 || list.length >= 6) cols = 3
               if (list.length === 5) cols = index < 4 ? 3 : 2
@@ -231,10 +231,10 @@ function eventPage (state, emit) {
               return grid.cell(opts, video(group.video, { size: 'sm' }))
             }).filter(Boolean)
 
-            let id = embed.id(first)
+            const id = embed.id(first)
             if (id) {
-              let bgProps = {}
-              let background = doc.data.featured_background
+              const bgProps = {}
+              const background = doc.data.featured_background
               if (background.url) {
                 Object.assign(bgProps, {
                   src: srcset(background.url, [900]).split(' ')[0],
@@ -243,7 +243,7 @@ function eventPage (state, emit) {
                 }, background.dimensions)
               }
 
-              let other = rest.length > 1 ? grid({ size: { md: `1of${rest.length < 3 ? 2 : 3}` } }, rest) : null
+              const other = rest.length > 1 ? grid({ size: { md: `1of${rest.length < 3 ? 2 : 3}` } }, rest) : null
 
               // attach hashtag to first video
               if (hashtag) {
@@ -290,7 +290,7 @@ function eventPage (state, emit) {
 
         // resource link and blurb
         if (doc.data.resource_heading.length) {
-          let blurb = doc.data.resource_blurb
+          const blurb = doc.data.resource_blurb
           let content = html`
             <div>
               <div class="Text Text--large">
@@ -339,8 +339,8 @@ function eventPage (state, emit) {
           page = Math.min(page, Math.max(Math.ceil(doc.data.dates.length / 4), 0))
 
           // sort out future dates
-          let today = startOfDay(Date.now())
-          let dates = doc.data.dates
+          const today = startOfDay(Date.now())
+          const dates = doc.data.dates
             .map(function (item) {
               if (!item.date) return null
 
@@ -445,7 +445,7 @@ function eventPage (state, emit) {
       }
       case 'quote': {
         if (!slice.primary.text.length) return null
-        let blockquote = state.cache(Blockquote, `event-media-${index}`)
+        const blockquote = state.cache(Blockquote, `event-media-${index}`)
         return blockquote.render({
           content: asElement(slice.primary.text, resolve, serialize),
           caption: asElement(slice.primary.cite, resolve, serialize)
@@ -453,7 +453,7 @@ function eventPage (state, emit) {
       }
       case 'spotify': {
         if (!slice.primary.uri.embed_url) return null
-        let body = slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null
+        const body = slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null
         return spotify(slice.primary.uri.embed_url, body)
       }
       default: return null
@@ -484,7 +484,7 @@ function eventPage (state, emit) {
 function teamMember (props) {
   var image
   if (props.image.url) {
-    let sources = srcset(props.image.url, [200, 400, [800, 'q_50']])
+    const sources = srcset(props.image.url, [200, 400, [800, 'q_50']])
     image = Object.assign({
       class: 'u-spaceB2',
       sizes: '13em',

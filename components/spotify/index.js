@@ -7,7 +7,7 @@ module.exports = spotify
 // render spotify embed
 // (str, any) -> Element
 function spotify (uri, body) {
-  let parts = uri.match(SPOTIFY_URI)
+  const parts = uri.match(SPOTIFY_URI)
   if (!parts) return null
 
   return html`

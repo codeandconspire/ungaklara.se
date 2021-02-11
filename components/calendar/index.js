@@ -18,10 +18,10 @@ function calendar (items) {
 
   var rows = []
   for (let i = 0, len = items.length, day; i < len; i++) {
-    let item = items[i]
-    let date = startOfDay(item.date)
-    let available = item.status !== 3
-    let attrs = { class: 'Calendar-row' }
+    const item = items[i]
+    const date = startOfDay(item.date)
+    const available = item.status !== 3
+    const attrs = { class: 'Calendar-row' }
     if (item.theme) attrs.style = `--theme-color: ${hexToRgb(item.theme)};`
     if (item.appear) {
       attrs.style = attrs.style || ''

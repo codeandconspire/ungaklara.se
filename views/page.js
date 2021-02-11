@@ -28,11 +28,11 @@ function page (state, emit) {
 
           var body = []
           for (let i = 0, len = doc.data.body.length; i < len; i++) {
-            let el = asSlice(doc.data.body[i], i, doc.data.body)
+            const el = asSlice(doc.data.body[i], i, doc.data.body)
             if (el !== blurbs || i === doc.data.body.length - 1) {
               if (blurbs.length) {
                 // render aggregated blurbs as grid
-                let opts = { size: { md: '1of2', lg: '1of3' } }
+                const opts = { size: { md: '1of2', lg: '1of3' } }
                 body.push(html`
                   <div class="u-spaceV5">
                     ${grid(opts, blurbs)}
@@ -78,7 +78,7 @@ function page (state, emit) {
   function asSlice (slice, index, list) {
     switch (slice.slice_type) {
       case 'text': {
-        let items = slice.items.filter((item) => item.text.length)
+        const items = slice.items.filter((item) => item.text.length)
         if (!slice.primary.text.length && !items.length) return null
         return html`
           <div class="u-spaceV6">
@@ -105,7 +105,7 @@ function page (state, emit) {
         `
       }
       case 'quote': {
-        let blockquote = state.cache(Blockquote, `${state.params.slug}-${index}`)
+        const blockquote = state.cache(Blockquote, `${state.params.slug}-${index}`)
         return html`
           <div class="u-spaceV5">
             ${blockquote.render({
@@ -118,8 +118,8 @@ function page (state, emit) {
       }
       case 'image': {
         if (!slice.primary.image.url) return null
-        let sources = srcset(slice.primary.image.url, [400, 600, 900, [1600, 'q_60'], [3000, 'q_50']])
-        let attrs = Object.assign({
+        const sources = srcset(slice.primary.image.url, [400, 600, 900, [1600, 'q_60'], [3000, 'q_50']])
+        const attrs = Object.assign({
           sizes: '100vw',
           srcset: sources,
           src: sources.split(' ')[0],
@@ -181,8 +181,8 @@ function page (state, emit) {
       }
       case 'team': {
         if (!slice.items.length) return
-        let opts = { size: { lg: '1of4' } }
-        let hasImage = slice.items.find((item) => item.image.url)
+        const opts = { size: { lg: '1of4' } }
+        const hasImage = slice.items.find((item) => item.image.url)
         if (hasImage) opts.size.xs = '1of2'
         else opts.size.md = '1of2'
         return grid(opts, slice.items.map(teamMember))
@@ -228,7 +228,7 @@ function page (state, emit) {
         return blurbs
       }
       case 'file_blurb': {
-        let { primary } = slice
+        const { primary } = slice
         if (!primary.file.url || primary.file.isBroken) return null
         blurbs.push(asCard({
           file: true,
@@ -244,8 +244,8 @@ function page (state, emit) {
         return blurbs
       }
       case 'any_blurb': {
-        let { primary } = slice
-        let { link } = primary
+        const { primary } = slice
+        const { link } = primary
         if ((!link.url && !link.id) || link.isBroken) return null
         blurbs.push(asCard({
           image: primary.image,
@@ -282,7 +282,7 @@ function page (state, emit) {
 function teamMember (props) {
   var image
   if (props.image.url) {
-    let sources = srcset(props.image.url, [200, 400, [800, 'q_50']])
+    const sources = srcset(props.image.url, [200, 400, [800, 'q_50']])
     image = Object.assign({
       class: 'u-spaceB2',
       sizes: '13em',
@@ -319,7 +319,7 @@ function asCard (props) {
   })
 
   if (props.image && props.image.url) {
-    let sources = srcset(
+    const sources = srcset(
       props.image.url,
       [200, 400, 600, 900, [1600, 'q_60,c_thumb']],
       { transforms: 'c_thumb' }

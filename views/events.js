@@ -127,7 +127,7 @@ function events (state, emit) {
   // get paginated result for page
   // num -> arr
   function getPage (page) {
-    let selector = slug === 'arkiv' ? 'dateBefore' : 'dateAfter'
+    const selector = slug === 'arkiv' ? 'dateBefore' : 'dateAfter'
     var predicates = [
       Predicates.at('document.type', 'event'),
       Predicates[selector]('my.event.archive_on', endOfDay(Date.now()))
@@ -138,8 +138,8 @@ function events (state, emit) {
     }
 
     if (state.query.period) {
-      let min = parse(state.query.period)
-      let max = addYears(min, 10)
+      const min = parse(state.query.period)
+      const max = addYears(min, 10)
       predicates.push(
         Predicates.dateAfter('my.event.archive_on', min),
         Predicates.dateBefore('my.event.archive_on', max)
@@ -161,7 +161,7 @@ function events (state, emit) {
       if (err) throw err
 
       if (!response) {
-        let items = []
+        const items = []
         for (let i = 0; i < PAGE_SIZE; i++) items.push(null)
         return items
       }
@@ -173,7 +173,7 @@ function events (state, emit) {
         .map(function (doc) {
           var premiere
           for (let i = 0, len = doc.data.dates.length; i < len; i++) {
-            let date = parse(doc.data.dates[i].date)
+            const date = parse(doc.data.dates[i].date)
             if (!premiere || date < premiere) premiere = date
           }
           return { doc, premiere }
@@ -232,7 +232,7 @@ function events (state, emit) {
           var title = asText(doc.data.title)
           var image
           if (doc.data.poster.url) {
-            let sources = srcset(doc.data.poster.url, [75, 150, [300, 'q_50']])
+            const sources = srcset(doc.data.poster.url, [75, 150, [300, 'q_50']])
             image = Object.assign({
               srcset: sources,
               sizes: '4.5rem',
@@ -242,13 +242,13 @@ function events (state, emit) {
           }
 
           for (let i = 0, len = doc.data.dates.length; i < len; i++) {
-            let item = doc.data.dates[i]
+            const item = doc.data.dates[i]
             if (!item.date) continue
 
-            let date = parse(item.date)
+            const date = parse(item.date)
             if (date < startOfDay(Date.now())) continue
-            let status = +item.status.match(/^\d+/)
-            let time = item.time && item.time.match(TIME_REG)
+            const status = +item.status.match(/^\d+/)
+            const time = item.time && item.time.match(TIME_REG)
             if (time) {
               date.setHours(+time[1])
               date.setMinutes(+time[2])
@@ -343,7 +343,7 @@ function archived (doc, index) {
   }
 
   if (doc.data.poster.url) {
-    let sources = srcset(doc.data.poster.url, [400, 600, [900, 'q_50']])
+    const sources = srcset(doc.data.poster.url, [400, 600, [900, 'q_50']])
     props.image = Object.assign({
       srcset: sources,
       sizes: '(min-width: 600px) 33vw, 100vw',

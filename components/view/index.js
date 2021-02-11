@@ -49,7 +49,7 @@ function createView (view, meta) {
       try {
         if (err) throw err
         children = view.call(self, state, emit)
-        let next = meta ? meta.call(self, state) : {}
+        const next = meta ? meta.call(self, state) : {}
 
         if (next && next.title && next.title !== DEFAULT_TITLE) {
           next.title = `${next.title} ~ ${DEFAULT_TITLE}`

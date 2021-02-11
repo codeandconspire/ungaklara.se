@@ -5,9 +5,9 @@ module.exports = figure
 
 function figure (opts = {}) {
   var img = opts.image
-  let sources = srcset(img.url, opts.sources)
+  const sources = srcset(img.url, opts.sources)
   var aspect = null
-  let attrs = Object.assign({
+  const attrs = Object.assign({
     class: 'Text-image',
     srcset: sources,
     sizes: opts.sizes,

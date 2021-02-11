@@ -10,7 +10,7 @@ module.exports = reset
 function reset (type, node, content, children) {
   switch (type) {
     case Elements.hyperlink: {
-      let attrs = { href: resolve(node.data), class: 'Text-reset' }
+      const attrs = { href: resolve(node.data), class: 'Text-reset' }
       if (node.data.target && node.data.target === '_blank') {
         attrs.target = node.data.target
         if (node.data.target === '_blank') {

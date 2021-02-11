@@ -61,10 +61,10 @@ function url (str) {
     str = str.replace(/youtu\.be\/(\w+)$/, 'youtube.com/watch?v=$1')
   }
   if (/youtube/.test(str)) {
-    let id = str.match(/youtube\.com\/watch\?v=(.+)?\??/)[1]
+    const id = str.match(/youtube\.com\/watch\?v=(.+)?\??/)[1]
     return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&showinfo=0`
   } else if (/vimeo/.test(str)) {
-    let id = str.match(/vimeo\.com\/(.+)?\??/)[1]
+    const id = str.match(/vimeo\.com\/(.+)?\??/)[1]
     return `https://player.vimeo.com/video/${id}?badge=0&autoplay=1`
   }
   return str

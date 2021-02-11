@@ -6,7 +6,7 @@ var common = require('./lang.json')
 if (typeof window !== 'undefined') {
   require('focus-visible')
   require('smoothscroll-polyfill').polyfill()
-  let scrollIntoView = window.Element.prototype.scrollIntoView
+  const scrollIntoView = window.Element.prototype.scrollIntoView
   window.Element.prototype.scrollIntoView = function (opts) {
     if (typeof opts === 'boolean') {
       if (opts) opts = { block: 'start', inline: 'nearest' }
@@ -31,7 +31,7 @@ function resolve (doc) {
     case 'your_visit': return '/besoket'
     case 'page': {
       let url = '/' + doc.uid
-      let data = doc.data
+      const data = doc.data
       if (data && data.parent && data.parent.id && !data.parent.isBroken) {
         url = resolve(doc.data.parent) + url
       }
@@ -42,7 +42,7 @@ function resolve (doc) {
     case 'Media': return doc.url
     default: {
       // handle links to web and media
-      let type = doc.link_type
+      const type = doc.link_type
       if (type === 'Web' || type === 'Media' || type === 'Any') return doc.url
       throw new Error('Document not recognized')
     }

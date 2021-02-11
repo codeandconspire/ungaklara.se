@@ -7,7 +7,7 @@ module.exports = favicon
 
 function favicon (state, emitter) {
   if (typeof window === 'undefined') return
-  var link = document.head.querySelector(`link[rel="shortcut icon"]`)
+  var link = document.head.querySelector('link[rel="shortcut icon"]')
   if (!link) return
 
   var image = new window.Image()

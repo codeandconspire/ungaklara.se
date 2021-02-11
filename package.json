@@ -29,30 +29,30 @@
   },
   "homepage": "https://github.com/codeandconspire/ungaklara.se#readme",
   "devDependencies": {
-    "choo-devtools": "^2.5.1",
-    "standard": "^10.0.3"
+    "choo-devtools": "^3.0.4",
+    "standard": "^14.3.4"
   },
   "dependencies": {
     "cccpurge": "^2.0.0",
-    "choo": "^6.13.1",
-    "choo-meta": "^1.0.3",
-    "choo-service-worker": "^2.4.0",
-    "cloudinary": "^1.13.2",
+    "choo": "^7.1.0",
+    "choo-meta": "^2.0.0",
+    "choo-service-worker": "^3.0.0",
+    "cloudinary": "^1.24.0",
     "date-fns": "^1.30.1",
     "dotenv": "^6.2.0",
     "focus-visible": "^4.1.5",
-    "jalla": "^0.12.0-4",
-    "koa-body": "^4.0.8",
+    "jalla": "^1.0.0-36",
+    "koa-body": "^4.2.0",
     "koa-compose": "^4.1.0",
     "nanolru": "^1.0.0",
     "nanoraf": "^3.1.0",
     "normalize.css": "^8.0.1",
-    "postcss-custom-properties": "^8.0.9",
+    "postcss-custom-properties": "^8.0.11",
     "postcss-focus-visible": "^4.0.0",
     "postcss-url": "^8.0.0",
-    "prismic-element": "^1.0.0",
-    "prismic-javascript": "^2.0.1",
-    "prismic-richtext": "^0.4.2",
-    "smoothscroll-polyfill": "^0.4.3"
+    "prismic-element": "^2.0.5",
+    "prismic-javascript": "^2.7.1",
+    "prismic-richtext": "^1.0.3",
+    "smoothscroll-polyfill": "^0.4.4"
   }
 }

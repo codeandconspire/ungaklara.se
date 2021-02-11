@@ -95,7 +95,7 @@ function visit (state, emit) {
   function asSlice (slice, index, list) {
     switch (slice.slice_type) {
       case 'text': {
-        let items = slice.items.filter((item) => item.text.length)
+        const items = slice.items.filter((item) => item.text.length)
         if (!slice.primary.text.length && !items.length) return null
         return html`
           <div class="u-spaceV6">
