@@ -246,19 +246,19 @@
   }
 }
 
-@media (max-width: 599px) {
+@media (min-width: 599px) {
   .u-md-uncontain {
     margin: 0 !important;
   }
 }
 
-@media (max-width: 899px) {
+@media (min-width: 899px) {
   .u-lg-uncontain {
     margin: 0 !important;
   }
 }
 
-@media (max-width: 1199px) {
+@media (min-width: 1199px) {
   .u-xl-uncontain {
     margin: 0 !important;
   }
