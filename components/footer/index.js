@@ -48,9 +48,7 @@ module.exports = class Footer extends Component {
                     </div>
                   `
                 }).filter(Boolean)}
-              </div>
 
-              <div class="Footer-cols">
                 <div class="Footer-section">
                   <h3 class="Footer-title">${text`Contact`}</h3>
                   <ul>
@@ -74,7 +72,7 @@ module.exports = class Footer extends Component {
 
                 <div class="Footer-section">
                   <h3 class="Footer-title">${text`Find us`}</h3>
-                  <address class="Footer-item u-textNowrap">${addLineBreak(doc.data.address)}</address>
+                  <address class="Footer-item">${addLineBreak(doc.data.address)}</address>
                 </div>
 
                 <div class="Footer-section">

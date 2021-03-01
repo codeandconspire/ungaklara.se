@@ -4,12 +4,14 @@
 .Footer-cols {
   display: flex;
   flex-wrap: wrap;
+  margin-right: -1rem;
 }
 
 .Footer-section {
   flex: 0 1 50%;
   min-width: 10rem;
   margin-bottom: 2.3rem;
+  padding-right: 1rem;
 }
 
 .Footer-title {
@@ -81,15 +83,18 @@
   }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 900px) {
   .Footer-cols {
     justify-content: space-between;
+    margin-right: -8rem;
   }
 
   .Footer-section {
-    flex: 0 1 auto;
+    flex: 0 1 calc(100% / 4);
   }
+}
 
+@media (min-width: 1000px) {
   .Footer-logo {
     font-size: 8.4vw;
     margin: 4rem 0 7rem;

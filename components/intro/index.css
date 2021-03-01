@@ -56,6 +56,7 @@
 .Intro-title {
   position: relative;
   font-size: 2.1rem;
+  word-spacing: -0.05em;
   padding-top: 0.75em;
   margin: 0 0 0.55em;
   hyphens: auto;
@@ -70,6 +71,11 @@
   line-height: 1.4;
   margin: -2rem 0 0.9rem;
   display: block;
+  word-spacing: 0;
+}
+
+.Intro-text {
+  max-width: 38em;
 }
 
 .Intro-text a {
@@ -212,6 +218,7 @@
 
   .Intro-text {
     font-size: 1.875rem;
+    word-spacing: -0.03em;
   }
 
   .Intro-image,
