@@ -32,7 +32,7 @@ module.exports = class Header extends Component {
           <ul class="Header-list">
             ${this.prismic.getSingle('website', function (err, doc) {
               if (err || !doc) return null
-              return doc.data.menu.map(function (slice) {
+              return doc.data.header_menu.map(function (slice) {
                 if (slice.slice_type !== 'link') return null
                 var href = resolve(slice.primary.link)
                 return html`
