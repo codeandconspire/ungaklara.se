@@ -56,13 +56,20 @@ app.use(post('/api/prismic-hook', compose([body(), function (ctx) {
   })
 }])))
 
-// set preview cookie
 app.use(get('/api/prismic-preview', async function (ctx) {
-  var token = ctx.query.token
-  var api = await Prismic.api(REPOSITORY, { req: ctx.req })
-  var href = await api.previewSession(token, resolve, '/')
-  var expires = app.env === 'development'
-    ? new Date(Date.now() + (1000 * 60 * 60 * 12))
+  var { token, documentId } = ctx.query
+  var api = await Prismic.api(REPOSITORY)
+  var href = await api
+    .getPreviewResolver(token, documentId)
+    .resolve(function (doc) {
+      try {
+        return resolve(doc)
+      } catch (err) {
+        return null
+      }
+    }, '/')
+  var expires = process.env.NODE_ENV === 'development'
+    ? new Date(Date.now() + (1000 * 60 * 60 * (24 - new Date().getHours())))
     : new Date(Date.now() + (1000 * 60 * 30))
 
   ctx.set('Cache-Control', 'no-cache, private, max-age=0')

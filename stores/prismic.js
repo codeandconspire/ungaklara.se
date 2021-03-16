@@ -25,9 +25,8 @@ function prismicStore (opts) {
     }
 
     emitter.on('DOMContentLoaded', function () {
-      var [, name] = opts.repository.match(/https?:\/\/(.+?)\./)
       if (document.cookie.includes(Prismic.previewCookie)) {
-        document.head.appendChild(html`<script async defer src="https://static.cdn.prismic.io/prismic.js?new=true&repo=${name}"></script>`)
+        document.head.appendChild(html`<script async defer src="https://static.cdn.prismic.io/prismic.js?new=true&repo=unga-klara"></script>`)
       }
     })
 
