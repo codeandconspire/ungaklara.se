@@ -119,6 +119,7 @@ function luma (str) {
 exports.filetype = filetype
 function filetype (url) {
   if (!url) return null
+  url = url.replace('?auto=compress,format', '')
   var type = url.toLowerCase().match(/[^.]+$/)
 
   if (!type) return null

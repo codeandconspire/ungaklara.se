@@ -22,6 +22,7 @@ function link (opts = {}) {
   if (opts.file) {
     attrs.download = ''
     attrs.class += ' Card-link--simple'
+    attrs.href = attrs.href.replace('?auto=compress,format', '')
   }
   if (typeof opts.onclick === 'function') attrs.onclick = opts.onclick
 

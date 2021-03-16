@@ -117,7 +117,7 @@ function visit (state, emit) {
         return html`
           <div class="Text Text--large u-spaceB5 u-pushDown">
             <h2>${asText(slice.primary.heading)}</h2>
-            ${slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null}
+            ${slice.primary.text && slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null}
           </div>
         `
       }
@@ -145,10 +145,10 @@ function visit (state, emit) {
           <div>
             ${index !== 0 ? html`<hr class="u-invisible">` : null}
             ${state.cache(Subscribe, `${state.params.slug}-${index}`).render({
-              action: state.mailchimp,
+              action: state.newsletter,
               title: asText(slice.primary.heading),
-              body: slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null,
-              success: slice.primary.success_message.length ? asElement(slice.primary.success_message, resolve, serialize) : null,
+              body: slice.primary.text && slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null,
+              success: slice.primary.success_message && slice.primary.success_message.length ? asElement(slice.primary.success_message, resolve, serialize) : null,
               ref: slice.primary.ref
             })}
             ${index < list.length - 1 ? html`<hr />` : null}

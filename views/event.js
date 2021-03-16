@@ -453,7 +453,7 @@ function eventPage (state, emit) {
       }
       case 'spotify': {
         if (!slice.primary.uri.embed_url) return null
-        const body = slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null
+        const body = slice.primary.text && slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null
         return spotify(slice.primary.uri.embed_url, body)
       }
       default: return null

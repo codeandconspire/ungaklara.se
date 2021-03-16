@@ -38,7 +38,8 @@ module.exports = class Subscribe extends Component {
             ${props.ref ? html`<input type="hidden" name="REF" value="${props.ref}">` : null}
             <label class="Subscribe-label">
               <span class="u-hiddenVisually">${text`Enter your e-mail address`}</span>
-              <input type="email" name="EMAIL" class="Subscribe-input" autocomplete="email" placeholder="${text`Enter your e-mail address`}" required>
+              <input type="email" name="email" class="Subscribe-input" autocomplete="email" placeholder="${text`Enter your e-mail address`}" required>
+              <input type="hidden" name="gan_repeat_email" />
             </label>
             <button type="submit" class="Subscribe-button js-button">
               ${symbol.check()} <span class="Subscribe-action">${text`Subscribe`}</span>

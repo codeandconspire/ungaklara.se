@@ -168,10 +168,10 @@ function teachers (state, emit) {
             <div>
               ${index !== 0 ? html`<hr class="u-invisible">` : null}
               ${state.cache(Subscribe, `${state.params.slug}-${index}`).render({
-                action: state.mailchimp,
+                action: state.newsletter,
                 title: asText(slice.primary.heading),
-                body: slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null,
-                success: slice.primary.success_message.length ? asElement(slice.primary.success_message, resolve, serialize) : null,
+                body: slice.primary.text && slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null,
+                success: slice.primary.success_message && slice.primary.success_message.length ? asElement(slice.primary.success_message, resolve, serialize) : null,
                 ref: slice.primary.ref
               })}
               ${index < list.length - 1 ? html`<hr />` : null}

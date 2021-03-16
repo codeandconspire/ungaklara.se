@@ -8,11 +8,11 @@ var { get, post } = require('koa-route')
 var Prismic = require('prismic-javascript')
 var purge = require('./lib/purge')
 var { resolve } = require('./components/base')
-var subscribe = require('./lib/mailchimp-proxy')
+var subscribe = require('./lib/newsletter-proxy')
 var imageproxy = require('./lib/cloudinary-proxy')
 
 var REPOSITORY = 'https://unga-klara.cdn.prismic.io/api/v2'
-var MAILCHIMP = 'https://ungaklara.us1.list-manage.com/subscribe/post?u=b07292bdb82e39f1819a83c1a&amp;id=6a10f52682'
+var NEWSLETTER = 'https://gansub.com/s/LAryzw7/'
 
 var app = jalla('index.js', {
   sw: 'sw.js',
@@ -30,15 +30,15 @@ app.use(get('/media/:type/:transform/:uri(.+)', async function (ctx, type, trans
 }))
 
 app.use(compose([
-  // expose mailchimp endpoint on state
+  // expose newsletter endpoint on state
   function (ctx, next) {
-    ctx.state.mailchimp = MAILCHIMP
+    ctx.state.newsletter = NEWSLETTER
     return next()
   },
   // newsletter subscription endpoint
   post('/api/subscribe', compose([body(), async function (ctx, next) {
     ctx.set('Cache-Control', 'private, no-cache')
-    ctx.body = await subscribe(ctx.request.body, MAILCHIMP)
+    ctx.body = await subscribe(ctx.request.body, NEWSLETTER)
   }]))
 ]))
 

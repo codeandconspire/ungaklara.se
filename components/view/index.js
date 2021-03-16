@@ -55,8 +55,8 @@ function createView (view, meta) {
         }
 
         var defaults = {
-          title: doc ? (doc.data.shortname ? asText(doc.data.shortname) : asText(doc.data.title)) : `${text`Loading`} ~ ${DEFAULT_TITLE}`,
-          description: doc && (doc.data.shortname ? `${asText(doc.data.title)}. ${asText(doc.data.description)}` : asText(doc.data.description)),
+          title: doc ? (doc.data.shortname && doc.data.shortname.length ? asText(doc.data.shortname) : asText(doc.data.title)) : `${text`Loading`} ~ ${DEFAULT_TITLE}`,
+          description: doc && (doc.data.shortname && doc.data.shortname.length ? `${asText(doc.data.title)}. ${asText(doc.data.description)}` : asText(doc.data.description)),
           'theme-color': state.meta['theme-color']
         }
 

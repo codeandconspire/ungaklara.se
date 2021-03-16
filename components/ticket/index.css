@@ -75,6 +75,9 @@
 
 .Ticket-icon {
   font-size: 0.8em;
+  margin-right: 0.25rem;
+  position: relative;
+  top: -0.1em;
 }
 
 .Ticket-date {
@@ -92,8 +95,15 @@
   align-items: flex-end;
 }
 
+.Ticket-detail {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: baseline;
+}
+
 .Ticket-link {
   display: inline-block;
+  margin-top: 0.45rem;
   margin-bottom: -0.35em;
   font-size: 1.5rem;
 }

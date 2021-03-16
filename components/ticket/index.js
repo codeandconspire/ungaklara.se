@@ -34,9 +34,13 @@ function ticket (props, onclick = null) {
         </div>
         <div class="Ticket-details">
           <div>
-            <span><span class="Ticket-icon">${symbol.clock()}</span> ${timestamp(props.date)}</span>
+            <span class="Ticket-detail"><span class="Ticket-icon">${symbol.clock()}</span> ${timestamp(props.date)}</span>
             <br>
-            <span><span class="Ticket-icon">${symbol.location()}</span> ${props.location}</span>
+            <span class="Ticket-detail"><span class="Ticket-icon">${symbol.location()}</span> ${props.location}</span>
+            ${props.misc ? html`
+              <br>
+              <span class="Ticket-detail"><span class="Ticket-icon">${symbol.check()}</span> ${props.misc}</span>
+            ` : null}
           </div>
           ${props.status !== 3 && props.href ? html`
             <a class="Ticket-link" href="${props.href}" target="_blank" rel="noopener noreferrer" onclick=${onclick}>
