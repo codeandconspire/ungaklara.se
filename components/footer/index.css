@@ -1,6 +1,10 @@
 @import "../base";
 
 /* @define Footer */
+.Footer {
+  padding-top: 3rem;
+  margin-top: -3rem;
+}
 .Footer-cols {
   display: flex;
   flex-wrap: wrap;

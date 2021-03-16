@@ -1,5 +1,6 @@
 var html = require('choo/html')
 var { i18n, resolve, asText, className } = require('../base')
+var symbol = require('../symbol')
 var Component = require('choo/component')
 
 var text = i18n()
@@ -44,6 +45,12 @@ module.exports = class Header extends Component {
                 `
               }).filter(Boolean)
             })}
+            <li class="u-inlineBlock">
+              <a class="Header-link Header-link--scroll" href="#footer">
+                ${text`More`}
+                <span class="Header-icon">${symbol.arrow()}</span>
+              </a>
+            </li>
           </ul>
         </nav>
       </header>

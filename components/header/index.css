@@ -62,3 +62,11 @@
     font-size: 3.3rem;
   }
 }
+
+.Header-icon {
+  font-size: 0.8em;
+  transform: rotate(90deg) translate(-0.1em, -0.1em);
+  transform-origin: center;
+  display: inline-block;
+  margin-left: -0.4em;
+}
