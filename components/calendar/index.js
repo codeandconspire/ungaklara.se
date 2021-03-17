@@ -57,6 +57,11 @@ function calendar (items) {
               <span class="Calendar-location">
                 <span class="Calendar-icon">${symbol.location()}</span> ${item.location}
               </span>
+              ${item.misc ? html`
+                <span class="Calendar-detail">
+                  <span class="Calendar-icon">${symbol.check()}</span> ${item.misc}
+                </span>
+            ` : null}
             </div>
           </div>
           ${button({

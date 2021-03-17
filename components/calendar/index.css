@@ -10,6 +10,7 @@
 
 .Calendar-poster {
   width: 6rem;
+  flex-shrink: 0;
 }
 
 .Calendar-body {
@@ -36,6 +37,9 @@
 
 .Calendar-icon {
   font-size: 0.8em;
+  position: relative;
+  top: -0.05rem;
+  margin-right: 0.2rem;
 }
 
 .Calendar-time {
@@ -73,7 +77,7 @@
 
 @media (min-width: 600px) {
   .Calendar-row {
-    align-items: center;
+    align-items: flex-start;
   }
 
   .Calendar-body {
@@ -85,13 +89,18 @@
   }
 
   .Calendar-meta {
+    display: flex;
+    flex-wrap: wrap;
     margin-bottom: 0;
   }
 
   .Calendar-time,
-  .Calendar-location {
+  .Calendar-location,
+  .Calendar-detail {
     display: inline-block;
     margin-right: 1.8rem;
+    display: flex;
+    align-items: baseline;
   }
 
   .Calendar-link {
@@ -99,7 +108,8 @@
   }
 
   .Calendar-poster {
-    width: 4.4rem;
+    width: 6rem;
+    margin-top: 0.5rem;
   }
 }
 
