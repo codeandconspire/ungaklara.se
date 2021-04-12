@@ -4,6 +4,7 @@ var view = require('../components/view')
 var card = require('../components/card')
 var grid = require('../components/grid')
 var blurb = require('../components/blurb')
+var embed = require('../components/embed')
 var intro = require('../components/intro')
 var byline = require('../components/byline')
 var reset = require('../components/text/reset')
@@ -163,6 +164,46 @@ function teachers (state, emit) {
             }, slice.primary.image.dimensions) : null
           })
         }
+        case 'image': {
+          if (!slice.primary.image.url) return null
+          const sources = srcset(slice.primary.image.url, [400, 600, 900, [1600, 'q_60'], [3000, 'q_50']])
+          const attrs = Object.assign({
+            sizes: '100vw',
+            srcset: sources,
+            src: sources.split(' ')[0],
+            alt: slice.primary.image.alt || ''
+          }, slice.primary.image.dimensions)
+          return html`
+          <figure class="Text Text--large ${slice.primary.smaller ? '' : 'u-sizeFull'} u-spaceV6">
+            <img ${attrs}>
+            ${slice.primary.image.copyright ? html`
+              <figcaption>
+                <small class="Text-muted">${slice.primary.image.copyright}</small>
+              </figcaption>
+            ` : null}
+          </figure>
+        `
+        }
+        case 'video': {
+          const items = slice.items.filter((item) => item.video.embed_url)
+          return html`
+          <div class="u-spaceT7">
+            ${slice.primary.video.embed_url ? video(slice.primary.video, {
+              large: true
+              }) : null}
+            ${items.length ? html`
+              <div class="u-md-uncontain u-spaceT6">
+                ${grid({
+                  carousel: true,
+                  size: {
+                    md: `1of${items.length % 3 ? 2 : 3}`
+                  }
+                }, items.map((item) => video(item.video)))}
+              </div>
+            ` : null}
+          </div>
+        `
+        }
         case 'newsletter': {
           return html`
             <div>
@@ -214,6 +255,24 @@ function teachers (state, emit) {
         ${blocks}
       </div>
     `
+  }
+
+  // render oembed object as embeded video
+  // obj -> Element
+  function video (props, opts = {}) {
+    var provider = props.provider_name.toLowerCase()
+    var id = embed.id(props)
+    if (!id) return null
+    return embed(Object.assign({
+      url: props.embed_url,
+      title: props.title,
+      onplay: () => emit('track:view_item', props.embed_url, 'Media', 'Play video'),
+      src: `/media/${provider}/w_${opts.large ? 900 : 400}/${id}`,
+      width: props.thumbnail_width,
+      height: props.thumbnail_height,
+      sizes: opts.large ? '100vw' : '(min-width: 600px) 50vw, 100vw',
+      srcset: srcset(id, [400, 900, 1800, [2600, 'q_50']], { type: provider })
+    }, opts))
   }
 }
 

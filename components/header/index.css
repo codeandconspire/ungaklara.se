@@ -17,7 +17,8 @@
   font-family: "UK";
   font-size: 1.25rem;
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  word-spacing: -0.06em;
 }
 
 .Header-link:hover,

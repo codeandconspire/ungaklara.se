@@ -25,6 +25,14 @@ module.exports = class Header extends Component {
       current = '/' + match[1].substring(0, match[1].length - 1)
     }
 
+    function scroll (event) {
+      document.getElementById('footer').scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      })
+      event.preventDefault()
+    }
+
     return html`
       <header class="Header u-container" id="${this.local.id}">
         <h2 class="u-hiddenVisually">${text`Navigation`}</h2>
@@ -46,7 +54,7 @@ module.exports = class Header extends Component {
               }).filter(Boolean)
             })}
             <li class="u-inlineBlock">
-              <a class="Header-link Header-link--scroll" href="#footer">
+              <a class="Header-link Header-link--scroll" onclick=${scroll} href="#footer">
                 ${text`More`}
                 <span class="Header-icon">${symbol.arrow()}</span>
               </a>

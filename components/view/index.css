@@ -34,20 +34,14 @@
   flex-grow: 1;
   max-width: 100%;
   min-height: 100vh;
-  margin-bottom: 10rem;
+  margin-bottom: 6rem;
   /* overflow-x: hidden; */
   z-index: 1;
 }
 
-@media (min-width: 600px) {
-  .View-main {
-    margin-bottom: 13rem;
-  }
-}
-
 @media (min-width: 1000px) {
   .View-main {
-    margin-bottom: 16rem;
+    margin-bottom: 10rem;
   }
 }
 

@@ -81,6 +81,7 @@ function page (state, emit) {
       case 'text': {
         const items = slice.items.filter((item) => item.text.length)
         if (!slice.primary.text.length && !items.length) return null
+        console.log(items.length)
         return html`
           <div class="u-spaceV6">
             ${slice.primary.text.length ? html`
@@ -88,11 +89,15 @@ function page (state, emit) {
                 ${asElement(slice.primary.text, resolve, serialize)}
               </div>
             ` : null}
-            ${items.length ? grid({ size: { md: '1of2' } }, items.map((item) => html`
+            ${items.length ? (items.length > 1 ? grid({ size: { md: '1of2' } }, items.map((item) => html`
               <div class="Text Text--large u-spaceB2">
                 ${asElement(item.text, resolve, cap('h4'))}
               </div>
-            `)) : null}
+            `)) : html`
+              <div class="Text Text--large">
+                ${asElement(items[0].text, resolve, serialize)}
+              </div>
+            `) : null}
           </div>
         `
       }
@@ -127,7 +132,7 @@ function page (state, emit) {
           alt: slice.primary.image.alt || ''
         }, slice.primary.image.dimensions)
         return html`
-          <figure class="Text Text--large u-sizeFull u-spaceV6">
+          <figure class="Text Text--large ${slice.primary.smaller ? '' : 'u-sizeFull'} u-spaceV6">
             <img ${attrs}>
             ${slice.primary.image.copyright ? html`
               <figcaption>

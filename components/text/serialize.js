@@ -55,6 +55,13 @@ function serialize (type, node, content, children) {
       }
       return html`<a ${attrs}>${children}</a>`
     }
+    case Elements.paragraph: {
+      var rule = new RegExp('^[--]+$').test(node.text)
+      if (rule) {
+        return html`<hr>`
+      }
+      return html`<p>${children}</p>`
+    }
     default: return null
   }
 }

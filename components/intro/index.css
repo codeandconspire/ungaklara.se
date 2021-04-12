@@ -163,6 +163,7 @@
 @media (min-width: 500px) {
   .Intro-title {
     font-size: 3.2rem;
+    margin: 0 0 0.45em;
   }
 
   .Intro-text {
@@ -176,7 +177,7 @@
 
 @media (min-width: 600px) {
   .Intro:not(.Intro--adapt) {
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
   }
 
   .Intro-image,
@@ -209,7 +210,7 @@
 
 @media (min-width: 1000px) {
   .Intro:not(.Intro--adapt) {
-    margin-bottom: 5.9rem;
+    margin-bottom: 3rem;
   }
 
   .Intro-title {
@@ -227,7 +228,7 @@
   }
 
   .Intro-badge {
-    margin: -3.4rem 0 2.1rem;
+    margin: -3.4rem 0 1.7rem;
   }
 }
 
