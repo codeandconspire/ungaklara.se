@@ -54,6 +54,7 @@
     "prismic-element": "^2.0.5",
     "prismic-javascript": "^2.7.1",
     "prismic-richtext": "^1.0.3",
+    "queue-microtask": "^1.2.3",
     "smoothscroll-polyfill": "^0.4.4"
   }
 }

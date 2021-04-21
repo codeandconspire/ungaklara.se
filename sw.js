@@ -31,9 +31,17 @@ self.addEventListener('fetch', function onfetch (event) {
           return cached
         }
 
-        return self.fetch(req).then(function (response) {
-          if (!response.ok) return cached || response
-          else cache.put(req, response.clone())
+        return self.fetch(req).then(async function (response) {
+          const { ok, status, type } = response
+          if (!ok) {
+            if (status !== 0 || type !== 'opaque' || type !== 'opaqueredirect') {
+              return response
+            }
+            throw response
+          }
+          if (req.method.toUpperCase() === 'GET') {
+            await cache.put(req, response.clone())
+          }
           return response
         }, function (err) {
           if (cached) return cached

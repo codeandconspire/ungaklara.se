@@ -223,8 +223,7 @@ function page (state, emit) {
               action: state.newsletter,
               title: asText(slice.primary.heading),
               body: slice.primary.text && slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null,
-              success: slice.primary.success_message && slice.primary.success_message.length ? asElement(slice.primary.success_message, resolve, serialize) : null,
-              ref: slice.primary.ref
+              success: slice.primary.success_message && slice.primary.success_message.length ? asElement(slice.primary.success_message, resolve, serialize) : null
             })}
             ${index < list.length - 1 ? html`<hr />` : null}
           </div>

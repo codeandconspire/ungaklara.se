@@ -23,7 +23,7 @@ module.exports = class Subscribe extends Component {
     var self = this
 
     return html`
-      <form method="POST" action="${props.action}" class="Subscribe" onsubmit=${onsubmit} target="_blank" id="${this.local.id}">
+      <form method="POST" action="${props.action}" class="Subscribe" onsubmit=${onsubmit} id="${this.local.id}">
         <div class="Text Text--large u-textCenter">
           ${props.title ? html`<h1>${props.title}</h1>` : null}
           ${this.local.subscribed ? html`
@@ -35,11 +35,10 @@ module.exports = class Subscribe extends Component {
         </div>
         ${!this.local.subscribed ? html`
           <div class="Subscribe-form">
-            ${props.ref ? html`<input type="hidden" name="REF" value="${props.ref}">` : null}
             <label class="Subscribe-label">
               <span class="u-hiddenVisually">${text`Enter your e-mail address`}</span>
               <input type="email" name="email" class="Subscribe-input" autocomplete="email" placeholder="${text`Enter your e-mail address`}" required>
-              <input type="hidden" name="gan_repeat_email" />
+              <input type="hidden" name="gan_repeat_email">
             </label>
             <button type="submit" class="Subscribe-button js-button">
               ${symbol.check()} <span class="Subscribe-action">${text`Subscribe`}</span>
@@ -66,9 +65,11 @@ module.exports = class Subscribe extends Component {
 
       window.fetch('/api/subscribe', {
         method: 'POST',
-        body: JSON.stringify(body),
+        body: Object.entries(body).map(function ([name, value]) {
+          return `${name}=${encodeURIComponent(value)}`
+        }).join('&'),
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/x-www-form-urlencoded'
         }
       }).then((res) => {
         if (!res.ok) return res.text().then((text) => Promise.reject(text))
