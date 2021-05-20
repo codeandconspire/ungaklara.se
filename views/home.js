@@ -76,7 +76,7 @@ function page (state, emit) {
                   src: srcset(doc.data.image.url, [200]).split(' ')[0]
                 }, doc.data.image.dimensions)) : null,
                 null,
-                { alt: false }
+                { alt: true }
               )}
             </header>
             <div class="u-container">
