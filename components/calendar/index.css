@@ -75,6 +75,10 @@
   margin-top: -1rem;
 }
 
+.Calendar-detail {
+  display: block;
+}
+
 @media (min-width: 600px) {
   .Calendar-row {
     align-items: flex-start;
