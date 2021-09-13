@@ -38,7 +38,7 @@ app.use(compose([
   // newsletter subscription endpoint
   post('/api/subscribe', compose([body(), async function (ctx, next) {
     ctx.set('Cache-Control', 'private, no-cache')
-    ctx.body = await subscribe(ctx.request.body, NEWSLETTER)
+    ctx.body = await subscribe(ctx.request.body)
   }]))
 ]))
 
