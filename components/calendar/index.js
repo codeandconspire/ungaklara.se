@@ -64,12 +64,15 @@ function calendar (items) {
             ` : null}
             </div>
           </div>
-          ${button({
-            primary: true,
-            href: item.link,
-            disabled: !available,
-            text: available ? text`Buy ticket` : text`Sold out`
-          })}
+          <div class="Calendar-actions">
+            ${button({
+              primary: true,
+              href: item.link,
+              disabled: !available,
+              text: available ? text`Buy ticket` : text`Sold out`
+            })}
+            ${item.status === 2 ? html`<div class="Calendar-note">${text`Few left`}</div>` : null}
+          </div>
         </div>
       </li>
     `)

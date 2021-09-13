@@ -19,6 +19,23 @@
   font-size: 1rem;
 }
 
+.Calendar-note {
+  margin-top: 0.45rem;
+  margin-left: 0.75rem;
+  font-size: 1rem;
+}
+
+.Calendar-actions {
+  display: flex;
+  align-items: baseline;
+  white-space: nowrap;
+  flex-wrap: wrap;
+}
+
+.Calendar-note::after {
+  content: "!"
+}
+
 .Calendar-link {
   padding-bottom: 0.05rem;
   border-bottom: 2px solid currentColor;
@@ -90,6 +107,18 @@
     margin-top: 0;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .Calendar-actions {
+    display: block;
+  }
+
+  .Calendar-note {
+    text-align: right;
+  }
+
+  .Calendar-actions {
+    margin-left: 2rem;
   }
 
   .Calendar-meta {
