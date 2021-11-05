@@ -13,7 +13,7 @@ function figure (props = {}) {
 
   return html`
     <figure class="${className('Card-figure u-hoverTriggerTarget', { 'Card-figure--background': props.background })}">
-      <img class="Card-image" ${attrs} src="${src}" />
+      <img class="Card-image" ${attrs} src="${src.replace('?auto=compress,format', '')}" />
       ${props.caption ? caption(props.caption) : null}
     </figure>
   `
