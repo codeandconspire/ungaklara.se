@@ -205,8 +205,8 @@ function srcset (uri, sizes, opts = {}) {
   if (!/q_/.test(transforms)) transforms += ',q_auto'
 
   // trim prismic domain from uri
-  var parts = uri.split('unga-klara.cdn.prismic.io/unga-klara/')
-  uri = parts[parts.length - 1]
+  var parts = uri.split('images.prismic.io/unga-klara/')
+  uri = encodeURIComponent(parts[parts.length - 1])
 
   return sizes.map(function (size) {
     var transform = transforms
