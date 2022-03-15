@@ -137,7 +137,8 @@ app.use(function (ctx, next) {
 app.listen(process.env.PORT || 8080, function () {
   if (process.env.HEROKU && app.env === 'production') {
     purge(['/sw.js'], function (err) {
-      if (err) app.emit('error', err)
+      //if (err) app.emit('error', err)
+      if (err) console.log(err)
     })
   }
 })
