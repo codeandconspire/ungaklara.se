@@ -9,7 +9,7 @@
 .Intro {
   display: flex;
   flex-direction: column;
-  padding-top: 20vh;
+  padding-top: 35vh;
   margin-bottom: calc(var(--Intro-spacing) * 1);
   font-family: var(--heading-font-family);
   letter-spacing: -0.025em;
@@ -75,7 +75,7 @@
 }
 
 .Intro-text {
-  max-width: 34em;
+  max-width: 38em;
 }
 
 .Intro-text a {
@@ -162,7 +162,7 @@
 
 @media (min-width: 500px) {
   .Intro-title {
-    font-size: 3.35rem;
+    font-size: 3.2rem;
     margin: 0 0 0.45em;
   }
 
@@ -194,7 +194,7 @@
   }
 
   .Intro-title {
-    font-size: 3.75rem;
+    font-size: 4.5rem;
     padding-top: 0.6em;
     letter-spacing: -0.035em;
   }
@@ -214,11 +214,11 @@
   }
 
   .Intro-title {
-    font-size: 4.75rem;
+    font-size: 5.025rem;
   }
 
   .Intro-text {
-    font-size: 1.75rem;
+    font-size: 1.875rem;
     word-spacing: -0.03em;
   }
 
@@ -228,7 +228,7 @@
   }
 
   .Intro-badge {
-    margin: -2.95rem 0 1.7rem;
+    margin: -3.4rem 0 1.7rem;
   }
 }
 
