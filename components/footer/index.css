@@ -47,7 +47,7 @@
   padding: 0 0.2em;
   margin: 1.6rem 0 3rem;
   font-family: "UK Logotype";
-  font-size: 35vw;
+  font-size: 30vw;
   letter-spacing: -0.06em;
   line-height: 1;
   text-align: center;
@@ -73,7 +73,7 @@
 
 @media (min-width: 450px) {
   .Footer-logo {
-    font-size: 11vw;
+    font-size: 10vw;
   }
 
   .Footer-extra {
@@ -104,8 +104,8 @@
 
 @media (min-width: 1000px) {
   .Footer-logo {
-    font-size: 8.4vw;
-    margin: 4rem 0 7rem;
+    font-size: 8vw;
+    margin: 3rem 0 6rem;
   }
 }
 

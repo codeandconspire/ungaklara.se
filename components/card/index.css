@@ -17,6 +17,8 @@
 .Card-everything {
   position: relative;
   z-index: 1;
+  border-radius: 3px;
+  overflow: hidden;
 }
 
 .Card--interactive.Card--fill .Card-everything {
@@ -37,6 +39,7 @@
   bottom: 0;
   z-index: -1;
   background: black;
+  border-radius: 3px;
 }
 
 @media print {
