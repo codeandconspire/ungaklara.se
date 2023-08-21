@@ -224,7 +224,7 @@
 
   .Intro-image,
   .Intro-container {
-    margin: 4rem 0 -2rem;
+    margin: 4rem 0 0;
   }
 
   .Intro-badge {
