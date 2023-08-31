@@ -1,0 +1,90 @@
+@import '../global';
+
+/* @define utilities */
+.u-textBold {
+	font-weight: 600 !important;
+}
+
+.u-textRegular {
+	font-weight: normal !important;
+}
+
+.u-textItalic {
+	font-style: italic !important;
+}
+
+.u-textCenter {
+	text-align: center !important;
+}
+
+.u-textNowrap {
+	white-space: nowrap !important;
+}
+
+.u-textWordBreak {
+	word-break: break-word !important;
+}
+
+.u-textHyphens {
+	hyphens: auto !important;
+}
+
+.u-textUppercase {
+	text-transform: uppercase !important;
+}
+
+.u-textDefault {
+	font-family: var(--document-font-family) !important;
+	line-height: var(--document-line-height) !important;
+	text-transform: normal;
+}
+
+.u-textHeading {
+	font-family: var(--heading-font-family) !important;
+	line-height: var(--heading-line-height) !important;
+	font-weight: 600;
+	letter-spacing: -0.025em;
+}
+
+.u-nowrap {
+	white-space: nowrap !important;
+}
+
+.u-textLabel {
+	font-family: var(--heading-font-family) !important;
+	line-height: var(--heading-line-height) !important;
+	font-weight: 600;
+	display: block;
+	padding: 0;
+	margin: 0 0 0.35em 0;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	font-size: 1rem;
+}
+
+/**
+ * Prevent text from wrapping onto multiple lines and truncate with an ellipsis.
+ * 1. Ensure that the node has a maximum width after which truncation can occur.
+ */
+
+.u-textTruncate {
+	display: block !important;
+	max-width: 100% !important; /* 1 */
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+	white-space: nowrap !important;
+}
+
+/**
+ * Source:
+ * https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/
+ */
+
+.u-textBreakLongWords {
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	-ms-word-break: break-all;
+	word-break: break-all;
+	word-break: break-word;
+	hyphens: auto;
+}

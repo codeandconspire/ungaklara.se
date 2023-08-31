@@ -1,88 +1,87 @@
-@import "../base";
+@import '../base';
 
 /* @define Subscribe */
 .Subscribe {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
 }
 
 .Subscribe-form {
-  display: flex;
-  width: 28em;
-  max-width: 90%;
-  border: 2px solid #000;
-  margin: 2.5em auto 0;
-  overflow: hidden;
-  border-radius: 3px;
+	display: flex;
+	width: 28em;
+	max-width: 90%;
+	border: 2px solid #000;
+	margin: 2.5em auto 0;
+	overflow: hidden;
+	border-radius: 3px;
 }
 
 .Subscribe-label {
-  flex: 1 1 auto;
+	flex: 1 1 auto;
 }
 
 .Subscribe-input {
-  display: block;
-  width: 100%;
-  padding: 1.1em 1.2em;
-  border: solid #000;
-  border-width: 0 2px 0 0;
-  font-size: inherit;
-  line-height: normal;
-  background: transparent;
-  border-radius: 0;
-  box-shadow: none;
+	display: block;
+	width: 100%;
+	padding: 1.1em 1.2em;
+	border: solid #000;
+	border-width: 0 2px 0 0;
+	font-size: inherit;
+	line-height: normal;
+	background: transparent;
+	border-radius: 0;
+	box-shadow: none;
 }
 
 .Subscribe-input::placeholder {
-  color: inherit;
-  opacity: 1;
+	color: inherit;
+	opacity: 1;
 }
 
 .Subscribe-input:focus {
-  outline: 0 !important;
-  background: #fff;
+	outline: 0 !important;
+	background: #fff;
 }
 
 .Subscribe-button {
-  padding: 0 1em 0 0.8em;
-  border: 0;
-  color: #fff;
-  font-weight: 600;
-  font-family: var(--heading-font-family);
-  line-height: var(--heading-line-height);
-  background-color: #000;
+	padding: 0 1em 0 0.8em;
+	border: 0;
+	color: #fff;
+	font-weight: 600;
+	font-family: var(--heading-font-family);
+	line-height: var(--heading-line-height);
+	background-color: #000;
 }
 
 @media (max-width: 599px) {
-  .Subscribe-button {
-    padding: 0 1em;
-  }
+	.Subscribe-button {
+		padding: 0 1em;
+	}
 
-  .Subscribe-action {
-    border: 0;
-    clip: rect(1px, 1px, 1px, 1px);
-    height: 1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-  }
+	.Subscribe-action {
+		border: 0;
+		clip: rect(1px, 1px, 1px, 1px);
+		height: 1px;
+		overflow: hidden;
+		padding: 0;
+		position: absolute;
+		width: 1px;
+	}
 }
 
 @media (min-width: 400px) {
-  .Subscribe-form {
-    font-size: 1.125rem;
-  }
+	.Subscribe-form {
+		font-size: 1.125rem;
+	}
 }
 
 @media (min-width: 1000px) {
-  .Subscribe-form {
-    font-size: 1.25rem;
-  }
+	.Subscribe-form {
+		font-size: 1.25rem;
+	}
 }
 
-
 .Subscribe-button:disabled {
-  opacity: 0.6;
+	opacity: 0.6;
 }

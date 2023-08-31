@@ -1,10 +1,9 @@
-@import "../base";
+@import '../base';
 
 /* @define Error */
 .Error {
-  
 }
 
 .Error-img {
-  display: none;
+	display: none;
 }

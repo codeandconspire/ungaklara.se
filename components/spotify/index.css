@@ -1,8 +1,8 @@
-@import "../base";
+@import '../base';
 
 /* @define Spotify */
 .Spotify {
-  position: relative;
-  color: #fff;
-  background-color: rgb(var(--document-color));
+	position: relative;
+	color: #fff;
+	background-color: rgb(var(--document-color));
 }

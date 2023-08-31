@@ -1,141 +1,141 @@
-@import "../base";
+@import '../base';
 
 /* @define Event */
 .Event {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  z-index: 0;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	z-index: 0;
 }
 
 .Event--teaser {
-  margin-top: 2.3rem;
+	margin-top: 2.3rem;
 }
 
 .Event-body {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 @media (min-width: 600px) {
-  .Event {
-    flex-direction: row;
-    padding-top: 1rem;
-    flex-wrap: wrap;
-  }
+	.Event {
+		flex-direction: row;
+		padding-top: 1rem;
+		flex-wrap: wrap;
+	}
 
-  .Event-body {
-    flex-basis: 70%;
-  }
+	.Event-body {
+		flex-basis: 70%;
+	}
 }
 
 @media (min-width: 1000px) {
-  .Event-body {
-    flex-basis: 68%;
-  }
+	.Event-body {
+		flex-basis: 68%;
+	}
 }
 
 .Event-image {
-  position: relative;
-  z-index: -1;
+	position: relative;
+	z-index: -1;
 }
 
 .Event--teaser .Event-image {
-  margin-bottom: 2rem;
-  max-width: 14rem;
-  order: -1;
+	margin-bottom: 2rem;
+	max-width: 14rem;
+	order: -1;
 }
 
 .Event:not(.Event--teaser) .Event-image {
-  display: none;
+	display: none;
 }
 
 .Event:not(.Event--teaser) .Event-image--inside {
-  display: block;
-  float: right;
-  max-width: 41%;
-  margin: 0 0 0.5rem 1rem;
+	display: block;
+	float: right;
+	max-width: 41%;
+	margin: 0 0 0.5rem 1rem;
 }
 
 @media (min-width: 600px) {
-  .Event:not(.Event--teaser) .Event-image--inside {
-    display: none;
-  }
+	.Event:not(.Event--teaser) .Event-image--inside {
+		display: none;
+	}
 
-  .Event--teaser .Event-image {
-    margin-bottom: 0;
-  }
+	.Event--teaser .Event-image {
+		margin-bottom: 0;
+	}
 
-  .Event--teaser .Event-image,
-  .Event:not(.Event--teaser) .Event-image--outside {
-    display: block;
-    order: -1;
-    flex-basis: 30%;
-    padding-right: 2rem;
-    position: relative;
-    top: -2rem;
-  }
+	.Event--teaser .Event-image,
+	.Event:not(.Event--teaser) .Event-image--outside {
+		display: block;
+		order: -1;
+		flex-basis: 30%;
+		padding-right: 2rem;
+		position: relative;
+		top: -2rem;
+	}
 
-  .Event--teaser .Event-image {
-    margin-bottom: -2rem;
-  }
+	.Event--teaser .Event-image {
+		margin-bottom: -2rem;
+	}
 }
 
 @media (min-width: 800px) {
-  .Event--teaser .Event-image,
-  .Event:not(.Event--teaser) .Event-image--outside {
-    padding-right: 3rem;
-  }
+	.Event--teaser .Event-image,
+	.Event:not(.Event--teaser) .Event-image--outside {
+		padding-right: 3rem;
+	}
 }
 
 @media (min-width: 1000px) {
-  .Event--teaser .Event-image,
-  .Event:not(.Event--teaser) .Event-image--outside {
-    flex-basis: 32%;
-    padding-right: 6rem;
-  }
+	.Event--teaser .Event-image,
+	.Event:not(.Event--teaser) .Event-image--outside {
+		flex-basis: 32%;
+		padding-right: 6rem;
+	}
 
-  .Event--teaser .Event-image {
-    max-width: 21rem;
-  }
+	.Event--teaser .Event-image {
+		max-width: 21rem;
+	}
 }
 
 .Event-actions {
-  display: flex;
-  flex-wrap: nowrap;
-  margin: 1.5rem 0 1rem;
+	display: flex;
+	flex-wrap: nowrap;
+	margin: 1.5rem 0 1rem;
 }
 
 .Event:not(.Event--teaser) .Event-actions {
-  margin: 0 0 2.5rem;
-  order: -1;
+	margin: 0 0 2.5rem;
+	order: -1;
 }
 
 .Event:not(.Event--teaser) .Event-action {
-  flex: 1 1 auto;
+	flex: 1 1 auto;
 }
 
 .Event:not(.Event--teaser) .Event-action:not(:last-child) {
-  margin-right: 1em;
+	margin-right: 1em;
 }
 
 @media (min-width: 600px) {
-  .Event--teaser .Event-actions {
-    margin-bottom: 0;
-  }
+	.Event--teaser .Event-actions {
+		margin-bottom: 0;
+	}
 
-  .Event:not(.Event--teaser) .Event-actions {
-    order: 2;
-    margin: 2rem 0 1rem;
-  }
+	.Event:not(.Event--teaser) .Event-actions {
+		order: 2;
+		margin: 2rem 0 1rem;
+	}
 
-  .Event:not(.Event--teaser) .Event-action {
-    flex: 0 1 auto;
-  }
+	.Event:not(.Event--teaser) .Event-action {
+		flex: 0 1 auto;
+	}
 }
 
 @media (min-width: 1000px) {
-  .Event:not(.Event--teaser) .Event-actions {
-    margin-bottom: 2rem;
-  }
+	.Event:not(.Event--teaser) .Event-actions {
+		margin-bottom: 2rem;
+	}
 }

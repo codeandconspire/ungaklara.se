@@ -1,123 +1,123 @@
-@import "../base";
+@import '../base';
 
 /* @defind Embed */
 .Embed {
-  width: 100%;
-  position: relative;
-  color: #fff;
-  user-select: none;
+	width: 100%;
+	position: relative;
+	color: #fff;
+	user-select: none;
 }
 
 .Embed-link {
-  display: block;
-  width: 0;
-  height: 0;
-  cursor: default;
+	display: block;
+	width: 0;
+	height: 0;
+	cursor: default;
 }
 
 .Embed-link::before {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
+	content: '';
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
 }
 
 .Embed-link::after {
-  content: "";
-  width: 3rem;
-  height: 3rem;
+	content: '';
+	width: 3rem;
+	height: 3rem;
 
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 1;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 1;
 
-  text-indent: 3rem;
-  white-space: nowrap;
-  overflow: hidden;
+	text-indent: 3rem;
+	white-space: nowrap;
+	overflow: hidden;
 
-  transform: translate(-50%, -50%);
-  transition: transform 140ms var(--ease);
-  will-change: transform;
-  background-color: rgba(var(--current-color));
-  background-image: url("./icon.svg");
-  background-size: 100% 100%;
-  border-radius: 100%;
-  box-shadow: 0 0 2rem 1px rgba(0, 0, 0, 0.15);
+	transform: translate(-50%, -50%);
+	transition: transform 140ms var(--ease);
+	will-change: transform;
+	background-color: rgba(var(--current-color));
+	background-image: url('./icon.svg');
+	background-size: 100% 100%;
+	border-radius: 100%;
+	box-shadow: 0 0 2rem 1px rgba(0, 0, 0, 0.15);
 }
 
 .Embed:hover .Embed-link::after {
-  transform: translate(-50%, -50%) scale(1.08);
+	transform: translate(-50%, -50%) scale(1.08);
 }
 
 .Embed--fullscreen::after,
 .Embed--hidden::after {
-  content: none;
+	content: none;
 }
 
 @media (min-width: 600px) {
-  .Embed:not(.Embed--sm) .Embed-link::after {
-    width: 4.5rem;
-    height: 4.5rem;
-    transform: translate(-50%, -60%);
-  }
+	.Embed:not(.Embed--sm) .Embed-link::after {
+		width: 4.5rem;
+		height: 4.5rem;
+		transform: translate(-50%, -60%);
+	}
 
-  .Embed:not(.Embed--sm):hover .Embed-link::after {
-    transform: translate(-50%, -60%) scale(1.08);
-  }
+	.Embed:not(.Embed--sm):hover .Embed-link::after {
+		transform: translate(-50%, -60%) scale(1.08);
+	}
 }
 
 .Embed-image {
-  display: block;
-  width: 100%;
-  height: auto;
+	display: block;
+	width: 100%;
+	height: auto;
 }
 
 @supports (object-fit: cover) {
-  .Embed:not(.Embed--sm) .Embed-image {
-    min-height: 40vh;
-    object-fit: cover;
-  }
+	.Embed:not(.Embed--sm) .Embed-image {
+		min-height: 40vh;
+		object-fit: cover;
+	}
 }
 
 .Embed-caption {
-  display: none;
-  flex-direction: column-reverse;
-  width: 100%;
-  min-height: 25%;
-  padding: 1.4rem 1.4rem;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0.5));
+	display: none;
+	flex-direction: column-reverse;
+	width: 100%;
+	min-height: 25%;
+	padding: 1.4rem 1.4rem;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0.5));
 }
 
 @media (min-width: 600px) {
-  .Embed:not(.Embed--sm) .Embed-caption {
-    display: flex;
-  }
+	.Embed:not(.Embed--sm) .Embed-caption {
+		display: flex;
+	}
 }
 
 .Embed-title {
-  padding-top: 0.2rem;
-  position: relative;
-  z-index: 1;
-  line-height: 1.15;
-  font-size: 1.2rem;
-  font-family: var(--heading-font-family);
+	padding-top: 0.2rem;
+	position: relative;
+	z-index: 1;
+	line-height: 1.15;
+	font-size: 1.2rem;
+	font-family: var(--heading-font-family);
 }
 
 @media (min-width: 1000px) {
-  .Embed-title {
-    font-size: 1.75rem;
-    line-height: 1.1;
-  }
+	.Embed-title {
+		font-size: 1.75rem;
+		line-height: 1.1;
+	}
 
-  .Embed-caption {
-    padding: 1.4rem 2rem;
-  }
+	.Embed-caption {
+		padding: 1.4rem 2rem;
+	}
 }
 
 /**
@@ -125,149 +125,149 @@
  */
 
 .Embed--fullscreen {
-  width: 100vw;
-  height: 100vh;
-  padding: 2rem;
+	width: 100vw;
+	height: 100vh;
+	padding: 2rem;
 
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 30;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 30;
 
-  background: rgba(0, 0, 0, 0.85);
-  animation: Embed--appear 500ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+	background: rgba(0, 0, 0, 0.85);
+	animation: Embed--appear 500ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
 @keyframes Embed--appear {
-  from {
-    opacity: 0;
-  }
+	from {
+		opacity: 0;
+	}
 
-  to {
-    opacity: 1;
-  }
+	to {
+		opacity: 1;
+	}
 }
 
 .Embed--fullscreen.is-closing {
-  animation: Embed--disappear 350ms 200ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+	animation: Embed--disappear 350ms 200ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
 @keyframes Embed--disappear {
-  from {
-    opacity: 1;
-  }
+	from {
+		opacity: 1;
+	}
 
-  to {
-    opacity: 0;
-  }
+	to {
+		opacity: 0;
+	}
 }
 
 .Embed-close {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: -2;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: -2;
 }
 
 .Embed-cross {
-  box-sizing: content-box;
-  width: 1.5rem;
-  height: 1.5rem;
-  padding: 1rem;
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  border-radius: 2px;
-  pointer-events: none;
-  background-color: rgba(81, 81, 81, 0);
-  transition: background-color 180ms var(--ease-out);
+	box-sizing: content-box;
+	width: 1.5rem;
+	height: 1.5rem;
+	padding: 1rem;
+	position: absolute;
+	top: 2rem;
+	right: 2rem;
+	border-radius: 2px;
+	pointer-events: none;
+	background-color: rgba(81, 81, 81, 0);
+	transition: background-color 180ms var(--ease-out);
 }
 
 .Embed-cross::before,
 .Embed-cross::after {
-  content: "";
-  width: 1.5rem;
-  height: 2px;
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  background: currentColor;
+	content: '';
+	width: 1.5rem;
+	height: 2px;
+	position: absolute;
+	right: 1rem;
+	top: 50%;
+	background: currentColor;
 }
 
 .Embed-cross::before {
-  transform: rotate(45deg);
+	transform: rotate(45deg);
 }
 
 .Embed-cross::after {
-  transform: rotate(-45deg);
+	transform: rotate(-45deg);
 }
 
 .Embed-close:hover .Embed-cross {
-  background-color: rgba(81, 81, 81, 1);
+	background-color: rgba(81, 81, 81, 1);
 }
 
 .Embed-wrapper {
-  height: 0;
-  width: 88%;
-  max-width: var(--document-max-width);
+	height: 0;
+	width: 88%;
+	max-width: var(--document-max-width);
 
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: -1;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: -1;
 }
 
 @media (min-width: 600px) {
-  .Embed-wrapper {
-    width: 75%;
-  }
+	.Embed-wrapper {
+		width: 75%;
+	}
 }
 
 .Embed-iframe {
-  height: 0;
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  padding-bottom: calc(100% * (9 / 16));
+	height: 0;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	padding-bottom: calc(100% * (9 / 16));
 
-  background-color: #000;
-  box-shadow: 0 0 10rem rgba(0, 0, 0, 0.2);
-  transform: translate(-50%, -50%);
-  will-change: transform;
+	background-color: #000;
+	box-shadow: 0 0 10rem rgba(0, 0, 0, 0.2);
+	transform: translate(-50%, -50%);
+	will-change: transform;
 }
 
 .Embed--fullscreen.is-closing .Embed-iframe {
-  animation: Embed-iframe--disappear 250ms cubic-bezier(0.33, 0.89, 0.62, 1) forwards;
+	animation: Embed-iframe--disappear 250ms cubic-bezier(0.33, 0.89, 0.62, 1) forwards;
 }
 
 @keyframes Embed-iframe--disappear {
-  from {
-    transform: translate(-50%, -50%);
-  }
+	from {
+		transform: translate(-50%, -50%);
+	}
 
-  to {
-    transform: translate(-50%, 50vh);
-  }
+	to {
+		transform: translate(-50%, 50vh);
+	}
 }
 
 .Embed-iframe iframe {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
 }
 
 .Embed--fullscreen .Embed-iframe iframe {
-  visibility: hidden;
-  animation: Embed-content--appear 0ms 650ms linear forwards;
+	visibility: hidden;
+	animation: Embed-content--appear 0ms 650ms linear forwards;
 }
 
 @keyframes Embed-content--appear {
-  to {
-    visibility: visible;
-  }
+	to {
+		visibility: visible;
+	}
 }

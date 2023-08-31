@@ -1,0 +1,25 @@
+<script>
+	import Header from '$lib/Header.svelte';
+	import { onMount } from 'svelte';
+
+	export let settings;
+
+	onMount(function () {
+		const url = new URL(window.location);
+		if (url.searchParams.get('preview')) {
+			const script = document.createElement('script');
+			script.async = true;
+			script.defer = true;
+			script.src = 'https://static.cdn.prismic.io/prismic.js?new=true&repo=unga-klara';
+			document.head.appendChild(script);
+		}
+	});
+</script>
+
+<Header slices={settings?.data.menu} />
+
+<slot />
+
+<style>
+	@import '$lib/index.css';
+</style>

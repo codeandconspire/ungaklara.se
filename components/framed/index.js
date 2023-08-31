@@ -1,32 +1,32 @@
-var html = require('choo/html')
+var html = require('choo/html');
 
-var IMG_ATTRS = ['width', 'height', 'srcset', 'sizes', 'src', 'alt']
+var IMG_ATTRS = ['width', 'height', 'srcset', 'sizes', 'src', 'alt'];
 
-module.exports = framed
-module.exports.loading = loading
+module.exports = framed;
+module.exports.loading = loading;
 
-function framed (opts) {
-  var format = opts.format || 'rectangular'
-  var attrs = Object.keys(opts)
-    .filter((key) => IMG_ATTRS.includes)
-    .sort((a, b) => IMG_ATTRS.indexOf(b) - IMG_ATTRS.indexOf(a))
-    .reduce(function (obj, key) {
-      obj[key] = opts[key]
-      return obj
-    }, {})
+function framed(opts) {
+	var format = opts.format || 'rectangular';
+	var attrs = Object.keys(opts)
+		.filter((key) => IMG_ATTRS.includes)
+		.sort((a, b) => IMG_ATTRS.indexOf(b) - IMG_ATTRS.indexOf(a))
+		.reduce(function (obj, key) {
+			obj[key] = opts[key];
+			return obj;
+		}, {});
 
-  return html`
-    <div class="Framed Framed--${format} ${opts.size ? `Framed--${opts.size}` : ''}">
-      <img class="Framed-image" ${attrs} />
-    </div>
-  `
+	return html`
+		<div class="Framed Framed--${format} ${opts.size ? `Framed--${opts.size}` : ''}">
+			<img class="Framed-image" ${attrs} />
+		</div>
+	`;
 }
 
-function loading (opts = {}) {
-  var format = opts.format || 'rectangular'
-  return html`
-    <div class="Framed Framed--${format} ${opts.size ? `Framed--${opts.size}` : ''} is-loading">
-      <div class="Framed-image"></div>
-    </div>
-  `
+function loading(opts = {}) {
+	var format = opts.format || 'rectangular';
+	return html`
+		<div class="Framed Framed--${format} ${opts.size ? `Framed--${opts.size}` : ''} is-loading">
+			<div class="Framed-image"></div>
+		</div>
+	`;
 }

@@ -1,0 +1,9 @@
+@import '../global';
+
+/* @define utilities */
+.u-loading {
+	background: rgba(0, 0, 0, 0.04) !important;
+	display: inline !important;
+	color: transparent !important;
+	user-select: none !important;
+}

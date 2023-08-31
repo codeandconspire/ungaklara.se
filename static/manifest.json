@@ -1,0 +1,8 @@
+{
+	"name": "Unga Klara",
+	"short_name": "Unga Klara",
+	"start_url": "/",
+	"display": "minimal-ui",
+	"background_color": "#e4e6eb",
+	"theme_color": "#e4e6eb"
+}

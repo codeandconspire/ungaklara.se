@@ -1,66 +1,66 @@
-@import "../base";
+@import '../base';
 
 :root {
-  --Toolbar-visible: 0;
+	--Toolbar-visible: 0;
 }
 
 /* @define Toolbar */
 .Toolbar {
-  position: relative;
-  transform: translateY(calc(-100% * (1 - var(--Toolbar-visible))));
-  will-change: transform;
+	position: relative;
+	transform: translateY(calc(-100% * (1 - var(--Toolbar-visible))));
+	will-change: transform;
 }
 
 .Toolbar.is-fixed {
-  width: 100%;
-  padding: 0.7em 0;
-  border-bottom: 2px solid currentColor;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  background-color: rgb(var(--document-background));
+	width: 100%;
+	padding: 0.7em 0;
+	border-bottom: 2px solid currentColor;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	background-color: rgb(var(--document-background));
 }
 
 .Toolbar-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .Toolbar-heading {
-  flex: 1 1 100%;
-  display: none;
-  font-size: 1.5rem;
-  font-family: var(--heading-font-family);
-  line-height: var(--heading-line-height);
-  font-weight: 600;
-  letter-spacing: -0.025em;
+	flex: 1 1 100%;
+	display: none;
+	font-size: 1.5rem;
+	font-family: var(--heading-font-family);
+	line-height: var(--heading-line-height);
+	font-weight: 600;
+	letter-spacing: -0.025em;
 }
 
 @media (min-width: 500px) {
-  .Toolbar-actions {
-    flex: 0 1 auto;
-  }
+	.Toolbar-actions {
+		flex: 0 1 auto;
+	}
 }
 
 @media (min-width: 900px) {
-  .Toolbar-heading {
-    display: block;
-  }
+	.Toolbar-heading {
+		display: block;
+	}
 }
 
 .Toolbar-actions {
-  flex: 1 1 auto;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+	flex: 1 1 auto;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
 }
 
 .Toolbar-action {
-  flex: 1 1 auto;
+	flex: 1 1 auto;
 }
 
 .Toolbar-action:not(:last-child) {
-  margin-right: 1em;
+	margin-right: 1em;
 }

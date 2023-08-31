@@ -1,158 +1,158 @@
-@import "../base";
+@import '../base';
 
 /* @define Calendar */
 .Calendar-row {
-  display: flex;
-  padding: 1.2rem 0 1.4rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-  position: relative;
+	display: flex;
+	padding: 1.2rem 0 1.4rem;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+	position: relative;
 }
 
 .Calendar-poster {
-  width: 6rem;
-  flex-shrink: 0;
+	width: 6rem;
+	flex-shrink: 0;
 }
 
 .Calendar-body {
-  flex: 1 1 auto;
-  margin: 0.8rem 0 0 1.5rem;
-  font-size: 1rem;
+	flex: 1 1 auto;
+	margin: 0.8rem 0 0 1.5rem;
+	font-size: 1rem;
 }
 
 .Calendar-note {
-  margin-top: 0.45rem;
-  margin-left: 0.75rem;
-  font-size: 1rem;
+	margin-top: 0.45rem;
+	margin-left: 0.75rem;
+	font-size: 1rem;
 }
 
 .Calendar-actions {
-  display: flex;
-  align-items: baseline;
-  white-space: nowrap;
-  flex-wrap: wrap;
+	display: flex;
+	align-items: baseline;
+	white-space: nowrap;
+	flex-wrap: wrap;
 }
 
 .Calendar-note::after {
-  content: "!"
+	content: '!';
 }
 
 .Calendar-link {
-  padding-bottom: 0.05rem;
-  border-bottom: 2px solid currentColor;
-  font-size: 1.25rem;
-  font-family: var(--heading-font-family);
-  line-height: var(--heading-line-height);
+	padding-bottom: 0.05rem;
+	border-bottom: 2px solid currentColor;
+	font-size: 1.25rem;
+	font-family: var(--heading-font-family);
+	line-height: var(--heading-line-height);
 }
 
 .Calendar.is-loading .Calendar-link {
-  border-bottom-color: transparent;
+	border-bottom-color: transparent;
 }
 
 .Calendar-meta {
-  margin: 0.5rem 0 0.8rem
+	margin: 0.5rem 0 0.8rem;
 }
 
 .Calendar-icon {
-  font-size: 0.8em;
-  position: relative;
-  top: -0.05rem;
-  margin-right: 0.2rem;
+	font-size: 0.8em;
+	position: relative;
+	top: -0.05rem;
+	margin-right: 0.2rem;
 }
 
 .Calendar-time {
-  display: block
+	display: block;
 }
 
 .Calendar-link::before {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: -1;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: -1;
 }
 
 .Calendar-link:hover {
-  border-color: rgb(var(--document-color));
-  background: rgb(var(--document-color));
-  color: rgb(255, 255, 255);
-  mix-blend-mode: darken;
-  box-shadow: 0.1em 0 0 black, -0.1em 0 0 black;
+	border-color: rgb(var(--document-color));
+	background: rgb(var(--document-color));
+	color: rgb(255, 255, 255);
+	mix-blend-mode: darken;
+	box-shadow: 0.1em 0 0 black, -0.1em 0 0 black;
 }
 
 .Calendar-day {
-  margin: 1.35rem 0 0.1rem;
-  font-family: var(--heading-font-family);
-  line-height: var(--heading-line-height);
-  font-size: 1.125rem;
+	margin: 1.35rem 0 0.1rem;
+	font-family: var(--heading-font-family);
+	line-height: var(--heading-line-height);
+	font-size: 1.125rem;
 }
 
 .Calendar-row:first-child {
-  padding-top: 0;
-  margin-top: -1rem;
+	padding-top: 0;
+	margin-top: -1rem;
 }
 
 .Calendar-detail {
-  display: block;
+	display: block;
 }
 
 @media (min-width: 600px) {
-  .Calendar-row {
-    align-items: flex-start;
-  }
+	.Calendar-row {
+		align-items: flex-start;
+	}
 
-  .Calendar-body {
-    font-size: 1.125rem;
-    display: flex;
-    margin-top: 0;
-    align-items: center;
-    justify-content: space-between;
-  }
+	.Calendar-body {
+		font-size: 1.125rem;
+		display: flex;
+		margin-top: 0;
+		align-items: center;
+		justify-content: space-between;
+	}
 
-  .Calendar-actions {
-    display: block;
-  }
+	.Calendar-actions {
+		display: block;
+	}
 
-  .Calendar-note {
-    text-align: right;
-  }
+	.Calendar-note {
+		text-align: right;
+	}
 
-  .Calendar-actions {
-    margin-left: 2rem;
-  }
+	.Calendar-actions {
+		margin-left: 2rem;
+	}
 
-  .Calendar-meta {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 0;
-  }
+	.Calendar-meta {
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: 0;
+	}
 
-  .Calendar-time,
-  .Calendar-location,
-  .Calendar-detail {
-    display: inline-block;
-    margin-right: 1.8rem;
-    display: flex;
-    align-items: baseline;
-  }
+	.Calendar-time,
+	.Calendar-location,
+	.Calendar-detail {
+		display: inline-block;
+		margin-right: 1.8rem;
+		display: flex;
+		align-items: baseline;
+	}
 
-  .Calendar-link {
-    font-size: 1.5rem;
-  }
+	.Calendar-link {
+		font-size: 1.5rem;
+	}
 
-  .Calendar-poster {
-    width: 6rem;
-    margin-top: 0.5rem;
-  }
+	.Calendar-poster {
+		width: 6rem;
+		margin-top: 0.5rem;
+	}
 }
 
 @media (min-width: 800px) {
-  .Calendar-day {
-    font-size: 1.5rem;
-    margin-top: 1.2rem;
-  }
+	.Calendar-day {
+		font-size: 1.5rem;
+		margin-top: 1.2rem;
+	}
 
-  .Calendar-link {
-    font-size: 1.875rem;
-  }
+	.Calendar-link {
+		font-size: 1.875rem;
+	}
 }

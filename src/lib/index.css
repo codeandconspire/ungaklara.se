@@ -1,0 +1,264 @@
+@import 'modern-normalize';
+@import './global';
+@import './utils/colors';
+@import './utils/layout';
+@import './utils/loading';
+@import './utils/size';
+@import './utils/space';
+@import './utils/text';
+@import './utils/transitions';
+
+/**
+ * Font declaration
+ */
+
+@font-face {
+	font-family: 'UK Logotype';
+	font-style: normal;
+	font-weight: 600;
+	src: url('uk-black.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'UK';
+	font-style: normal;
+	font-weight: 600;
+	src: url('uk-bold.woff') format('woff');
+}
+
+/**
+ * Document styles
+ * 1. Global box sizing
+ * 2. Support sticky footer
+ * 3. Simply feels better then global text cursor
+ * 4. Fabulous text rendering
+ * 5. Fabulous svg text sizing
+ */
+
+:root {
+	width: 100%; /* 2 */
+	height: 100%; /* 2 */
+	cursor: default; /* 3 */
+	font-family: var(--document-font-family);
+	background-color: rgb(var(--theme-color, var(--document-background)));
+	transition: background-color 250ms var(--ease);
+	color: rgb(var(--document-color));
+	font-size: 100%;
+	line-height: var(--document-line-height);
+	-webkit-tap-highlight-color: transparent;
+	-webkit-font-smoothing: antialiased; /* 4 */
+	-moz-osx-font-smoothing: grayscale; /* 4 */
+	text-rendering: geometricPrecision; /* 5 */
+
+	width: 100vw;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+@media (min-width: 1600px) {
+	:root {
+		font-size: 110%;
+	}
+}
+
+@media (min-width: 1800px) {
+	:root {
+		font-size: 120%;
+	}
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box; /* 1 */
+}
+
+/**
+ * Media elements
+ */
+
+svg,
+img,
+video,
+iframe {
+	vertical-align: bottom;
+}
+
+/**
+ * Pretty alt text rendering for broken images
+ */
+
+img {
+	font-size: 0.8rem;
+	color: rgba(0, 0, 0, 0.5);
+}
+
+/**
+ * Inline elements
+ */
+
+strong {
+	font-weight: 600;
+}
+
+/*
+ * Clickable elements
+ * 1. Remove the gray background on active links in IE 10.
+ * 2. Remove the tapping delay
+ */
+
+a {
+	color: inherit;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+a:hover,
+a:active {
+	background-color: transparent; /* 1 */
+}
+
+a,
+area,
+button,
+input,
+label,
+select,
+summary,
+textarea,
+[tabindex] {
+	-ms-touch-action: manipulation; /* 2 */
+	touch-action: manipulation; /* 2 */
+}
+
+/**
+ * Reset a few styles
+ */
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+figure,
+iframe,
+address,
+blockquote {
+	font: inherit;
+	border: 0;
+	margin: 0;
+	list-style: none;
+	padding: 0;
+}
+
+/**
+ * Clean out browser button styles
+ */
+
+button {
+	padding: 0;
+	border: 0;
+	margin: 0;
+	color: inherit;
+	font: inherit;
+	line-height: inherit;
+	border-radius: 0;
+	background: transparent;
+	cursor: default;
+}
+
+/**
+ * Pointer is for links, not for actions on the same page.
+ */
+
+:root[scripting-enabled] [role='button'],
+:root[scripting-enabled] [role='tab'] {
+	cursor: default;
+}
+
+/**
+ * Remove default focus styles for mouse users if :focus-visible is supported on
+ * this platform, or polyfilled with https://github.com/WICG/focus-visible
+ */
+
+:focus:not(:focus-visible) {
+	outline: 0 !important;
+}
+
+/**
+ * Provide enhanced focus styles for keyboard focus
+ */
+
+:focus-visible {
+	outline: rgb(var(--focus-ring-color)) dashed var(--focus-ring-width) !important;
+}
+
+/**
+ * Set sensible default ruler styles
+ */
+
+hr {
+	display: block;
+	width: 100%;
+	height: 1px;
+	border: 0;
+	margin: 4.5rem 0 3.9rem;
+	background-color: rgb(196, 196, 196);
+}
+
+@media (min-width: 800px) {
+	hr {
+		margin: 6.5rem 0 5.9rem;
+	}
+}
+
+/**
+ * Print styles
+ */
+
+@page {
+	margin: 2cm;
+}
+
+@media print {
+	a {
+		page-break-inside: avoid;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p {
+		page-break-after: avoid;
+		page-break-inside: avoid;
+	}
+
+	img {
+		page-break-inside: avoid;
+		page-break-after: avoid;
+	}
+
+	ul,
+	ol,
+	img {
+		page-break-before: avoid;
+	}
+
+	iframe {
+		display: none;
+	}
+
+	a,
+	a:link,
+	a:visited {
+		background: transparent;
+		text-decoration: underline;
+	}
+}

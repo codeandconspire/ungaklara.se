@@ -1,48 +1,48 @@
-@import "../base";
+@import '../base';
 
 /* @define Tablist */
 .Tablist {
-  display: flex;
-  user-select: none;
-  margin-bottom: 1.4em;
+	display: flex;
+	user-select: none;
+	margin-bottom: 1.4em;
 }
 
 @media (min-width: 800px) {
-  .Tablist {
-    font-size: 1.125rem;
-  }
+	.Tablist {
+		font-size: 1.125rem;
+	}
 }
 
 .Tablist-tab {
-  flex: 1 1 auto;
-  padding: 0.8em 0.3em;
-  border: solid #000;
-  border-width: 2px;
-  font-size: 1em;
-  text-align: center;
-  font-weight: 600;
-  font-family: var(--heading-font-family);
-  line-height: var(--heading-line-height);
-  background-color: transparent;
+	flex: 1 1 auto;
+	padding: 0.8em 0.3em;
+	border: solid #000;
+	border-width: 2px;
+	font-size: 1em;
+	text-align: center;
+	font-weight: 600;
+	font-family: var(--heading-font-family);
+	line-height: var(--heading-line-height);
+	background-color: transparent;
 }
 
 .Tablist-tab:first-child {
-  border-radius: 3px 0 0 3px;
-  border-right: 0;
+	border-radius: 3px 0 0 3px;
+	border-right: 0;
 }
 
 .Tablist-tab:last-child {
-  border-radius: 0 3px 3px 0;
-  border-left: 0;
+	border-radius: 0 3px 3px 0;
+	border-left: 0;
 }
 
 @media (min-width: 600px) {
-  .Tablist-tab {
-    font-size: 1.125em
-  }
+	.Tablist-tab {
+		font-size: 1.125em;
+	}
 }
 
 .Tablist-tab.is-selected {
-  background-color: #000;
-  color: #fff;
+	background-color: #000;
+	color: #fff;
 }

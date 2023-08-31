@@ -1,39 +1,39 @@
-@import "../base";
+@import '../base';
 
 /* @define Byline */
 .Byline {
-  display: flex;
-  margin-left: -0.2rem;
+	display: flex;
+	margin-left: -0.2rem;
 }
 
 .Byline-image {
-  max-width: 11rem;
-  margin-right: 1rem;
+	max-width: 11rem;
+	margin-right: 1rem;
 }
 
 .Byline-body {
-  max-width: 23rem;
+	max-width: 23rem;
 }
 
 @media (min-width: 400px) {
-  .Byline {
-    align-items: center;
-    margin-left: -0.5rem;
-  }
+	.Byline {
+		align-items: center;
+		margin-left: -0.5rem;
+	}
 
-  .Byline-body {
-    position: relative;
-    top: -0.5rem;
-  }
+	.Byline-body {
+		position: relative;
+		top: -0.5rem;
+	}
 
-  .Byline-image {
-    margin-right: 2rem;
-  }
+	.Byline-image {
+		margin-right: 2rem;
+	}
 }
 
 @media (min-width: 1000px) {
-  .Byline-image {
-    max-width: 15rem;
-    margin-right: 4rem;
-  }
+	.Byline-image {
+		max-width: 15rem;
+		margin-right: 4rem;
+	}
 }

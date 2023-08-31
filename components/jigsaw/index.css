@@ -1,79 +1,78 @@
-@import "../base";
+@import '../base';
 
 /* @define Jigsaw */
 .Jigsaw {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
+	position: relative;
+	width: 100%;
+	overflow: hidden;
 }
 
 .Jigsaw-image {
-  position: absolute;
-  bottom: 26%;
-  width: 38vw;
-  right: -7vw;
-  max-width: 20rem;
+	position: absolute;
+	bottom: 26%;
+	width: 38vw;
+	right: -7vw;
+	max-width: 20rem;
 }
 
 @media (max-width: 599px) {
-  .Jigsaw--alt .Jigsaw-image {
-    position: absolute;
-    top: 0;
-    right: 1rem;
-    width: 30vh;
-    margin-top: 5vh;
-  }
+	.Jigsaw--alt .Jigsaw-image {
+		position: absolute;
+		top: 0;
+		right: 1rem;
+		width: 30vh;
+		margin-top: 5vh;
+	}
 }
 
 @media (min-width: 500px) {
-  .Jigsaw {
-    padding-right: 5rem;
-    overflow: visible;
-  }
+	.Jigsaw {
+		padding-right: 5rem;
+		overflow: visible;
+	}
 
-  .Jigsaw-image {
-    bottom: 0rem;
-    right: 1rem;
-    width: 36vw;
-  }
+	.Jigsaw-image {
+		bottom: 0rem;
+		right: 1rem;
+		width: 36vw;
+	}
 }
 
 @media (min-width: 600px) {
-  .Jigsaw {
-    padding-right: 30vw;
-  }
+	.Jigsaw {
+		padding-right: 30vw;
+	}
 }
 
 @media (min-width: 700px) {
-  .Jigsaw {
-    padding-right: 40vw;
-  }
+	.Jigsaw {
+		padding-right: 40vw;
+	}
 
-  .Jigsaw-image {
-    bottom: 2rem;
-    right: 1rem;
-    width: 36vw;
-  }
+	.Jigsaw-image {
+		bottom: 2rem;
+		right: 1rem;
+		width: 36vw;
+	}
 }
 
-
 @media (min-width: 1000px) {
-  .Jigsaw {
-    padding-right: 0;
-  }
+	.Jigsaw {
+		padding-right: 0;
+	}
 
-  .Jigsaw-heading,
-  .Jigsaw-body {
-    width: 63.6%;
-  }
+	.Jigsaw-heading,
+	.Jigsaw-body {
+		width: 63.6%;
+	}
 
-  .Jigsaw-figure {
-    position: relative;
-  }
+	.Jigsaw-figure {
+		position: relative;
+	}
 
-  .Jigsaw-image {
-    bottom: 2rem;
-    right: 0;
-    width: 100%;
-  }
+	.Jigsaw-image {
+		bottom: 2rem;
+		right: 0;
+		width: 100%;
+	}
 }

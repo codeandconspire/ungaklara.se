@@ -1,0 +1,299 @@
+@import '../global';
+
+/* @define utilities */
+.u-hidden {
+	display: none !important;
+}
+
+.u-hiddenVisually,
+:root[scripting-enabled] .u-js-hiddenVisually {
+	border: 0 !important;
+	clip: rect(1px, 1px, 1px, 1px) !important;
+	height: 1px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	position: absolute !important;
+	width: 1px !important;
+}
+
+.u-invisible {
+	opacity: 0 !important;
+}
+
+.u-paddedBox {
+	padding: 1.4rem 1.1rem !important;
+}
+
+@media (min-width: 350px) {
+	.u-paddedBox {
+		padding: 1.5rem 1.2rem !important;
+	}
+}
+
+@media (min-width: 600px) {
+	.u-paddedBox {
+		padding: 1.8rem 1.5rem !important;
+	}
+}
+
+@media (min-width: 800px) {
+	.u-paddedBox {
+		padding: 2.3rem 2rem !important;
+	}
+}
+
+@media (min-width: 1000px) {
+	.u-paddedBox {
+		padding: 1.8rem 1.5rem !important;
+	}
+}
+
+@media (min-width: 1200px) {
+	.u-paddedBox {
+		padding: 2.4rem 2rem !important;
+	}
+}
+
+@media print {
+	.u-printHidden {
+		display: none !important;
+	}
+}
+
+/**
+ * Display
+ */
+
+.u-block {
+	display: block !important;
+}
+.u-inlineBlock {
+	display: inline-block !important;
+}
+.u-inline {
+	display: inline !important;
+}
+.u-flex {
+	display: flex !important;
+}
+
+@media (max-width: 399px) {
+	.u-sm-show {
+		display: none !important;
+	}
+}
+
+@media (min-width: 400px) {
+	.u-sm-hide {
+		display: none !important;
+	}
+}
+
+@media (max-width: 599px) {
+	.u-md-show {
+		display: none !important;
+	}
+}
+
+/**
+ * Position
+ */
+
+.u-posStatic {
+	position: static !important;
+}
+.u-posRelative {
+	position: relative !important;
+}
+.u-posAbsolute {
+	position: absolute !important;
+}
+.u-posFixed {
+	position: fixed !important;
+}
+
+/**
+ * Flex
+ */
+
+.u-flexWrap {
+	flex-wrap: wrap !important;
+}
+.u-alignCenter {
+	align-items: center !important;
+}
+.u-alignStart {
+	align-items: flex-start !important;
+}
+.u-alignEnd {
+	align-items: flex-end !important;
+}
+.u-justifyCenter {
+	justify-content: center !important;
+}
+
+/**
+ * Aspect ratio
+ */
+
+.u-aspect1-1,
+.u-aspect4-3,
+.u-aspect16-9,
+.u-aspectPoster {
+	position: relative !important;
+}
+
+.u-aspect1-1::before,
+.u-aspect4-3::before,
+.u-aspect16-9::before,
+.u-aspectPoster::before {
+	content: '' !important;
+	display: block !important;
+	height: 0 !important;
+}
+
+.u-aspect1-1::before {
+	padding-top: 100% !important;
+}
+.u-aspect4-3::before {
+	padding-top: calc(100% * 3 / 4) !important;
+}
+.u-aspect16-9::before {
+	padding-top: calc(100% * 9 / 16) !important;
+}
+.u-aspectPoster::before {
+	padding-top: calc(100% * 278 / 195) !important;
+}
+
+/**
+ * Cover offset parent
+ */
+
+.u-cover {
+	object-fit: cover !important;
+	width: 100% !important;
+	height: 100% !important;
+	position: absolute !important;
+	left: 0 !important;
+	top: 0 !important;
+}
+
+/**
+ * Centered page container
+ */
+
+.u-narrow {
+	--document-max-width: 1000px !important;
+}
+
+@media (min-width: 1500px) {
+	.u-narrow {
+		--document-max-width: 1100px !important;
+	}
+}
+
+@media (min-width: 1800px) {
+	.u-narrow {
+		--document-max-width: 1500px !important;
+	}
+}
+
+.u-container,
+.u-md-container,
+.u-lg-container,
+.u-xl-container {
+	width: 100% !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	padding-left: var(--document-margin) !important;
+	padding-right: var(--document-margin) !important;
+	max-width: calc(var(--document-max-width) + (var(--document-margin) * 2)) !important;
+}
+
+@supports (padding-left: constant(safe-area-inset-left)) {
+	.u-container,
+	.u-md-container,
+	.u-lg-container,
+	.u-xl-container {
+		padding-left: calc(var(--document-margin) + constant(safe-area-inset-left)) !important;
+		padding-right: calc(var(--document-margin) + constant(safe-area-inset-right)) !important;
+	}
+}
+
+@supports (padding-left: env(safe-area-inset-left)) {
+	.u-container,
+	.u-md-container,
+	.u-lg-container,
+	.u-xl-container {
+		padding-left: calc(var(--document-margin) + env(safe-area-inset-left)) !important;
+		padding-right: calc(var(--document-margin) + env(safe-area-inset-right)) !important;
+	}
+}
+
+@media (max-width: 599px) {
+	.u-md-container {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+}
+
+@media (max-width: 899px) {
+	.u-lg-container {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+}
+
+@media (max-width: 1199px) {
+	.u-xl-container {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+}
+
+.u-uncontain,
+.u-md-uncontain,
+.u-lg-uncontain,
+.u-xl-uncontain {
+	max-width: none !important;
+	margin-left: calc(var(--document-margin) * -1) !important;
+	margin-right: calc(var(--document-margin) * -1) !important;
+}
+
+@supports (margin-left: constant(safe-area-inset-left)) {
+	.u-uncontain,
+	.u-md-uncontain,
+	.u-lg-uncontain,
+	.u-xl-uncontain {
+		margin-left: calc((var(--document-margin) + constant(safe-area-inset-left)) * -1) !important;
+		margin-right: calc((var(--document-margin) + constant(safe-area-inset-right)) * -1) !important;
+	}
+}
+
+@supports (margin-left: env(safe-area-inset-left)) {
+	.u-uncontain,
+	.u-md-uncontain,
+	.u-lg-uncontain,
+	.u-xl-uncontain {
+		margin-left: calc((var(--document-margin) + env(safe-area-inset-left)) * -1) !important;
+		margin-right: calc((var(--document-margin) + env(safe-area-inset-right)) * -1) !important;
+	}
+}
+
+@media (min-width: 599px) {
+	.u-md-uncontain {
+		margin: 0 !important;
+	}
+}
+
+@media (min-width: 899px) {
+	.u-lg-uncontain {
+		margin: 0 !important;
+	}
+}
+
+@media (min-width: 1199px) {
+	.u-xl-uncontain {
+		margin: 0 !important;
+	}
+}

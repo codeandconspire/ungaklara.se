@@ -1,0 +1,65 @@
+:root {
+	/* Colors  */
+
+	--color-white: 255, 255, 255;
+	--color-gray-light: 237, 239, 245;
+	--color-gray: 216, 216, 216;
+	--color-gray-dark: 108, 109, 112;
+	--color-black: 0, 0, 0;
+
+	--color-green: 0, 255, 54;
+	--color-pink: 255, 66, 255;
+	--color-yellow: 255, 240, 54;
+	--color-blue: 67, 0, 255;
+
+	/* Base styles */
+
+	--document-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+		sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+	--document-font-size: 1rem;
+	--document-line-height: 1.4;
+
+	--heading-font-family: 'UK', var(--document-font-family);
+	--heading-line-height: 1.2666666667;
+
+	--logo-font-family: 'UK Logotype', var(--heading-font-family);
+	--logo-line-height: 1.2;
+
+	--document-background: 228, 230, 235;
+	--document-color: 0, 0, 0;
+
+	--document-min-width: 300px;
+	--document-max-width: 1800px;
+	--document-margin: 1rem;
+
+	--theme-color: 156, 252, 35;
+
+	--focus-ring-width: 2px;
+	--focus-ring-color: var(--color-black);
+
+	--border-width: 2px;
+
+	/* Easing curves */
+
+	--ease-in: cubic-bezier(0.4, 0, 1, 1);
+	--ease-out: cubic-bezier(0, 0, 0.2, 1);
+	--ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 500px) {
+	:root {
+		--document-margin: 2rem;
+	}
+}
+
+@media (min-width: 1000px) {
+	:root {
+		--document-margin: 3rem;
+	}
+}
+
+@media (min-width: 1200px) {
+	:root {
+		--document-margin: 5rem;
+	}
+}

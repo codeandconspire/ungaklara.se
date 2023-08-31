@@ -1,44 +1,44 @@
-@import "../base";
+@import '../base';
 
 :root {
-  --Grid-gutter: 1.5rem;
+	--Grid-gutter: 1.5rem;
 }
 
 @media (min-width: 1000px), print {
-  :root {
-    --Grid-gutter: 2rem;
-  }
+	:root {
+		--Grid-gutter: 2rem;
+	}
 }
 
 @media (min-width: 1200px), print {
-  :root {
-    --Grid-gutter: 2.5rem;
-  }
+	:root {
+		--Grid-gutter: 2.5rem;
+	}
 }
 
 /* @define Grid */
 .Grid {
-  display: flex;
-  flex-wrap: wrap;
-  width: calc(100% + var(--Grid-gutter));
-  margin: 0 calc(var(--Grid-gutter) * -0.5);
-  margin-bottom: calc(var(--Grid-gutter) * -1);
+	display: flex;
+	flex-wrap: wrap;
+	width: calc(100% + var(--Grid-gutter));
+	margin: 0 calc(var(--Grid-gutter) * -0.5);
+	margin-bottom: calc(var(--Grid-gutter) * -1);
 }
 
 .Grid--slim {
-  --Grid-gutter: 1.25rem;
+	--Grid-gutter: 1.25rem;
 }
 
 @media (min-width: 600px), print {
-  .Grid--slim {
-    --Grid-gutter: 1.375rem;
-  }
+	.Grid--slim {
+		--Grid-gutter: 1.375rem;
+	}
 }
 
 @media (min-width: 1200px), print {
-  .Grid--slim {
-    --Grid-gutter: 1.5rem;
-  }
+	.Grid--slim {
+		--Grid-gutter: 1.5rem;
+	}
 }
 
 /**
@@ -46,29 +46,29 @@
  */
 
 .Grid-cell {
-  flex: 0 0 100%;
-  display: flex;
-  align-items: flex-start;
-  min-width: 0; /* 1 */
-  padding: 0 calc(var(--Grid-gutter) * 0.5);
-  margin-bottom: var(--Grid-gutter);
+	flex: 0 0 100%;
+	display: flex;
+	align-items: flex-start;
+	min-width: 0; /* 1 */
+	padding: 0 calc(var(--Grid-gutter) * 0.5);
+	margin-bottom: var(--Grid-gutter);
 }
 
 .Grid-cell > * {
-  min-width: 0; /* 1 */
+	min-width: 0; /* 1 */
 }
 
 .Grid-cell--appear {
-  opacity: 0;
-  transform: translateY(100px);
-  animation: Grid-cell--appear 300ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+	opacity: 0;
+	transform: translateY(100px);
+	animation: Grid-cell--appear 300ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
 @keyframes Grid-cell--appear {
-  to {
-    opacity: 1;
-    transform: none;
-  }
+	to {
+		opacity: 1;
+		transform: none;
+	}
 }
 
 /**
@@ -76,30 +76,30 @@
  */
 
 @media (max-width: 599px) {
-  .Grid--carousel {
-    width: 100%;
-    margin: 0;
-    overflow-x: auto;
-    overflow-y: hidden;
-    flex-wrap: nowrap;
-    -webkit-overflow-scrolling: touch;
-    -webkit-scroll-snap-type: mandatory;
-    scroll-snap-type: x mandatory;
-    -webkit-scroll-snap-points-x: repeat(100%);
-    scroll-snap-points-x: repeat(100%);
-  }
+	.Grid--carousel {
+		width: 100%;
+		margin: 0;
+		overflow-x: auto;
+		overflow-y: hidden;
+		flex-wrap: nowrap;
+		-webkit-overflow-scrolling: touch;
+		-webkit-scroll-snap-type: mandatory;
+		scroll-snap-type: x mandatory;
+		-webkit-scroll-snap-points-x: repeat(100%);
+		scroll-snap-points-x: repeat(100%);
+	}
 
-  .Grid--carousel .Grid-cell {
-    flex-basis: calc(100% - 2rem);
-    padding-left: var(--document-margin);
-    padding-right: 0;
-    margin-right: calc((var(--document-margin) * -1) + 1rem);
-    scroll-snap-align: start;
-    margin-bottom: 0;
-  }
+	.Grid--carousel .Grid-cell {
+		flex-basis: calc(100% - 2rem);
+		padding-left: var(--document-margin);
+		padding-right: 0;
+		margin-right: calc((var(--document-margin) * -1) + 1rem);
+		scroll-snap-align: start;
+		margin-bottom: 0;
+	}
 
-  .Grid--carousel .Grid-cell:last-child {
-    padding-right: var(--document-margin);
-    flex-basis: calc(100% - 1rem);
-  }
+	.Grid--carousel .Grid-cell:last-child {
+		padding-right: var(--document-margin);
+		flex-basis: calc(100% - 1rem);
+	}
 }
