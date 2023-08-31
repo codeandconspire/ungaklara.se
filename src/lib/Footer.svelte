@@ -70,6 +70,19 @@
 					{/each}
 				</ul>
 			</div>
+			<!-- Todo: move/redesign -->
+			<div class="section">
+				<h3 class="title">Övrigt</h3>
+				<ul>
+					{#each settings.platforms as item}
+						<li class="item">
+							<a class="link" target="_blank" href="{resolve(item.link)}">
+								{item.platform}
+							</a>
+						</li>
+					{/each}
+				</ul>
+			</div>
 		</div>
 	</div>
 	<div class="u-sizeFull u-textCenter">
