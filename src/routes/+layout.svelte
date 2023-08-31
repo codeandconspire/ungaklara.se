@@ -19,7 +19,7 @@
 	});
 </script>
 
-<Header slices={settings.menu} />
+<Header items={settings.header_menu.map((item) => item.primary)} />
 
 <slot />
 
