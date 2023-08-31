@@ -3,10 +3,10 @@ import { createClient } from '@prismicio/client';
 import { page as pageQuery } from '$lib/queries.js';
 
 const graphQuery = `
-    {
-      page ${pageQuery}
-    }
-  `;
+  {
+    page ${pageQuery}
+  }
+`;
 
 export async function load({ fetch }) {
   try {
@@ -17,7 +17,6 @@ export async function load({ fetch }) {
 
     return { page };
   } catch (err) {
-    console.log(err);
     throw error(404, 'Not found');
   }
 }

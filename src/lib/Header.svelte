@@ -1,6 +1,7 @@
 <script>
 	export let slices = [];
 	console.log(slices);
+	console.log(slices);
 </script>
 
 <header class="Header u-container">

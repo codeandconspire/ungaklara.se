@@ -1,6 +1,5 @@
 <script>
 	export let data = {};
-	const { page, settings } = data;
 </script>
 
 <svelte:head>

@@ -2,7 +2,10 @@
 	import Header from '$lib/Header.svelte';
 	import { onMount } from 'svelte';
 
-	export let settings;
+	export let data;
+	const {
+		settings: { data: settings }
+	} = data;
 
 	onMount(function () {
 		const url = new URL(window.location);
@@ -16,7 +19,7 @@
 	});
 </script>
 
-<Header slices={settings?.data.menu} />
+<Header slices={settings.menu} />
 
 <slot />
 
