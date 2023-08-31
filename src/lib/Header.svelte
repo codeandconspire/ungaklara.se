@@ -1,6 +1,14 @@
 <script>
 	import resolve from './utils/resolve.js';
 	export let items = [];
+
+  function scrollDown(event) {
+		document.querySelector('footer').scrollIntoView({
+			behavior: 'smooth',
+			block: 'start'
+		});
+    event.preventDefault()
+  }
 </script>
 
 <header class="header u-container">
@@ -14,7 +22,7 @@
 				</li>
 			{/each}
 			<li class="u-inlineBlock">
-				<a class="link link--scroll" href="#footer">
+				<a class="link link--scroll" href="#footer" on:click={scrollDown}>
 					Mer
 					<span class="icon">
 						<svg width="25" height="25" viewBox="0 0 25 25">

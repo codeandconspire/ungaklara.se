@@ -1,11 +1,10 @@
 <script>
 	import Header from '$lib/Header.svelte';
+	import Footer from '$lib/Footer.svelte';
 	import { onMount } from 'svelte';
 
 	export let data;
-	const {
-		settings: { data: settings }
-	} = data;
+	const { settings: { data: settings } } = data;
 
 	onMount(function () {
 		const url = new URL(window.location);
@@ -22,6 +21,8 @@
 <Header items={settings.header_menu.map((item) => item.primary)} />
 
 <slot />
+
+<Footer {settings} />
 
 <style>
 	@import '$lib/index.css';
