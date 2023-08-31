@@ -339,6 +339,40 @@ function events(state, emit) {
 		if (doc.data.theme) attrs.style = `--theme-color: ${hexToRgb(doc.data.theme)}`;
 
 		return html`
+			<style>
+				/* Todo: move this somewhere */
+				.Event-row:not(:first-child) {
+					padding-top: 0.8rem;
+					border-top: 1px solid rgba(0, 0, 0, 0.15);
+					margin-top: 2.5rem;
+				}
+
+				@media (min-width: 600px) {
+					.Event-row:not(:first-child) {
+						padding-top: 2rem;
+						margin-top: 4rem;
+					}
+				}
+
+				@media (min-width: 1000px) {
+					.Event-row:not(:first-child) {
+						margin-top: 5rem;
+					}
+				}
+
+				.Event-notice {
+					padding: 0.2rem 0 2rem;
+					border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+					margin-bottom: 2.8rem !important;
+				}
+
+				@media (min-width: 600px) {
+					.Event-notice {
+						padding: 0.4rem 0 2.75rem;
+						margin-bottom: 3.75rem !important;
+					}
+				}
+			</style>
 			<li ${attrs}>
 				<article>
 					${event({
