@@ -4,6 +4,7 @@
   import resolve from '$lib/utils/resolve.js'
   import RichText from '$lib/RichText.svelte'
   import GridCell from '$lib/GridCell.svelte'
+  import srcset from '$lib/utils/srcset.js'
   import Intro from '$lib/Intro.svelte'
   import Html from '$lib/Html.svelte'
   import Grid from '$lib/Grid.svelte'
@@ -25,6 +26,18 @@
         return acc.concat(slice)
     }
   }, [])
+
+  function image(props) {
+    return {
+      srcset: srcset(props.url, [200, 400, 600, 900, [1600, 'q_60,c_thumb']], {
+        transforms: 'c_thumb'
+      }),
+      sizes: '(min-width: 600px) 50vw, 100vw',
+      alt: props.alt || '',
+      src: srcset(props.url, [900, 'c_thumb']).split(' ')[0],
+      ...props.dimensions
+    }
+  }
 
   $: parent = data.page.data.parent
   $: parentHref = resolve(parent)
@@ -58,7 +71,7 @@
                 <GridCell>
                   <Card
                     title={asText(item.primary.link.data.title)}
-                    image={item.primary.link.data.featured_image}
+                    image={image(item.primary.link.data.featured_image)}
                     color={item.primary.color || item.primary.link.data.theme}
                     link={{ href, text: item.primary.link.data.cta }}>
                     <RichText content={item.primary.link.data.description} />
@@ -72,7 +85,7 @@
                 <GridCell>
                   <Card
                     title={item.primary.title}
-                    image={item.primary.image}
+                    image={image(item.primary.image)}
                     color={item.primary.color}
                     link={{ href: item.primary.file.url }}>
                     <RichText content={item.primary.text} />
@@ -87,7 +100,7 @@
                 <GridCell>
                   <Card
                     title={item.primary.title}
-                    image={item.primary.image}
+                    image={image(item.primary.image)}
                     color={item.primary.color}
                     link={{ href }}>
                     <RichText content={item.primary.text} />

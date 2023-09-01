@@ -5,6 +5,7 @@
 
   export let background = null
   export let shrink = false
+  export let caption = null
   export let color = null
   export let image = null
   export let date = null
@@ -17,12 +18,6 @@
 
   $: internal = link?.href.match(/^\/[^/]/)
   $: filetype = link?.href.match(/\.(\w+)(?:\?|$)/)
-
-  $: imageAttrs = image
-    ? Object.fromEntries(
-        Object.entries(image).filter(([key]) => key !== 'caption')
-      )
-    : null
 </script>
 
 <article
@@ -39,10 +34,10 @@
   <div class="everything">
     {#if image}
       <figure class="figure u-hoverTriggerTarget">
-        <img class="image" alt="" {...imageAttrs} />
-        {#if image.caption}
+        <img class="image" {...image} />
+        {#if caption}
           <figcaption class="caption">
-            <p>{image.content}</p>
+            <p>{caption}</p>
           </figcaption>
         {/if}
       </figure>
@@ -51,7 +46,7 @@
       class="content"
       class:u-paddedBox={color}
       class:u-hoverTriggerTarget={color}>
-      <div class="Card-body">
+      <div class="body">
         {#if date}
           <time class="meta" datetime={date.toJSON()}>
             {date.toLocaleDateString('se-SV', {
