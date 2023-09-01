@@ -124,15 +124,13 @@
       {/if}
 
       {#if slice.slice_type === 'heading'}
-        <!-- if (!slice.primary.heading.length) return null;
-        return html`
-          <div class="Text Text--large u-spaceB5 u-pushDown">
-            <h2>${asText(slice.primary.heading)}</h2>
-            ${slice.primary.text && slice.primary.text.length
-              ? asElement(slice.primary.text, resolve, serialize)
-              : null}
-          </div>
-        `; -->
+        {@const heading = asText(slice.primary.heading)}
+        {#if heading}
+          <Html size="lg" class="u-spaceB5 u-pushDown">
+            <h2>{heading}</h2>
+            <RichText content={slice.primary.text} />
+          </Html>
+        {/if}
       {/if}
 
       {#if slice.slice_type === 'quote'}
