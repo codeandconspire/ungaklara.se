@@ -8,7 +8,6 @@
 			return rows
 		}, []).join('')
 	}
-
 </script>
 
 <footer class="footer u-container">
@@ -63,7 +62,7 @@
 				<ul>
 					{#each settings.platforms as item}
 						<li class="item">
-							<a class="link" target="_blank" href="{resolve(item.link)}">
+							<a class="link" target="_blank" rel="noopener noreferrer" href="{resolve(item.link)}">
 								{item.platform}
 							</a>
 						</li>
@@ -74,10 +73,10 @@
 			<div class="section">
 				<h3 class="title">Övrigt</h3>
 				<ul>
-					{#each settings.platforms as item}
+					{#each settings.terms as item}
 						<li class="item">
-							<a class="link" target="_blank" href="{resolve(item.link)}">
-								{item.platform}
+							<a class="link" href="{resolve(item.link)}">
+								{item.link_text}
 							</a>
 						</li>
 					{/each}

@@ -1,4 +1,5 @@
 <script>
+	import Meta from '$lib/Meta.svelte';
 	import Header from '$lib/Header.svelte';
 	import Footer from '$lib/Footer.svelte';
 	import { onMount } from 'svelte';
@@ -17,6 +18,10 @@
 		}
 	});
 </script>
+
+<svelte:head>
+	<Meta />
+</svelte:head>
 
 <div class="view">
 	<div class="gradient"></div>
