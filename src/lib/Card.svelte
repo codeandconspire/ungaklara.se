@@ -7,9 +7,10 @@
   export let shrink = false
   export let color = null
   export let image = null
-  export let title = null
-  export let file = null
   export let date = null
+
+  /** @type {string|void|null}*/
+  export let title = null
 
   /** @type {{ href: string, text?: string }?}*/
   export let link = null
@@ -27,7 +28,7 @@
 <article
   class="card"
   class:shrink
-  class:simple={file}
+  class:simple={filetype}
   class:fill={color || background}
   class:interactive={link && (color || background)}
   class:dark={background || (color && luma(color) < 110)}

@@ -51,58 +51,48 @@
       {#if slice.slice_type === '__blurbs'}
         <Grid size={{ md: '1of2', lg: '1of3' }}>
           {#each slice.items as item}
-            {#if slice.slice_type === 'link_blurb'}
-              {@const href = resolve(item.link)}
+            {#if item.slice_type === 'link_blurb'}
+              {@const href = resolve(item.primary.link)}
               {#if href}
                 <GridCell>
                   <Card
-                    title={item.link.data.title}
-                    image={item.link.data.featured_image}
-                    color={slice.primary.color || item.link.data.theme}
-                    link={{ href, text: item.link.data.cta }}>
-                    {item.link.data.description}
+                    title={asText(item.primary.link.data.title)}
+                    image={item.primary.link.data.featured_image}
+                    color={item.primary.color || item.primary.link.data.theme}
+                    link={{ href, text: item.primary.link.data.cta }}>
+                    <RichText content={item.primary.link.data.description} />
                   </Card>
                 </GridCell>
               {/if}
             {/if}
 
-            {#if slice.slice_type === 'file_blurb'}
-              <!-- const { primary } = slice;
-              if (!primary.file.url || primary.file.isBroken) return null;
-              blurbs.push(
-                asCard({
-                  file: true,
-                  image: primary.image,
-                  title: primary.title,
-                  body: primary.text,
-                  color: primary.color,
-                  link: {
-                    href: primary.file.url,
-                    onclick: () =>
-                      emit('track:view_item', asText(primary.title), 'Media', 'Download media')
-                  }
-                })
-              );
-              return blurbs; -->
+            {#if item.slice_type === 'file_blurb'}
+              {#if item.primary.file.url}
+                <GridCell>
+                  <Card
+                    title={item.primary.title}
+                    image={item.primary.image}
+                    color={item.primary.color}
+                    link={{ href: item.primary.file.url }}>
+                    <RichText content={item.primary.text} />
+                  </Card>
+                </GridCell>
+              {/if}
             {/if}
 
-            {#if slice.slice_type === 'any_blurb'}
-              <!-- const { primary } = slice;
-              const { link } = primary;
-              if ((!link.url && !link.id) || link.isBroken) return null;
-              blurbs.push(
-                asCard({
-                  image: primary.image,
-                  title: primary.title,
-                  body: primary.text,
-                  color: primary.color,
-                  link: {
-                    href: resolve(link),
-                    external: link.target === '_blank'
-                  }
-                })
-              );
-              return blurbs; -->
+            {#if item.slice_type === 'any_blurb'}
+              {@const href = resolve(item.primary.link)}
+              {#if href}
+                <GridCell>
+                  <Card
+                    title={item.primary.title}
+                    image={item.primary.image}
+                    color={item.primary.color}
+                    link={{ href }}>
+                    <RichText content={item.primary.text} />
+                  </Card>
+                </GridCell>
+              {/if}
             {/if}
           {/each}
         </Grid>

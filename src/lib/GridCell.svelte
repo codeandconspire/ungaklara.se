@@ -6,18 +6,18 @@
 
   const classes = Object.entries(size)
     .map(([key, value]) =>
-      key === 'xs' ? `u-size${value}` : `u-${size}-size${value}`
+      key === 'xs' ? `u-size${value}` : `u-${key}-size${value}`
     )
     .concat('cell')
     .join(' ')
 </script>
 
 {#if ordered}
-  <li class={classes} class:appear={$appear} class:carousel={$carousel}>
+  <li class={classes} class:appear class:carousel>
     <slot />
   </li>
 {:else}
-  <div class={classes} class:appear={$appear} class:carousel={$carousel}>
+  <div class={classes} class:appear class:carousel>
     <slot />
   </div>
 {/if}
