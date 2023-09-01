@@ -1,6 +1,12 @@
 export const page = dedent`
   {
     ...pageFields
+    parent {
+      ...on page {
+        title
+        shortname
+      }
+    }
     body {
       ...on link_blurb {
         non-repeat {
