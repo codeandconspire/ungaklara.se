@@ -5,6 +5,7 @@
   import RichText from '$lib/RichText.svelte'
   import GridCell from '$lib/GridCell.svelte'
   import Intro from '$lib/Intro.svelte'
+  import Html from '$lib/Html.svelte'
   import Grid from '$lib/Grid.svelte'
   import Card from '$lib/Card.svelte'
 
@@ -99,37 +100,27 @@
       {/if}
 
       {#if slice.slice_type === 'text'}
-        <!-- const items = slice.items.filter((item) => item.text.length);
-        if (!slice.primary.text.length && !items.length) return null;
-        return html`
+        {@const items = slice.items.filter((item) => item.text.length)}
+        {#if slice.primary.text.length && !slice.primary.items.length}
           <div class="u-spaceV6">
-            ${slice.primary.text.length
-              ? html`
-                  <div class="Text Text--large">
-                    ${asElement(slice.primary.text, resolve, serialize)}
-                  </div>
-                `
-              : null}
-            ${items.length
-              ? items.length > 1
-                ? grid(
-                    { size: { md: '1of2' } },
-                    items.map(
-                      (item) => html`
-                        <div class="Text Text--large u-spaceB2">
-                          ${asElement(item.text, resolve, cap('h4'))}
-                        </div>
-                      `
-                    )
-                  )
-                : html`
-                    <div class="Text Text--large">
-                      ${asElement(items[0].text, resolve, serialize)}
-                    </div>
-                  `
-              : null}
+            {#if slice.primary.text.length}
+              <Html size="lg">
+                <RichText content={slice.primary.text} />
+              </Html>
+            {/if}
+            {#if items.length}
+              <Grid size={{ md: '1of2' }}>
+                {#each items as item}
+                  <GridCell>
+                    <Html size="lg" class="u-spaceB2">
+                      <RichText content={item.text} />
+                    </Html>
+                  </GridCell>
+                {/each}
+              </Grid>
+            {/if}
           </div>
-        `; -->
+        {/if}
       {/if}
 
       {#if slice.slice_type === 'heading'}
