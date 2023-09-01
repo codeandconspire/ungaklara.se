@@ -6,8 +6,6 @@ export default function resolve(doc) {
 			return `/scen`;
 		case 'event':
 			return `/scen/${doc.uid}`;
-		case 'teachers':
-			return `/pedagog`;
 		case 'your_visit':
 			return `/besoket`;
 		case 'Web':

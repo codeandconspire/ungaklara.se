@@ -50,24 +50,27 @@
 	}
 
 	.link {
-		display: flex;
-		align-items: center;
-		padding: 0 0 0.1rem;
-		border-bottom: var(--border-width) solid transparent;
-		margin: 0.1em 0.3rem 0.15em 0.8rem;
-		font-family: 'UK';
-		font-size: 1.25rem;
-		font-weight: 600;
-		letter-spacing: -0.03em;
-		word-spacing: -0.06em;
+    display: flex;
+    align-items: center;
+    padding: 0 0 0.1rem;
+    border-bottom: var(--border-width) solid transparent;
+    margin: 0.1em 0.3rem 0.15em 0.8rem;
+    font-family: 'UK';
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    word-spacing: -0.06em;
+    line-height: 1.3;
 	}
 
 	.link:hover,
 	.link.is-current:hover {
-		background: black;
-		color: rgb(var(--theme-color));
-		border-color: transparent;
-		box-shadow: 0.1em 0 0 black, -0.1em 0 0 black;
+    background: black;
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0.3em 0 0 black, -0.3em 0 0 black;
+    mix-blend-mode: color-burn;
+		border-radius: 3px;
 	}
 
 	@media (min-width: 600px) {

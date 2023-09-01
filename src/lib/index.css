@@ -41,7 +41,7 @@
 	cursor: default; /* 3 */
 	font-family: var(--document-font-family);
 	background-color: rgb(var(--theme-color, var(--document-background)));
-	transition: background-color 250ms var(--ease);
+	transition: background-color 750ms var(--ease);
 	color: rgb(var(--document-color));
 	font-size: 100%;
 	line-height: var(--document-line-height);
