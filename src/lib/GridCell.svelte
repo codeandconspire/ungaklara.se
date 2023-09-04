@@ -2,7 +2,7 @@
   import { GRID } from '$lib/Grid.svelte'
   import { getContext } from 'svelte'
 
-  const { size, appear, ordered, carousel } = getContext(GRID)
+  $: ({ size, appear, ordered, carousel } = getContext(GRID))
 
   const classes = Object.entries(size)
     .map(([key, value]) =>

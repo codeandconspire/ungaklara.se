@@ -3,7 +3,6 @@
 </script>
 
 <script>
-  import { writable } from 'svelte/store'
   import { setContext } from 'svelte'
 
   export let size = {}

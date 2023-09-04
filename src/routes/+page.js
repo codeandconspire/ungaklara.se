@@ -1,17 +1,42 @@
 import { error } from '@sveltejs/kit'
 import { createClient } from '@prismicio/client'
-import { page as pageQuery } from '$lib/queries.js'
 
 const graphQuery = `
   {
-    page ${pageQuery}
+    page {
+      ...pageFields
+      parent {
+        ...on page {
+          title
+          shortname
+        }
+      }
+      body {
+        ...on link_blurb {
+          non-repeat {
+            ...non-repeatFields
+            link {
+              ...on page {
+                theme
+                title
+                description
+                featured_image
+              }
+            }
+          }
+        }
+      }
+    }
   }
 `
 
-export async function load({ fetch }) {
+export async function load({ fetch, params }) {
+  /** @type {{ slug?: string }} */
+  const { slug = 'start' } = params
+
   try {
     const client = createClient('unga-klara', { fetch })
-    const page = await client.getByUID('page', 'start', { graphQuery })
+    const page = await client.getByUID('page', slug, { graphQuery })
     return { page }
   } catch (err) {
     throw error(404, 'Not found')
