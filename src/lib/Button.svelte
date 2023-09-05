@@ -5,6 +5,8 @@
   export let secondary = false
   export let disabled = false
   export let cover = false
+
+  /** @type {string?} */
   export let href = null
 
   /** @type {string?} */

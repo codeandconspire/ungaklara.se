@@ -1,17 +1,14 @@
 import { createClient, filter } from '@prismicio/client'
-import { TICKSTER_API_KEY } from '$env/static/private'
 import parseJSON from 'date-fns/parseJSON'
 import addYears from 'date-fns/addYears'
 import { error } from '@sveltejs/kit'
 
-const store = {}
+import getProduction from '$lib/production.js'
+
 const PAGE_SIZE = 12
-const EVENT_URL =
-  /https?:\/\/(?:secure|www).tickster.com\/(?:\w{2}\/(?:events\/)?)?(.+?)(?:\/|$)/
 
 export async function load({ fetch, url, platform }) {
   const tab = url.pathname.split('/').pop()
-  const store = getStore(platform)
 
   const { page, tag, period } = Object.fromEntries(url.searchParams)
 
@@ -71,7 +68,7 @@ export async function load({ fetch, url, platform }) {
 
     const events = await Promise.all(
       response.results.map(async (doc) => {
-        const production = await getProduction(doc.data.buy_link.url)
+        const production = await getProduction(doc.data.buy_link.url, platform)
         const shows = production?.childEvents.map((event) => {
           return { ...event, goods: undefined }
         })
@@ -85,56 +82,10 @@ export async function load({ fetch, url, platform }) {
 
     return events.sort((a, b) => (getFirstDate(a) < getFirstDate(b) ? -1 : 1))
   }
-
-  async function getProduction(url) {
-    if (!url) return null
-
-    try {
-      const match = url.match(EVENT_URL)
-      if (!match) return null
-      const [, id] = match
-
-      const cached = await store.get(id)
-      if (cached) return JSON.parse(cached)
-
-      const res = await fetch(
-        `https://api.tickster.com/sv/api/0.4/events/${id}?key=${TICKSTER_API_KEY}`
-      )
-
-      if (!res.ok) return null
-
-      const body = await res.json()
-
-      await store.put(id, JSON.stringify(body), {
-        expirationTtl: 60 * 10 // 10 minutes
-      })
-
-      return body
-    } catch (err) {
-      return null
-    }
-  }
 }
 
 function getFirstDate({ production }) {
   return production.shows?.length
     ? production.shows.map((event) => parseJSON(event.start)).sort()[0]
     : parseJSON(production.event?.start)
-}
-
-/**
- * @param {object} platform
- * @returns {KVNamespace}
- */
-function getStore(platform) {
-  return (
-    platform?.env?.STORE || {
-      async get(key) {
-        return store[key]
-      },
-      async put(key, value) {
-        store[key] = value
-      }
-    }
-  )
 }

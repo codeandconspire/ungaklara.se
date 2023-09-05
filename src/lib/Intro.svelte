@@ -2,67 +2,41 @@
   import Loader from '$lib/Loader.svelte'
 
   export let title = undefined
-  export let text = undefined
   export let collapse = false
-  export let loading = false
   export let adapt = false
-  export let badge = null
-  export let blurb = null
+  export let blurb = false
   export let image = null
 </script>
 
-{#if loading}
-  <div class="intro" class:collapse class:adapt class:blurb>
-    <div class="title">
-      {#if badge}
-        <span class="badge">
-          <span class="u-textLabel"><Loader length={4} /></span>
-        </span>
-      {/if}
-      <Loader length={6} />
-    </div>
-    {#if text}
-      <div class="text"><Loader length={8} /></div>
+<div class="intro" class:collapse class:adapt class:blurb>
+  <slot />
+  {#if $$slots.action && blurb}
+    <div class="u-container u-invisible"><hr /></div>
+  {/if}
+  <div class="title">
+    {#if $$slots.badge}
+      <span class="badge">
+        <span class="u-textLabel"><slot name="badge" /></span>
+      </span>
     {/if}
-    {#if image}
-      <div class="image">
-        <div class="u-loading u-aspect16-9" />
-      </div>
-    {/if}
+    {title}
   </div>
-{:else}
-  <div class="intro" class:collapse class:adapt class:blurb>
-    <slot />
-    {#if $$slots.action && blurb}
-      <div class="u-container u-invisible"><hr /></div>
-    {/if}
-    <div class="title">
-      {#if $$slots.badge}
-        <span class="badge">
-          <span class="u-textLabel"><slot name="badge" /></span>
-        </span>
-      {/if}
-      {title}
-    </div>
-    {#if $$slots.text}
-      <div class="text"><slot name="text" /></div>
-    {/if}
-    {#if image}
-      {#if image.width && image.height}
-        <div
-          class="container"
-          style:--Intro-aspect={image.height / image.width}>
-          <img class="image" alt={image.alt} {...image} />
-        </div>
-      {:else}
+  {#if $$slots.text}
+    <div class="text"><slot name="text" /></div>
+  {/if}
+  {#if image}
+    {#if image.width && image.height}
+      <div class="container" style:--Intro-aspect={image.height / image.width}>
         <img class="image" alt={image.alt} {...image} />
-      {/if}
+      </div>
+    {:else}
+      <img class="image" alt={image.alt} {...image} />
     {/if}
-    {#if $$slots.action && blurb}
-      <div class="action"><slot name="action" /></div>
-    {/if}
-  </div>
-{/if}
+  {/if}
+  {#if $$slots.action && blurb}
+    <div class="action"><slot name="action" /></div>
+  {/if}
+</div>
 
 <style>
   :root {
