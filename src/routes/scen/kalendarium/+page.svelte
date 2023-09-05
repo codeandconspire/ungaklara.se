@@ -9,23 +9,27 @@
   import Framed from '$lib/Framed.svelte'
   import Symbol from '$lib/Symbol.svelte'
   import srcset from '$lib/utils/srcset'
+  import Html from '$lib/Html.svelte'
   import Scen from '../+page.svelte'
 
   export let data
 
-  $: byDate = data.events
-    .flatMap((event) => {
-      return event.production.shows.map((show) => {
-        const [date] = show.start.split('T')
-        return { event, show, date }
+  $: byDate = Object.values(
+    data.events
+      .flatMap((event) => {
+        return event.production?.shows?.map((show) => {
+          const [date] = show.start.split('T')
+          return { event, show, date }
+        })
       })
-    })
-    .sort((a, b) => (a.date < b.date ? -1 : 1))
-    .reduce((acc, item) => {
-      if (item.date in acc) acc[item.date].push(item)
-      else acc[item.date] = [item]
-      return acc
-    }, {})
+      .filter(Boolean)
+      .sort((a, b) => (a.date < b.date ? -1 : 1))
+      .reduce((acc, item) => {
+        if (item.date in acc) acc[item.date].push(item)
+        else acc[item.date] = [item]
+        return acc
+      }, {})
+  )
 
   function image(props) {
     if (!props.url) return null
@@ -41,81 +45,87 @@
 </script>
 
 <Scen {data} tab="kalendarium">
-  <ol>
-    {#each Object.values(byDate) as items}
-      {@const date = parseJSON(items[0].show.start)}
-      <li class="row" in:fly={{ y: 50, duration: 200 }}>
-        <h2 class="day">
-          {date.toLocaleString('sv-SE', {
-            weekday: 'long'
-          })}, {date.toLocaleString('sv-SE', {
-            year: 'numeric',
-            day: 'numeric',
-            month: 'long'
-          })}
-        </h2>
-      </li>
-      {#each items as { event, show }}
-        {@const start = parseJSON(show.start)}
-        <li
-          class="row"
-          in:fly={{ y: 50, duration: 200 }}
-          style:--theme-color={event.data.theme
-            ? hexToRgb(event.data.theme)
-            : null}>
-          {#if event.data.poster.url}
-            <div class="poster">
-              <Framed size="small" {...image(event.data.poster)} />
-            </div>
-          {/if}
-          <div class="body">
-            <div>
-              <a href={resolve(event)} class="link">
-                {asText(event.data.title)}
-              </a>
-              <br />
-              <div class="meta">
-                <span class="time">
-                  <span class="icon"><Symbol name="clock" /></span>
-                  {start.toLocaleString('sv-SE', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hourCycle: 'h23'
-                  })}
-                </span>
-                <span class="location">
-                  <span class="icon"><Symbol name="location" /></span>
-                  {show.venue.name}
-                </span>
-                {#if show.misc}
-                  <!-- This is not yet implemented, don't know where to put it -->
-                  <span class="detail">
-                    <span class="icon">
-                      <Symbol name="check" />
-                    </span>
-                    {show.misc}
+  {#if !byDate.length}
+    <Html class="u-spaceV8 u-textCenter u-sizeFull">
+      <p>Kunde inte hitta något här</p>
+    </Html>
+  {:else}
+    <ol>
+      {#each byDate as items}
+        {@const date = parseJSON(items[0].show.start)}
+        <li class="row" in:fly={{ y: 50, duration: 200 }}>
+          <h2 class="day">
+            {date.toLocaleString('sv-SE', {
+              weekday: 'long'
+            })}, {date.toLocaleString('sv-SE', {
+              year: 'numeric',
+              day: 'numeric',
+              month: 'long'
+            })}
+          </h2>
+        </li>
+        {#each items as { event, show }}
+          {@const start = parseJSON(show.start)}
+          <li
+            class="row"
+            in:fly={{ y: 50, duration: 200 }}
+            style:--theme-color={event.data.theme
+              ? hexToRgb(event.data.theme)
+              : null}>
+            {#if event.data.poster.url}
+              <div class="poster">
+                <Framed size="small" {...image(event.data.poster)} />
+              </div>
+            {/if}
+            <div class="body">
+              <div>
+                <a href={resolve(event)} class="link">
+                  {asText(event.data.title)}
+                </a>
+                <br />
+                <div class="meta">
+                  <span class="time">
+                    <span class="icon"><Symbol name="clock" /></span>
+                    {start.toLocaleString('sv-SE', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hourCycle: 'h23'
+                    })}
                   </span>
+                  <span class="location">
+                    <span class="icon"><Symbol name="location" /></span>
+                    {show.venue.name}
+                  </span>
+                  {#if show.misc}
+                    <!-- This is not yet implemented, don't know where to put it -->
+                    <span class="detail">
+                      <span class="icon">
+                        <Symbol name="check" />
+                      </span>
+                      {show.misc}
+                    </span>
+                  {/if}
+                </div>
+              </div>
+              <div class="actions">
+                <Button
+                  primary
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={event.data.buy_link.url}
+                  disabled={show.stockStatus === 'SoldOut'}>
+                  {show.stockStatus === 'SoldOut' ? 'Slutsålt' : 'Boka biljett'}
+                </Button>
+                {#if show.stockStatus === 'FewLeft'}
+                  <div class="note">Fåtal kvar!</div>
                 {/if}
               </div>
             </div>
-            <div class="actions">
-              <Button
-                primary
-                target="_blank"
-                rel="noopener noreferrer"
-                href={event.data.buy_link.url}
-                disabled={show.stockStatus === 'SoldOut'}>
-                {show.stockStatus === 'SoldOut' ? 'Slutsålt' : 'Boka biljett'}
-              </Button>
-              {#if show.stockStatus === 'FewLeft'}
-                <div class="note">Fåtal kvar!</div>
-              {/if}
-            </div>
-          </div>
-        </li>
+          </li>
+        {/each}
       {/each}
-    {/each}
-  </ol>
+    </ol>
+  {/if}
 </Scen>
 
 <style>

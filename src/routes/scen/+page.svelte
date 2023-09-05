@@ -1,8 +1,8 @@
 <script>
+  import { page, navigating } from '$app/stores'
   import { asText } from '@prismicio/client'
   import { quintOut } from 'svelte/easing'
   import { goto } from '$app/navigation'
-  import { page } from '$app/stores'
 
   import hexToRgb from '$lib/utils/hex-to-rgb'
   import resolve from '$lib/utils/resolve.js'
@@ -26,8 +26,13 @@
   export let period = null
 
   function onselect(event) {
+    const { detail } = event
+
+    tag = detail.tag
+    period = detail.period
+
     const url = new URL($page.url)
-    for (const [key, value] of Object.entries(event.detail)) {
+    for (const [key, value] of Object.entries(detail)) {
       url.searchParams.set(key, value)
     }
     goto(url, { noScroll: true })
@@ -56,7 +61,7 @@
       <Tab label="Salong" key="salong" href="/scen/salong" />
     </Tablist>
 
-    {#if tab === 'arkiv'}
+    {#if (tab === 'arkiv' && !$navigating) || $navigating?.to?.route.id === '/scen/arkiv'}
       <Filter
         {tag}
         {period}
@@ -73,7 +78,11 @@
     </div>
   {/if}
 
-  {#if !data.events.length}
+  {#if $navigating}
+    <Html class="u-spaceV8 u-textCenter u-sizeFull">
+      <p>Hämtar föreställningar</p>
+    </Html>
+  {:else if !data.events.length}
     <Html class="u-spaceV8 u-textCenter u-sizeFull">
       <p>Kunde inte hitta något här</p>
     </Html>

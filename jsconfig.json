@@ -1,20 +1,20 @@
 {
-	"extends": "./.svelte-kit/tsconfig.json",
-	"compilerOptions": {
-		"allowJs": true,
-		"checkJs": true,
-		"forceConsistentCasingInFileNames": true,
-		"lib": ["ESNext", "DOM", "DOM.Iterable"],
-		"types": ["vite/client", "@prismicio/types"],
-		"moduleResolution": "node",
-		"module": "es2022",
-		"noImplicitAny": false,
-		"skipLibCheck": true,
-		"sourceMap": true,
-		"strict": true,
-		"target": "es2022",
-		"jsx": "react-jsx",
-		"jsxImportSource": "preact",
-		"resolveJsonModule": true
-	}
+  "extends": "./.svelte-kit/tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "types": ["vite/client", "@prismicio/types", "@cloudflare/workers-types"],
+    "moduleResolution": "node",
+    "module": "es2022",
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2022",
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "resolveJsonModule": true
+  }
 }
