@@ -24,9 +24,14 @@ export async function load({ fetch, url }) {
 
     return { page: _page, events }
   } catch (err) {
-    throw error(404, 'Not found')
+    const message = err instanceof Error ? err.message : String(err)
+    throw error(500, message)
   }
 
+  /**
+   * @param {number} page
+   * @returns {Promise<import('@prismicio/client').PrismicDocument & { production?: any }[]>}
+   */
   async function getPage(page) {
     const selector = tab === 'arkiv' ? 'dateBefore' : 'dateAfter'
     var filters = [
@@ -62,17 +67,24 @@ export async function load({ fetch, url }) {
 
     if (tab === 'arkiv') return response.results
 
-    const pairs = await Promise.all(
-      response.results.map(async (doc) => [
-        await getEvent(doc.data.buy_link.url),
-        doc
-      ])
+    const events = await Promise.all(
+      response.results.map(async (doc) => {
+        const production = await getProduction(doc.data.buy_link.url)
+        const shows = production.childEvents.map((event) => {
+          return { ...event, goods: undefined }
+        })
+        return {
+          ...doc,
+          // Drop exccessive data
+          production: { ...production, shows, childEvents: undefined }
+        }
+      })
     )
 
-    return pairs.sort((a, b) => (a[0] < b[0] ? -1 : 1)).map(([, doc]) => doc)
+    return events.sort((a, b) => (getFirstDate(a) < getFirstDate(b) ? -1 : 1))
   }
 
-  async function getEvent(url) {
+  async function getProduction(url) {
     if (!url) return null
 
     try {
@@ -86,13 +98,15 @@ export async function load({ fetch, url }) {
 
       if (!res.ok) return null
 
-      const { event } = await res.json()
-
-      return event.childEvents.length
-        ? event.childEvents.map((event) => parseJSON(event.start)).sort()[0]
-        : parseJSON(event.start)
+      return res.json()
     } catch (err) {
       return null
     }
   }
+}
+
+function getFirstDate({ production }) {
+  return production.shows.length
+    ? production.shows.map((event) => parseJSON(event.start)).sort()[0]
+    : parseJSON(production.event.start)
 }

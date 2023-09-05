@@ -52,7 +52,7 @@
       <div class="body">
         {#if date}
           <time class="meta" datetime={date.toJSON()}>
-            {date.toLocaleDateString('se-SV', {
+            {date.toLocaleString('se-SV', {
               year: 'numeric',
               month: 'long',
               day: 'numeric'

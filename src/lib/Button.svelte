@@ -3,6 +3,7 @@
 
   export let primary = false
   export let secondary = false
+  export let disabled = false
   export let cover = false
   export let href = null
 
@@ -18,6 +19,7 @@
     class={`button ${_class || ''}`}
     class:primary
     class:secondary
+    class:disabled
     class:cover
     {...attrs}>
     {#if icon}
@@ -31,6 +33,7 @@
     class:primary
     class:secondary
     class:cover
+    {disabled}
     {...attrs}>
     {#if icon}
       <span class="icon"><Symbol name={icon} /></span>
@@ -69,12 +72,13 @@
     }
   }
 
-  .button:not([disabled]):hover {
+  .button:not([disabled], .disabled):hover {
     background: rgb(var(--document-color));
     color: #fff;
   }
 
-  .button[disabled] {
+  .button[disabled],
+  .disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
