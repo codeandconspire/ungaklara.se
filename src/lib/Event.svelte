@@ -6,11 +6,12 @@
 
   export let teaser = false
   export let image = null
-  export let href = null
-  export let ticket = null
 
   /** @type {string?} */
   export let label = null
+
+  /** @type {{ [key: string]: any, text: string }[]}*/
+  export let buttons = []
 
   let imageAttrs = null
   $: if (image.url) {
@@ -33,25 +34,13 @@
     <Html>
       <slot />
     </Html>
-    {#if href || ticket}
+    {#if buttons.length}
       <div class="actions">
-        {#if href}
+        {#each buttons as { text, ...attrs }}
           <span class="action">
-            <Button {href} primary cover>Läs mer</Button>
+            <Button {...attrs}>{text}</Button>
           </span>
-        {/if}
-        {#if ticket}
-          <span class="action">
-            <Button
-              secondary
-              icon="arrow"
-              href={ticket}
-              target="_blank"
-              rel="noopener noreferrer">
-              Boka biljett
-            </Button>
-          </span>
-        {/if}
+        {/each}
       </div>
     {/if}
   </div>

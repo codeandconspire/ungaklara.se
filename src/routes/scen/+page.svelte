@@ -97,9 +97,23 @@
             : null}>
           <Event
             teaser
-            href={resolve(event)}
+            buttons={[
+              {
+                text: 'Läs mer',
+                href: resolve(event),
+                primary: true,
+                cover: true
+              },
+              {
+                text: 'Boka biljett',
+                secondary: true,
+                icon: 'arrow',
+                href: resolve(event.data.buy_link),
+                target: '_blank',
+                rel: 'noopener noreferrer'
+              }
+            ]}
             image={event.data.poster}
-            ticket={resolve(event.data.buy_link)}
             label={[event.data.category, event.data.shortname]
               .filter(Boolean)
               .join(' – ')}>
