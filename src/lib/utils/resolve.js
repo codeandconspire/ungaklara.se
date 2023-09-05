@@ -1,4 +1,5 @@
 export default function resolve(doc) {
+	if (typeof doc === 'string') return doc
 	switch (doc.type) {
 		case 'page':
 			return `/${doc.uid}`;
