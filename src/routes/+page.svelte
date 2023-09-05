@@ -4,7 +4,9 @@
   import resolve from '$lib/utils/resolve.js'
   import RichText from '$lib/RichText.svelte'
   import GridCell from '$lib/GridCell.svelte'
+  import srcset from '$lib/utils/srcset.js'
   import Intro from '$lib/Intro.svelte'
+  import Html from '$lib/Html.svelte'
   import Grid from '$lib/Grid.svelte'
   import Card from '$lib/Card.svelte'
 
@@ -24,6 +26,19 @@
         return acc.concat(slice)
     }
   }, [])
+
+  function image(props) {
+    if (!props.url) return null
+    return {
+      srcset: srcset(props.url, [200, 400, 600, 900, [1600, 'q_60,c_thumb']], {
+        transforms: 'c_thumb'
+      }),
+      sizes: '(min-width: 600px) 50vw, 100vw',
+      alt: props.alt || '',
+      src: srcset(props.url, [900, 'c_thumb']).split(' ')[0],
+      ...props.dimensions
+    }
+  }
 
   $: parent = data.page.data.parent
   $: parentHref = resolve(parent)
@@ -51,107 +66,85 @@
       {#if slice.slice_type === '__blurbs'}
         <Grid size={{ md: '1of2', lg: '1of3' }}>
           {#each slice.items as item}
-            {#if slice.slice_type === 'link_blurb'}
-              {@const href = resolve(item.link)}
+            {#if item.slice_type === 'link_blurb'}
+              {@const href = resolve(item.primary.link)}
               {#if href}
                 <GridCell>
                   <Card
-                    title={item.link.data.title}
-                    image={item.link.data.featured_image}
-                    color={slice.primary.color || item.link.data.theme}
-                    link={{ href, text: item.link.data.cta }}>
-                    {item.link.data.description}
+                    title={asText(item.primary.link.data.title)}
+                    image={image(item.primary.link.data.featured_image)}
+                    color={item.primary.color || item.primary.link.data.theme}
+                    link={{ href, text: item.primary.link.data.cta }}>
+                    <RichText content={item.primary.link.data.description} />
                   </Card>
                 </GridCell>
               {/if}
             {/if}
 
-            {#if slice.slice_type === 'file_blurb'}
-              <!-- const { primary } = slice;
-              if (!primary.file.url || primary.file.isBroken) return null;
-              blurbs.push(
-                asCard({
-                  file: true,
-                  image: primary.image,
-                  title: primary.title,
-                  body: primary.text,
-                  color: primary.color,
-                  link: {
-                    href: primary.file.url,
-                    onclick: () =>
-                      emit('track:view_item', asText(primary.title), 'Media', 'Download media')
-                  }
-                })
-              );
-              return blurbs; -->
+            {#if item.slice_type === 'file_blurb'}
+              {#if item.primary.file.url}
+                <GridCell>
+                  <Card
+                    title={item.primary.title}
+                    image={image(item.primary.image)}
+                    color={item.primary.color}
+                    link={{ href: item.primary.file.url }}>
+                    <RichText content={item.primary.text} />
+                  </Card>
+                </GridCell>
+              {/if}
             {/if}
 
-            {#if slice.slice_type === 'any_blurb'}
-              <!-- const { primary } = slice;
-              const { link } = primary;
-              if ((!link.url && !link.id) || link.isBroken) return null;
-              blurbs.push(
-                asCard({
-                  image: primary.image,
-                  title: primary.title,
-                  body: primary.text,
-                  color: primary.color,
-                  link: {
-                    href: resolve(link),
-                    external: link.target === '_blank'
-                  }
-                })
-              );
-              return blurbs; -->
+            {#if item.slice_type === 'any_blurb'}
+              {@const href = resolve(item.primary.link)}
+              {#if href}
+                <GridCell>
+                  <Card
+                    title={item.primary.title}
+                    image={image(item.primary.image)}
+                    color={item.primary.color}
+                    link={{ href }}>
+                    <RichText content={item.primary.text} />
+                  </Card>
+                </GridCell>
+              {/if}
             {/if}
           {/each}
         </Grid>
       {/if}
 
       {#if slice.slice_type === 'text'}
-        <!-- const items = slice.items.filter((item) => item.text.length);
-        if (!slice.primary.text.length && !items.length) return null;
-        return html`
+        {@const items = slice.items.filter((item) => item.text.length)}
+        {#if slice.primary.text.length && !slice.primary.items.length}
           <div class="u-spaceV6">
-            ${slice.primary.text.length
-              ? html`
-                  <div class="Text Text--large">
-                    ${asElement(slice.primary.text, resolve, serialize)}
-                  </div>
-                `
-              : null}
-            ${items.length
-              ? items.length > 1
-                ? grid(
-                    { size: { md: '1of2' } },
-                    items.map(
-                      (item) => html`
-                        <div class="Text Text--large u-spaceB2">
-                          ${asElement(item.text, resolve, cap('h4'))}
-                        </div>
-                      `
-                    )
-                  )
-                : html`
-                    <div class="Text Text--large">
-                      ${asElement(items[0].text, resolve, serialize)}
-                    </div>
-                  `
-              : null}
+            {#if slice.primary.text.length}
+              <Html size="lg">
+                <RichText content={slice.primary.text} />
+              </Html>
+            {/if}
+            {#if items.length}
+              <Grid size={{ md: '1of2' }}>
+                {#each items as item}
+                  <GridCell>
+                    <Html size="lg" class="u-spaceB2">
+                      <RichText content={item.text} />
+                    </Html>
+                  </GridCell>
+                {/each}
+              </Grid>
+            {/if}
           </div>
-        `; -->
+        {/if}
       {/if}
 
       {#if slice.slice_type === 'heading'}
-        <!-- if (!slice.primary.heading.length) return null;
-        return html`
-          <div class="Text Text--large u-spaceB5 u-pushDown">
-            <h2>${asText(slice.primary.heading)}</h2>
-            ${slice.primary.text && slice.primary.text.length
-              ? asElement(slice.primary.text, resolve, serialize)
-              : null}
-          </div>
-        `; -->
+        {@const heading = asText(slice.primary.heading)}
+        {#if heading}
+          <Html size="lg" class="u-spaceB5 u-pushDown">
+            <h2>{heading}</h2>
+            <RichText content={slice.primary.text} />
+          </Html>
+        {/if}
       {/if}
 
       {#if slice.slice_type === 'quote'}

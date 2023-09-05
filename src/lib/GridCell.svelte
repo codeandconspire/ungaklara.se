@@ -2,22 +2,27 @@
   import { GRID } from '$lib/Grid.svelte'
   import { getContext } from 'svelte'
 
-  const { size, appear, ordered, carousel } = getContext(GRID)
+  const {
+    size = {},
+    appear = false,
+    ordered = false,
+    carousel = false
+  } = getContext(GRID)
 
   const classes = Object.entries(size)
     .map(([key, value]) =>
-      key === 'xs' ? `u-size${value}` : `u-${size}-size${value}`
+      key === 'xs' ? `u-size${value}` : `u-${key}-size${value}`
     )
     .concat('cell')
     .join(' ')
 </script>
 
 {#if ordered}
-  <li class={classes} class:appear={$appear} class:carousel={$carousel}>
+  <li class={classes} class:appear class:carousel>
     <slot />
   </li>
 {:else}
-  <div class={classes} class:appear={$appear} class:carousel={$carousel}>
+  <div class={classes} class:appear class:carousel>
     <slot />
   </div>
 {/if}

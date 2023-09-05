@@ -5,43 +5,42 @@
 
   export let background = null
   export let shrink = false
+  export let caption = null
   export let color = null
   export let image = null
-  export let title = null
-  export let file = null
   export let date = null
+
+  /** @type {boolean|number} */
+  export let clamp = false
+
+  /** @type {string|void|null}*/
+  export let title = null
 
   /** @type {{ href: string, text?: string }?}*/
   export let link = null
 
   $: internal = link?.href.match(/^\/[^/]/)
   $: filetype = link?.href.match(/\.(\w+)(?:\?|$)/)
-
-  $: imageAttrs = image
-    ? Object.fromEntries(
-        Object.entries(image).filter(([key]) => key !== 'caption')
-      )
-    : null
 </script>
 
 <article
   class="card"
   class:shrink
-  class:simple={file}
+  class:simple={filetype}
   class:fill={color || background}
   class:interactive={link && (color || background)}
   class:dark={background || (color && luma(color) < 110)}
-  style:--background-color={hexToRgb(color)}
+  style:--background-color={color && hexToRgb(color)}
   style:--figure-aspect={image.height && image.width
     ? `${(100 * image.height) / image.width}%`
     : null}>
   <div class="everything">
     {#if image}
       <figure class="figure u-hoverTriggerTarget">
-        <img class="image" alt="" {...imageAttrs} />
-        {#if image.caption}
+        <img class="image" alt="" {...image} />
+        {#if caption}
           <figcaption class="caption">
-            <p>{image.content}</p>
+            <p>{caption}</p>
           </figcaption>
         {/if}
       </figure>
@@ -50,7 +49,7 @@
       class="content"
       class:u-paddedBox={color}
       class:u-hoverTriggerTarget={color}>
-      <div class="Card-body">
+      <div class="body">
         {#if date}
           <time class="meta" datetime={date.toJSON()}>
             {date.toLocaleDateString('se-SV', {
@@ -61,7 +60,12 @@
           </time>
         {/if}
         <h3 class="title">{title}</h3>
-        <slot />
+        <div
+          class="text"
+          class:clamp
+          style:--clamp-lines={typeof clamp === 'number' ? clamp : null}>
+          <slot />
+        </div>
       </div>
 
       {#if link}
@@ -98,6 +102,7 @@
 <style>
   :root {
     --figure-aspect: 142.8%;
+    --clamp-lines: 3;
   }
 
   .card {
@@ -220,6 +225,13 @@
       height: 0;
       margin: 0;
     }
+  }
+
+  .clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--clamp-lines);
+    overflow: hidden;
   }
 
   .footer {
