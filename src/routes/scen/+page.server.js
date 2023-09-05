@@ -5,11 +5,12 @@ import addYears from 'date-fns/addYears'
 import { error } from '@sveltejs/kit'
 
 var PAGE_SIZE = 12
-var EVENT_URL = /https?:\/\/secure.tickster.com\/(?:\w{2}\/)?(.+?)(?:\/|$)/
+var EVENT_URL =
+  /https?:\/\/(?:secure|www).tickster.com\/(?:\w{2}\/(?:events\/)?)?(.+?)(?:\/|$)/
 
-export async function load({ fetch, url, params }) {
-  /** @type {{ slug?: string }} */
-  const { slug } = params
+export async function load({ fetch, url }) {
+  const tab = url.pathname.split('/').pop()
+
   const { page, tag, period } = Object.fromEntries(url.searchParams)
 
   const client = createClient('unga-klara', { fetch })
@@ -27,7 +28,7 @@ export async function load({ fetch, url, params }) {
   }
 
   async function getPage(page) {
-    const selector = slug === 'arkiv' ? 'dateBefore' : 'dateAfter'
+    const selector = tab === 'arkiv' ? 'dateBefore' : 'dateAfter'
     var filters = [
       filter.at('document.type', 'event'),
       filter[selector]('my.event.archive_on', Date.now())
@@ -38,7 +39,7 @@ export async function load({ fetch, url, params }) {
     }
 
     if (period) {
-      const min = parseJSON(period)
+      const min = new Date(+period, 0, 0)
       const max = addYears(min, 10)
       filters.push(
         filter.dateAfter('my.event.archive_on', min),
@@ -49,17 +50,17 @@ export async function load({ fetch, url, params }) {
     const response = await client.get({
       page,
       filters,
-      pageSize: slug === 'arkiv' ? PAGE_SIZE : 100,
+      pageSize: tab === 'arkiv' ? PAGE_SIZE : 100,
       orderings: {
         field:
-          slug === 'arkiv'
+          tab === 'arkiv'
             ? 'my.event.archive_on'
             : 'document.first_publication_date',
         direction: 'desc'
       }
     })
 
-    if (slug) return response.results
+    if (tab === 'arkiv') return response.results
 
     const pairs = await Promise.all(
       response.results.map(async (doc) => [

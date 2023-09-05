@@ -28,6 +28,7 @@
   }, [])
 
   function image(props) {
+    if (!props.url) return null
     return {
       srcset: srcset(props.url, [200, 400, 600, 900, [1600, 'q_60,c_thumb']], {
         transforms: 'c_thumb'

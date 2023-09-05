@@ -10,6 +10,9 @@
   export let image = null
   export let date = null
 
+  /** @type {boolean|number} */
+  export let clamp = false
+
   /** @type {string|void|null}*/
   export let title = null
 
@@ -27,14 +30,14 @@
   class:fill={color || background}
   class:interactive={link && (color || background)}
   class:dark={background || (color && luma(color) < 110)}
-  style:--background-color={hexToRgb(color)}
+  style:--background-color={color && hexToRgb(color)}
   style:--figure-aspect={image.height && image.width
     ? `${(100 * image.height) / image.width}%`
     : null}>
   <div class="everything">
     {#if image}
       <figure class="figure u-hoverTriggerTarget">
-        <img class="image" {...image} />
+        <img class="image" alt="" {...image} />
         {#if caption}
           <figcaption class="caption">
             <p>{caption}</p>
@@ -57,7 +60,12 @@
           </time>
         {/if}
         <h3 class="title">{title}</h3>
-        <slot />
+        <div
+          class="text"
+          class:clamp
+          style:--clamp-lines={typeof clamp === 'number' ? clamp : null}>
+          <slot />
+        </div>
       </div>
 
       {#if link}
@@ -94,6 +102,7 @@
 <style>
   :root {
     --figure-aspect: 142.8%;
+    --clamp-lines: 3;
   }
 
   .card {
@@ -216,6 +225,13 @@
       height: 0;
       margin: 0;
     }
+  }
+
+  .clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--clamp-lines);
+    overflow: hidden;
   }
 
   .footer {

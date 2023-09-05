@@ -11,7 +11,15 @@
 </script>
 
 {#if href}
-  <a {...$$restProps} {href} role="tab" class="tab" class:selected>{label}</a>
+  <a
+    {...$$restProps}
+    {href}
+    role="tab"
+    class="tab"
+    class:selected
+    data-sveltekit-noscroll>
+    {label}
+  </a>
 {:else}
   <button {...$$restProps} role="tab" class="tab" class:selected>
     {label}
@@ -23,7 +31,7 @@
     flex: 1 1 auto;
     padding: 0.8em 0.3em;
     border: solid #000;
-    border-width: 2px;
+    border-width: 2px 0 2px 2px;
     font-size: 1em;
     text-align: center;
     font-weight: 600;
@@ -34,12 +42,11 @@
 
   .tab:first-child {
     border-radius: 3px 0 0 3px;
-    border-right: 0;
   }
 
   .tab:last-child {
     border-radius: 0 3px 3px 0;
-    border-left: 0;
+    border-right-width: 2px;
   }
 
   @media (min-width: 600px) {

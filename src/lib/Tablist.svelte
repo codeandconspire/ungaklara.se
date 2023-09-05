@@ -7,7 +7,7 @@
 
   export let selected
 
-  $: setContext(TABLIST, { selected })
+  $: setContext(TABLIST, selected)
 </script>
 
 <nav class="tablist"><slot /></nav>

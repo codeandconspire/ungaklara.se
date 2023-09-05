@@ -1,13 +1,13 @@
 <script>
   import { asText } from '@prismicio/client'
   import { quintOut } from 'svelte/easing'
+  import { goto } from '$app/navigation'
   import { page } from '$app/stores'
 
   import hexToRgb from '$lib/utils/hex-to-rgb'
   import resolve from '$lib/utils/resolve.js'
   import RichText from '$lib/RichText.svelte'
   import Tablist from '$lib/Tablist.svelte'
-  import Button from '$lib/Button.svelte'
   import Filter from '$lib/Filter.svelte'
   import Intro from '$lib/Intro.svelte'
   import Event from '$lib/Event.svelte'
@@ -15,12 +15,22 @@
   import Tab from '$lib/Tab.svelte'
 
   export let data
-  export let tab
-  export let tag
-  export let period
+
+  /** @type {'aktuellt'|'kalendarium'|'arkiv'|'salong'}*/
+  export let tab = 'aktuellt'
+
+  /** @type {string?} */
+  export let tag = null
+
+  /** @type {string?} */
+  export let period = null
 
   function onselect(event) {
-    tab = event.details
+    const url = new URL($page.url)
+    for (const [key, value] of Object.entries(event.detail)) {
+      url.searchParams.set(key, value)
+    }
+    goto(url, { noScroll: true })
   }
 
   function appear(node, params) {
@@ -40,7 +50,7 @@
 
   <nav>
     <Tablist selected={tab}>
-      <Tab label="Aktuellt" key="scen" href="/scen" />
+      <Tab label="Aktuellt" key="aktuellt" href="/scen" />
       <Tab label="Kalendarium" key="kalendarium" href="/scen/kalendarium" />
       <Tab label="Arkiv" key="arkiv" href="/scen/arkiv" />
       <Tab label="Salong" key="salong" href="/scen/salong" />
@@ -48,13 +58,14 @@
 
     {#if tab === 'arkiv'}
       <Filter
-        options={data.page.data.filters}
-        selected={tag || period}
-        on:select={onselect} />
+        {tag}
+        {period}
+        on:select={onselect}
+        tags={data.page.data.filters.map((item) => item.tag).filter(Boolean)} />
     {/if}
   </nav>
 
-  {#if data.page?.data.notice}
+  {#if asText(data.page.data.notice.length)}
     <div class="notice">
       <Html>
         <RichText content={data.page.data.notice} />
@@ -66,8 +77,8 @@
     <Html class="u-spaceV8 u-textCenter u-sizeFull">
       <p>Kunde inte hitta något här</p>
     </Html>
-  {:else if tab == null}
-    <ol>
+  {:else if tab === 'aktuellt'}
+    <ol class="rows">
       {#each data.events as event}
         <li
           in:appear
@@ -89,6 +100,12 @@
         </li>
       {/each}
     </ol>
+  {:else}
+    <slot>
+      <Html class="u-spaceV8 u-textCenter u-sizeFull">
+        <p>Kunde inte hitta något här</p>
+      </Html>
+    </slot>
   {/if}
 
   <!-- ${pages && pages.length === page * PAGE_SIZE
@@ -100,6 +117,10 @@
 </div>
 
 <style>
+  .rows {
+    margin-top: 4.5rem;
+  }
+
   .row:not(:first-child) {
     padding-top: 0.8rem;
     border-top: 1px solid rgba(0, 0, 0, 0.15);

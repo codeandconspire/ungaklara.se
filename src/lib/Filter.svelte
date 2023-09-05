@@ -4,15 +4,22 @@
   import Button from './Button.svelte'
 
   const dispatch = createEventDispatcher()
-  const onchange = (event) => dispatch('select', event.target.value)
+  const onchange = (event) =>
+    dispatch('select', { [event.target.name]: event.target.value })
 
   const years = []
-  for (let year = +new Date().getFullYear(); +year >= 1970; year -= 10) {
+  const decade = String(new Date().getFullYear()).replace(/\d$/, '0')
+  for (let year = +decade; +year >= 1970; year -= 10) {
     years.push(String(year))
   }
 
-  export let options = []
-  export let selected
+  export let tags = []
+
+  /** @type {string?} */
+  export let tag = null
+
+  /** @type {string?} */
+  export let period = null
 </script>
 
 <form class="filter" method="GET">
@@ -24,29 +31,29 @@
         type="radio"
         name="tag"
         value=""
-        checked={!selected}
+        checked={!tag}
         on:change={onchange} />
       <span class="label interactive">Alla</span>
     </label>
-    {#each options as option}
+    {#each tags as _tag}
       <label class="u-inlineBlock">
         <input
           class="toggle"
           type="radio"
           name="tag"
-          value={option}
-          checked={option === selected}
+          value={_tag}
+          checked={_tag === tag}
           on:change={onchange} />
-        <span class="label interactive">{option}</span>
+        <span class="label interactive">{_tag}</span>
       </label>
     {/each}
   </fieldset>
   <label class="decade">
     <span class="label">Tidsperiod:</span>
     <select name="period" class="select" on:change={onchange}>
-      <option value="" selected={!years.includes(selected)}>Allt</option>
+      <option value="" selected={!years.includes(period)}>Allt</option>
       {#each years as year}
-        <option value={year} selected={year === selected}>
+        <option value={year} selected={year === period}>
           {year}-tal
         </option>
       {/each}
@@ -129,7 +136,7 @@
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
     background-color: #fff;
-    background-image: url('./arrow.svg');
+    background-image: url('/arrow.svg');
     background-position: calc(100% - 1em) 50%;
     background-size: 0.7em 0.45em;
     background-repeat: no-repeat;
