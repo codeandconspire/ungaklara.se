@@ -21,7 +21,7 @@
       if (link) {
         link.setAttribute(
           'href',
-          drawFavicon(favicon, getTheme($page.data.page))
+          drawFavicon(favicon, defineTheme($page.data.page)) || ''
         )
       }
     } catch (err) {}
@@ -46,17 +46,14 @@
 
   function drawFavicon(image, color) {
     const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
     canvas.width = 32
     canvas.height = 32
-
-    const ctx = canvas.getContext('2d')
-    if (!ctx) throw new Error('Could not create canvas context')
-
     ctx.drawImage(image, 0, 0, canvas.width, canvas.height)
     ctx.globalCompositeOperation = 'source-in'
     ctx.fillStyle = color
     ctx.fillRect(0, 0, canvas.width, canvas.height)
-
     return canvas.toDataURL()
   }
 </script>
@@ -72,10 +69,10 @@
 {#if $props.theme}
   <meta name="theme-color" content={$props.theme} />
   {@html `<style>
-    :root { --theme-color: ${hexToRgb($props.theme)} !important; }
+    :root { --theme-color: ${hexToRgb($props.theme)} !important }
     ${
       luma($props.theme) < 110
-        ? ':root { --theme-color-is-dark: 255, 255, 255 !important; }'
+        ? ':root { --theme-color-is-dark: 255, 255, 255 !important }'
         : ''
     }
   </style>`}
