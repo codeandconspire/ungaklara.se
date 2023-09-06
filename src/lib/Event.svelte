@@ -150,7 +150,7 @@
   .actions {
     display: flex;
     flex-wrap: nowrap;
-    margin: 1.5rem 0 1rem;
+    margin: 1rem 0;
   }
 
   .event:not(.teaser) .actions {

@@ -55,7 +55,7 @@
   overflow-y: auto;
 }
 
-@media (min-width: 1600px) {
+/* @media (min-width: 1600px) {
   :root {
     font-size: 110%;
   }
@@ -65,7 +65,7 @@
   :root {
     font-size: 120%;
   }
-}
+} */
 
 *,
 *::before,
@@ -181,20 +181,16 @@ button {
 }
 
 /**
- * Remove default focus styles for mouse users if :focus-visible is supported on
- * this platform, or polyfilled with https://github.com/WICG/focus-visible
- */
-
-:focus:not(:focus-visible) {
-  outline: 0 !important;
-}
-
-/**
  * Provide enhanced focus styles for keyboard focus
  */
 
-:focus-visible {
-  outline: rgb(var(--focus-ring-color)) dashed var(--focus-ring-width) !important;
+:focus:not(:focus-visible) {
+  outline: 0;
+}
+
+:not(input):not(select):focus-visible {
+  outline: 5px auto Highlight;
+  outline: 5px auto -webkit-focus-ring-color;
 }
 
 /**

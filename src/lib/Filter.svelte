@@ -143,6 +143,7 @@
     border-radius: 0;
     -webkit-appearance: none;
     appearance: none;
+    border-radius: var(--border-radius);
   }
 
   @media (min-width: 800px) {

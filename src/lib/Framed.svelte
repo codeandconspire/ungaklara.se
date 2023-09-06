@@ -32,6 +32,7 @@
     top: var(--distance);
     z-index: -1;
     background-color: rgb(var(--theme-color));
+    border-radius: var(--border-radius);
   }
 
   .flexible {
@@ -53,6 +54,7 @@
   .image {
     width: 100%;
     height: auto;
+    border-radius: var(--border-radius);
   }
 
   .ellipse {

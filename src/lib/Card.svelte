@@ -124,19 +124,20 @@
   }
 
   .interactive.fill:hover .everything {
-    transform: translateY(-0.8rem);
+    transform: translateY(-0.6rem);
   }
 
   .interactive.fill::before {
     content: '';
     display: block;
-    width: 92%;
+    width: 94%;
     height: 100%;
     position: absolute;
-    left: 4%;
+    left: 3%;
     bottom: 0;
     z-index: -1;
     background: black;
+		border-radius: var(--border-radius);
   }
 
   @media print {
@@ -255,6 +256,7 @@
 
   .fill .everything {
     background-color: rgb(var(--background-color, var(--current-background)));
+		border-radius: var(--border-radius);
   }
 
   /**
@@ -305,6 +307,7 @@
     max-height: 100%;
     width: auto;
     transform: translate(-50%, -50%);
+		border-radius: var(--border-radius) var(--border-radius) 0 0;
   }
 
   @supports (object-fit: cover) {

@@ -58,7 +58,7 @@
 	.list {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.5rem clamp(1.25rem, 2.5vw, 2.25rem);
+		gap: 0.2rem clamp(1.25rem, 2.5vw, 2.25rem);
 	}
 
 	.link {
@@ -79,7 +79,7 @@
     color: white;
     box-shadow: 0.3em 0 0 black, -0.3em 0 0 black;
     mix-blend-mode: color-burn;
-		border-radius: 3px;
+		border-radius: var(--border-radius);
 	}
 
 	.logo {

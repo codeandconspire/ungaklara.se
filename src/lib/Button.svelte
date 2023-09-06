@@ -46,7 +46,6 @@
 
 <style>
   .button {
-    display: inline-block;
     display: inline-flex;
     align-items: center;
     line-height: 2.925rem;
@@ -61,6 +60,7 @@
     user-select: none;
     text-align: center;
     font-family: var(--heading-font-family);
+    border-radius: var(--border-radius);
   }
 
   .button::first-letter {
@@ -129,7 +129,7 @@
 
   .icon {
     display: inline-block;
-    margin-right: 0.4em;
+    margin-right: 0.25em;
     margin-top: -0.05em;
   }
 

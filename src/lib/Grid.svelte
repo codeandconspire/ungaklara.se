@@ -26,13 +26,7 @@
 
 <style>
   :root {
-    --Grid-gutter: 1.5rem;
-  }
-
-  @media (min-width: 1000px), print {
-    :root {
-      --Grid-gutter: 2rem;
-    }
+    --Grid-gutter: 2rem;
   }
 
   @media (min-width: 1200px), print {

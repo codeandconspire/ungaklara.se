@@ -47,7 +47,7 @@
   .intro {
     display: flex;
     flex-direction: column;
-    padding-top: 35vh;
+    padding-top: 25vh;
     margin-bottom: calc(var(--spacing) * 1);
     font-family: var(--heading-font-family);
     letter-spacing: -0.025em;
@@ -117,7 +117,7 @@
   }
 
   .text {
-    max-width: 38em;
+    max-width: 34em;
   }
 
   .text :global(a) {
@@ -230,6 +230,10 @@
   }
 
   @media (min-width: 800px) {
+    :root {
+      --spacing: 5rem;
+    }
+
     .Intro:not(.adapt) {
       margin-bottom: calc(var(--spacing) * 1.4);
       letter-spacing: -0.035em;
@@ -256,12 +260,12 @@
     }
 
     .title {
-      font-size: 5.025rem;
+      font-size: 4.75rem;
     }
 
     .text {
-      font-size: 1.875rem;
-      word-spacing: -0.03em;
+      font-size: 1.75rem;
+      word-spacing: -0.04em;
     }
 
     .image,

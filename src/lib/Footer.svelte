@@ -117,9 +117,9 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-		border-bottom: 2px solid;
-		padding-bottom: 1.5rem;
-		margin-bottom: 1.5rem;
+		border-bottom: var(--border-width) solid;
+		padding-bottom: 3rem;
+		margin-bottom: 1rem;
 	}
 
 	@media (min-width: 450px) {
@@ -129,11 +129,11 @@
 		}
 	}
 
-	@media (min-width: 900px) {
+	@media (min-width: 1000px) {
 		.footer {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
-			gap: clamp(1rem, 12vw, 3rem) clamp(2rem, 4vw, 8rem);
+			gap: clamp(1rem, 12vw, 3rem) clamp(5rem, 5vw, 6rem);
 		}
 
 		.main {
@@ -151,6 +151,7 @@
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: 1rem 1rem;
+		scroll-margin-top: calc(1rem - 1px);
 	}
 
 	@media (min-width: 600px) and (max-width: 899px), (min-width: 1200px)  {
@@ -162,39 +163,28 @@
 
 	aside {
 		grid-column: span 2;
-		border-top: 2px solid;
-		padding-top: 1.5rem;
-		margin-top: 1.5rem;
+		border-top: var(--border-width) solid;
+		padding-top: 0.75rem;
+		margin-top: 3rem;
 		display: flex;
 		justify-content: space-between;
 	}
 
-	.terms {
-		order: -1;
-	}
-
-	.social {
-		display: flex;
-		order: 0;
-		gap: 0.75rem;
-	}
-
-	.social a {
-		display: block;
-		width: 1.75rem;
-		height: 1.75rem;
+	@media (min-width: 1000px) {
+		aside {
+			margin-top: 1rem;
+		}
 	}
 
 	@media (min-width: 400px) {
 		.terms {
 			display: flex;
-			order: 0;
 			gap: 1.25rem;
 		}
 	}
 
 	h2 {
-		margin: 0 0 0.75rem;
+		margin: -0.25rem 0 0.75rem;
 		font-family: var(--heading-font-family);
 		font-size: 1.8rem;
 		font-weight: 600;
@@ -210,23 +200,23 @@
 	.fields {
 		display: flex;
 		width: auto;
-		margin-top: 1rem;
-		max-width: 35rem;
+		margin: 1rem 0 2rem;
+		max-width: 38rem;
 	}
 
 	input {
 		width: 100%;
-		border: 2px solid;
+		border: var(--border-width) solid;
 		padding: 0.76rem;
 		font-size: inherit;
-		margin-left: -2px;
+		margin-left: calc(var(--border-width) * -1);
 		border-right: 0;
 	}
 
 	input:first-child {
-		border-radius: 3px 0 0 3px;
+		border-radius: var(--border-radius) 0 0 var(--border-radius);
 		margin-left: 0;
-		border-right-width: 2px;
+		border-right-width: var(--border-width);
 	}
 
 	input::placeholder {
@@ -242,13 +232,9 @@
 		display: block;
     background: black;
     color: white;
-    border-radius: 0 3px 3px 0;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
     cursor: pointer;
-    padding: 0.7rem;
-	}
-
-	button:focus {
-		outline: 0 !important;
+    padding: 0.7rem 1rem;
 	}
 
 	@media (min-width: 500px) {
@@ -289,99 +275,18 @@
 		mix-blend-mode: darken;
 	}
 
+	.social {
+		display: flex;
+		gap: 0.75rem;
+	}
+
+	.social a {
+		display: block;
+		width: 1.75rem;
+		height: 1.75rem;
+	}
+
 	svg {
 		display: block;
 	}
-
-	/*
-
-
-
-	.sub {
-		display: flex;
-		gap: 0 2rem;
-		justify-content: space-between;
-		align-items: center;
-		flex-wrap: wrap;
-	}
-
-	.inline {
-		display: flex;
-		gap: clamp(1.25rem, 2vw, 2rem);
-	}
-
-	.logo {
-		display: inline-block;
-		padding: 0 0.2em;
-		margin: 1.6rem 0 3rem;
-		font-family: 'UK Logotype';
-		font-size: 35vw;
-		letter-spacing: -0.06em;
-		line-height: 1;
-		text-align: center;
-		text-indent: -0.13em;
-		white-space: nowrap;
-		text-transform: lowercase;
-		word-spacing: -0.15em;
-		user-select: none;
-	}
-
-	.logo:focus-visible {
-		outline: 0 !important;
-		text-transform: uppercase;
-	}
-
-	.logo:hover {
-		text-transform: uppercase;
-	}
-
-	.extra {
-		display: none;
-	}
-
-	@media (min-width: 450px) {
-		.logo {
-			font-size: 11vw;
-		}
-
-		.extra {
-			display: inline;
-		}
-
-		.extra:first-child::after {
-			content: ' ';
-		}
-	}
-
-	@media (min-width: 600px) {
-		.section {
-			flex: 0 1 calc(100% / 3);
-		}
-	}
-
-	@media (min-width: 900px) {
-		.cols {
-			justify-content: space-between;
-			margin-right: -8rem;
-		}
-
-		.section {
-			flex: 0 1 calc(100% / 4);
-		}
-	}
-
-	@media (min-width: 1000px) {
-		.logo {
-			font-size: 8.4vw;
-			margin: 4rem 0 7rem;
-		}
-	}
-
-	@media (min-width: 1800px) {
-		.logo {
-			font-size: 7rem;
-			margin: 5rem 0 10rem;
-		}
-	} */
-
 </style>

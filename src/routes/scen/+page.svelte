@@ -146,7 +146,7 @@
 
   .row:not(:first-child) {
     padding-top: 0.8rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.15);
+    border-top: var(--border-width) solid;
     margin-top: 2.5rem;
   }
 
@@ -165,7 +165,7 @@
 
   .notice {
     padding: 0.2rem 0 2rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    border-bottom: var(--border-width) solid;
     margin-bottom: 2.8rem !important;
   }
 

@@ -29,7 +29,7 @@
 	--document-color: 0, 0, 0;
 
 	--document-min-width: 300px;
-	--document-max-width: 1800px;
+	--document-max-width: 1600px;
 	--document-margin: 1rem;
 
 	--theme-color: 156, 252, 35;
@@ -38,6 +38,7 @@
 	--focus-ring-color: var(--color-black);
 
 	--border-width: 2px;
+	--border-radius: 3px;
 
 	/* Easing curves */
 
