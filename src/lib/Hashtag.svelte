@@ -6,6 +6,7 @@
   const id = Math.random().toString(36).substring(2)
 
   let offset = 0
+  let modifier = 0
   let height = null
   let inview = false
   let element = null
@@ -19,15 +20,15 @@
     const { scrollY } = window
     const { clientHeight } = document.documentElement
     if (scrollY > offset + height) {
-      if (inview) offset = 1
+      if (inview) modifier = 1
       return
     }
     if (scrollY + clientHeight < offset) {
-      if (inview) offset = 0
+      if (inview) modifier = 0
       return
     }
     const ratio = 1 - (offset + height - scrollY) / (clientHeight + height)
-    offset = +ratio.toFixed(3)
+    modifier = +ratio.toFixed(3)
     inview = true
   }
 
@@ -42,7 +43,7 @@
 
 <svelte:window on:scroll={onscroll} on:resize={onresize} />
 
-<div class="hashtag" style:--offset={offset} bind:this={element}>
+<div class="hashtag" style:--offset={modifier} bind:this={element}>
   <svg class="image" width="250" height="250" viewBox="0 0 250 250">
     <g fill="none" fill-rule="nonzero">
       <path

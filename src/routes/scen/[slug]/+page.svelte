@@ -328,34 +328,50 @@
 
     {#if videos.length}
       {@const background = data.page.data.featured_background}
-      <Trailer
-        background={background.url
-          ? {
-              src: srcset(background.url, [900]).split(' ')[0],
-              sizes:
-                '(min-width: 2000px) 100vw, (min-width: 1600px) 120vw, (min-width: 1400px) 110vw, (min-width: 1000px) 130vw, 150vw',
-              srcset: srcset(background.url, [
-                400,
-                900,
-                [1800, 'q_50'],
-                [2600, 'q_30']
-              ]),
-              ...background.dimensions
-            }
-          : null}>
-        <Embed slot="primary" content={videos[0].video} />
-        <div slot="secondary">
-          {#if videos.length > 1}
-            <Grid size={{ md: `1of${videos.length - 1 < 3 ? 2 : 3}` }}>
-              {#each videos.slice(1) as { video }}
-                <GridCell>
-                  <Embed content={video} />
-                </GridCell>
-              {/each}
-            </Grid>
+      <div class="u-posRelative">
+        {#if data.page.data.hashtag}
+          {@const href = resolve(data.page.data.hashtag_link)}
+          {@const external = data.page.data.hashtag_link.target === '_blank'}
+          {#if href}
+            <a
+              {href}
+              target={external ? '_blank' : null}
+              rel={external ? 'noopenere noreferrer' : null}>
+              <Hashtag text={data.page.data.hashtag} />
+            </a>
+          {:else}
+            <Hashtag text={data.page.data.hashtag} />
           {/if}
-        </div>
-      </Trailer>
+        {/if}
+        <Trailer
+          background={background.url
+            ? {
+                src: srcset(background.url, [900]).split(' ')[0],
+                sizes:
+                  '(min-width: 2000px) 100vw, (min-width: 1600px) 120vw, (min-width: 1400px) 110vw, (min-width: 1000px) 130vw, 150vw',
+                srcset: srcset(background.url, [
+                  400,
+                  900,
+                  [1800, 'q_50'],
+                  [2600, 'q_30']
+                ]),
+                ...background.dimensions
+              }
+            : null}>
+          <Embed slot="primary" content={videos[0].video} />
+          <div slot="secondary">
+            {#if videos.length > 1}
+              <Grid size={{ md: `1of${videos.length - 1 < 3 ? 2 : 3}` }}>
+                {#each videos.slice(1) as { video }}
+                  <GridCell>
+                    <Embed content={video} />
+                  </GridCell>
+                {/each}
+              </Grid>
+            {/if}
+          </div>
+        </Trailer>
+      </div>
     {/if}
   {/if}
 
