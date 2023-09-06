@@ -8,6 +8,7 @@
   import RichText from '$lib/RichText.svelte'
   import GridCell from '$lib/GridCell.svelte'
   import Hashtag from '$lib/Hashtag.svelte'
+  import Spotify from '$lib/Spotify.svelte'
   import Trailer from '$lib/Trailer.svelte'
   import srcset from '$lib/utils/srcset.js'
   import Button from '$lib/Button.svelte'
@@ -99,7 +100,7 @@
     <RichText content={data.page.data.about} />
   </Event>
 
-  <div class="u-md-container u-spaceT7">
+  <div class="u-spaceT7">
     <FactsBox items={data.page.data.details} />
   </div>
 
@@ -133,6 +134,29 @@
         {:else}
           <Embed content={videos[0].video} />
         {/if}
+      </div>
+    {/if}
+
+    {@const spotify = data.page.data.media.filter(
+      (slice) => slice.slice_type === 'spotify'
+    )}
+    {#if spotify.length === 1}
+      <div class="u-spaceV6">
+        <Spotify url={spotify[0].primary.uri.embed_url}>
+          <RichText content={spotify[0].primary.text} />
+        </Spotify>
+      </div>
+    {:else if spotify.length > 1}
+      <div class="u-uncontain u-spaceV5">
+        <Grid carousel>
+          {#each spotify as slice}
+            <GridCell>
+              <Spotify url={slice.primary.uri.embed_url}>
+                <RichText content={slice.primary.text} />
+              </Spotify>
+            </GridCell>
+          {/each}
+        </Grid>
       </div>
     {/if}
   {:else if videos.length}

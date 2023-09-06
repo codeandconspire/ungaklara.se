@@ -9,10 +9,10 @@
         <img alt="" {...background} class="image" />
       </div>
     {/if}
-    <div class="u-container"><slot name="primary" /></div>
+    <slot name="primary" />
   </div>
   {#if $$slots.secondary}
-    <div class="children u-container"><slot name="secondary" /></div>
+    <div class="children"><slot name="secondary" /></div>
   {/if}
 </div>
 
