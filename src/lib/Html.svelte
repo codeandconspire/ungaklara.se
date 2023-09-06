@@ -523,6 +523,7 @@
     margin: 0;
     color: rgb(var(--current-color));
     letter-spacing: -0.02em;
+    text-wrap: balance;
   }
 
   .html :global(h1:not(:first-child)),

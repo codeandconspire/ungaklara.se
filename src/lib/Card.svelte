@@ -30,7 +30,10 @@
   class:fill={color || background}
   class:interactive={link && (color || background)}
   class:dark={background || (color && luma(color) < 110)}
-  style:--background-color={color && hexToRgb(color)}>
+  style:--background-color={color && hexToRgb(color)}
+  style:--figure-aspect={image.height && image.width
+    ? `${(100 * image.height) / image.width}%`
+    : null}>
   <div class="everything">
     {#if image}
       <figure class="figure u-hoverTriggerTarget">
@@ -191,7 +194,7 @@
   }
 
   .title {
-    display: inline;
+    text-wrap: balance;
     font-size: 1.25rem;
     font-weight: 600;
     font-family: var(--heading-font-family);
@@ -276,6 +279,11 @@
     display: block;
     height: 0;
     padding-top: var(--figure-aspect);
+  }
+
+
+  .fill .figure::before {
+    padding-top: 68%;
   }
 
   .card:not(.simple):not(.fill) .figure::after {

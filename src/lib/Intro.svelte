@@ -101,6 +101,7 @@
     line-height: 1;
     margin-left: -0.04em;
     letter-spacing: -0.025em;
+    text-wrap: balance;
   }
 
   .badge {
@@ -119,6 +120,7 @@
   .text {
     font-size: 1.3rem;
     max-width: 34em;
+    text-wrap: balance;
   }
 
   .text :global(a) {

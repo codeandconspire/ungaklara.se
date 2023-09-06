@@ -190,11 +190,13 @@
 		font-weight: 600;
     line-height: 1.1;
     letter-spacing: -.02em;
+		text-wrap: balance;
 	}
 
 	form p {
 		font-size: 1.125rem;
 		max-width: 26em;
+		text-wrap: balance;
 	}
 
 	.fields {
