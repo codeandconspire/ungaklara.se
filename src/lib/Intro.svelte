@@ -26,7 +26,7 @@
   {/if}
   {#if image}
     {#if image.width && image.height}
-      <div class="container" style:--Intro-aspect={image.height / image.width}>
+      <div class="container" style:--aspect={image.height / image.width}>
         <img class="image" alt={image.alt} {...image} />
       </div>
     {:else}
@@ -179,7 +179,7 @@
   }
 
   .container {
-    margin: -24vh 0 2rem;
+    margin: -12vh 0 2rem;
     order: -1;
     position: relative;
     overflow: hidden;
