@@ -3,11 +3,14 @@
   import { getContext } from 'svelte'
 
   const {
-    size = {},
-    appear = false,
     ordered = false,
-    carousel = false
+    carousel = false,
+    size: _size = {},
+    appear: _appear = false
   } = getContext(GRID)
+
+  export let size = _size
+  export let appear = _appear
 
   const classes = Object.entries(size)
     .map(([key, value]) =>

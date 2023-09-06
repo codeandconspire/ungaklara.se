@@ -11,6 +11,12 @@ const graphQuery = `
           shortname
         }
       }
+      resource_blurb {
+        ...on teachers {
+          description
+          cta
+        }
+      }
       body {
         ...on link_blurb {
           non-repeat {

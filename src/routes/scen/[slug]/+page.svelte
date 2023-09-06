@@ -359,6 +359,53 @@
     {/if}
   {/if}
 
+  {#if data.page.data.resource_heading.length}
+    {@const blurb = data.page.data.resource_blurb}
+    {@const blurbHref = resolve(blurb)}
+    {@const resourceHref = resolve(data.page.data.resource_link)}
+    <hr />
+    {#if blurbHref}
+      <Grid>
+        <GridCell size={{ md: '1of2', lg: '2of3' }}>
+          <Html large>
+            <h2>{asText(data.page.data.resource_heading)}</h2>
+            <RichText content={data.page.data.resource_text} />
+          </Html>
+          {#if resourceHref}
+            <Button
+              class="u-spaceT4 u-spaceB2"
+              icon="download"
+              href={resourceHref}>
+              {data.page.data.resource_link_text || 'Ladda ner'}
+            </Button>
+          {/if}
+        </GridCell>
+        <GridCell size={{ md: '1of2', lg: '1of3' }}>
+          <div class="u-bgGrayLight">
+            <div class="Text u-paddedBox">
+              <p class="Text-fat Text-large">
+                {asText(blurb.data.description)}
+              </p>
+              <strong>
+                <a href="${blurbHref}">${blurb.data.cta || 'Läs mer'}</a>
+              </strong>
+            </div>
+          </div>
+        </GridCell>
+      </Grid>
+    {:else}
+      <Html large>
+        <h2>{asText(data.page.data.resource_heading)}</h2>
+        <RichText content={data.page.data.resource_text} />
+      </Html>
+      {#if resourceHref}
+        <Button class="u-spaceT4 u-spaceB2" icon="download" href={resourceHref}>
+          {data.page.data.resource_link_text || 'Ladda ner'}
+        </Button>
+      {/if}
+    {/if}
+  {/if}
+
   <Intro blurb title="Vill du se fler föreställningar?">
     <Button slot="action" primary href="/scen" icon="arrow">
       Aktuellt på scen
