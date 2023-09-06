@@ -3,6 +3,7 @@
 
   import resolve from '$lib/utils/resolve.js'
   import RichText from '$lib/RichText.svelte'
+  import Hashtag from '$lib/Hashtag.svelte'
   import srcset from '$lib/utils/srcset.js'
   import Button from '$lib/Button.svelte'
   import Intro from '$lib/Intro.svelte'
@@ -39,6 +40,20 @@
           .filter(Boolean)
           .join(' – ')}
       </span>
+      {#if data.page.data.hashtag}
+        {@const href = resolve(data.page.data.hashtag_link)}
+        {@const external = data.page.data.hashtag_link.target === '_blank'}
+        {#if href}
+          <a
+            {href}
+            target={external ? '_blank' : null}
+            rel={external ? 'noopenere noreferrer' : null}>
+            <Hashtag text={data.page.data.hashtag} />
+          </a>
+        {:else}
+          <Hashtag text={data.page.data.hashtag} />
+        {/if}
+      {/if}
       <RichText slot="text" content={data.page.data.description} />
     </Intro>
   </header>

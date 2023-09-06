@@ -1,6 +1,4 @@
 <script>
-  import Loader from '$lib/Loader.svelte'
-
   export let title = undefined
   export let collapse = false
   export let adapt = false
@@ -9,7 +7,9 @@
 </script>
 
 <div class="intro" class:collapse class:adapt class:blurb>
-  <slot />
+  <div class="slot">
+    <slot />
+  </div>
   {#if $$slots.action && blurb}
     <div class="u-container u-invisible"><hr /></div>
   {/if}
