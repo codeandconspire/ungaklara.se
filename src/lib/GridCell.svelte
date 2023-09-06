@@ -36,6 +36,7 @@
     flex: 0 0 100%;
     display: flex;
     align-items: flex-start;
+    flex-direction: column;
     min-width: 0; /* 1 */
     padding: 0 calc(var(--Grid-gutter) * 0.5);
     margin-bottom: var(--Grid-gutter);

@@ -30,10 +30,7 @@
   class:fill={color || background}
   class:interactive={link && (color || background)}
   class:dark={background || (color && luma(color) < 110)}
-  style:--background-color={color && hexToRgb(color)}
-  style:--figure-aspect={image.height && image.width
-    ? `${(100 * image.height) / image.width}%`
-    : null}>
+  style:--background-color={color && hexToRgb(color)}>
   <div class="everything">
     {#if image}
       <figure class="figure u-hoverTriggerTarget">
@@ -101,13 +98,14 @@
 
 <style>
   :root {
-    --figure-aspect: 142.8%;
+    --figure-aspect: 67%;
     --clamp-lines: 3;
   }
 
   .card {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     width: 100%;
     position: relative;
     z-index: 0;
@@ -117,6 +115,9 @@
   .everything {
     position: relative;
     z-index: 1;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   .interactive.fill .everything {
