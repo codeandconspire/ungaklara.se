@@ -93,7 +93,7 @@
 
   .title {
     position: relative;
-    font-size: 2.1rem;
+    font-size: 2.5rem;
     word-spacing: -0.05em;
     padding-top: 0.75em;
     margin: 0 0 0.55em;
@@ -117,6 +117,7 @@
   }
 
   .text {
+    font-size: 1.3rem;
     max-width: 34em;
   }
 
@@ -192,24 +193,10 @@
     padding-top: calc(100% * var(--aspect));
   }
 
-  @media (min-width: 350px) {
-    .title {
-      font-size: 2.5rem;
-    }
-
-    .text {
-      font-size: 1.3rem;
-    }
-  }
-
   @media (min-width: 500px) {
     .title {
       font-size: 3.2rem;
       margin: 0 0 0.45em;
-    }
-
-    .text {
-      font-size: 1.35rem;
     }
 
     .badge {

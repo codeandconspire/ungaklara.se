@@ -133,6 +133,7 @@
   .html :global(ul),
   .html :global(ol) {
     margin: 0;
+    max-width: 42em;
   }
 
   .html :global(p:not(:first-child)),
@@ -206,8 +207,8 @@
   .html :global(details) {
     display: block;
     margin-top: 1.5em;
-    border: solid currentColor;
-    border-width: 0 0 2px 0;
+    border: solid;
+    border-width: 0 0 var(--border-width) 0;
     cursor: default;
     outline: 0;
     position: relative;
@@ -219,20 +220,24 @@
   }
 
   .html :global(details:first-of-type) {
-    border-top-width: 2px;
+    border-top-width: var(--border-width);
   }
 
   .html :global(summary) {
     display: block;
     list-style: none;
     user-select: none;
-    padding: 1.3rem 1rem 1.4rem 0;
+    padding: 1.25rem 3rem 1.3rem 0;
     position: relative;
     outline: 0;
     font-weight: 600;
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
+  }
+
+  .html :global(summary + *) {
+    margin-top: 0 !important;
   }
 
   .html :global(summary h3) {
@@ -242,17 +247,12 @@
     margin-bottom: calc((2px + 0.1rem) * -1);
   }
 
-  .html :global(summary:hover h3) {
-    border-bottom-color: black;
-  }
-
   .html :global(summary h1),
   .html :global(summary h2),
   .html :global(summary h3),
   .html :global(summary h4),
   .html :global(summary h5),
   .html :global(summary h6) {
-    font-size: inherit;
     margin: 0;
   }
 
@@ -268,7 +268,7 @@
     content: '';
     position: absolute;
     top: 50%;
-    right: 0.7em;
+    right: 0;
     width: 1em;
     height: 3px;
     transform: translateY(-50%);
@@ -280,7 +280,7 @@
     content: '';
     position: absolute;
     top: 50%;
-    right: 1.2em;
+    right: 0.5em;
     width: 3px;
     height: 1em;
     transform: translate(50%, -50%);
@@ -297,9 +297,9 @@
     padding-bottom: 1.4em;
   }
 
-  @media (min-width: 600px) {
+  @media (min-width: 800px) {
     .html :global(summary) {
-      padding: 2.2rem 1rem 2.4rem 0;
+      padding: 1.8rem 1rem 2rem 0;
     }
 
     .html :global(details[open]) {
@@ -583,8 +583,23 @@
 
   .html :global(h3),
   .html :global(.h3) {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     line-height: 1.1;
+  }
+
+  @media (min-width: 800px) {
+    .html :global(h3),
+    .html :global(.h3) {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .html :global(h3),
+    .html :global(.h3) {
+      font-size: 1.75rem;
+      word-spacing: -0.04em;
+    }
   }
 
   .html :global(h4),

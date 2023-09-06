@@ -21,7 +21,7 @@
       if (link) {
         link.setAttribute(
           'href',
-          drawFavicon(favicon, defineTheme($page.data.page)) || ''
+          drawFavicon(favicon, getTheme($page.data.page)) || ''
         )
       }
     } catch (err) {}

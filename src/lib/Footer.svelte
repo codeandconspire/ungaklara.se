@@ -263,7 +263,6 @@
 	}
 
 	.footer a {
-		display: inline-block;
 		border-radius: 1px;
 	}
 

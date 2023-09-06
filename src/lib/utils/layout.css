@@ -21,13 +21,7 @@
 }
 
 .u-paddedBox {
-	padding: 1.4rem 1.1rem !important;
-}
-
-@media (min-width: 350px) {
-	.u-paddedBox {
-		padding: 1.5rem 1.2rem !important;
-	}
+	padding: 1.5rem 1.2rem !important;
 }
 
 @media (min-width: 600px) {

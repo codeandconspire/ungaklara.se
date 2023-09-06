@@ -40,6 +40,8 @@
     }
   }
 
+  console.log(data.page.data)
+
   $: parent = data.page.data.parent
   $: parentHref = resolve(parent)
 </script>
@@ -248,23 +250,20 @@
       {/if}
 
       {#if slice.slice_type === 'accordion'}
-        <!-- return html`
-          <section class="u-spaceV6">
-            <div class="Text u-sizeFull">
-              ${slice.items
-                .map(function (item) {
-                  if (!item.heading.length) return null;
-                  return html`
-                    <details>
-                      <summary><h3>${asText(item.heading)}</h3></summary>
-                      <div class="Text Text--large">${asElement(item.text)}</div>
-                    </details>
-                  `;
-                })
-                .filter(Boolean)}
-            </div>
-          </section>
-        `; -->
+        <section class="u-spaceV6">
+          <div class="Text u-sizeFull">
+            {#each slice.items as item}
+              {#if item.heading.length && item.text}
+                <Html size="lg" class="u-sizeFull">
+                  <details>
+                    <summary><h3>{asText(item.heading)}</h3></summary>
+                    <RichText content={item.text} />
+                  </details>
+                </Html>
+              {/if}
+            {/each}
+          </div>
+        </section>
       {/if}
 
       {#if slice.slice_type === 'team'}

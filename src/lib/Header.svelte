@@ -3,7 +3,9 @@
 	export let items = [];
 
   function scrollDown(event) {
-		document.querySelector('#menu').scrollIntoView({
+		const menu = document.querySelector('#menu')
+		if (!menu return)
+		menu.scrollIntoView({
 			behavior: 'smooth',
 			block: 'start'
 		});

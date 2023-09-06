@@ -25,6 +25,14 @@ const graphQuery = `
             }
           }
         }
+        ...on accordion {
+          non-repeat {
+            ...non-repeatFields
+          }
+          repeat {
+            ...repeatFields
+          }
+        }
       }
     }
   }
