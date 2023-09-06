@@ -25,6 +25,19 @@ const graphQuery = `
             }
           }
         }
+        ...on heading {
+          non-repeat {
+            ...non-repeatFields
+          }
+        }
+        ...on text {
+          non-repeat {
+            ...non-repeatFields
+          }
+          repeat {
+            ...repeatFields
+          }
+        }
         ...on accordion {
           non-repeat {
             ...non-repeatFields

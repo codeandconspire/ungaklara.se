@@ -24,10 +24,14 @@
     font-weight: 600;
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
-    font-size: 1em;
+    font-size: 1.125rem;
     word-break: break-word;
-    margin: 3rem 0 3rem 1rem;
-    max-width: 42rem;
+    margin: 3.5rem 0;
+    max-width: 34em;
+    padding: 0.5em 0 0 1.75em;
+    min-height: 5.5em;
+
+    --indent: 0em;
   }
 
   figcaption {
@@ -36,8 +40,17 @@
 
   @media (min-width: 800px) {
     .blockquote {
-      margin-left: 0;
       font-size: 1.125em;
+      padding: 0.75em 0 0 2em;
+      margin: 4rem 0;
+
+      --indent: 0rem;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .blockquote {
+      font-size: 1.375rem;
     }
   }
 
@@ -54,16 +67,16 @@
     height: 7em;
     border-radius: 100%;
     background: linear-gradient(130deg, rgb(var(--color-green)) 45%, rgba(var(--color-green), 0) 85%, transparent);
-    top: -1.5em;
-    left: -1.5em;
+    top: -1.25em;
+    left: calc(var(--indent) * -1 - 0.5em);
   }
 
   .variant-2::before {
     width: 2.5em;
-    height: calc(100% + 2em);
+    height: calc(100% + 1em);
     background: linear-gradient( rgba(var(--color-pink)) 0%, rgba(var(--color-pink), 0) 100%, rgb(var(--color-pink)) );
-    top: -1em;
-    left: -1em;
+    top: -0.5em;
+    left: calc(var(--indent) * -1);
   }
 
   .variant-3::before {
@@ -74,15 +87,15 @@
     background-position: 0 0, 2.2em 0;
     background-size: 1.5em 100%, 1.5em 100%;
     background-repeat: no-repeat;
-    top: -1em;
-    left: -1em;
+    top: -0.5em;
+    left: calc(var(--indent) * -1);
   }
 
   .variant-4::before,
   .variant-4::after {
     content: '';
     position: absolute;
-    left: -1em;
+    left: calc(var(--indent) * -1);
     top: -1em;
     z-index: -1;
     width: 6em;
@@ -95,7 +108,7 @@
     width: 3em;
     height: 3em;
     top: 0.5em;
-    left: 0.5em;
+    margin-left: 1.5em;
     background: rgb(var(--document-background));
   }
 </style>
