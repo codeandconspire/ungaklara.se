@@ -31,7 +31,7 @@
     {#if label}
       <span class="u-textLabel">{label}</span>
     {/if}
-    <Html>
+    <Html size="large">
       <slot />
     </Html>
     {#if buttons.length}
@@ -120,7 +120,7 @@
       flex-basis: 30%;
       padding-right: 2rem;
       position: relative;
-      top: -2rem;
+      top: -1rem;
     }
 
     .teaser .image {

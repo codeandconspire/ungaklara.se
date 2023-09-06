@@ -36,7 +36,7 @@
   .small,
   .html :global(small),
   .html :global(.small) {
-    font-size: 0.875rem;
+    font-size: 1rem;
   }
 
   .large,
@@ -64,12 +64,6 @@
   @media (min-width: 1000px) {
     .html:not(.fixed) {
       font-size: 1.125rem;
-    }
-
-    .small:not(.fixed),
-    .html:not(.fixed) :global(small),
-    .html:not(.fixed) :global(.small) {
-      font-size: 0.875rem;
     }
 
     .large:not(.fixed),
@@ -151,6 +145,7 @@
   .html :global(img),
   .html :global(pre) {
     margin: 0;
+    border-radius: var(--border-radius);
   }
 
   .html :global(img:not(:first-child)),
@@ -170,7 +165,7 @@
   .html :global(img + figcaption),
   .html :global(.aspect + figcaption),
   .html :global(pre + figcaption) {
-    margin-top: -0.5em;
+    margin-top: -0.75em;
   }
 
   .html :global(img) {

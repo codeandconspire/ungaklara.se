@@ -21,17 +21,18 @@
 
 <style>
   .factsbox {
-    padding: 4.3rem 2.75rem 4.3rem 7rem;
+    padding: 2.5rem 2rem 2.5rem 5.5rem;
     position: relative;
     background-color: rgb(var(--theme-color));
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
     color: rgb(var(--theme-color-is-dark, 0, 0, 0));
+    border-radius: var(--border-radius);
   }
 
   @media (min-width: 600px) {
     .factsbox {
-      padding: 3.3rem 1.9rem 3.5rem 8rem;
+      padding: 2rem 2rem 2rem 7.5rem;
     }
   }
 
@@ -43,10 +44,10 @@
 
   .heading {
     display: inline-block;
-    font-size: 3.5625rem;
+    font-size: 3rem;
     position: absolute;
-    left: 1.5rem;
-    top: 4.25rem;
+    left: 1rem;
+    top: 2.5rem;
     transform-origin: 100% 0;
     transform: translateX(-100%) rotate(-90deg);
     user-select: none;
@@ -54,8 +55,8 @@
 
   @media (min-width: 600px) {
     .heading {
-      left: 2.3rem;
-      top: 3.65rem;
+      left: 2rem;
+      top: 3rem;
     }
   }
 
@@ -109,5 +110,7 @@
   .value {
     padding: 0;
     margin: 0;
+    font-family: var(--document-font-family);
+    text-wrap: balance;
   }
 </style>
