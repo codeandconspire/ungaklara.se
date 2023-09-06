@@ -38,6 +38,11 @@ const graphQuery = `
             ...non-repeatFields
           }
         }
+        ...on author {
+          non-repeat {
+            ...non-repeatFields
+          }
+        }
       }
     }
   }

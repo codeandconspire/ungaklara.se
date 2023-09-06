@@ -8,6 +8,7 @@
   import Intro from '$lib/Intro.svelte'
   import Html from '$lib/Html.svelte'
   import Grid from '$lib/Grid.svelte'
+  import Byline from '$lib/Byline.svelte'
   import Card from '$lib/Card.svelte'
   import Button from '$lib/Button.svelte'
 
@@ -222,13 +223,10 @@
       {/if}
 
       {#if slice.slice_type === 'author'}
-        <!-- return html`
-          <div class="u-spaceV6">
-            ${byline({
-              heading: asText(slice.primary.heading),
-              body: asElement(slice.primary.text, resolve, reset),
-              image: slice.primary.image.url
-                ? Object.assign(
+          <div class="u-spaceV7">
+            <Byline
+              heading={asText(slice.primary.heading)}
+              image={slice.primary.image.url ? Object.assign(
                     {
                       src: srcset(slice.primary.image.url, [200, 'c_thumb'], {
                         aspect: 278 / 195
@@ -242,10 +240,10 @@
                     },
                     slice.primary.image.dimensions
                   )
-                : null
-            })}
+                : null}>
+              <RichText content={slice.primary.text} />
+            </Byline>
           </div>
-        `; -->
       {/if}
 
       {#if slice.slice_type === 'accordion'}
