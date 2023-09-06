@@ -2,6 +2,7 @@
   import { asText } from '@prismicio/client'
 
   import resolve from '$lib/utils/resolve.js'
+  import FactsBox from '$lib/FactsBox.svelte'
   import RichText from '$lib/RichText.svelte'
   import Hashtag from '$lib/Hashtag.svelte'
   import srcset from '$lib/utils/srcset.js'
@@ -66,7 +67,7 @@
       },
       {
         text: 'Boka biljett',
-        href: resolve(data.page.data.buy_link.url),
+        href: resolve(data.page.data.buy_link),
         primary: true,
         icon: 'arrow',
         target: '_blank',
@@ -76,6 +77,9 @@
     image={data.page.data.poster.url ? data.page.data.poster : null}>
     <RichText content={data.page.data.about} />
   </Event>
+  <div class="u-md-container u-spaceT7">
+    <FactsBox items={data.page.data.details} />
+  </div>
   <Intro blurb title="Vill du se fler föreställningar?">
     <Button slot="action" primary href="/scen" icon="arrow">
       Aktuellt på scen
