@@ -9,6 +9,7 @@
   import Html from '$lib/Html.svelte'
   import Grid from '$lib/Grid.svelte'
   import Card from '$lib/Card.svelte'
+  import Button from '$lib/Button.svelte'
 
   export let data
 
@@ -39,8 +40,6 @@
       ...props.dimensions
     }
   }
-
-  console.log(data.page.data)
 
   $: parent = data.page.data.parent
   $: parentHref = resolve(parent)
@@ -275,39 +274,12 @@
         return grid(opts, slice.items.map(teamMember)); -->
       {/if}
 
-      {#if slice.slice_type === 'newsletter'}
-        <!-- return html`
-          <div>
-            ${index !== 0 ? html`<hr class="u-invisible" />` : null}
-            ${state.cache(Subscribe, `${state.params.slug}-${index}`).render({
-              action: state.newsletter,
-              title: asText(slice.primary.heading),
-              body:
-                slice.primary.text && slice.primary.text.length
-                  ? asElement(slice.primary.text, resolve, serialize)
-                  : null,
-              success:
-                slice.primary.success_message && slice.primary.success_message.length
-                  ? asElement(slice.primary.success_message, resolve, serialize)
-                  : null
-            })}
-            ${index < list.length - 1 ? html`<hr />` : null}
-          </div>
-        `; -->
-      {/if}
-
       {#if slice.slice_type === 'button'}
-        <!-- if (!slice.primary.text && !slice.primary.link) return;
-        return html`
-          <div class="u-spaceV5">
-            ${button({
-              primary: true,
-              external: slice.primary.link.link_type === 'Web',
-              href: resolve(slice.primary.link),
-              text: slice.primary.text
-            })}
-          </div>
-        `; -->
+          {#if slice.primary.text && slice.primary.link}
+            <div class="u-spaceV7">
+              <Button primary href={resolve(slice.primary.link)}>{slice.primary.text}</Button>
+            </div>
+          {/if}
       {/if}
     {/each}
   </div>

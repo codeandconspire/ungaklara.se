@@ -33,6 +33,11 @@ const graphQuery = `
             ...repeatFields
           }
         }
+        ...on button {
+          non-repeat {
+            ...non-repeatFields
+          }
+        }
       }
     }
   }
