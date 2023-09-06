@@ -223,27 +223,32 @@
       {/if}
 
       {#if slice.slice_type === 'author'}
-          <div class="u-spaceV7">
-            <Byline
-              heading={asText(slice.primary.heading)}
-              image={slice.primary.image.url ? Object.assign(
-                    {
-                      src: srcset(slice.primary.image.url, [200, 'c_thumb'], {
-                        aspect: 278 / 195
-                      }).split(' ')[0],
-                      sizes: '15rem',
-                      srcset: srcset(slice.primary.image.url, [200, 400, [800, 'q_50,c_thumb']], {
+        <div class="u-spaceV7">
+          <Byline
+            heading={asText(slice.primary.heading)}
+            image={slice.primary.image.url
+              ? Object.assign(
+                  {
+                    src: srcset(slice.primary.image.url, [200, 'c_thumb'], {
+                      aspect: 278 / 195
+                    }).split(' ')[0],
+                    sizes: '15rem',
+                    srcset: srcset(
+                      slice.primary.image.url,
+                      [200, 400, [800, 'q_50,c_thumb']],
+                      {
                         transforms: 'c_thumb',
                         aspect: 278 / 195
-                      }),
-                      alt: slice.primary.image.alt || ''
-                    },
-                    slice.primary.image.dimensions
-                  )
-                : null}>
-              <RichText content={slice.primary.text} />
-            </Byline>
-          </div>
+                      }
+                    ),
+                    alt: slice.primary.image.alt || ''
+                  },
+                  slice.primary.image.dimensions
+                )
+              : null}>
+            <RichText content={slice.primary.text} />
+          </Byline>
+        </div>
       {/if}
 
       {#if slice.slice_type === 'accordion'}
@@ -273,11 +278,13 @@
       {/if}
 
       {#if slice.slice_type === 'button'}
-          {#if slice.primary.text && slice.primary.link}
-            <div class="u-spaceV7">
-              <Button primary href={resolve(slice.primary.link)}>{slice.primary.text}</Button>
-            </div>
-          {/if}
+        {#if slice.primary.text && slice.primary.link}
+          <div class="u-spaceV7">
+            <Button primary href={resolve(slice.primary.link)}>
+              {slice.primary.text}
+            </Button>
+          </div>
+        {/if}
       {/if}
     {/each}
   </div>
