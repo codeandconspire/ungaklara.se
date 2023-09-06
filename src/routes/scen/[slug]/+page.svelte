@@ -3,31 +3,41 @@
   import { browser } from '$app/environment'
   import { onMount } from 'svelte'
 
+  import Blockquote from '$lib/Blockquote.svelte'
   import resolve from '$lib/utils/resolve.js'
   import FactsBox from '$lib/FactsBox.svelte'
   import RichText from '$lib/RichText.svelte'
   import GridCell from '$lib/GridCell.svelte'
   import Hashtag from '$lib/Hashtag.svelte'
   import Spotify from '$lib/Spotify.svelte'
+  import Masonry from '$lib/Masonry.svelte'
   import Trailer from '$lib/Trailer.svelte'
   import srcset from '$lib/utils/srcset.js'
   import Button from '$lib/Button.svelte'
   import Intro from '$lib/Intro.svelte'
   import Embed from '$lib/Embed.svelte'
   import Event from '$lib/Event.svelte'
+  import Html from '$lib/Html.svelte'
   import Grid from '$lib/Grid.svelte'
 
   export let data
 
   $: videos = data.page.data.videos.filter((group) => group.video.embed_url)
 
-  const media = browser && window.matchMedia('(min-width: 600px)')
-  let collapse = false
+  const small = browser ? window.matchMedia('(min-width: 600px)') : null
+  const medium = browser ? window.matchMedia('(min-width: 800px)') : null
+  const large = browser ? window.matchMedia('(min-width: 1000px)') : null
+
+  let isSmall = false
+  let isMedium = false
+  let isLarge = false
 
   onMount(measure)
 
   function measure() {
-    collapse = media ? !media.matches : false
+    isSmall = Boolean(small?.matches)
+    isMedium = Boolean(medium?.matches)
+    isLarge = Boolean(large?.matches)
   }
 
   function image(props) {
@@ -103,7 +113,7 @@
     <FactsBox items={data.page.data.details} />
   </div>
 
-  {#if collapse}
+  {#if !isSmall}
     {#if videos.length}
       <div class="u-spaceT7 u-posRelative">
         {#if data.page.data.hashtag}
@@ -158,36 +168,88 @@
         </Grid>
       </div>
     {/if}
-  {:else if videos.length}
-    {@const background = data.page.data.featured_background}
-    <Trailer
-      background={background.url
-        ? {
-            src: srcset(background.url, [900]).split(' ')[0],
-            sizes:
-              '(min-width: 2000px) 100vw, (min-width: 1600px) 120vw, (min-width: 1400px) 110vw, (min-width: 1000px) 130vw, 150vw',
-            srcset: srcset(background.url, [
-              400,
-              900,
-              [1800, 'q_50'],
-              [2600, 'q_30']
-            ]),
-            ...background.dimensions
-          }
-        : null}>
-      <Embed slot="primary" content={videos[0].video} />
-      <div slot="secondary">
-        {#if videos.length > 1}
-          <Grid size={{ md: `1of${videos.length - 1 < 3 ? 2 : 3}` }}>
-            {#each videos.slice(1) as { video }}
-              <GridCell>
-                <Embed content={video} />
-              </GridCell>
-            {/each}
-          </Grid>
+  {:else}
+    <div class="u-spaceT7">
+      <Masonry
+        let:item={slice}
+        gap={isLarge ? 24 : isMedium ? 32 : 24}
+        items={data.page.data.media.map((slice, index) => ({
+          id: `${slice.slice_type}-${index}`,
+          ...slice
+        }))}>
+        {#if slice.slice_type === 'image'}
+          {@const { dimensions, url, alt = '' } = slice.primary.image}
+          {@const sources = srcset(url, [400, 599, 900, [1500, 'q_40']])}
+          <figure class="u-sizeFull">
+            <Html>
+              <div
+                class="aspect"
+                style:--aspect={dimensions
+                  ? (100 * dimensions.height) / dimensions.width
+                  : null}>
+                <img
+                  {alt}
+                  class="image"
+                  srcset={sources}
+                  sizes="(min-width: 1000px) 33vw, (min-width: 600px) 50vw, 100vw"
+                  src={sources.split(' ')[0]}
+                  {...dimensions} />
+              </div>
+              {#if slice.primary.caption}
+                <figcaption class="muted small">
+                  {slice.primary.caption}
+                </figcaption>
+              {/if}
+            </Html>
+          </figure>
         {/if}
-      </div>
-    </Trailer>
+
+        {#if slice.slice_type === 'quote'}
+          <Blockquote>
+            <RichText slot="text" content={slice.primary.text} />
+            <RichText slot="caption" content={slice.primary.cite} />
+          </Blockquote>
+        {/if}
+
+        {#if slice.slice_type === 'spotify'}
+          <Spotify url={slice.primary.uri.embed_url}>
+            <RichText content={slice.primary.text} />
+          </Spotify>
+        {/if}
+      </Masonry>
+    </div>
+
+    {#if videos.length}
+      {@const background = data.page.data.featured_background}
+      <Trailer
+        background={background.url
+          ? {
+              src: srcset(background.url, [900]).split(' ')[0],
+              sizes:
+                '(min-width: 2000px) 100vw, (min-width: 1600px) 120vw, (min-width: 1400px) 110vw, (min-width: 1000px) 130vw, 150vw',
+              srcset: srcset(background.url, [
+                400,
+                900,
+                [1800, 'q_50'],
+                [2600, 'q_30']
+              ]),
+              ...background.dimensions
+            }
+          : null}>
+        <Embed slot="primary" content={videos[0].video} />
+        <div slot="secondary">
+          {#if videos.length > 1}
+            <Grid size={{ md: `1of${videos.length - 1 < 3 ? 2 : 3}` }}>
+              {#each videos.slice(1) as { video }}
+                <GridCell>
+                  <Embed content={video} />
+                </GridCell>
+              {/each}
+            </Grid>
+          {/if}
+        </div>
+      </Trailer>
+    {/if}
   {/if}
 
   <Intro blurb title="Vill du se fler föreställningar?">

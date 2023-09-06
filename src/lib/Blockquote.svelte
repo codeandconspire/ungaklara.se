@@ -1,10 +1,10 @@
 <script>
-  import { onMount } from "svelte"
+  import { onMount } from 'svelte'
 
   let variant = 1
 
   onMount(() => {
-    variant = Math.ceil(Math.random() * 4);
+    variant = Math.ceil(Math.random() * 4)
   })
 </script>
 
@@ -18,7 +18,9 @@
 </div>
 
 <style>
- .blockquote {
+  .blockquote {
+    --indent: 0;
+
     position: relative;
     z-index: 0;
     font-weight: 600;
@@ -32,8 +34,6 @@
     max-width: 34em;
     padding: 0.5em 0 0 1.75em;
     min-height: 5.5em;
-
-    --indent: 0em;
   }
 
   figcaption {
@@ -68,7 +68,12 @@
     width: 7em;
     height: 7em;
     border-radius: 100%;
-    background: linear-gradient(130deg, rgb(var(--color-green)) 45%, rgba(var(--color-green), 0) 85%, transparent);
+    background: linear-gradient(
+      130deg,
+      rgb(var(--color-green)) 45%,
+      rgba(var(--color-green), 0) 85%,
+      transparent
+    );
     top: -1.25em;
     left: calc(var(--indent) * -1 - 0.5em);
   }
@@ -76,7 +81,11 @@
   .variant-2::before {
     width: 2.5em;
     height: calc(100% + 1em);
-    background: linear-gradient( rgba(var(--color-pink)) 0%, rgba(var(--color-pink), 0) 100%, rgb(var(--color-pink)) );
+    background: linear-gradient(
+      rgba(var(--color-pink)) 0%,
+      rgba(var(--color-pink), 0) 100%,
+      rgb(var(--color-pink))
+    );
     top: -0.5em;
     left: calc(var(--indent) * -1);
   }
@@ -85,7 +94,14 @@
     width: 5em;
     height: 100%;
     max-height: 7em;
-    background-image: linear-gradient( rgb(var(--color-yellow)) 20%, rgba(var(--color-yellow), 0) ), linear-gradient( rgb(var(--color-yellow)) 20%, rgba(var(--color-yellow), 0) );
+    background-image: linear-gradient(
+        rgb(var(--color-yellow)) 20%,
+        rgba(var(--color-yellow), 0)
+      ),
+      linear-gradient(
+        rgb(var(--color-yellow)) 20%,
+        rgba(var(--color-yellow), 0)
+      );
     background-position: 0 0, 2.2em 0;
     background-size: 1.5em 100%, 1.5em 100%;
     background-repeat: no-repeat;
@@ -103,7 +119,11 @@
     width: 6em;
     height: 6em;
     background-size: 100%;
-    background-image: linear-gradient(135deg, rgba(var(--theme-color)) 0%, rgba(var(--theme-color), 0) 100%);
+    background-image: linear-gradient(
+      135deg,
+      rgba(var(--theme-color)) 0%,
+      rgba(var(--theme-color), 0) 100%
+    );
   }
 
   .variant-4::after {

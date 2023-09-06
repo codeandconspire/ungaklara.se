@@ -30,5 +30,7 @@
     position: relative;
     color: #fff;
     background-color: rgb(var(--document-color));
+    border-radius: var(--border-radius);
+    overflow: hidden;
   }
 </style>

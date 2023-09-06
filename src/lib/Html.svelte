@@ -176,8 +176,10 @@
 
   .html :global(.aspect) {
     position: relative;
-    padding-bottom: var(--Text-figure-aspect);
+    padding-bottom: calc(100% * var(--aspect) * 0.01);
     background: #000;
+    overflow: hidden;
+    border-radius: var(--border-radius);
   }
 
   .html :global(.image) {
@@ -186,6 +188,7 @@
     left: 0;
     width: 100%;
     height: 100%;
+    border-radius: var(--border-radius);
   }
 
   .html :global(pre) {
