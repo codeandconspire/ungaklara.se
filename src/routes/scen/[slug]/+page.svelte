@@ -24,6 +24,12 @@
 
   $: videos = data.page.data.videos.filter((group) => group.video.embed_url)
 
+  const ontoggle = (event) =>
+    event.currentTarget.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest'
+    })
+
   const small = browser ? window.matchMedia('(min-width: 600px)') : null
   const medium = browser ? window.matchMedia('(min-width: 800px)') : null
   const large = browser ? window.matchMedia('(min-width: 1000px)') : null
@@ -167,6 +173,107 @@
           {/each}
         </Grid>
       </div>
+    {/if}
+
+    {@const images = data.page.data.media.filter(
+      (slice) => slice.slice_type === 'image' && slice.primary.image.url
+    )}
+    {@const quotes = data.page.data.media.filter(
+      (slice) => slice.slice_type === 'quote' && slice.primary.text.length
+    )}
+    {@const team = data.page.data.team.filter(
+      (slice) =>
+        slice.slice_type === 'group' &&
+        slice.primary.heading.length &&
+        slice.items.length
+    )}
+    {#if images.length || quotes.length || team.length}
+      <Html class="u-spaceV5">
+        {#if images.length}
+          <details on:toggle={ontoggle}>
+            <summary>Bilder</summary>
+            <Grid carousel>
+              {#each images as slice}
+                {@const { dimensions, url, alt = '' } = slice.primary.image}
+                {@const sources = srcset(url, [400, 599, 900, [1500, 'q_40']])}
+                <GridCell>
+                  <figure class="u-sizeFull">
+                    <Html>
+                      <div
+                        class="aspect"
+                        style:--aspect={dimensions
+                          ? (100 * dimensions.height) / dimensions.width
+                          : null}>
+                        <img
+                          {alt}
+                          class="image"
+                          srcset={sources}
+                          sizes="(min-width: 1000px) 33vw, (min-width: 600px) 50vw, 100vw"
+                          src={sources.split(' ')[0]}
+                          {...dimensions} />
+                      </div>
+                      {#if slice.primary.caption}
+                        <figcaption class="muted small">
+                          {slice.primary.caption}
+                        </figcaption>
+                      {/if}
+                    </Html>
+                  </figure>
+                </GridCell>
+              {/each}
+            </Grid>
+          </details>
+        {/if}
+
+        {#if quotes.length}
+          <details on:toggle={ontoggle}>
+            <summary>Presscitat</summary>
+            {#each quotes as slice}
+              <Blockquote>
+                <RichText slot="text" content={slice.primary.text} />
+                <RichText slot="caption" content={slice.primary.cite} />
+              </Blockquote>
+            {/each}
+          </details>
+        {/if}
+
+        {#each team as slice}
+          {@const hasImage = slice.items.some((item) => item.image.url)}
+          <details on:toggle={ontoggle}>
+            <summary>{asText(slice.primary.heading)}</summary>
+            <Grid
+              size={{ xs: hasImage ? '1of2' : null, md: '1of3', lg: '1of4' }}>
+              {#each slice.items as item}
+                <GridCell>
+                  <article>
+                    <Html>
+                      {#if item.image.url}
+                        {@const sources = srcset(item.image.url, [
+                          200,
+                          400,
+                          [800, 'q_50']
+                        ])}
+                        <img
+                          class="u-spaceB2 u-sizeFull"
+                          sizes="13em"
+                          srcset={sources}
+                          style="max-width: 13em"
+                          alt={item.image.alt || ''}
+                          src={sources.split(' ')[0]}
+                          {...item.image.dimensions} />
+                      {/if}
+                      {#if item.label}
+                        <strong class="label">{item.label}</strong>
+                      {/if}
+                      <RichText content={item.text} />
+                    </Html>
+                  </article>
+                </GridCell>
+              {/each}
+            </Grid>
+          </details>
+        {/each}
+      </Html>
     {/if}
   {:else}
     <div class="u-spaceT7">

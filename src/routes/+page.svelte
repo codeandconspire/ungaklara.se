@@ -170,7 +170,9 @@
             [3000, 'q_50']
           ])}
           <figure class="u-spaceV7">
-            <Html size="large" class={slice.primary.smaller ? '' : 'u-sizeFull'}>
+            <Html
+              size="large"
+              class={slice.primary.smaller ? '' : 'u-sizeFull'}>
               <img
                 sizes="100vw"
                 srcset={sources}
@@ -195,7 +197,9 @@
           {/if}
           {#if items.length}
             <div class="u-spaceT4 u-md-uncontain">
-              <Grid carousel size={{ md: `1of${items.length - 1 < 3 ? 2 : 3}` }}>
+              <Grid
+                carousel
+                size={{ md: `1of${items.length - 1 < 3 ? 2 : 3}` }}>
                 {#each items as item}
                   <GridCell>
                     <Embed content={item.video} />
@@ -256,21 +260,30 @@
       {#if slice.slice_type === 'team'}
         {#if slice.items.length}
           <div class="u-spaceV7">
-            <Grid size={{ lg: '1of4', md: '1of2', xs: slice.items.find((item) => item.image.url) ? '1of2' : '1of1' }}>
+            <Grid
+              size={{
+                lg: '1of4',
+                md: '1of2',
+                xs: slice.items.find((item) => item.image.url) ? '1of2' : '1of1'
+              }}>
               {#each slice.items as item}
                 <GridCell>
                   <article>
                     <Html>
                       {#if item.image.url}
-                        {@const sources = srcset(item.image.url, [200, 400, [800, 'q_50']])}
+                        {@const sources = srcset(item.image.url, [
+                          200,
+                          400,
+                          [800, 'q_50']
+                        ])}
                         <img
-                            class="u-spaceB2"
-                            sizes="13em"
-                            srcset={sources}
-                            style="max-width: 13em"
-                            alt={item.image.alt || ''}
-                            src={sources.split(' ')[0]}
-                            {...item.image.dimensions} />
+                          class="u-spaceB2 u-sizeFull"
+                          sizes="13em"
+                          srcset={sources}
+                          style="max-width: 13em"
+                          alt={item.image.alt || ''}
+                          src={sources.split(' ')[0]}
+                          {...item.image.dimensions} />
                       {/if}
                       {#if item.label}
                         <strong class="label">{item.label}</strong>
