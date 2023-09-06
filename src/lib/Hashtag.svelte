@@ -1,4 +1,6 @@
 <script>
+  import { onMount } from 'svelte'
+
   export let text = null
 
   const id = Math.random().toString(36).substring(2)
@@ -8,7 +10,12 @@
   let inview = false
   let element = null
 
-  var onscroll = function () {
+  onMount(function () {
+    onresize()
+    onscroll()
+  })
+
+  function onscroll() {
     const { scrollY } = window
     const { clientHeight } = document.documentElement
     if (scrollY > offset + height) {
@@ -24,7 +31,7 @@
     inview = true
   }
 
-  var onresize = function () {
+  function onresize() {
     height = element.offsetHeight
     offset = element.offsetTop
     var parent = element
