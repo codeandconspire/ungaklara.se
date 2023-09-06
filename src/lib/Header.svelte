@@ -4,7 +4,7 @@
 
   function scrollDown(event) {
 		const menu = document.querySelector('#menu')
-		if (!menu return)
+		if (!menu) return
 		menu.scrollIntoView({
 			behavior: 'smooth',
 			block: 'start'
