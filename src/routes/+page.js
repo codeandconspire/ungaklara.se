@@ -56,6 +56,14 @@ const graphQuery = `
             ...repeatFields
           }
         }
+        ...on video {
+          non-repeat {
+            ...non-repeatFields
+          }
+          repeat {
+            ...repeatFields
+          }
+        }
       }
     }
   }

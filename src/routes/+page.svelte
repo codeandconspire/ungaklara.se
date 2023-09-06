@@ -8,6 +8,7 @@
   import srcset from '$lib/utils/srcset.js'
   import Intro from '$lib/Intro.svelte'
   import Html from '$lib/Html.svelte'
+  import Embed from '$lib/Embed.svelte'
   import Grid from '$lib/Grid.svelte'
   import Byline from '$lib/Byline.svelte'
   import Card from '$lib/Card.svelte'
@@ -192,31 +193,23 @@
       {/if}
 
       {#if slice.slice_type === 'video'}
-        <!-- const items = slice.items.filter((item) => item.video.embed_url);
-        return html`
-          <div class="u-spaceT7">
-            ${slice.primary.video.embed_url
-              ? video(slice.primary.video, {
-                  large: true
-                })
-              : null}
-            ${items.length
-              ? html`
-                  <div class="u-md-uncontain u-spaceT6">
-                    ${grid(
-                      {
-                        carousel: true,
-                        size: {
-                          md: `1of${items.length % 3 ? 2 : 3}`
-                        }
-                      },
-                      items.map((item) => video(item.video))
-                    )}
-                  </div>
-                `
-              : null}
-          </div>
-        `; -->
+        {@const items = slice.items.filter((item) => item.video.embed_url)}
+        <div class="u-spaceT7 u-posRelative">
+          {#if slice.primary.video.embed_url}
+            <Embed content={slice.primary.video} />
+          {/if}
+          {#if items.length}
+            <div class="u-spaceT4 u-md-uncontain">
+              <Grid carousel size={{ md: `1of${items.length - 1 < 3 ? 2 : 3}` }}>
+                {#each items as item}
+                  <GridCell>
+                    <Embed content={item.video} />
+                  </GridCell>
+                {/each}
+              </Grid>
+            </div>
+          {/if}
+        </div>
       {/if}
 
       {#if slice.slice_type === 'author'}

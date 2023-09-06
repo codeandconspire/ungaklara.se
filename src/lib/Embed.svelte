@@ -122,6 +122,8 @@
     position: relative;
     color: #fff;
     user-select: none;
+    border-radius: var(--border-radius);
+    overflow: hidden;
   }
 
   .link {
@@ -256,6 +258,7 @@
 
     background: rgba(0, 0, 0, 0.85);
     animation: -appear 500ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    border-radius: 0;
   }
 
   @keyframes -appear {

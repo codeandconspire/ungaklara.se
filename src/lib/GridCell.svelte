@@ -72,9 +72,12 @@
       scroll-snap-align: start;
       margin-bottom: 0;
     }
+  }
 
+  @media (max-width: 499px) {
     .carousel:last-child {
       padding-right: var(--document-margin);
+      width: calc(100% + 2rem);
       flex-basis: calc(100% - 1rem);
     }
   }
