@@ -4,6 +4,7 @@
   import resolve from '$lib/utils/resolve.js'
   import RichText from '$lib/RichText.svelte'
   import GridCell from '$lib/GridCell.svelte'
+  import Blockquote from '$lib/Blockquote.svelte'
   import srcset from '$lib/utils/srcset.js'
   import Intro from '$lib/Intro.svelte'
   import Html from '$lib/Html.svelte'
@@ -150,16 +151,12 @@
       {/if}
 
       {#if slice.slice_type === 'quote'}
-        <!-- const blockquote = state.cache(Blockquote, `${state.params.slug}-${index}`);
-        return html`
-          <div class="u-spaceV5">
-            ${blockquote.render({
-              large: true,
-              content: asElement(slice.primary.text, resolve, serialize),
-              caption: asElement(slice.primary.cite, resolve, serialize)
-            })}
-          </div>
-        `; -->
+        <div class="u-spaceV5">
+          <Blockquote>
+            <div slot="text"><RichText content={slice.primary.text} /></div>
+            <div slot="cite"><RichText content={slice.primary.cite} /></div>
+          </Blockquote>
+        </div>
       {/if}
 
       {#if slice.slice_type === 'image'}

@@ -43,6 +43,11 @@ const graphQuery = `
             ...non-repeatFields
           }
         }
+        ...on quote {
+          non-repeat {
+            ...non-repeatFields
+          }
+        }
       }
     }
   }
