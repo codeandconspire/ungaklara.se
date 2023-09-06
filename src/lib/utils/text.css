@@ -42,8 +42,9 @@
 .u-textHeading {
 	font-family: var(--heading-font-family) !important;
 	line-height: var(--heading-line-height) !important;
+	letter-spacing: var(--heading-letter-spacing);
+	word-spacing: var(--heading-word-spacing);
 	font-weight: 600;
-	letter-spacing: -0.025em;
 }
 
 .u-nowrap {
@@ -58,7 +59,7 @@
 	padding: 0;
 	margin: 0 0 0.35em 0;
 	text-transform: uppercase;
-	letter-spacing: 0.03em;
+	letter-spacing: var(--label-letter-spacing);
 	font-size: 1rem;
 }
 

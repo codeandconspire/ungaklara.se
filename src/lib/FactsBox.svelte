@@ -26,6 +26,8 @@
     background-color: rgb(var(--theme-color));
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
+    letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
     color: rgb(var(--theme-color-is-dark, 0, 0, 0));
     border-radius: var(--border-radius);
   }
@@ -103,7 +105,7 @@
     display: block;
     margin: 0 0 0.3em 0;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--label-letter-spacing);
     font-size: 0.875em;
   }
 
@@ -111,6 +113,8 @@
     padding: 0;
     margin: 0;
     font-family: var(--document-font-family);
+    letter-spacing: auto;
+    word-spacing: auto;
     text-wrap: balance;
   }
 </style>

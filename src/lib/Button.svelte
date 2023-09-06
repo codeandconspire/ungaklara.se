@@ -48,8 +48,8 @@
   .button {
     display: inline-flex;
     align-items: center;
-    line-height: 2.925rem;
     padding: 0 1rem;
+    padding-bottom: 0.2rem;
     border: var(--border-width) solid rgb(var(--document-color));
     position: relative;
     font-size: 1rem;
@@ -60,7 +60,10 @@
     user-select: none;
     text-align: center;
     font-family: var(--heading-font-family);
+    letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
     border-radius: var(--border-radius);
+    height: 3.5rem;
   }
 
   .button::first-letter {
@@ -129,8 +132,7 @@
 
   .icon {
     display: inline-block;
-    margin-right: 0.25em;
-    margin-top: -0.05em;
+    margin: 0.25em 0.4em 0 -0.1em;
   }
 
   @media (max-width: 349px) {

@@ -24,6 +24,8 @@
     font-weight: 600;
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
+    letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
     font-size: 1.125rem;
     word-break: break-word;
     margin: 3.5rem 0;

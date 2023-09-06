@@ -94,7 +94,8 @@
     font-size: 2rem;
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
+    letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
     font-weight: 600;
-    letter-spacing: -0.025em;
   }
 </style>

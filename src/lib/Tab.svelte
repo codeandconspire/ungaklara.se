@@ -37,6 +37,8 @@
     font-weight: 600;
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
+    letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
     background-color: transparent;
   }
 

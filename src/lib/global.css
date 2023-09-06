@@ -20,7 +20,11 @@
 	--document-line-height: 1.4;
 
 	--heading-font-family: 'UK', var(--document-font-family);
-	--heading-line-height: 1.2666666667;
+	--heading-line-height: 1.25;
+	--heading-letter-spacing: -0.015em;
+	--heading-word-spacing: -0.07em;
+
+	--label-letter-spacing: 0.05em;
 
 	--logo-font-family: 'UK Logotype', var(--heading-font-family);
 	--logo-line-height: 1.2;

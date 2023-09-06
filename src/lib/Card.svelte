@@ -198,6 +198,8 @@
     font-size: 1.25rem;
     font-weight: 600;
     font-family: var(--heading-font-family);
+    letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
     line-height: 1;
   }
 

@@ -186,10 +186,11 @@
 	h2 {
 		margin: -0.25rem 0 0.75rem;
 		font-family: var(--heading-font-family);
+		letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
 		font-size: 1.8rem;
 		font-weight: 600;
     line-height: 1.1;
-    letter-spacing: -.02em;
 		text-wrap: balance;
 	}
 
@@ -257,7 +258,7 @@
 		font-family: 'UK';
 		font-weight: 600;
 		text-transform: uppercase;
-		letter-spacing: 0.05em;
+		letter-spacing: 0.03em;
 	}
 
 	.item {

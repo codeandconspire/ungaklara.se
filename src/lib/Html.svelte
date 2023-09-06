@@ -58,7 +58,8 @@
     font-weight: 600;
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
-    letter-spacing: -0.025em;
+    letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
   }
 
   @media (min-width: 1000px) {
@@ -229,6 +230,8 @@
     font-size: 1.35rem;
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
+    letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
   }
 
   .html :global(summary + *) {
@@ -311,7 +314,9 @@
     padding: 0;
     margin: 0 0 0.3em 0;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-family: var(--heading-font-family);
+    line-height: var(--heading-line-height);
+	  letter-spacing: var(--label-letter-spacing);
     font-size: 0.875em;
   }
 
@@ -414,7 +419,8 @@
   .html :global(.h6) {
     margin: 0;
     color: rgb(var(--current-color));
-    letter-spacing: -0.02em;
+    letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
     text-wrap: balance;
   }
 
@@ -443,6 +449,8 @@
     font-weight: 600;
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
+    letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
   }
 
   .html :global(h1),

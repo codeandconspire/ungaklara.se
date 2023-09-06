@@ -50,7 +50,8 @@
     padding-top: 25vh;
     margin-bottom: calc(var(--spacing) * 1);
     font-family: var(--heading-font-family);
-    letter-spacing: -0.025em;
+    letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
     line-height: 1.3;
     position: relative;
     overflow: hidden;
@@ -100,7 +101,8 @@
     hyphens: auto;
     line-height: 1;
     margin-left: -0.04em;
-    letter-spacing: -0.025em;
+    letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
     text-wrap: balance;
   }
 

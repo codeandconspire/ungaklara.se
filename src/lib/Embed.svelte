@@ -229,6 +229,8 @@
     line-height: 1.15;
     font-size: 1.2rem;
     font-family: var(--heading-font-family);
+    letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
   }
 
   @media (min-width: 1000px) {

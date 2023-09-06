@@ -166,6 +166,8 @@
     font-size: 1.25rem;
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
+    letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
   }
 
   .meta {

@@ -67,11 +67,11 @@
     display: flex;
     align-items: center;
     padding: 0 0 0.2rem;
-    font-family: 'UK';
+    font-family: var(--heading-font-family);
+    letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
     font-size: 1.25rem;
     font-weight: 600;
-    letter-spacing: -0.03em;
-    word-spacing: -0.06em;
     line-height: 1.3;
 		white-space: nowrap;
 	}
