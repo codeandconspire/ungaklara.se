@@ -1,5 +1,5 @@
 <script>
-  /** @type {'sm'|'lg'|null} */
+  /** @type {'small'|'large'|null} */
   export let size = null
 
   export let fat = false
@@ -10,8 +10,8 @@
   class={`html ${$$restProps.class}`}
   class:fat
   class:fixed
-  class:small={size === 'sm'}
-  class:large={size === 'lg'}>
+  class:small={size === 'small'}
+  class:large={size === 'large'}>
   <slot />
 </div>
 

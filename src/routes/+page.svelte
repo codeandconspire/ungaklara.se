@@ -120,7 +120,7 @@
         {#if slice.primary.text.length && !slice.primary.items.length}
           <div class="u-spaceV6">
             {#if slice.primary.text.length}
-              <Html size="lg">
+              <Html size="large">
                 <RichText content={slice.primary.text} />
               </Html>
             {/if}
@@ -128,7 +128,7 @@
               <Grid size={{ md: '1of2' }}>
                 {#each items as item}
                   <GridCell>
-                    <Html size="lg" class="u-spaceB2">
+                    <Html size="large" class="u-spaceB2">
                       <RichText content={item.text} />
                     </Html>
                   </GridCell>
@@ -142,7 +142,7 @@
       {#if slice.slice_type === 'heading'}
         {@const heading = asText(slice.primary.heading)}
         {#if heading}
-          <Html size="lg" class="u-spaceB5 u-pushDown">
+          <Html size="large" class="u-spaceB5 u-pushDown">
             <h2>{heading}</h2>
             <RichText content={slice.primary.text} />
           </Html>
@@ -251,7 +251,7 @@
           <div class="Text u-sizeFull">
             {#each slice.items as item}
               {#if item.heading.length && item.text}
-                <Html size="lg" class="u-sizeFull">
+                <Html size="large" class="u-sizeFull">
                   <details>
                     <summary><h3>{asText(item.heading)}</h3></summary>
                     <RichText content={item.text} />
