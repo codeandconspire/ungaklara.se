@@ -64,6 +64,11 @@ const graphQuery = `
             ...repeatFields
           }
         }
+        ...on image {
+          non-repeat {
+            ...non-repeatFields
+          }
+        }
       }
     }
   }

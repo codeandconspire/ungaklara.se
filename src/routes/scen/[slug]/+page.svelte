@@ -28,7 +28,6 @@
 
   function measure() {
     collapse = media ? !media.matches : false
-    console.log(collapse)
   }
 
   function image(props) {

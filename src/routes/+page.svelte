@@ -161,35 +161,30 @@
       {/if}
 
       {#if slice.slice_type === 'image'}
-        <!-- if (!slice.primary.image.url) return null;
-        const sources = srcset(slice.primary.image.url, [
-          400,
-          600,
-          900,
-          [1600, 'q_60'],
-          [3000, 'q_50']
-        ]);
-        const attrs = Object.assign(
-          {
-            sizes: '100vw',
-            srcset: sources,
-            src: sources.split(' ')[0],
-            alt: slice.primary.image.alt || ''
-          },
-          slice.primary.image.dimensions
-        );
-        return html`
-          <figure class="Text Text--large ${slice.primary.smaller ? '' : 'u-sizeFull'} u-spaceV6">
-            <img ${attrs} />
-            ${slice.primary.image.copyright
-              ? html`
-                  <figcaption>
-                    <small class="Text-muted">${slice.primary.image.copyright}</small>
-                  </figcaption>
-                `
-              : null}
+        {#if slice.primary.image.url}
+          {@const sources = srcset(slice.primary.image.url, [
+            400,
+            600,
+            900,
+            [1600, 'q_60'],
+            [3000, 'q_50']
+          ])}
+          <figure class="u-spaceV7">
+            <Html size="large" class={slice.primary.smaller ? '' : 'u-sizeFull'}>
+              <img
+                sizes="100vw"
+                srcset={sources}
+                src={sources.split(' ')[0]}
+                alt={slice.primary.image.alt || ''}
+                {...slice.primary.image.dimensions} />
+              {#if slice.primary.image.copyright}
+                <figcaption>
+                  <small class="muted">{slice.primary.image.copyright}</small>
+                </figcaption>
+              {/if}
+            </Html>
           </figure>
-        `; -->
+        {/if}
       {/if}
 
       {#if slice.slice_type === 'video'}
