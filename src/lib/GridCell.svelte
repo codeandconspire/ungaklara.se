@@ -29,8 +29,8 @@
 
 <style>
   /**
- * 1. Add support for truncated text within the grid
- */
+   * 1. Add support for truncated text within the grid
+   */
 
   .cell {
     flex: 0 0 100%;
@@ -60,8 +60,8 @@
   }
 
   /**
- * Carousel
- */
+   * Carousel
+   */
 
   @media (max-width: 599px) {
     .carousel {
