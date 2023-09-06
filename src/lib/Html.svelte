@@ -308,6 +308,19 @@
   }
 
   /**
+   * Label
+   */
+
+  .html :global(.label) {
+    display: block;
+    padding: 0;
+    margin: 0 0 0.3em 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.875em;
+  }
+
+  /**
    * Lists
    */
 

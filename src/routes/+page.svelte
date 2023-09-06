@@ -266,12 +266,35 @@
       {/if}
 
       {#if slice.slice_type === 'team'}
-        <!-- if (!slice.items.length) return;
-        const opts = { size: { lg: '1of4' } };
-        const hasImage = slice.items.find((item) => item.image.url);
-        if (hasImage) opts.size.xs = '1of2';
-        else opts.size.md = '1of2';
-        return grid(opts, slice.items.map(teamMember)); -->
+        {#if slice.items.length}
+          <div class="u-spaceV7">
+            <Grid size={{ lg: '1of4', md: '1of2', xs: slice.items.find((item) => item.image.url) ? '1of2' : '1of1' }}>
+              {#each slice.items as item}
+                <GridCell>
+                  <article>
+                    <Html>
+                      {#if item.image.url}
+                        {@const sources = srcset(item.image.url, [200, 400, [800, 'q_50']])}
+                        <img
+                            class="u-spaceB2"
+                            sizes="13em"
+                            srcset={sources}
+                            style="max-width: 13em"
+                            alt={item.image.alt || ''}
+                            src={sources.split(' ')[0]}
+                            {...item.image.dimensions} />
+                      {/if}
+                      {#if item.label}
+                        <strong class="label">{item.label}</strong>
+                      {/if}
+                      <RichText content={item.text} />
+                    </Html>
+                  </article>
+                </GridCell>
+              {/each}
+            </Grid>
+          </div>
+        {/if}
       {/if}
 
       {#if slice.slice_type === 'button'}

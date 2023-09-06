@@ -48,6 +48,14 @@ const graphQuery = `
             ...non-repeatFields
           }
         }
+        ...on team {
+          non-repeat {
+            ...non-repeatFields
+          }
+          repeat {
+            ...repeatFields
+          }
+        }
       }
     }
   }
