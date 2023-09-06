@@ -70,14 +70,6 @@
     {/if}
   </nav>
 
-  {#if asText(data.page.data.notice.length)}
-    <div class="notice">
-      <Html>
-        <RichText content={data.page.data.notice} />
-      </Html>
-    </div>
-  {/if}
-
   {#if $navigating}
     <Html class="u-spaceV8 u-textCenter u-sizeFull">
       <p>Hämtar föreställningar</p>
@@ -160,19 +152,6 @@
   @media (min-width: 1000px) {
     .row:not(:first-child) {
       margin-top: 5rem;
-    }
-  }
-
-  .notice {
-    padding: 0.2rem 0 2rem;
-    border-bottom: var(--border-width) solid;
-    margin-bottom: 2.8rem !important;
-  }
-
-  @media (min-width: 600px) {
-    .notice {
-      padding: 0.4rem 0 2.75rem;
-      margin-bottom: 3.75rem !important;
     }
   }
 </style>
