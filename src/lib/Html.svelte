@@ -7,7 +7,7 @@
 </script>
 
 <div
-  class={`html ${$$restProps.class}`}
+  class={`html ${$$restProps.class || ''}`}
   class:fat
   class:fixed
   class:small={size === 'small'}
@@ -172,6 +172,7 @@
   }
 
   .html :global(img) {
+    display: block;
     width: 100%;
     height: auto;
   }
@@ -318,7 +319,7 @@
     text-transform: uppercase;
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
-	  letter-spacing: var(--label-letter-spacing);
+    letter-spacing: var(--label-letter-spacing);
     font-size: 0.875em;
   }
 

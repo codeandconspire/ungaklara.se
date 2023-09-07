@@ -61,7 +61,20 @@ export async function load({ fetch, url, platform }) {
             ? 'my.event.archive_on'
             : 'document.first_publication_date',
         direction: 'desc'
-      }
+      },
+      graphQuery: `
+        {
+          event {
+            ...eventFields
+            resource_blurb {
+              ...on teachers {
+                description
+                cta
+              }
+            }
+          }
+        }
+      `
     })
 
     if (tab === 'arkiv') return response.results

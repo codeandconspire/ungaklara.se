@@ -118,8 +118,8 @@
       {/if}
 
       {#if slice.slice_type === 'text'}
-        {@const items = slice.items.filter((item) => item.text.length || item.text[0].text.length)}
-        {#if slice.primary.text.length || items.length}
+        {@const items = slice.items.filter((item) => asText(item.text))}
+        {#if asText(slice.primary.text) || items.length}
           <div class="u-spaceMd">
             {#if slice.primary.text.length}
               <Html size="large">

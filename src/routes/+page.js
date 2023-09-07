@@ -11,12 +11,6 @@ const graphQuery = `
           shortname
         }
       }
-      resource_blurb {
-        ...on teachers {
-          description
-          cta
-        }
-      }
       body {
         ...on link_blurb {
           non-repeat {
@@ -102,6 +96,7 @@ export async function load({ fetch, params }) {
     const page = await client.getByUID('page', slug, { graphQuery })
     return { page }
   } catch (err) {
+    console.log(err)
     throw error(404, 'Not found')
   }
 }

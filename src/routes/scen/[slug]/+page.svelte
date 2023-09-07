@@ -188,7 +188,7 @@
         slice.items.length
     )}
     {#if images.length || quotes.length || team.length}
-      <Html class="u-spaceV5">
+      <Html class="u-spaceMd">
         {#if images.length}
           <details on:toggle={ontoggle}>
             <summary>Bilder</summary>
@@ -254,7 +254,7 @@
                           [800, 'q_50']
                         ])}
                         <img
-                          class="u-spaceB2 u-sizeFull"
+                          class="u-sizeFull"
                           sizes="13em"
                           srcset={sources}
                           style="max-width: 13em"
@@ -276,7 +276,7 @@
       </Html>
     {/if}
   {:else}
-    <div class="u-spaceT7">
+    <div class="u-spaceMd">
       <Masonry
         let:item={slice}
         gap={isLarge ? 24 : isMedium ? 32 : 24}
@@ -380,7 +380,7 @@
     {@const blurbHref = resolve(blurb)}
     {@const resourceHref = resolve(data.page.data.resource_link)}
     <hr />
-    {#if blurbHref}
+    {#if blurbHref || true}
       <Grid>
         <GridCell size={{ md: '1of2', lg: '2of3' }}>
           <Html large>
@@ -388,24 +388,23 @@
             <RichText content={data.page.data.resource_text} />
           </Html>
           {#if resourceHref}
-            <Button
-              class="u-spaceT4 u-spaceB2"
-              icon="download"
-              href={resourceHref}>
+            <Button class="u-spaceSm" icon="download" href={resourceHref}>
               {data.page.data.resource_link_text || 'Ladda ner'}
             </Button>
           {/if}
         </GridCell>
         <GridCell size={{ md: '1of2', lg: '1of3' }}>
           <div class="u-bgGrayLight">
-            <div class="Text u-paddedBox">
-              <p class="Text-fat Text-large">
-                {asText(blurb.data.description)}
+            <Html class="u-paddedBox">
+              <p class="fat large">
+                {'Lorem ipsum' || asText(blurb.data.description)}
               </p>
               <strong>
-                <a href="${blurbHref}">${blurb.data.cta || 'Läs mer'}</a>
+                <a href="${blurbHref}">
+                  {'Hej' || blurb.data.cta || 'Läs mer'}
+                </a>
               </strong>
-            </div>
+            </Html>
           </div>
         </GridCell>
       </Grid>
@@ -415,7 +414,7 @@
         <RichText content={data.page.data.resource_text} />
       </Html>
       {#if resourceHref}
-        <Button class="u-spaceT4 u-spaceB2" icon="download" href={resourceHref}>
+        <Button class="u-spaceSm" icon="download" href={resourceHref}>
           {data.page.data.resource_link_text || 'Ladda ner'}
         </Button>
       {/if}
