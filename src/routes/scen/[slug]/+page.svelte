@@ -328,7 +328,7 @@
 
     {#if videos.length}
       {@const background = data.page.data.featured_background}
-      <div class="u-posRelative">
+      <div class="u-posRelative u-spaceLg">
         {#if data.page.data.hashtag}
           {@const href = resolve(data.page.data.hashtag_link)}
           {@const external = data.page.data.hashtag_link.target === '_blank'}
@@ -373,6 +373,54 @@
         </Trailer>
       </div>
     {/if}
+
+    {@const team = data.page.data.team.filter(
+      (slice) =>
+        slice.slice_type === 'group' &&
+        slice.primary.heading.length &&
+        slice.items.length
+    )}
+    {#if team.length}
+      {#each team as slice}
+        {@const hasImage = slice.items.some((item) => item.image.url)}
+        <section class="u-spaceLg">
+          <Html>
+            <h2>{asText(slice.primary.heading)}</h2>
+          </Html>
+          <Grid
+            class="u-spaceSm"
+            size={{ xs: hasImage ? '1of2' : null, md: '1of3', lg: '1of4' }}>
+            {#each slice.items as item}
+              <GridCell>
+                <article>
+                  <Html>
+                    {#if item.image.url}
+                      {@const sources = srcset(item.image.url, [
+                        200,
+                        400,
+                        [800, 'q_50']
+                      ])}
+                      <img
+                        class="u-sizeFull"
+                        sizes="13em"
+                        srcset={sources}
+                        style="max-width: 13em"
+                        alt={item.image.alt || ''}
+                        src={sources.split(' ')[0]}
+                        {...item.image.dimensions} />
+                    {/if}
+                    {#if item.label}
+                      <strong class="label">{item.label}</strong>
+                    {/if}
+                    <RichText content={item.text} />
+                  </Html>
+                </article>
+              </GridCell>
+            {/each}
+          </Grid>
+        </section>
+      {/each}
+    {/if}
   {/if}
 
   {#if data.page.data.resource_heading.length}
@@ -380,7 +428,7 @@
     {@const blurbHref = resolve(blurb)}
     {@const resourceHref = resolve(data.page.data.resource_link)}
     <hr />
-    {#if blurbHref || true}
+    {#if blurbHref}
       <Grid>
         <GridCell size={{ md: '1of2', lg: '2of3' }}>
           <Html large>

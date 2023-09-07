@@ -11,15 +11,18 @@
   export let ordered = false
   export let carousel = false
 
+  let className = ''
+  export { className as class }
+
   $: setContext(GRID, { size, ordered, appear, carousel })
 </script>
 
 {#if ordered}
-  <ol class="grid" class:slim class:carousel>
+  <ol class="grid {className}" class:slim class:carousel>
     <slot />
   </ol>
 {:else}
-  <div class="grid" class:slim class:carousel>
+  <div class="grid {className}" class:slim class:carousel>
     <slot />
   </div>
 {/if}

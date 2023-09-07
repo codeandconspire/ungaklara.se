@@ -19,7 +19,6 @@
 <style>
   .trailer {
     position: relative;
-    margin: 1.5rem 0;
   }
 
   .content {
@@ -76,20 +75,12 @@
   }
 
   @media (min-width: 1000px) {
-    .trailer {
-      margin: 5rem 0;
-    }
-
     .children {
       margin-top: 2.5rem;
     }
   }
 
   @media (min-width: 1200px) {
-    .trailer {
-      margin: 8rem 0;
-    }
-
     .children {
       margin-top: 3.5rem;
     }
