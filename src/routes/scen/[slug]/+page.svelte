@@ -1,3 +1,7 @@
+<script context="module">
+  export const INITAIL_TICKET_COUNT = 6
+</script>
+
 <script>
   import { asText } from '@prismicio/client'
   import { browser } from '$app/environment'
@@ -463,7 +467,11 @@
       bind:this={tickets}>
       <hr />
       <Grid class="u-spaceMd" slim appear size={{ md: '1of2', xl: '1of3' }}>
-        {#each shows.slice(0, showAll ? shows.length : 3) as show, index (show.id)}
+        {@const subset = shows.slice(
+          0,
+          showAll ? shows.length : INITAIL_TICKET_COUNT
+        )}
+        {#each subset as show, index (show.id)}
           <GridCell delay={`${(index - 3) * 150}ms`}>
             <div class="u-sizeFull">
               <Ticket
@@ -476,7 +484,7 @@
           </GridCell>
         {/each}
       </Grid>
-      {#if !showAll && shows.length > 3}
+      {#if !showAll && shows.length > INITAIL_TICKET_COUNT}
         <ShowMore
           href={new URL('?showAll#tickets', $page.url)}
           on:click={onShowAll}>
