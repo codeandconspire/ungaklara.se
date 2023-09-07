@@ -27,6 +27,15 @@
   export let period = null
 
   let root
+  let hasMounted = false
+
+  afterNavigate(function () {
+    // Prevent scrolling on initial load
+    if (hasMounted) {
+      root.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+    hasMounted = true
+  })
 
   function onselect(event) {
     const { detail } = event
@@ -67,10 +76,6 @@
 
     return buttons
   }
-
-  afterNavigate(function () {
-    root.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  })
 
   function onpaginate(event) {
     goto(event.target.href, { replaceState: true, noScroll: true })

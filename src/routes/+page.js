@@ -1,5 +1,5 @@
-import { error } from '@sveltejs/kit'
 import { createClient } from '@prismicio/client'
+import { error } from '@sveltejs/kit'
 
 const graphQuery = `
   {
