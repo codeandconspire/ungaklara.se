@@ -8,13 +8,13 @@ export async function load({ fetch, url }) {
   const client = createClient('unga-klara', { fetch })
 
   try {
-    const [_page, events] = await Promise.all([
+    const [_page, { events, index, total }] = await Promise.all([
       client.getSingle('events'),
       // @ts-ignore
       getPage(+page || 1)
     ])
 
-    return { page: _page, events }
+    return { page: _page, events, index, total }
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err)
     throw error(500, message)
@@ -22,7 +22,7 @@ export async function load({ fetch, url }) {
 
   /**
    * @param {number} page
-   * @returns {Promise<(import('@prismicio/client').PrismicDocument & { production?: any })[]>}
+   * @returns {Promise<{ events: import('@prismicio/client').PrismicDocument[], index: number, total: number }>}
    */
   async function getPage(page) {
     var filters = [
@@ -46,13 +46,17 @@ export async function load({ fetch, url }) {
     const response = await client.get({
       page,
       filters,
-      pageSize: 100,
+      pageSize: 24,
       orderings: {
         field: 'my.event.archive_on',
         direction: 'desc'
       }
     })
 
-    return response.results
+    return {
+      index: response.page,
+      total: response.total_pages,
+      events: response.results
+    }
   }
 }

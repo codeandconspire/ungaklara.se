@@ -1,8 +1,10 @@
 <script>
+  import { afterNavigate } from '$app/navigation'
   import { page, navigating } from '$app/stores'
   import { asText } from '@prismicio/client'
   import { goto } from '$app/navigation'
 
+  import Pagination from '$lib/Pagination.svelte'
   import hexToRgb from '$lib/utils/hex-to-rgb'
   import resolve from '$lib/utils/resolve.js'
   import RichText from '$lib/RichText.svelte'
@@ -23,6 +25,8 @@
 
   /** @type {string?} */
   export let period = null
+
+  let root
 
   function onselect(event) {
     const { detail } = event
@@ -63,9 +67,18 @@
 
     return buttons
   }
+
+  afterNavigate(function () {
+    root.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  })
+
+  function onpaginate(event) {
+    goto(event.target.href, { replaceState: true, noScroll: true })
+    event.preventDefault()
+  }
 </script>
 
-<div class="u-container">
+<div class="u-container" class:disabled={$navigating} bind:this={root}>
   <header>
     <Intro title={asText(data.page.data.title)} adapt />
   </header>
@@ -87,7 +100,7 @@
     {/if}
   </nav>
 
-  {#if $navigating}
+  {#if $navigating && $navigating?.from?.route.id !== $navigating?.to?.route.id}
     <Html class="u-spaceMd u-textCenter u-sizeFull">
       <p class="u-sizeFull">Hämtar föreställningar</p>
     </Html>
@@ -124,16 +137,19 @@
       </Html>
     </slot>
   {/if}
-
-  <!-- ${pages && pages.length === page * PAGE_SIZE
-    ? pagination({
-        href: getHrefWithParam('page', page + 1),
-        onclick: onpaginate
-      })
-    : null} -->
+  {#if data.total > 1 && (!$navigating || $navigating?.from?.route.id === $navigating?.to?.route.id)}
+    <div class="u-spaceMd">
+      <Pagination index={data.index} total={data.total} on:click={onpaginate} />
+    </div>
+  {/if}
 </div>
 
 <style>
+  .disabled {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
   .rows {
     margin-top: 4.5rem;
   }

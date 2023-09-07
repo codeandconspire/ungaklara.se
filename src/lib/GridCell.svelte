@@ -9,7 +9,7 @@
     appear: _appear = false
   } = getContext(GRID)
 
-  export let delay = '0'
+  export let delay = null
   export let size = _size
   export let appear = _appear
 
@@ -37,7 +37,7 @@
    */
 
   .cell {
-    --delay: 0;
+    --delay: 0ms;
 
     flex: 0 0 100%;
     display: flex;
@@ -55,11 +55,10 @@
   .appear {
     opacity: 0;
     transform: translateY(100px);
-    animation: Grid-cell--appear 300ms var(--delay)
-      cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation: appear 300ms var(--delay) cubic-bezier(0.23, 1, 0.32, 1) forwards;
   }
 
-  @keyframes Grid-cell--appear {
+  @keyframes appear {
     to {
       opacity: 1;
       transform: none;
