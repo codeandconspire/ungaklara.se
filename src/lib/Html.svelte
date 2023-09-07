@@ -175,6 +175,7 @@
     display: block;
     width: 100%;
     height: auto;
+    border-radius: var(--border-radius);
   }
 
   .html :global(.aspect) {
@@ -191,7 +192,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: var(--border-radius);
   }
 
   .html :global(pre) {

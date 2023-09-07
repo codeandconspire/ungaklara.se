@@ -2,17 +2,21 @@
   export let background
 </script>
 
-<div class="trailer">
+<div class="trailer u-narrow">
   <div class="content">
     {#if background}
       <div class="background">
         <img alt="" {...background} class="image" />
       </div>
     {/if}
-    <slot name="primary" />
+    <div class="u-container">
+      <div class="primary">
+        <slot name="primary" />
+      </div>
+    </div>
   </div>
   {#if $$slots.secondary}
-    <div class="children"><slot name="secondary" /></div>
+    <div class="secondary u-container"><slot name="secondary" /></div>
   {/if}
 </div>
 
@@ -70,18 +74,22 @@
     }
   }
 
-  .children {
+  .primary {
+    position: relative;
+  }
+
+  .secondary {
     margin-top: 1.5rem;
   }
 
   @media (min-width: 1000px) {
-    .children {
+    .secondary {
       margin-top: 2.5rem;
     }
   }
 
   @media (min-width: 1200px) {
-    .children {
+    .secondary {
       margin-top: 3.5rem;
     }
   }

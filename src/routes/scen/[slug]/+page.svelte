@@ -328,21 +328,7 @@
 
     {#if videos.length}
       {@const background = data.page.data.featured_background}
-      <div class="u-posRelative u-spaceLg">
-        {#if data.page.data.hashtag}
-          {@const href = resolve(data.page.data.hashtag_link)}
-          {@const external = data.page.data.hashtag_link.target === '_blank'}
-          {#if href}
-            <a
-              {href}
-              target={external ? '_blank' : null}
-              rel={external ? 'noopenere noreferrer' : null}>
-              <Hashtag text={data.page.data.hashtag} />
-            </a>
-          {:else}
-            <Hashtag text={data.page.data.hashtag} />
-          {/if}
-        {/if}
+      <div class="u-spaceLg">
         <Trailer
           background={background.url
             ? {
@@ -358,7 +344,24 @@
                 ...background.dimensions
               }
             : null}>
-          <Embed slot="primary" content={videos[0].video} />
+          <div slot="primary">
+            {#if data.page.data.hashtag}
+              {@const href = resolve(data.page.data.hashtag_link)}
+              {@const external =
+                data.page.data.hashtag_link.target === '_blank'}
+              {#if href}
+                <a
+                  {href}
+                  target={external ? '_blank' : null}
+                  rel={external ? 'noopenere noreferrer' : null}>
+                  <Hashtag text={data.page.data.hashtag} />
+                </a>
+              {:else}
+                <Hashtag text={data.page.data.hashtag} />
+              {/if}
+            {/if}
+            <Embed content={videos[0].video} />
+          </div>
           <div slot="secondary">
             {#if videos.length > 1}
               <Grid size={{ md: `1of${videos.length - 1 < 3 ? 2 : 3}` }}>
