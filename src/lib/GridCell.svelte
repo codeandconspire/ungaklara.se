@@ -9,6 +9,7 @@
     appear: _appear = false
   } = getContext(GRID)
 
+  export let delay = '0'
   export let size = _size
   export let appear = _appear
 
@@ -21,11 +22,11 @@
 </script>
 
 {#if ordered}
-  <li class={classes} class:appear class:carousel>
+  <li class={classes} class:appear class:carousel style:--delay={delay}>
     <slot />
   </li>
 {:else}
-  <div class={classes} class:appear class:carousel>
+  <div class={classes} class:appear class:carousel style:--delay={delay}>
     <slot />
   </div>
 {/if}
@@ -36,6 +37,8 @@
    */
 
   .cell {
+    --delay: 0;
+
     flex: 0 0 100%;
     display: flex;
     align-items: flex-start;
@@ -52,7 +55,8 @@
   .appear {
     opacity: 0;
     transform: translateY(100px);
-    animation: Grid-cell--appear 300ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation: Grid-cell--appear 300ms var(--delay)
+      cubic-bezier(0.23, 1, 0.32, 1) forwards;
   }
 
   @keyframes Grid-cell--appear {
