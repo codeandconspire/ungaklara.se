@@ -15,7 +15,9 @@
 
 <header class="header u-container">
 	<h2 class="u-hiddenVisually">Navigation</h2>
-	<a class="logo" href="/" rel="home">Unga Klara</a>
+	<a class="logo" href="/" rel="home">
+		<i>U</i><i>n</i><i>g</i><i>a</i><i>K</i><i>l</i><i>a</i><i>r</i><i>a</i>
+	</a>
 	<ul class="list">
 		{#each items as item}
 			<li class="u-inlineBlock">
@@ -61,6 +63,21 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.2rem clamp(1.25rem, 2.5vw, 2.25rem);
+		opacity: 0;
+		transform: translateY(-2rem);
+		animation: fade 100ms 1000ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+	}
+
+	@keyframes fade {
+		from {
+			transform: translateY(-2rem);
+			opacity: 0;
+		}
+
+		to {
+			transform: translateY(0);
+			opacity: 1;
+		}
 	}
 
 	.link {
@@ -85,18 +102,52 @@
 	}
 
 	.logo {
-		padding: 0 0.2em;
-		font-family: 'UK Logotype';
-		font-size: 2.5rem;
-		letter-spacing: -0.06em;
-		line-height: 1;
-		text-indent: -0.25em;
-		text-transform: uppercase;
-		word-spacing: -0.1em;
-		white-space: nowrap;
+    font-family: 'UK Logotype';
+    font-size: clamp(2.5rem, 13.4vw, 11rem);
+    letter-spacing: -0.06em;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+    margin-top: -1rem;
 	}
 
-	@media (min-width: 450px) {
+	.logo i {
+		display: inline-block;
+		font-style: normal;
+		text-replace: auto;
+		transform: translateY(-130%);
+		transition: transform 50ms 0 linear;
+		animation: drop 100ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+	}
+
+	@keyframes drop {
+		from {
+			transform: translateY(-120%);
+		}
+
+		to {
+			transform: translateY(0);
+		}
+	}
+
+	.logo:hover i {
+		transform: translateY(-1rem);
+	}
+
+	.logo i:nth-child(1) { animation-delay: 100ms }
+	.logo i:nth-child(2) { animation-delay: 200ms }
+	.logo i:nth-child(3) { animation-delay: 300ms }
+	.logo i:nth-child(4) { animation-delay: 400ms }
+	.logo i:nth-child(5) { animation-delay: 500ms }
+	.logo i:nth-child(6) { animation-delay: 600ms }
+	.logo i:nth-child(7) { animation-delay: 700ms }
+	.logo i:nth-child(8) { animation-delay: 800ms }
+	.logo i:nth-child(9) { animation-delay: 900ms }
+	.logo i:nth-child(10) { animation-delay: 1000ms }
+
+	.logo i:nth-child(4) { margin-right: 0.5em; }
+
+	@media (min-width: 500px) {
 		.logo {
 			font-size: 3.3rem;
 		}

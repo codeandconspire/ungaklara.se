@@ -23,6 +23,7 @@
   .factsbox {
     padding: 2.5rem 2rem 2.5rem 5.5rem;
     position: relative;
+    min-height: 13.5rem;
     background-color: rgb(var(--theme-color));
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
@@ -41,6 +42,7 @@
   @media (min-width: 1000px) {
     .factsbox {
       padding: 2.5rem 2rem 2.5rem 2rem;
+      min-height: 0;
     }
   }
 

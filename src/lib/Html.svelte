@@ -145,7 +145,7 @@
   .html :global(img + figcaption),
   .html :global(.aspect + figcaption),
   .html :global(pre + figcaption) {
-    margin-top: -0.75em;
+    margin-top: 0.25em;
   }
 
   .html :global(img) {

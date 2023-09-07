@@ -471,10 +471,4 @@
       {/if}
     {/if}
   {/if}
-
-  <Intro blurb title="Vill du se fler föreställningar?">
-    <Button slot="action" primary href="/scen" icon="arrow">
-      Aktuellt på scen
-    </Button>
-  </Intro>
 </div>
