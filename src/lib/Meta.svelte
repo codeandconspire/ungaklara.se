@@ -5,7 +5,8 @@
   import { page } from '$app/stores'
   import { hexToRgb, luma } from '$lib/utils/colors'
 
-  const TITLE_FALLBACK = 'Unga Klara – Sveriges nationella scen för barn och unga'
+  const TITLE_FALLBACK =
+    'Unga Klara – Sveriges nationella scen för barn och unga'
   const TITLE_SUFFIX = ' | Unga Klara'
   const DEFAULT_THEME = '#9cfc23'
   const FAVICON_TEMPLATE =
@@ -15,15 +16,18 @@
 
   afterNavigate(function () {
     props.set(define($page.data.page, $page.data.settings))
-    let favicon = new window.Image()
+    const link = document.head.querySelector('link[rel="icon"]')
+
+    const favicon = new window.Image()
+    favicon.addEventListener('load', function () {
+      try {
+        if (link) {
+          let drawn = drawFavicon(favicon, getTheme($page.data.page)) || ''
+          link.setAttribute('href', drawn)
+        }
+      } catch (err) {}
+    })
     favicon.src = FAVICON_TEMPLATE
-    let link = document.head.querySelector('link[rel="icon"]')
-    try {
-      if (link) {
-        let drawn = drawFavicon(favicon, getTheme($page.data.page)) || ''
-        link.setAttribute('href', drawn)
-      }
-    } catch (err) {}
   })
 
   function define(doc, settings) {
@@ -41,7 +45,10 @@
 
   function getTitle(doc) {
     if (doc?.uid === 'start') return TITLE_FALLBACK
-    return (asText(doc?.data.shortname) || asText(doc?.data.title) || '') + TITLE_SUFFIX
+    return (
+      (asText(doc?.data.shortname) || asText(doc?.data.title) || '') +
+      TITLE_SUFFIX
+    )
   }
 
   function getImage(doc) {
