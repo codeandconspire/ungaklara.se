@@ -98,7 +98,7 @@
 <svelte:window on:resize={measure} />
 
 <div class="u-container">
-  <header transition:lol>
+  <header>
     <Intro
       title={asText(data.page.data.title)}
       image={image(data.page.data.image)}>
@@ -125,25 +125,29 @@
     </Intro>
   </header>
 
-  <Event
-    buttons={[
-      {
-        href: '#program',
-        icon: 'calendar',
-        text: 'Visa spelschema'
-      },
-      {
-        text: 'Boka biljett',
-        href: resolve(data.page.data.buy_link),
-        primary: true,
-        icon: 'arrow',
-        target: '_blank',
-        rel: 'noopener noreferrer'
-      }
-    ]}
-    image={data.page.data.poster.url ? data.page.data.poster : null}>
-    <RichText content={data.page.data.about} />
-  </Event>
+  <div class="u-spaceMd">
+    <Event
+      buttons={data.production?.shows?.length
+        ? [
+            {
+              href: '#tickets',
+              icon: 'calendar',
+              text: 'Visa spelschema'
+            },
+            {
+              text: 'Boka biljett',
+              href: resolve(data.page.data.buy_link),
+              primary: true,
+              icon: 'arrow',
+              target: '_blank',
+              rel: 'noopener noreferrer'
+            }
+          ]
+        : []}
+      image={data.page.data.poster.url ? data.page.data.poster : null}>
+      <RichText content={data.page.data.about} />
+    </Event>
+  </div>
 
   <div class="u-spaceLg">
     <FactsBox items={data.page.data.details} />

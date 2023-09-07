@@ -1,7 +1,7 @@
 <script>
   import Header from '$lib/Header.svelte'
   import Footer from '$lib/Footer.svelte'
-  import Meta from '$lib/Meta.svelte';
+  import Meta from '$lib/Meta.svelte'
   import { onMount } from 'svelte'
 
   export let data
