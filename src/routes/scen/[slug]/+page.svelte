@@ -1,6 +1,8 @@
 <script>
   import { asText } from '@prismicio/client'
   import { browser } from '$app/environment'
+  import parseJSON from 'date-fns/parseJSON'
+  import { page } from '$app/stores'
   import { onMount } from 'svelte'
 
   import Blockquote from '$lib/Blockquote.svelte'
@@ -8,11 +10,13 @@
   import FactsBox from '$lib/FactsBox.svelte'
   import RichText from '$lib/RichText.svelte'
   import GridCell from '$lib/GridCell.svelte'
+  import ShowMore from '$lib/ShowMore.svelte'
   import Hashtag from '$lib/Hashtag.svelte'
   import Spotify from '$lib/Spotify.svelte'
   import Masonry from '$lib/Masonry.svelte'
   import Trailer from '$lib/Trailer.svelte'
   import srcset from '$lib/utils/srcset.js'
+  import Ticket from '$lib/Ticket.svelte'
   import Button from '$lib/Button.svelte'
   import Intro from '$lib/Intro.svelte'
   import Embed from '$lib/Embed.svelte'
@@ -23,6 +27,21 @@
   export let data
 
   $: videos = data.page.data.videos.filter((group) => group.video.embed_url)
+  $: shows = data.production?.shows?.filter(
+    (show) => +parseJSON(show.start) > Date.now()
+  )
+  $: images = data.page.data.media.filter(
+    (slice) => slice.slice_type === 'image' && slice.primary.image.url
+  )
+  $: quotes = data.page.data.media.filter(
+    (slice) => slice.slice_type === 'quote' && slice.primary.text.length
+  )
+  $: team = data.page.data.team.filter(
+    (slice) =>
+      slice.slice_type === 'group' &&
+      slice.primary.heading.length &&
+      slice.items.length
+  )
 
   const ontoggle = (event) =>
     event.currentTarget.scrollIntoView({
@@ -34,11 +53,22 @@
   const medium = browser ? window.matchMedia('(min-width: 800px)') : null
   const large = browser ? window.matchMedia('(min-width: 1000px)') : null
 
+  let tickets
   let isSmall = false
   let isMedium = false
   let isLarge = false
+  let showAll = $page.url.searchParams.has('showAll')
 
   onMount(measure)
+
+  function onShowAll(event) {
+    showAll = true
+    tickets.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest'
+    })
+    event.preventDefault()
+  }
 
   function measure() {
     isSmall = Boolean(small?.matches)
@@ -68,7 +98,7 @@
 <svelte:window on:resize={measure} />
 
 <div class="u-container">
-  <header>
+  <header transition:lol>
     <Intro
       title={asText(data.page.data.title)}
       image={image(data.page.data.image)}>
@@ -175,18 +205,6 @@
       </div>
     {/if}
 
-    {@const images = data.page.data.media.filter(
-      (slice) => slice.slice_type === 'image' && slice.primary.image.url
-    )}
-    {@const quotes = data.page.data.media.filter(
-      (slice) => slice.slice_type === 'quote' && slice.primary.text.length
-    )}
-    {@const team = data.page.data.team.filter(
-      (slice) =>
-        slice.slice_type === 'group' &&
-        slice.primary.heading.length &&
-        slice.items.length
-    )}
     {#if images.length || quotes.length || team.length}
       <Html class="u-spaceMd">
         {#if images.length}
@@ -384,12 +402,6 @@
       </div>
     {/if}
 
-    {@const team = data.page.data.team.filter(
-      (slice) =>
-        slice.slice_type === 'group' &&
-        slice.primary.heading.length &&
-        slice.items.length
-    )}
     {#if team.length}
       {#each team as slice}
         {@const hasImage = slice.items.some((item) => item.image.url)}
@@ -438,6 +450,36 @@
         </section>
       {/each}
     {/if}
+  {/if}
+
+  {#if shows?.length}
+    <section
+      id="tickets"
+      class="u-spaceLg u-narrow u-container"
+      bind:this={tickets}>
+      <hr />
+      <Grid class="u-spaceMd" slim appear size={{ md: '1of2', xl: '1of3' }}>
+        {#each shows.slice(0, showAll ? shows.length : 3) as show, index (show.id)}
+          <GridCell delay={`${(index - 3) * 150}ms`}>
+            <div class="u-sizeFull">
+              <Ticket
+                name={show.name}
+                href={show.shopUri}
+                status={show.stockStatus}
+                location={show.venue.name}
+                date={parseJSON(show.start)} />
+            </div>
+          </GridCell>
+        {/each}
+      </Grid>
+      {#if !showAll && shows.length > 3}
+        <ShowMore
+          href={new URL('?showAll#tickets', $page.url)}
+          on:click={onShowAll}>
+          Visa fler
+        </ShowMore>
+      {/if}
+    </section>
   {/if}
 
   {#if data.page.data.resource_heading.length}

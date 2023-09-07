@@ -31,11 +31,19 @@ export default async function getProduction(url, platform) {
 
     const body = await res.json()
 
-    await store.put(id, JSON.stringify(body), {
+    const production = {
+      ...body,
+      childEvents: undefined,
+      shows: body?.childEvents.map((event) => {
+        return { ...event, goods: undefined }
+      })
+    }
+
+    await store.put(id, JSON.stringify(production), {
       expirationTtl: 60 * 10 // 10 minutes
     })
 
-    return body
+    return production
   } catch (err) {
     return null
   }

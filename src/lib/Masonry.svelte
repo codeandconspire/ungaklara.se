@@ -47,14 +47,14 @@
             out:fade={{ delay: 0, duration }}
             animate:flip={{ duration }}>
             <slot {idx} {item}>
-              <span>{item}</span>
+              {item}
             </slot>
           </div>
         {/each}
       {:else}
         {#each col as [item, idx] (item.id)}
           <slot {idx} {item}>
-            <span>{item}</span>
+            {item}
           </slot>
         {/each}
       {/if}

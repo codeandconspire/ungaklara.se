@@ -82,7 +82,7 @@ export async function load({ fetch, url, platform }) {
     const events = await Promise.all(
       response.results.map(async (doc) => {
         const production = await getProduction(doc.data.buy_link.url, platform)
-        const shows = production?.childEvents.map((event) => {
+        const shows = production?.childEvents?.map((event) => {
           return { ...event, goods: undefined }
         })
         return {
