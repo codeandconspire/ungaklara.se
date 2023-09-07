@@ -1,7 +1,6 @@
 <script>
   import { page, navigating } from '$app/stores'
   import { asText } from '@prismicio/client'
-  import { quintOut } from 'svelte/easing'
   import { goto } from '$app/navigation'
 
   import hexToRgb from '$lib/utils/hex-to-rgb'
@@ -38,13 +37,31 @@
     goto(url, { noScroll: true })
   }
 
-  function appear(node, params) {
-    return {
-      delay: 0,
-      duration: 200,
-      easing: quintOut,
-      css: (t, u) => `opacity: ${t}; transform: translateY(${50 * t}px);`
+  function getButtons(event) {
+    /** @type {{ [key: string]: any, text: string }[]}*/
+    const buttons = [
+      {
+        text: 'Läs mer',
+        href: resolve(event),
+        primary: true,
+        cover: true
+      }
+    ]
+
+    if (
+      event.production?.shows.some((show) => show.stockStatus !== 'SoldOut')
+    ) {
+      buttons.push({
+        text: 'Boka biljett',
+        secondary: true,
+        icon: 'arrow',
+        href: resolve(event.data.buy_link),
+        target: '_blank',
+        rel: 'noopener noreferrer'
+      })
     }
+
+    return buttons
   }
 </script>
 
@@ -53,7 +70,7 @@
     <Intro title={asText(data.page.data.title)} adapt />
   </header>
 
-  <nav>
+  <nav class="u-spaceMd">
     <Tablist selected={tab}>
       <Tab label="Aktuellt" key="aktuellt" href="/scen" />
       <Tab label="Kalendarium" key="kalendarium" href="/scen/kalendarium" />
@@ -72,40 +89,25 @@
 
   {#if $navigating}
     <Html class="u-spaceMd u-textCenter u-sizeFull">
-      <p>Hämtar föreställningar</p>
+      <p class="u-sizeFull">Hämtar föreställningar</p>
     </Html>
   {:else if !data.events.length}
     <Html class="u-spaceMd u-textCenter u-sizeFull">
-      <p>Kunde inte hitta något här</p>
+      <p class="u-sizeFull">Kunde inte hitta något här</p>
     </Html>
   {:else if tab === 'aktuellt'}
     <ol class="rows">
-      {#each data.events as event}
+      {#each data.events as event, index (event.id)}
         <li
-          in:appear
-          class="row"
+          class="row u-slideUp"
+          style:--delay="{index * 150}ms"
           style:--theme-color={event.data.theme
             ? hexToRgb(event.data.theme)
             : null}>
           <Event
             teaser
-            buttons={[
-              {
-                text: 'Läs mer',
-                href: resolve(event),
-                primary: true,
-                cover: true
-              },
-              {
-                text: 'Boka biljett',
-                secondary: true,
-                icon: 'arrow',
-                href: resolve(event.data.buy_link),
-                target: '_blank',
-                rel: 'noopener noreferrer'
-              }
-            ]}
             image={event.data.poster}
+            buttons={getButtons(event)}
             label={[event.data.category, event.data.shortname]
               .filter(Boolean)
               .join(' – ')}>
@@ -118,7 +120,7 @@
   {:else}
     <slot>
       <Html class="u-spaceMd u-textCenter u-sizeFull">
-        <p>Kunde inte hitta något här</p>
+        <p class="u-sizeFull">Kunde inte hitta något här</p>
       </Html>
     </slot>
   {/if}

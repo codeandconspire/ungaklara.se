@@ -1,6 +1,5 @@
 <script>
   import { asText } from '@prismicio/client'
-  import { fly } from 'svelte/transition'
   import { page } from '$app/stores'
 
   import resolve from '$lib/utils/resolve.js'
@@ -31,10 +30,10 @@
 </script>
 
 <Scen {data} {period} {tag} tab="arkiv">
-  <Grid ordered size={{ xs: '1of2', md: '1of3', lg: '1of4' }}>
+  <Grid ordered appear size={{ xs: '1of2', md: '1of3', lg: '1of4' }}>
     {#each data.events as event}
       <GridCell>
-        <div in:fly={{ y: 50, duration: 200 }}>
+        <div>
           <Card
             shrink
             clamp={4}

@@ -1,7 +1,6 @@
 <script>
   import parseJSON from 'date-fns/parseJSON'
   import { asText } from '@prismicio/client'
-  import { fly } from 'svelte/transition'
 
   import hexToRgb from '$lib/utils/hex-to-rgb.js'
   import resolve from '$lib/utils/resolve.js'
@@ -9,27 +8,30 @@
   import Framed from '$lib/Framed.svelte'
   import Symbol from '$lib/Symbol.svelte'
   import srcset from '$lib/utils/srcset'
-  import Html from '$lib/Html.svelte'
   import Scen from '../+page.svelte'
 
   export let data
 
-  $: byDate = Object.values(
-    data.events
-      .flatMap((event) => {
-        return event.production?.shows?.map((show) => {
-          const [date] = show.start.split('T')
-          return { event, show, date }
-        })
+  $: items = data.events
+    .flatMap((event) => {
+      return event.production?.shows?.map((show) => {
+        const [date] = show.start.split('T')
+        return { event, show, date }
       })
-      .filter(Boolean)
-      .sort((a, b) => (a.date < b.date ? -1 : 1))
-      .reduce((acc, item) => {
-        if (item.date in acc) acc[item.date].push(item)
-        else acc[item.date] = [item]
-        return acc
-      }, {})
-  )
+    })
+    .filter(Boolean)
+    .sort((a, b) => (a.date < b.date ? -1 : 1))
+    .reduce((acc, item) => {
+      if (!acc.length) {
+        acc.push([item.date, [item]])
+      } else {
+        const [date, items] = acc[acc.length - 1]
+        if (item.date === date) items.push(item)
+        else acc.push([item.date, [item]])
+      }
+      return acc
+    }, [])
+    .flat(2)
 
   function image(props) {
     if (!props.url) return null
@@ -44,31 +46,32 @@
   }
 </script>
 
-<Scen {data} tab="kalendarium">
-  {#if !byDate.length}
-    <Html class="u-spaceLg u-textCenter u-sizeFull">
-      <p>Kunde inte hitta något här</p>
-    </Html>
-  {:else}
+{#if !items.length}
+  <Scen {data} tab="kalendarium" />
+{:else}
+  <Scen {data} tab="kalendarium">
     <ol>
-      {#each byDate as items}
-        {@const date = parseJSON(items[0].show.start)}
-        <li class="row" in:fly={{ y: 50, duration: 200 }}>
-          <h2 class="day">
-            {date.toLocaleString('sv', {
-              weekday: 'long'
-            })}, {date.toLocaleString('sv', {
-              year: 'numeric',
-              day: 'numeric',
-              month: 'long'
-            })}
-          </h2>
-        </li>
-        {#each items as { event, show }}
+      {#each items as item, index}
+        {#if typeof item === 'string'}
+          {@const [year, month, day] = item.split('-')}
+          {@const date = new Date(+year, +month, +day)}
+          <li class="row u-slideUp" style:--delay="{index * 100}ms">
+            <h2 class="day">
+              {date.toLocaleString('sv', {
+                weekday: 'long'
+              })}, {date.toLocaleString('sv', {
+                year: 'numeric',
+                day: 'numeric',
+                month: 'long'
+              })}
+            </h2>
+          </li>
+        {:else}
+          {@const { event, show } = item}
           {@const start = parseJSON(show.start)}
           <li
-            class="row"
-            in:fly={{ y: 50, duration: 200 }}
+            class="row u-slideUp"
+            style:--delay="{index * 100}ms"
             style:--theme-color={event.data.theme
               ? hexToRgb(event.data.theme)
               : null}>
@@ -80,7 +83,7 @@
             <div class="body">
               <div>
                 <a href={resolve(event)} class="link">
-                  {asText(event.data.title)}
+                  {show.name}
                 </a>
                 <br />
                 <div class="meta">
@@ -96,15 +99,6 @@
                     <span class="icon"><Symbol name="location" /></span>
                     {show.venue.name}
                   </span>
-                  {#if show.misc}
-                    <!-- This is not yet implemented, don't know where to put it -->
-                    <span class="detail">
-                      <span class="icon">
-                        <Symbol name="check" />
-                      </span>
-                      {show.misc}
-                    </span>
-                  {/if}
                 </div>
               </div>
               <div class="actions">
@@ -122,17 +116,17 @@
               </div>
             </div>
           </li>
-        {/each}
+        {/if}
       {/each}
     </ol>
-  {/if}
-</Scen>
+  </Scen>
+{/if}
 
 <style>
   .row {
     display: flex;
     padding: 1.2rem 0 1.4rem;
-    border-bottom: var(--border-width) solid;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
     position: relative;
   }
 

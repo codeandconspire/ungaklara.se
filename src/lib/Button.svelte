@@ -82,13 +82,14 @@
   .button[disabled],
   .disabled {
     cursor: not-allowed;
+    opacity: 0.3;
   }
 
   /**
    * Primary button
    */
 
-  .primary:not([disabled], .disabled) {
+  .primary {
     background: rgb(var(--document-color));
     color: #fff;
   }
