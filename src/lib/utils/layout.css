@@ -20,6 +20,11 @@
 	opacity: 0 !important;
 }
 
+.u-divider {
+	border-top: var(--border-width) solid;
+	padding-top: var(--space-sm);
+}
+
 .u-paddedBox {
 	padding: 1.5rem 1.2rem !important;
 }

@@ -34,7 +34,7 @@
   </script>
 </svelte:head>
 
-<div class="view">
+<div class="layout">
   <div class="gradient" />
   <Header items={settings.header_menu.map((item) => item.primary)} />
   <div class="main">
@@ -46,7 +46,7 @@
 <style>
   @import '$lib/index.css';
 
-  .view {
+  .layout {
     display: flex;
     flex-direction: column;
     min-height: 100%;
@@ -58,14 +58,7 @@
     flex-grow: 1;
     max-width: 100%;
     min-height: 100vh;
-    margin-bottom: 6rem;
     z-index: 1;
-  }
-
-  @media (min-width: 1000px) {
-    .main {
-      margin-bottom: 10rem;
-    }
   }
 
   .gradient {

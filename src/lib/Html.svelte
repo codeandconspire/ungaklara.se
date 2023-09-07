@@ -25,10 +25,6 @@
     text-align: left;
   }
 
-  :global(.html + .html) {
-    margin-top: 1.5rem;
-  }
-
   .html :global(.muted) {
     color: rgb(var(--color-gray-dark));
   }
@@ -42,14 +38,6 @@
   .large,
   .html :global(large) {
     font-size: 1.125rem;
-  }
-
-  .html:first-child {
-    margin-top: 0;
-  }
-
-  .html:last-child {
-    margin-bottom: 0;
   }
 
   .fat,
@@ -123,27 +111,23 @@
   }
 
   /**
-   * Block elements
+   * Text blocks
    */
 
   .html :global(p),
   .html :global(ul),
   .html :global(ol) {
-    margin: 0;
+    margin-bottom: 0;
     max-width: 38em;
   }
 
-  .html :global(p:not(:first-child)),
-  .html :global(ul:not(:first-child)),
-  .html :global(ol:not(:first-child)) {
+  .html :global(p),
+  .html :global(ul),
+  .html :global(ol) {
     margin-top: 1em;
   }
 
-  .html :global(p:not(:last-child)),
-  .html :global(ul:not(:last-child)),
-  .html :global(ol:not(:last-child)) {
-    margin-bottom: 1em;
-  }
+  /* Blocks */
 
   .html :global(img),
   .html :global(pre) {
@@ -151,18 +135,11 @@
     border-radius: var(--border-radius);
   }
 
-  .html :global(img:not(:first-child)),
-  .html :global(.aspect:not(:first-child)),
-  .html :global(pre:not(:first-child)),
-  .html :global(figure:not(:first-child)) {
+  .html :global(img),
+  .html :global(.aspect),
+  .html :global(pre),
+  .html :global(figure) {
     margin-top: 1.5em;
-  }
-
-  .html :global(img:not(:last-child)),
-  .html :global(.aspect:not(:last-child)),
-  .html :global(pre:not(:last-child)),
-  .html :global(figure:not(:last-child)) {
-    margin-bottom: 1.5em;
   }
 
   .html :global(img + figcaption),
@@ -202,27 +179,24 @@
     text-align: left;
   }
 
-  /**
- * Details – Summary
- */
+  .html :global(iframe) {
+    width: 100vw;
+    max-width: 100%;
+    vertical-align: top;
+    user-select: none;
+    margin-top: 1em;
+  }
+
+  /* Details, summary */
 
   .html :global(details) {
     display: block;
-    margin-top: 1.5em;
     border: solid;
     border-width: 0 0 var(--border-width) 0;
+    margin-top: calc(var(--border-width) * -1);
     cursor: default;
     outline: 0;
     position: relative;
-  }
-
-  :global(.html + .html > details) {
-    margin-top: calc(-1.5rem - var(--border-width)) !important;
-  }
-
-  .html :global(details:first-child),
-  .html :global(details + details) {
-    margin-top: 0;
   }
 
   .html :global(details:first-of-type) {
@@ -308,9 +282,7 @@
     }
   }
 
-  /**
-   * Label
-   */
+  /* Labels */
 
   .html :global(.label) {
     display: block;
@@ -323,9 +295,7 @@
     font-size: 0.875em;
   }
 
-  /**
-   * Lists
-   */
+  /* Lists */
 
   .html :global(ul) {
     list-style-type: none;
@@ -372,41 +342,13 @@
     left: 0;
   }
 
-  .html :global(dl) {
-    display: grid;
-    grid-template-columns: auto 1fr;
-  }
-
-  @supports (display: grid) {
-    .html :global(dl > dd) {
-      padding-left: 1em;
-      margin: 0;
-    }
-
-    .html :global(dl > dd:not(:last-child)) {
-      margin-bottom: 0.25em;
-    }
-  }
-
-  .html :global(iframe) {
-    width: 100vw;
-    max-width: 100%;
-    vertical-align: top;
-    user-select: none;
-    margin-top: 1em;
-  }
-
-  /**
- * 1. Maintain 16/9 aspect ratio for embedded content (exluding Spotify)
- */
+  /* Maintain 16/9 aspect ratio */
 
   .html :global(iframe:not([src*='spotify.com/embed'])) {
     height: calc(100% * 9 / 16); /* 1 */
   }
 
-  /**
- * Headings
- */
+  /* Headings */
 
   .html :global(h1),
   .html :global(h2),
@@ -427,18 +369,18 @@
     text-wrap: balance;
   }
 
-  .html :global(h1:not(:first-child)),
-  .html :global(h2:not(:first-child)),
-  .html :global(h3:not(:first-child)),
-  .html :global(h4:not(:first-child)),
-  .html :global(h5:not(:first-child)),
-  .html :global(h6:not(:first-child)),
-  .html :global(.h1:not(:first-child)),
-  .html :global(.h2:not(:first-child)),
-  .html :global(.h3:not(:first-child)),
-  .html :global(.h4:not(:first-child)),
-  .html :global(.h5:not(:first-child)),
-  .html :global(.h6:not(:first-child)) {
+  .html :global(h1),
+  .html :global(h2),
+  .html :global(h3),
+  .html :global(h4),
+  .html :global(h5),
+  .html :global(h6),
+  .html :global(.h1),
+  .html :global(.h2),
+  .html :global(.h3),
+  .html :global(.h4),
+  .html :global(.h5),
+  .html :global(.h6) {
     margin-top: 2.5rem;
   }
 
@@ -448,7 +390,6 @@
   .html :global(.h1),
   .html :global(.h2),
   .html :global(.h3) {
-    margin: 0 0 -0.1rem;
     font-weight: 600;
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
@@ -459,7 +400,6 @@
   .html :global(h1),
   .html :global(.h1) {
     font-size: 2rem;
-    margin: 0 0 1.5rem;
     line-height: 1.05;
     hyphens: auto;
   }
@@ -512,7 +452,6 @@
   .html :global(.h4),
   .html :global(.h5),
   .html :global(.h6) {
-    margin-bottom: 1.25rem;
     font-weight: 600;
     font-size: inherit;
     line-height: inherit;

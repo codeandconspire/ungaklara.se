@@ -22,7 +22,7 @@
     {title}
   </div>
   {#if $$slots.text}
-    <div class="text"><slot name="text" /></div>
+    <div class="text u-nudgeLg"><slot name="text" /></div>
   {/if}
   {#if image}
     {#if image.width && image.height}
@@ -34,7 +34,7 @@
     {/if}
   {/if}
   {#if $$slots.action && blurb}
-    <div class="action"><slot name="action" /></div>
+    <div class="action u-nudgeLg"><slot name="action" /></div>
   {/if}
 </div>
 
@@ -48,7 +48,6 @@
     display: flex;
     flex-direction: column;
     padding-top: 25vh;
-    margin-bottom: calc(var(--spacing) * 1);
     font-family: var(--heading-font-family);
     letter-spacing: var(--heading-letter-spacing);
     word-spacing: var(--heading-word-spacing);
@@ -60,12 +59,7 @@
     --spacing: 2rem;
   }
 
-  .adapt {
-    margin-bottom: 1rem;
-  }
-
   .blurb {
-    margin-bottom: 0 !important;
     padding-top: 0 !important;
     text-align: center;
   }
@@ -87,16 +81,12 @@
     }
   }
 
-  .action {
-    margin-top: 1.6rem;
-  }
-
   .title {
     position: relative;
     font-size: 2.5rem;
     word-spacing: -0.05em;
     padding-top: 0.75em;
-    margin: 0 0 0.55em;
+    margin: 0;
     hyphens: auto;
     line-height: 1;
     margin-left: -0.04em;
@@ -175,12 +165,12 @@
     display: block;
     width: 100%;
     height: auto;
-    margin: -24vh 0 2rem;
+    margin: -24vh 0 0;
     order: -1;
   }
 
   .container {
-    margin: -12vh 0 2rem;
+    margin: -12vh 0 0;
     order: -1;
     position: relative;
     overflow: hidden;
@@ -196,7 +186,6 @@
   @media (min-width: 500px) {
     .title {
       font-size: 3.2rem;
-      margin: 0 0 0.45em;
     }
 
     .badge {
@@ -205,10 +194,6 @@
   }
 
   @media (min-width: 600px) {
-    .Intro:not(.adapt) {
-      margin-bottom: 3rem;
-    }
-
     .image,
     .container {
       margin: 3rem 0 0;
@@ -222,7 +207,6 @@
     }
 
     .Intro:not(.adapt) {
-      margin-bottom: calc(var(--spacing) * 1.4);
       letter-spacing: -0.035em;
     }
 
@@ -242,10 +226,6 @@
   }
 
   @media (min-width: 1000px) {
-    .Intro:not(.adapt) {
-      margin-bottom: 3rem;
-    }
-
     .title {
       font-size: 4.75rem;
     }

@@ -365,8 +365,6 @@
     background: black;
     color: #fff;
     mix-blend-mode: darken;
-    border-color: transparent;
-    box-shadow: 0.1em 0 0 black, -0.1em 0 0 black;
   }
 
   @media print {

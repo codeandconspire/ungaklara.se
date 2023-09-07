@@ -57,7 +57,7 @@
   --nudge-lg: 1.5rem;
 
   --space-sm: 2rem;
-  --space-md: 4rem;
+  --space-md: clamp(2rem, 5vw, 4rem);
   --space-lg: 6rem;
 }
 

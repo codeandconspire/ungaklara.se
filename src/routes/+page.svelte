@@ -59,7 +59,7 @@
                 ? asText(parent.data.shortname)
                 : asText(parent.data.title)}
             </a>
-            :
+            →
           {/if}
         </span>
         <RichText slot="text" content={data.page.data.description} />
@@ -67,136 +67,137 @@
     </header>
 
     {#each slices as slice}
-      {#if slice.slice_type === '__blurbs'}
-        <Grid size={{ md: '1of2', lg: '1of3' }}>
-          {#each slice.items as item}
-            {#if item.slice_type === 'link_blurb'}
-              {@const href = resolve(item.primary.link)}
-              {#if href}
-                <GridCell>
-                  <Card
-                    title={asText(item.primary.link.data.title)}
-                    image={image(item.primary.link.data.featured_image)}
-                    color={item.primary.color || item.primary.link.data.theme}
-                    link={{ href, text: item.primary.link.data.cta }}>
-                    <RichText content={item.primary.link.data.description} />
-                  </Card>
-                </GridCell>
-              {/if}
-            {/if}
-
-            {#if item.slice_type === 'file_blurb'}
-              {#if item.primary.file.url}
-                <GridCell>
-                  <Card
-                    title={item.primary.title}
-                    image={image(item.primary.image)}
-                    color={item.primary.color}
-                    link={{ href: item.primary.file.url }}>
-                    <RichText content={item.primary.text} />
-                  </Card>
-                </GridCell>
-              {/if}
-            {/if}
-
-            {#if item.slice_type === 'any_blurb'}
-              {@const href = resolve(item.primary.link)}
-              {#if href}
-                <GridCell>
-                  <Card
-                    title={item.primary.title}
-                    image={image(item.primary.image)}
-                    color={item.primary.color}
-                    link={{ href }}>
-                    <RichText content={item.primary.text} />
-                  </Card>
-                </GridCell>
-              {/if}
-            {/if}
-          {/each}
-        </Grid>
-      {/if}
-
-      {#if slice.slice_type === 'text'}
-        {@const items = slice.items.filter((item) => asText(item.text))}
-        {#if asText(slice.primary.text) || items.length}
-          <div class="u-spaceMd">
-            {#if slice.primary.text.length}
-              <Html size="large">
-                <RichText content={slice.primary.text} />
-              </Html>
-            {/if}
-            {#if items.length}
-              <Grid size={{ md: '1of2' }}>
-                {#each items as item}
+      <div class="slice slice-{slice.slice_type}">
+        {#if slice.slice_type === '__blurbs'}
+          <Grid size={{ md: '1of2', lg: '1of3' }}>
+            {#each slice.items as item}
+              {#if item.slice_type === 'link_blurb'}
+                {@const href = resolve(item.primary.link)}
+                {#if href}
                   <GridCell>
-                    <Html size="large">
-                      <RichText content={item.text} />
-                    </Html>
+                    <Card
+                      title={asText(item.primary.link.data.title)}
+                      image={image(item.primary.link.data.featured_image)}
+                      color={item.primary.color || item.primary.link.data.theme}
+                      link={{ href, text: item.primary.link.data.cta }}>
+                      <RichText content={item.primary.link.data.description} />
+                    </Card>
                   </GridCell>
-                {/each}
-              </Grid>
-            {/if}
-          </div>
-        {/if}
-      {/if}
+                {/if}
+              {/if}
 
-      {#if slice.slice_type === 'heading'}
-        {@const heading = asText(slice.primary.heading)}
-        {#if heading}
-          <Html size="large" class="u-spaceLg">
-            <h2>{heading}</h2>
-            <RichText content={slice.primary.text} />
-          </Html>
-        {/if}
-      {/if}
+              {#if item.slice_type === 'file_blurb'}
+                {#if item.primary.file.url}
+                  <GridCell>
+                    <Card
+                      title={item.primary.title}
+                      image={image(item.primary.image)}
+                      color={item.primary.color}
+                      link={{ href: item.primary.file.url }}>
+                      <RichText content={item.primary.text} />
+                    </Card>
+                  </GridCell>
+                {/if}
+              {/if}
 
-      {#if slice.slice_type === 'quote'}
-        <div class="u-spaceMd">
+              {#if item.slice_type === 'any_blurb'}
+                {@const href = resolve(item.primary.link)}
+                {#if href}
+                  <GridCell>
+                    <Card
+                      title={item.primary.title}
+                      image={image(item.primary.image)}
+                      color={item.primary.color}
+                      link={{ href }}>
+                      <RichText content={item.primary.text} />
+                    </Card>
+                  </GridCell>
+                {/if}
+              {/if}
+            {/each}
+          </Grid>
+        {/if}
+
+        {#if slice.slice_type === 'text'}
+          {@const items = slice.items.filter((item) => asText(item.text))}
+          {#if asText(slice.primary.text) || items.length}
+            <div>
+              {#if slice.primary.text.length}
+                <Html size="large">
+                  <RichText content={slice.primary.text} />
+                </Html>
+              {/if}
+              {#if items.length}
+                <Grid size={{ md: '1of2' }}>
+                  {#each items as item}
+                    <GridCell>
+                      <Html size="large">
+                        <RichText content={item.text} />
+                      </Html>
+                    </GridCell>
+                  {/each}
+                </Grid>
+              {/if}
+            </div>
+          {/if}
+        {/if}
+
+        {#if slice.slice_type === 'heading'}
+          {@const heading = asText(slice.primary.heading)}
+          {#if heading}
+            <Html size="large" class={slice.primary.divider ? 'u-spaceSm' : 'u-spaceLg'}>
+              {#if slice.primary.divider}
+                <div class="u-divider u-spaceLg"></div>
+              {/if}
+              <h2>{heading}</h2>
+              <RichText content={slice.primary.text} />
+            </Html>
+          {/if}
+        {/if}
+
+        {#if slice.slice_type === 'quote'}
           <Blockquote>
             <div slot="text"><RichText content={slice.primary.text} /></div>
             <div slot="cite"><RichText content={slice.primary.cite} /></div>
           </Blockquote>
-        </div>
-      {/if}
-
-      {#if slice.slice_type === 'image'}
-        {#if slice.primary.image.url}
-          {@const sources = srcset(slice.primary.image.url, [
-            400,
-            600,
-            900,
-            [1600, 'q_60'],
-            [3000, 'q_50']
-          ])}
-          <figure class="u-spaceLg">
-            <Html
-              size="large"
-              class={slice.primary.smaller ? '' : 'u-sizeFull'}>
-              <img
-                sizes="100vw"
-                srcset={sources}
-                src={sources.split(' ')[0]}
-                alt={slice.primary.image.alt || ''}
-                {...slice.primary.image.dimensions} />
-              {#if slice.primary.image.copyright}
-                <figcaption>
-                  <small class="muted">{slice.primary.image.copyright}</small>
-                </figcaption>
-              {/if}
-            </Html>
-          </figure>
         {/if}
-      {/if}
 
-      {#if slice.slice_type === 'video'}
-        {@const items = slice.items.filter((item) => item.video.embed_url)}
-        <div class="u-spaceLg u-posRelative">
+        {#if slice.slice_type === 'image'}
+          {#if slice.primary.image.url}
+            {@const sources = srcset(slice.primary.image.url, [
+              400,
+              600,
+              900,
+              [1600, 'q_60'],
+              [3000, 'q_50']
+            ])}
+            <figure>
+              <Html
+                size="large"
+                class={slice.primary.smaller ? '' : 'u-sizeFull'}>
+                <img
+                  sizes="100vw"
+                  srcset={sources}
+                  src={sources.split(' ')[0]}
+                  alt={slice.primary.image.alt || ''}
+                  {...slice.primary.image.dimensions} />
+                {#if slice.primary.image.copyright}
+                  <figcaption>
+                    <small class="muted">{slice.primary.image.copyright}</small>
+                  </figcaption>
+                {/if}
+              </Html>
+            </figure>
+          {/if}
+        {/if}
+
+        {#if slice.slice_type === 'video'}
+          {@const items = slice.items.filter((item) => item.video.embed_url)}
           {#if slice.primary.video.embed_url}
             <Embed content={slice.primary.video} />
           {/if}
           {#if items.length}
-            <div class="u-spaceSm u-md-uncontain">
+            <div class="u-spaceMd u-md-uncontain">
               <Grid
                 carousel
                 size={{ md: `1of${items.length - 1 < 3 ? 2 : 3}` }}>
@@ -208,11 +209,9 @@
               </Grid>
             </div>
           {/if}
-        </div>
-      {/if}
+        {/if}
 
-      {#if slice.slice_type === 'author'}
-        <div class="u-spaceMd">
+        {#if slice.slice_type === 'author'}
           <Byline
             heading={asText(slice.primary.heading)}
             image={slice.primary.image.url
@@ -237,29 +236,23 @@
               : null}>
             <RichText content={slice.primary.text} />
           </Byline>
-        </div>
-      {/if}
+        {/if}
 
-      {#if slice.slice_type === 'accordion'}
-        <section class="u-spaceSm">
-          <div class="Text u-sizeFull">
-            {#each slice.items as item}
-              {#if item.heading.length && item.text}
-                <Html size="large" class="u-sizeFull">
-                  <details>
-                    <summary><h3>{asText(item.heading)}</h3></summary>
-                    <RichText content={item.text} />
-                  </details>
-                </Html>
-              {/if}
-            {/each}
-          </div>
-        </section>
-      {/if}
+        {#if slice.slice_type === 'accordion'}
+          {#each slice.items as item}
+            {#if item.heading.length && item.text}
+              <Html size="large" class="u-sizeFull">
+                <details>
+                  <summary><h3>{asText(item.heading)}</h3></summary>
+                  <RichText content={item.text} />
+                </details>
+              </Html>
+            {/if}
+          {/each}
+        {/if}
 
-      {#if slice.slice_type === 'team'}
-        {#if slice.items.length}
-          <div class="u-spaceSm">
+        {#if slice.slice_type === 'team'}
+          {#if slice.items.length}
             <Grid
               size={{
                 lg: '1of4',
@@ -296,19 +289,28 @@
                 </GridCell>
               {/each}
             </Grid>
-          </div>
+          {/if}
         {/if}
-      {/if}
 
-      {#if slice.slice_type === 'button'}
-        {#if slice.primary.text && slice.primary.link}
-          <div class="u-spaceMd">
+        {#if slice.slice_type === 'button'}
+          {#if slice.primary.text && slice.primary.link}
             <Button primary href={resolve(slice.primary.link)}>
               {slice.primary.text}
             </Button>
-          </div>
+          {/if}
         {/if}
-      {/if}
+      </div>
     {/each}
   </div>
 </div>
+
+<style>
+  .slice {
+    position: relative;
+    margin-top: var(--space-md);
+  }
+
+  .slice-heading + * {
+    margin-top: var(--space-sm);
+  }
+</style>

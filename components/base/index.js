@@ -138,6 +138,7 @@ function filetype(url) {
 		case 'tiff':
 		case 'bmp':
 		case 'svg':
+		case 'eps':
 		case 'webp':
 			return 'image';
 		case 'mp4':

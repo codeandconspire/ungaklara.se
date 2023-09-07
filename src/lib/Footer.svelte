@@ -110,7 +110,7 @@
 
 <style>
 	.footer {
-		padding: 4rem 0 2rem;
+		padding: clamp(8rem, 14vw, 14rem) 0 2rem;
 	}
 
 	.main {
