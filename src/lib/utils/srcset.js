@@ -1,18 +1,24 @@
+/**
+ * @param {string} uri
+ * @param {(number|[number, string])[]} sizes
+ * @param {{ type?: string, transforms?: string, aspect?: number }} [opts]
+ * @returns string
+ */
 export default function srcset(uri, sizes, opts = {}) {
-  var type = opts.type || 'fetch'
-  var transforms = opts.transforms
+  const type = opts.type || 'fetch'
+  let transforms = opts.transforms
   if (!transforms) transforms = 'c_fill,f_auto,q_auto'
   if (!/c_/.test(transforms)) transforms += ',c_fill'
   if (!/f_/.test(transforms)) transforms += ',f_auto'
   if (!/q_/.test(transforms)) transforms += ',q_auto'
 
   // trim prismic domain from uri
-  var parts = uri.split('images.prismic.io/unga-klara/')
+  let parts = uri.split('images.prismic.io/unga-klara/')
   uri = encodeURIComponent(parts[parts.length - 1])
 
   return sizes
     .map(function (size) {
-      var transform = transforms
+      let transform = transforms
       if (Array.isArray(size)) {
         transform = size[1]
         if (!/c_/.test(transform)) transform += ',c_fill'

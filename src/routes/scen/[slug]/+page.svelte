@@ -245,29 +245,36 @@
               size={{ xs: hasImage ? '1of2' : null, md: '1of3', lg: '1of4' }}>
               {#each slice.items as item}
                 <GridCell>
-                  <article>
+                  <div class="u-sizeFull">
                     <Html>
                       {#if item.image.url}
-                        {@const sources = srcset(item.image.url, [
-                          200,
-                          400,
-                          [800, 'q_50']
-                        ])}
+                        {@const sources = srcset(
+                          item.image.url,
+                          [200, 400, [800, 'q_50']],
+                          { aspect: 4 / 3 }
+                        )}
                         <img
-                          class="u-sizeFull"
                           sizes="13em"
                           srcset={sources}
-                          style="max-width: 13em"
+                          style="max-width: 10rem"
                           alt={item.image.alt || ''}
                           src={sources.split(' ')[0]}
-                          {...item.image.dimensions} />
+                          width="200"
+                          height={200 * (4 / 3)} />
+                      {:else if hasImage}
+                        <img
+                          alt=""
+                          width="200"
+                          height={200 * (4 / 3)}
+                          style="max-width: 10rem; background-color: {data.page
+                            .data.theme || 'rgb(--color-gray-dark)'};" />
                       {/if}
                       {#if item.label}
                         <strong class="label">{item.label}</strong>
                       {/if}
                       <RichText content={item.text} />
                     </Html>
-                  </article>
+                  </div>
                 </GridCell>
               {/each}
             </Grid>
@@ -395,29 +402,36 @@
             size={{ xs: hasImage ? '1of2' : null, md: '1of3', lg: '1of4' }}>
             {#each slice.items as item}
               <GridCell>
-                <article>
+                <div class="u-sizeFull">
                   <Html>
                     {#if item.image.url}
-                      {@const sources = srcset(item.image.url, [
-                        200,
-                        400,
-                        [800, 'q_50']
-                      ])}
+                      {@const sources = srcset(
+                        item.image.url,
+                        [200, 400, [800, 'q_50']],
+                        { aspect: 4 / 3 }
+                      )}
                       <img
-                        class="u-sizeFull"
                         sizes="13em"
                         srcset={sources}
-                        style="max-width: 13em"
+                        style="max-width: 10rem"
                         alt={item.image.alt || ''}
                         src={sources.split(' ')[0]}
-                        {...item.image.dimensions} />
+                        width="200"
+                        height={200 * (4 / 3)} />
+                    {:else if hasImage}
+                      <img
+                        alt=""
+                        width="200"
+                        height={200 * (4 / 3)}
+                        style="max-width: 10rem; background-color: {data.page
+                          .data.theme || 'rgb(--color-gray-dark)'};" />
                     {/if}
                     {#if item.label}
                       <strong class="label">{item.label}</strong>
                     {/if}
                     <RichText content={item.text} />
                   </Html>
-                </article>
+                </div>
               </GridCell>
             {/each}
           </Grid>

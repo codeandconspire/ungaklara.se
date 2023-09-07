@@ -152,7 +152,6 @@
     display: block;
     width: 100%;
     height: auto;
-    border-radius: var(--border-radius);
   }
 
   .html :global(.aspect) {

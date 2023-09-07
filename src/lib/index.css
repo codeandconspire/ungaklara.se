@@ -1,12 +1,12 @@
-@import 'modern-normalize';
-@import './global';
-@import './utils/colors';
-@import './utils/layout';
-@import './utils/loading';
-@import './utils/size';
-@import './utils/space';
-@import './utils/text';
-@import './utils/transitions';
+@import url('modern-normalize');
+@import url('./global.css');
+@import url('./utils/colors.css');
+@import url('./utils/layout.css');
+@import url('./utils/loading.css');
+@import url('./utils/size.css');
+@import url('./utils/space.css');
+@import url('./utils/text.css');
+@import url('./utils/transitions.css');
 
 /**
  * Font declaration
