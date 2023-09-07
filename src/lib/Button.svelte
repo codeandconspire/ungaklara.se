@@ -18,6 +18,7 @@
 {#if href}
   <a
     {href}
+    on:click
     class={`button ${_class || ''}`}
     class:primary
     class:secondary
@@ -31,6 +32,7 @@
   </a>
 {:else}
   <button
+    on:click
     class={`button ${_class || ''}`}
     class:primary
     class:secondary
