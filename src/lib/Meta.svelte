@@ -5,8 +5,10 @@
   import { page } from '$app/stores'
   import { hexToRgb, luma } from '$lib/utils/colors'
 
-  let DEFAULT_THEME = '#9cfc23'
-  let FAVICON_TEMPLATE =
+  const TITLE_FALLBACK = 'Unga Klara – Sveriges nationella scen för barn och unga'
+  const TITLE_SUFFIX = ' | Unga Klara'
+  const DEFAULT_THEME = '#9cfc23'
+  const FAVICON_TEMPLATE =
     'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAspJREFUWAntlcuLj1EYx2fcRm65lFxKuRYLFsLOpVlYKCu5bJhJQpbslUvERKKwsBixkBVZCIWsiNiQmTBuuWRcQ7n7fF7vU493Zv4Bft/6/M7znOe85z3nec57fnV1NdUyUMvA/56B+jIBg2iHpWS8xP6afM3R0Kfs+0z7urSjGYvRq3R81jm603A6B5aB5zFgPcavxBbsIREs27cp/gF7coovTTHnOZJiYTZgbAUX9w4OQRMU2sRvXsBR/NY/oeK3fyXu2JvgpO78DcTz17Alax5OGzjmAhyD77AzUjoRp6oVdJgZ0z2qDG6nHVnaNtNgDuTyteMvAzUUdsNqcNeHYT40QiEX4OSegaou0+HLlfVXvnxNYf35MVNVxblaSmAfOP958Mz4bC8IderkWkbA9lRyXIC1M+VZ97OTbDd2AvqCtR4PyyFe/h67CVoc6AKsTVWnU4e7eALjUp/ZeZH8qnmWDg/rWoisOOYcWJKnOrEA7axbOI9Thxl4BBNSXwd2dwt3d+56Ibjz0EeM43ARipcbiAV80km6mmxNM+BDc3VKPQij0i7GHwN519fxb0AzrIAr8AyKmkyire7kp8Gk2dh+Ni441FP9/Szzyx2vb/b6gfeLh7OQh2IEeFiyZuEsAGu+EaZDddKeMsDQYkMnaX/ooJnwEOL2XIK9CApd4tfamIXgQLKj72ClrxFfrYMYY3sPdoHaARH7ht2S/A7sAVBcGtUX+gnuB8+CN54puw0xmddyZK26AK9hP1nVAHcgnruL7dcV/jZL4Pfq5F4WIQ/SSrDmvWEDeOuFWjHcUXfy2u4sA19omyFK0Y49tYzZletbhcyARxCr66k9w5jYPWaXEljOVQaSLInz7S1bba/mwfCXrMlm8IJxUMYsuZv8ctwuC/D5egNJZmUPtEHM6XnoMtC+kH8kU8A0doC3Wk21DNQy8O9l4Dev1sS8/Az7hwAAAABJRU5ErkJggg=='
 
   const props = writable(define($page?.data.page, $page?.data.settings))
@@ -18,17 +20,15 @@
     let link = document.head.querySelector('link[rel="icon"]')
     try {
       if (link) {
-        link.setAttribute(
-          'href',
-          drawFavicon(favicon, getTheme($page.data.page)) || ''
-        )
+        let drawn = drawFavicon(favicon, getTheme($page.data.page)) || ''
+        link.setAttribute('href', drawn)
       }
     } catch (err) {}
   })
 
   function define(doc, settings) {
     return {
-      title: asText(doc?.data.shortname) || asText(doc?.data.title) || '',
+      title: getTitle(doc),
       desc: asText(doc?.data.description) || '',
       image: getImage(doc) || getImage(settings),
       theme: getTheme(doc)
@@ -37,6 +37,11 @@
 
   function getTheme(doc) {
     return doc?.data.theme || DEFAULT_THEME
+  }
+
+  function getTitle(doc) {
+    if (doc?.uid === 'start') return TITLE_FALLBACK
+    return (asText(doc?.data.shortname) || asText(doc?.data.title) || '') + TITLE_SUFFIX
   }
 
   function getImage(doc) {
