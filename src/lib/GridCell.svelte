@@ -9,9 +9,11 @@
     appear: _appear = false
   } = getContext(GRID)
 
-  export let delay = null
   export let size = _size
   export let appear = _appear
+
+  /** @type {null|string} */
+  export let delay = null
 
   const classes = Object.entries(size)
     .map(([key, value]) =>
