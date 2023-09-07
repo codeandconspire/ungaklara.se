@@ -1,8 +1,10 @@
 <script>
+  import { page } from '$app/stores'
+  import { onMount } from 'svelte'
+
   import Header from '$lib/Header.svelte'
   import Footer from '$lib/Footer.svelte'
   import Meta from '$lib/Meta.svelte'
-  import { onMount } from 'svelte'
 
   export let data
   const {
@@ -32,6 +34,13 @@
       document.documentElement.setAttribute('scripting-initial-only', '')
     }
   </script>
+
+  {#if $page.url.searchParams.has('preview')}
+    <script
+      async
+      defer
+      src="https://static.cdn.prismic.io/prismic.js?new=true&repo=unga-klara"></script>
+  {/if}
 </svelte:head>
 
 <div class="layout">
