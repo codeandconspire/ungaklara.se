@@ -46,7 +46,7 @@
 
 <Scen {data} tab="kalendarium">
   {#if !byDate.length}
-    <Html class="u-spaceV8 u-textCenter u-sizeFull">
+    <Html class="u-spaceLg u-textCenter u-sizeFull">
       <p>Kunde inte hitta något här</p>
     </Html>
   {:else}
@@ -132,7 +132,7 @@
   .row {
     display: flex;
     padding: 1.2rem 0 1.4rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    border-bottom: var(--border-width) solid;
     position: relative;
   }
 
@@ -162,7 +162,7 @@
 
   .link {
     padding-bottom: 0.05rem;
-    border-bottom: 2px solid currentColor;
+    text-decoration: none;
     font-size: 1.25rem;
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
@@ -195,11 +195,9 @@
   }
 
   .link:hover {
-    border-color: rgb(var(--document-color));
-    background: rgb(var(--document-color));
-    color: rgb(255, 255, 255);
-    mix-blend-mode: darken;
-    box-shadow: 0.1em 0 0 black, -0.1em 0 0 black;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    text-decoration-thickness: var(--border-width);
   }
 
   .day {

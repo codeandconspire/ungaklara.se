@@ -115,13 +115,13 @@
     <RichText content={data.page.data.about} />
   </Event>
 
-  <div class="u-spaceT7">
+  <div class="u-spaceLg">
     <FactsBox items={data.page.data.details} />
   </div>
 
   {#if !isSmall}
     {#if videos.length}
-      <div class="u-spaceT7 u-posRelative">
+      <div class="u-spaceLg u-posRelative">
         {#if data.page.data.hashtag}
           {@const href = resolve(data.page.data.hashtag_link)}
           {@const external = data.page.data.hashtag_link.target === '_blank'}
@@ -156,13 +156,13 @@
       (slice) => slice.slice_type === 'spotify'
     )}
     {#if spotify.length === 1}
-      <div class="u-spaceV6">
+      <div class="u-spaceMd">
         <Spotify url={spotify[0].primary.uri.embed_url}>
           <RichText content={spotify[0].primary.text} />
         </Spotify>
       </div>
     {:else if spotify.length > 1}
-      <div class="u-uncontain u-spaceV5">
+      <div class="u-uncontain u-spaceMd">
         <Grid carousel>
           {#each spotify as slice}
             <GridCell>

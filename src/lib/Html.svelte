@@ -79,21 +79,23 @@
    */
 
   .html :global(a) {
-    display: inline-block;
-    border-bottom: 2px solid currentColor;
     position: relative; /* 1 */
     z-index: 2; /* 1 */
     color: inherit;
-    text-decoration: none;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: var(--border-width);
   }
 
   .html :global(a:hover),
   .html :global(a:active) {
-    border-color: rgb(var(--document-color));
-    background: rgb(var(--document-color));
-    color: rgb(255, 255, 255);
+    background: black;
+    color: #fff;
     mix-blend-mode: darken;
-    box-shadow: 0.1em 0 0 black, -0.1em 0 0 black;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    padding: 0 0.15em 0.1em;
+    margin: 0 -0.15em;
   }
 
   .html :global(.muted a:hover),
@@ -128,7 +130,7 @@
   .html :global(ul),
   .html :global(ol) {
     margin: 0;
-    max-width: 42em;
+    max-width: 38em;
   }
 
   .html :global(p:not(:first-child)),
@@ -213,6 +215,10 @@
     position: relative;
   }
 
+  :global(.html + .html > details) {
+    margin-top: calc(-1.5rem - var(--border-width)) !important;
+  }
+
   .html :global(details:first-child),
   .html :global(details + details) {
     margin-top: 0;
@@ -239,13 +245,6 @@
 
   .html :global(summary + *) {
     margin-top: 0 !important;
-  }
-
-  .html :global(summary h3) {
-    border-bottom: 2px solid transparent;
-    display: inline;
-    padding-bottom: 0.1rem;
-    margin-bottom: calc((2px + 0.1rem) * -1);
   }
 
   .html :global(summary h1),
@@ -439,7 +438,7 @@
   .html :global(.h4:not(:first-child)),
   .html :global(.h5:not(:first-child)),
   .html :global(.h6:not(:first-child)) {
-    margin-top: 1.3rem;
+    margin-top: 2.5rem;
   }
 
   .html :global(h1),
@@ -512,7 +511,7 @@
   .html :global(.h4),
   .html :global(.h5),
   .html :global(.h6) {
-    margin-bottom: 1.3rem;
+    margin-bottom: 1.25rem;
     font-weight: 600;
     font-size: inherit;
     line-height: inherit;

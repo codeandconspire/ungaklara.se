@@ -90,7 +90,7 @@
         <strong class="title">{content.title}</strong>
       {/if}
       {#if content.description}
-        <p class="u-spaceT1">
+        <p class="u-nudgeMd">
           <span class="description">{content.description}</span>
         </p>
       {/if}

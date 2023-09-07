@@ -14,7 +14,7 @@
   {/if}
   <div class="body">
     <Html>
-      <h3 class="u-spaceV2">{heading}</h3>
+      <h3 class="u-nudgeMd">{heading}</h3>
       <slot />
     </Html>
   </div>

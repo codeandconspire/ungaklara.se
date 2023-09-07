@@ -201,6 +201,8 @@
     letter-spacing: var(--heading-letter-spacing);
     word-spacing: var(--heading-word-spacing);
     line-height: 1;
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: var(--border-width);
   }
 
   @media (min-width: 800px) {
@@ -211,7 +213,7 @@
 
   @media (max-width: 599px) {
     .shrink:not(.is-loading) .title {
-      border-bottom: 2px solid currentColor;
+      text-decoration: underline;
     }
   }
 
@@ -340,7 +342,9 @@
     display: inline-flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid currentColor;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: var(--border-width);
     font-size: 1rem;
     font-family: var(--heading-font-family);
     font-weight: 600;

@@ -71,11 +71,11 @@
   </nav>
 
   {#if $navigating}
-    <Html class="u-spaceV8 u-textCenter u-sizeFull">
+    <Html class="u-spaceMd u-textCenter u-sizeFull">
       <p>Hämtar föreställningar</p>
     </Html>
   {:else if !data.events.length}
-    <Html class="u-spaceV8 u-textCenter u-sizeFull">
+    <Html class="u-spaceMd u-textCenter u-sizeFull">
       <p>Kunde inte hitta något här</p>
     </Html>
   {:else if tab === 'aktuellt'}
@@ -117,7 +117,7 @@
     </ol>
   {:else}
     <slot>
-      <Html class="u-spaceV8 u-textCenter u-sizeFull">
+      <Html class="u-spaceMd u-textCenter u-sizeFull">
         <p>Kunde inte hitta något här</p>
       </Html>
     </slot>

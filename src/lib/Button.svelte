@@ -77,14 +77,8 @@
     }
   }
 
-  .button:not([disabled], .disabled):hover {
-    background: rgb(var(--document-color));
-    color: #fff;
-  }
-
   .button[disabled],
   .disabled {
-    opacity: 0.5;
     cursor: not-allowed;
   }
 
@@ -92,7 +86,7 @@
    * Primary button
    */
 
-  .primary {
+  .primary:not([disabled], .disabled) {
     background: rgb(var(--document-color));
     color: #fff;
   }

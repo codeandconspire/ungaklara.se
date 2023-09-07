@@ -49,6 +49,16 @@
 	--ease-in: cubic-bezier(0.4, 0, 1, 1);
 	--ease-out: cubic-bezier(0, 0, 0.2, 1);
 	--ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+	/* Spacing */
+
+  --nudge-sm: 0.5rem;
+  --nudge-md: 1rem;
+  --nudge-lg: 1.5rem;
+
+  --space-sm: 2rem;
+  --space-md: 4rem;
+  --space-lg: 6rem;
 }
 
 @media (min-width: 500px) {

@@ -54,7 +54,6 @@
     word-spacing: var(--heading-word-spacing);
     line-height: 1.3;
     position: relative;
-    overflow: hidden;
   }
 
   .collapse {
@@ -126,12 +125,9 @@
   }
 
   .text :global(a) {
-    border-bottom: 2px solid;
-  }
-
-  .text :global(a) {
-    display: inline-block;
-    border-bottom: 2px solid currentColor;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: var(--border-width);
   }
 
   .text :global(p:not(:first-child)),

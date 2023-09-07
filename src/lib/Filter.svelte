@@ -59,7 +59,7 @@
       {/each}
     </select>
   </label>
-  <Button type="submit" class="u-js-hiddenVisually u-spaceL4">Visa</Button>
+  <Button type="submit" class="u-js-hiddenVisually u-nudgeMd">Visa</Button>
 </form>
 
 <style>
@@ -101,7 +101,8 @@
   .label {
     display: inline-block;
     margin-right: 0.6em;
-    border-bottom: 2px solid transparent;
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: var(--border-width);
     font-weight: 600;
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
@@ -111,7 +112,7 @@
 
   .interactive:hover,
   .toggle:checked + .label {
-    border-bottom-color: currentColor;
+    text-decoration: underline;
   }
 
   .interactive {

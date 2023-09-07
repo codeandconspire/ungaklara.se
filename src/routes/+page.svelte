@@ -118,9 +118,9 @@
       {/if}
 
       {#if slice.slice_type === 'text'}
-        {@const items = slice.items.filter((item) => item.text.length)}
+        {@const items = slice.items.filter((item) => item.text.length || item.text[0].text.length)}
         {#if slice.primary.text.length || items.length}
-          <div class="u-spaceV6">
+          <div class="u-spaceMd">
             {#if slice.primary.text.length}
               <Html size="large">
                 <RichText content={slice.primary.text} />
@@ -130,7 +130,7 @@
               <Grid size={{ md: '1of2' }}>
                 {#each items as item}
                   <GridCell>
-                    <Html size="large" class="u-spaceB2">
+                    <Html size="large">
                       <RichText content={item.text} />
                     </Html>
                   </GridCell>
@@ -144,7 +144,7 @@
       {#if slice.slice_type === 'heading'}
         {@const heading = asText(slice.primary.heading)}
         {#if heading}
-          <Html size="large" class="u-spaceB5 u-pushDown">
+          <Html size="large" class="u-spaceLg">
             <h2>{heading}</h2>
             <RichText content={slice.primary.text} />
           </Html>
@@ -152,7 +152,7 @@
       {/if}
 
       {#if slice.slice_type === 'quote'}
-        <div class="u-spaceV5">
+        <div class="u-spaceMd">
           <Blockquote>
             <div slot="text"><RichText content={slice.primary.text} /></div>
             <div slot="cite"><RichText content={slice.primary.cite} /></div>
@@ -169,7 +169,7 @@
             [1600, 'q_60'],
             [3000, 'q_50']
           ])}
-          <figure class="u-spaceV7">
+          <figure class="u-spaceLg">
             <Html
               size="large"
               class={slice.primary.smaller ? '' : 'u-sizeFull'}>
@@ -191,12 +191,12 @@
 
       {#if slice.slice_type === 'video'}
         {@const items = slice.items.filter((item) => item.video.embed_url)}
-        <div class="u-spaceT7 u-posRelative">
+        <div class="u-spaceLg u-posRelative">
           {#if slice.primary.video.embed_url}
             <Embed content={slice.primary.video} />
           {/if}
           {#if items.length}
-            <div class="u-spaceT4 u-md-uncontain">
+            <div class="u-spaceSm u-md-uncontain">
               <Grid
                 carousel
                 size={{ md: `1of${items.length - 1 < 3 ? 2 : 3}` }}>
@@ -212,7 +212,7 @@
       {/if}
 
       {#if slice.slice_type === 'author'}
-        <div class="u-spaceV7">
+        <div class="u-spaceMd">
           <Byline
             heading={asText(slice.primary.heading)}
             image={slice.primary.image.url
@@ -241,7 +241,7 @@
       {/if}
 
       {#if slice.slice_type === 'accordion'}
-        <section class="u-spaceV6">
+        <section class="u-spaceSm">
           <div class="Text u-sizeFull">
             {#each slice.items as item}
               {#if item.heading.length && item.text}
@@ -259,7 +259,7 @@
 
       {#if slice.slice_type === 'team'}
         {#if slice.items.length}
-          <div class="u-spaceV7">
+          <div class="u-spaceSm">
             <Grid
               size={{
                 lg: '1of4',
@@ -277,7 +277,7 @@
                           [800, 'q_50']
                         ])}
                         <img
-                          class="u-spaceB2 u-sizeFull"
+                          class="u-sizeFull"
                           sizes="13em"
                           srcset={sources}
                           style="max-width: 13em"
@@ -285,10 +285,12 @@
                           src={sources.split(' ')[0]}
                           {...item.image.dimensions} />
                       {/if}
-                      {#if item.label}
-                        <strong class="label">{item.label}</strong>
-                      {/if}
-                      <RichText content={item.text} />
+                      <div class="u-nudgeMd">
+                        {#if item.label}
+                          <strong class="label">{item.label}</strong>
+                        {/if}
+                        <RichText content={item.text} />
+                      </div>
                     </Html>
                   </article>
                 </GridCell>
@@ -300,7 +302,7 @@
 
       {#if slice.slice_type === 'button'}
         {#if slice.primary.text && slice.primary.link}
-          <div class="u-spaceV7">
+          <div class="u-spaceMd">
             <Button primary href={resolve(slice.primary.link)}>
               {slice.primary.text}
             </Button>
