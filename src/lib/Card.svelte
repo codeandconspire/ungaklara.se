@@ -52,7 +52,7 @@
       <div class="body">
         {#if date}
           <time class="meta" datetime={date.toJSON()}>
-            {date.toLocaleString('se-SV', {
+            {date.toLocaleString('se', {
               year: 'numeric',
               month: 'long',
               day: 'numeric'
@@ -141,7 +141,7 @@
     bottom: 0;
     z-index: -1;
     background: black;
-		border-radius: var(--border-radius);
+    border-radius: var(--border-radius);
   }
 
   @media print {
@@ -264,7 +264,7 @@
 
   .fill .everything {
     background-color: rgb(var(--background-color, var(--current-background)));
-		border-radius: var(--border-radius);
+    border-radius: var(--border-radius);
   }
 
   /**
@@ -284,7 +284,6 @@
     height: 0;
     padding-top: var(--figure-aspect);
   }
-
 
   .fill .figure::before {
     padding-top: 68%;
@@ -320,7 +319,7 @@
     max-height: 100%;
     width: auto;
     transform: translate(-50%, -50%);
-		border-radius: var(--border-radius) var(--border-radius) 0 0;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
   }
 
   @supports (object-fit: cover) {

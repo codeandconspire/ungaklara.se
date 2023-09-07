@@ -55,9 +55,9 @@
         {@const date = parseJSON(items[0].show.start)}
         <li class="row" in:fly={{ y: 50, duration: 200 }}>
           <h2 class="day">
-            {date.toLocaleString('sv-SE', {
+            {date.toLocaleString('sv', {
               weekday: 'long'
-            })}, {date.toLocaleString('sv-SE', {
+            })}, {date.toLocaleString('sv', {
               year: 'numeric',
               day: 'numeric',
               month: 'long'
@@ -86,7 +86,7 @@
                 <div class="meta">
                   <span class="time">
                     <span class="icon"><Symbol name="clock" /></span>
-                    {start.toLocaleString('sv-SE', {
+                    {start.toLocaleString('sv', {
                       hour: '2-digit',
                       minute: '2-digit',
                       hourCycle: 'h23'
