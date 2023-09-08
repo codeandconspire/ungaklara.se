@@ -56,11 +56,10 @@
         <span slot="badge">
           {#if parentHref}
             <a href={parentHref}>
-              {parent.data.shortname?.length
+              ← {parent.data.shortname?.length
                 ? asText(parent.data.shortname)
                 : asText(parent.data.title)}
             </a>
-            →
           {/if}
         </span>
         <RichText slot="text" content={data.page.data.description} />

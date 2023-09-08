@@ -19,6 +19,7 @@ const graphQuery = `
               ...on page {
                 theme
                 title
+                parent
                 description
                 featured_image
               }
