@@ -318,7 +318,7 @@
               <GridCell>
                 <Card
                   size="small"
-                  title={item.name || 'Pedagogiskt material'}
+                  title={item.name}
                   image={image(item.image) ||
                     image(slice.primary.event?.data?.poster)}
                   color={slice.primary.event?.data.theme}
