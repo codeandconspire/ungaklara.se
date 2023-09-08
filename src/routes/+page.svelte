@@ -304,7 +304,6 @@
 
         {#if slice.slice_type === 'resources'}
           {@const heading = asText(slice.primary.heading)}
-          {@const href = resolve(slice.primary.event)}
           <hr style="border: 2px solid; margin: 2rem 0;" />
           {#if heading || asText(slice.primary.description)}
             <Html>

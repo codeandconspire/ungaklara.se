@@ -1,4 +1,5 @@
 import { createClient } from '$lib/prismic.js'
+import { filter } from '@prismicio/client'
 import parseJSON from 'date-fns/parseJSON'
 import { error } from '@sveltejs/kit'
 

@@ -18,13 +18,16 @@
 
   function image(props) {
     if (!props.url) return null
-    const sources = srcset(props.url, [400, 600, [900, 'q_50']])
+    const sources = srcset(props.url, [400, 600, [900, 'q_50']], {
+      aspect: 1
+    })
     return {
       srcset: sources,
       sizes: '(min-width: 600px) 33vw, 100vw',
       alt: props.alt || '',
       src: sources.split(' ')[0],
-      ...props.dimensions
+      width: props.dimensions.width,
+      height: props.dimensions.width
     }
   }
 </script>
@@ -33,18 +36,16 @@
   <Grid ordered appear size={{ xs: '1of2', md: '1of3', lg: '1of4' }}>
     {#each data.events as event}
       <GridCell>
-        <div>
-          <Card
-            shrink
-            clamp={4}
-            title={asText(event.data.title)}
-            image={image(event.data.poster)}
-            link={{ href: resolve(event), text: event.data.cta || 'Läs mer' }}>
-            <Html>
-              <RichText content={event.data.description} />
-            </Html>
-          </Card>
-        </div>
+        <Card
+          shrink
+          clamp={4}
+          title={asText(event.data.title)}
+          image={image(event.data.poster)}
+          link={{ href: resolve(event), text: event.data.cta || 'Läs mer' }}>
+          <Html>
+            <RichText content={event.data.description} />
+          </Html>
+        </Card>
       </GridCell>
     {/each}
   </Grid>

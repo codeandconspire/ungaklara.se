@@ -21,10 +21,10 @@
   import Trailer from '$lib/Trailer.svelte'
   import srcset from '$lib/utils/srcset.js'
   import Ticket from '$lib/Ticket.svelte'
-  import Button from '$lib/Button.svelte'
   import Intro from '$lib/Intro.svelte'
   import Embed from '$lib/Embed.svelte'
   import Event from '$lib/Event.svelte'
+  import Card from '$lib/Card.svelte'
   import Html from '$lib/Html.svelte'
   import Grid from '$lib/Grid.svelte'
 
@@ -54,14 +54,22 @@
     })
 
   const small = browser ? window.matchMedia('(min-width: 600px)') : null
+  const medium = browser ? window.matchMedia('(min-width: 800px)') : null
   const large = browser ? window.matchMedia('(min-width: 1000px)') : null
 
   let tickets
   let isSmall = false
+  let isMedium = false
   let isLarge = false
   let showAll = $page.url.searchParams.has('showAll')
 
   onMount(measure)
+
+  function measure() {
+    isSmall = Boolean(small?.matches)
+    isMedium = Boolean(medium?.matches)
+    isLarge = Boolean(large?.matches)
+  }
 
   function onShowAll(event) {
     showAll = true
@@ -72,12 +80,7 @@
     event.preventDefault()
   }
 
-  function measure() {
-    isSmall = Boolean(small?.matches)
-    isLarge = Boolean(large?.matches)
-  }
-
-  function image(props) {
+  function heroImage(props) {
     if (!props.url) return null
     return {
       alt: props.alt || '',
@@ -94,6 +97,19 @@
       ...props.dimensions
     }
   }
+
+  function resourceImage(props) {
+    if (!props.url) return null
+    return {
+      srcset: srcset(props.url, [200, 400, 600, 900, [1600, 'q_60,c_thumb']], {
+        transforms: 'c_thumb'
+      }),
+      sizes: '(min-width: 600px) 50vw, 100vw',
+      alt: props.alt || '',
+      src: srcset(props.url, [[900, 'c_thumb']]).split(' ')[0],
+      ...props.dimensions
+    }
+  }
 </script>
 
 <svelte:window on:resize={measure} />
@@ -101,7 +117,7 @@
 <header class="u-container">
   <Intro
     title={asText(data.page.data.title)}
-    image={image(data.page.data.image)}>
+    image={heroImage(data.page.data.image)}>
     <span slot="badge">
       {[data.page.data.category, data.page.data.subheading]
         .filter(Boolean)
@@ -190,7 +206,7 @@
     (slice) => slice.slice_type === 'spotify'
   )}
   {#if spotify.length === 1}
-    <div class="u-spaceMd">
+    <div class="u-spaceMd u-container">
       <Spotify url={spotify[0].primary.uri.embed_url}>
         <RichText content={spotify[0].primary.text} />
       </Spotify>
@@ -210,7 +226,7 @@
   {/if}
 
   {#if images.length || quotes.length || team.length}
-    <Html class="u-spaceMd">
+    <Html class="u-spaceMd u-container">
       {#if images.length}
         <details on:toggle={ontoggle}>
           <summary>Bilder</summary>
@@ -291,9 +307,11 @@
                           .data.theme || 'rgb(--color-gray-dark)'};" />
                     {/if}
                     {#if item.label}
-                      <strong class="label">{item.label}</strong>
+                      <strong class="label u-nudgeMd">{item.label}</strong>
                     {/if}
-                    <RichText content={item.text} />
+                    <div class:u-nudgeMd={!item.label}>
+                      <RichText content={item.text} />
+                    </div>
                   </Html>
                 </div>
               </GridCell>
@@ -441,9 +459,11 @@
                         .theme || 'rgb(--color-gray-dark)'};" />
                   {/if}
                   {#if item.label}
-                    <strong class="label">{item.label}</strong>
+                    <strong class="label u-nudgeMd">{item.label}</strong>
                   {/if}
-                  <RichText content={item.text} />
+                  <div class:u-nudgeMd={!item.label}>
+                    <RichText content={item.text} />
+                  </div>
                 </Html>
               </div>
             </GridCell>
@@ -488,50 +508,37 @@
   </section>
 {/if}
 
-{#if data.page.data.resource_heading.length}
-  {@const blurb = data.page.data.resource_blurb}
-  {@const blurbHref = resolve(blurb)}
-  {@const resourceHref = resolve(data.page.data.resource_link)}
+{#if data.resources?.length}
   <div class="u-container">
     <hr />
-    {#if blurbHref}
-      <Grid>
-        <GridCell size={{ md: '1of2', lg: '2of3' }}>
-          <Html large>
-            <h2>{asText(data.page.data.resource_heading)}</h2>
-            <RichText content={data.page.data.resource_text} />
-          </Html>
-          {#if resourceHref}
-            <Button class="u-spaceSm" icon="download" href={resourceHref}>
-              {data.page.data.resource_link_text || 'Ladda ner'}
-            </Button>
-          {/if}
-        </GridCell>
-        <GridCell size={{ md: '1of2', lg: '1of3' }}>
-          <div class="u-bgGrayLight">
-            <Html class="u-paddedBox">
-              <p class="fat large">
-                {'Lorem ipsum' || asText(blurb.data.description)}
-              </p>
-              <strong>
-                <a href="${blurbHref}">
-                  {'Hej' || blurb.data.cta || 'Läs mer'}
-                </a>
-              </strong>
-            </Html>
-          </div>
-        </GridCell>
-      </Grid>
-    {:else}
-      <Html large>
-        <h2>{asText(data.page.data.resource_heading)}</h2>
-        <RichText content={data.page.data.resource_text} />
-      </Html>
-      {#if resourceHref}
-        <Button class="u-spaceSm" icon="download" href={resourceHref}>
-          {data.page.data.resource_link_text || 'Ladda ner'}
-        </Button>
+    {#each data.resources as resources, index}
+      {#if index}
+        <hr style="border: 2px solid; margin: 2rem 0;" />
       {/if}
-    {/if}
+      <Html>
+        <h2>Är du pedagog?</h2>
+        <RichText content={resources.primary.description}>
+          <p>
+            Det pedagogiska materialet har tagits fram av Unga Klaras pedagoger
+            och är till för er som har sett eller ska se föreställningen med er
+            grupp och vill arbeta vidare kring delar av pjäsens tematik
+            tillsammans.
+          </p>
+        </RichText>
+      </Html>
+      <Grid class="u-spaceSm" size={{ sm: '1of2', md: '1of3', lg: '1of4' }}>
+        {#each resources.items as item}
+          <GridCell>
+            <Card
+              size="small"
+              title={item.name}
+              image={resourceImage(item.image) ||
+                resourceImage(data.page.data.poster)}
+              color={data.page.data.theme}
+              link={{ href: item.file.url, text: 'Ladda ner' }} />
+          </GridCell>
+        {/each}
+      </Grid>
+    {/each}
   </div>
 {/if}
