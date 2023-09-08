@@ -7,8 +7,10 @@
   export let shrink = false
   export let caption = null
   export let color = null
-  export let image = null
   export let date = null
+
+  /** @type {null|({ [key: string]: string } & { src: string, alt: string })} */
+  export let image = null
 
   /** @type {null|'small'} */
   export let size = null
@@ -73,12 +75,13 @@
       </div>
 
       {#if link}
+        {@const filename = filetype ? link.href.split('/').pop() : null}
         <div class="footer">
           <a
             class="link"
             class:simle={filetype}
             href={link.href}
-            download={filetype}
+            download={filename}
             target={internal ? null : '_blank'}
             rel={internal ? null : 'noopener noreferrer'}>
             {#if filetype}
