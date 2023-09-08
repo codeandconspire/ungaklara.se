@@ -50,8 +50,7 @@
   .button {
     display: inline-flex;
     align-items: center;
-    padding: 0 1rem;
-    padding-bottom: 0.2rem;
+    padding: 0 1rem 0.2rem;
     border: var(--border-width) solid rgb(var(--document-color));
     position: relative;
     font-size: 1rem;

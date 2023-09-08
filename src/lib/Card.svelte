@@ -10,6 +10,9 @@
   export let image = null
   export let date = null
 
+  /** @type {null|'small'} */
+  export let size = null
+
   /** @type {boolean|number} */
   export let clamp = false
 
@@ -19,14 +22,15 @@
   /** @type {{ href: string, text?: string }?}*/
   export let link = null
 
-  $: internal = link?.href.match(/^\/[^/]/)
-  $: filetype = link?.href.match(/\.(\w+)(?:\?|$)/)
+  $: internal = link?.href?.match(/^\/[^/]/)
+  $: filetype = link?.href?.match(/\.(\w+)(?:\?|$)/)
 </script>
 
 <article
   class="card"
   class:shrink
   class:simple={filetype}
+  class:small={size === 'small'}
   class:fill={color || background}
   class:interactive={link && (color || background)}
   class:dark={background || (color && luma(color) < 110)}
@@ -47,7 +51,7 @@
     {/if}
     <div
       class="content"
-      class:u-paddedBox={color}
+      class:u-paddedBox={color && size !== 'small'}
       class:u-hoverTriggerTarget={color}>
       <div class="body">
         {#if date}
@@ -59,7 +63,7 @@
             })}
           </time>
         {/if}
-        <h3 class="title">{title}</h3>
+        {#if title}<h3 class="title">{title}</h3>{/if}
         <div
           class="text"
           class:clamp
@@ -171,6 +175,10 @@
     }
   }
 
+  .small .content {
+    padding: 1rem 1rem 1.5rem;
+  }
+
   /**
  * 1. Get a z-index to put ontop of hover shading
  */
@@ -206,7 +214,7 @@
   }
 
   @media (min-width: 800px) {
-    .title {
+    .card:not(.small) .title {
       font-size: 1.5rem;
     }
   }

@@ -6,6 +6,7 @@
   import GridCell from '$lib/GridCell.svelte'
   import Blockquote from '$lib/Blockquote.svelte'
   import srcset from '$lib/utils/srcset.js'
+  import Symbol from '$lib/Symbol.svelte'
   import Intro from '$lib/Intro.svelte'
   import Html from '$lib/Html.svelte'
   import Embed from '$lib/Embed.svelte'
@@ -303,7 +304,28 @@
         {/if}
 
         {#if slice.slice_type === 'resources'}
-          resources!
+          {@const heading = asText(slice.primary.heading)}
+          {@const href = resolve(slice.primary.event)}
+          <hr style="border: 2px solid; margin: 2rem 0;" />
+          {#if heading || asText(slice.primary.description)}
+            <Html>
+              <h2>{heading}</h2>
+              <RichText content={slice.primary.description} />
+            </Html>
+          {/if}
+          <Grid class="u-spaceSm" size={{ sm: '1of2', md: '1of3', lg: '1of4' }}>
+            {#each slice.items as item}
+              <GridCell>
+                <Card
+                  size="small"
+                  title={item.name}
+                  image={image(item.image) ||
+                    image(slice.primary.event?.data?.poster)}
+                  color={slice.primary.event?.data.theme}
+                  link={{ href: item.file.url, text: 'Ladda ner' }} />
+              </GridCell>
+            {/each}
+          </Grid>
         {/if}
       </div>
     {/each}
