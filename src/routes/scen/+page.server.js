@@ -2,7 +2,7 @@ import { createClient, filter } from '@prismicio/client'
 import parseJSON from 'date-fns/parseJSON'
 import { error } from '@sveltejs/kit'
 
-import getProduction from '$lib/production.js'
+import { getProduction } from './tickster.js'
 
 const PAGE_SIZE = 12
 

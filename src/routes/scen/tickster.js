@@ -10,7 +10,7 @@ const EVENT_URL =
  * @param {object} [platform]
  * @returns {Promise<object?>}
  */
-export default async function getProduction(url, platform) {
+export async function getProduction(url, platform) {
   if (!url) return null
 
   const store = getStore(platform)

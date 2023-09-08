@@ -1,7 +1,7 @@
 import { createClient } from '@prismicio/client'
 import { error } from '@sveltejs/kit'
 
-import getProduction from '$lib/production.js'
+import { getProduction } from '../tickster.js'
 
 export async function load({ fetch, params, platform }) {
   const client = createClient('unga-klara', { fetch })
