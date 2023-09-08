@@ -1,4 +1,4 @@
-import { createClient } from '@prismicio/client'
+import { createClient } from '$lib/prismic.js'
 import { error } from '@sveltejs/kit'
 
 const graphQuery = `
@@ -92,17 +92,33 @@ const graphQuery = `
             ...non-repeatFields
           }
         }
+        ...on resources {
+          non-repeat {
+            ...non-repeatFields
+            event {
+              ...on event {
+                title
+                theme
+                description
+                poster
+              }
+            }
+          }
+          repeat {
+            ...repeatFields
+          }
+        }
       }
     }
   }
-`
+`.replace(/\n\s+/g, '\n')
 
-export async function load({ fetch, params }) {
+export async function load({ fetch, params, request }) {
   /** @type {{ slug?: string }} */
   const { slug = 'start' } = params
 
   try {
-    const client = createClient('unga-klara', { fetch })
+    const client = createClient({ fetch, request })
     const page = await client.getByUID('page', slug, { graphQuery })
     return { page }
   } catch (err) {

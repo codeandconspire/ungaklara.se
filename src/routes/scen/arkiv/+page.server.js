@@ -1,11 +1,12 @@
-import { createClient, filter } from '@prismicio/client'
+import { createClient } from '$lib/prismic.js'
+import { filter } from '@prismicio/client'
 import addYears from 'date-fns/addYears'
 import { error } from '@sveltejs/kit'
 
-export async function load({ fetch, url }) {
+export async function load({ fetch, request, url }) {
   const { page, tag, period } = Object.fromEntries(url.searchParams)
 
-  const client = createClient('unga-klara', { fetch })
+  const client = createClient({ fetch, request })
 
   try {
     const [_page, { events, index, total }] = await Promise.all([

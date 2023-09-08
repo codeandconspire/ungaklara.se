@@ -14,7 +14,7 @@ export async function GET({ url, cookies }) {
   })
 
   cookies.set(cookie.preview, token, {
-    maxAge: 60 * 30,
+    maxAge: 60 * 60 * 12,
     httpOnly: false
   })
 

@@ -1,4 +1,4 @@
-import { createClient, filter } from '@prismicio/client'
+import { createClient } from '$lib/prismic.js'
 import parseJSON from 'date-fns/parseJSON'
 import { error } from '@sveltejs/kit'
 
@@ -6,10 +6,10 @@ import { getProduction } from './tickster.js'
 
 const PAGE_SIZE = 12
 
-export async function load({ fetch, url, platform }) {
+export async function load({ fetch, request, url, platform }) {
   const { page } = Object.fromEntries(url.searchParams)
 
-  const client = createClient('unga-klara', { fetch })
+  const client = createClient({ fetch, request })
 
   try {
     const [_page, { events, index, total }] = await Promise.all([
