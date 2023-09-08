@@ -16,6 +16,9 @@
 
   export let data
 
+  $: parent = data.page.data.parent
+  $: parentHref = resolve(parent)
+
   $: slices = data.page.data.body.reduce(function (acc, slice) {
     switch (slice.slice_type) {
       case 'link_blurb':
@@ -39,13 +42,10 @@
       }),
       sizes: '(min-width: 600px) 50vw, 100vw',
       alt: props.alt || '',
-      src: srcset(props.url, [900, 'c_thumb']).split(' ')[0],
+      src: srcset(props.url, [[900, 'c_thumb']]).split(' ')[0],
       ...props.dimensions
     }
   }
-
-  $: parent = data.page.data.parent
-  $: parentHref = resolve(parent)
 </script>
 
 <div class="u-container">
@@ -90,7 +90,7 @@
                 {#if item.primary.file.url}
                   <GridCell>
                     <Card
-                      title={item.primary.title}
+                      title={asText(item.primary.title)}
                       image={image(item.primary.image)}
                       color={item.primary.color}
                       link={{ href: item.primary.file.url }}>
@@ -105,7 +105,7 @@
                 {#if href}
                   <GridCell>
                     <Card
-                      title={item.primary.title}
+                      title={asText(item.primary.title)}
                       image={image(item.primary.image)}
                       color={item.primary.color}
                       link={{ href }}>
@@ -145,9 +145,11 @@
         {#if slice.slice_type === 'heading'}
           {@const heading = asText(slice.primary.heading)}
           {#if heading}
-            <Html size="large" class={slice.primary.divider ? 'u-spaceSm' : 'u-spaceLg'}>
+            <Html
+              size="large"
+              class={slice.primary.divider ? 'u-spaceSm' : 'u-spaceLg'}>
               {#if slice.primary.divider}
-                <div class="u-divider u-spaceLg"></div>
+                <div class="u-divider u-spaceLg" />
               {/if}
               <h2>{heading}</h2>
               <RichText content={slice.primary.text} />
@@ -298,6 +300,10 @@
               {slice.primary.text}
             </Button>
           {/if}
+        {/if}
+
+        {#if slice.slice_type === 'resources'}
+          resources!
         {/if}
       </div>
     {/each}

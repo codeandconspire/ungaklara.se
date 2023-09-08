@@ -25,6 +25,16 @@ const graphQuery = `
             }
           }
         }
+        ...on file_blurb {
+          non-repeat {
+            ...non-repeatFields
+          }
+        }
+        ...on any_blurb {
+          non-repeat {
+            ...non-repeatFields
+          }
+        }
         ...on heading {
           non-repeat {
             ...non-repeatFields
