@@ -121,9 +121,9 @@
     max-width: 38em;
   }
 
-  .html :global(p),
-  .html :global(ul),
-  .html :global(ol) {
+  .html :global(p:not(:first-child)),
+  .html :global(ul:not(:first-child)),
+  .html :global(ol:not(:first-child)) {
     margin-top: 1em;
   }
 
