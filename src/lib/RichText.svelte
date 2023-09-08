@@ -5,6 +5,9 @@
   /** @type {[]|[import('@prismicio/types').RTNode, ...import('@prismicio/types').RTNode[]]}*/
   export let content = []
 
+  $: html = asHTML(content, resolve, serialize)
+  $: isEmpty = !html || html === '<p></p>'
+
   function serialize(type, element, content, children) {
     switch (type) {
       case Element.heading1:
@@ -76,4 +79,8 @@
   }
 </script>
 
-{@html asHTML(content, resolve, serialize)}
+{#if isEmpty}
+  <slot />
+{:else}
+  {@html html}
+{/if}
