@@ -18,5 +18,5 @@ export async function GET({ url, cookies }) {
     httpOnly: false
   })
 
-  throw redirect(302, new URL(`${href}?preview`, url))
+  throw redirect(302, new URL(href, url))
 }

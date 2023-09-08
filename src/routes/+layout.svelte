@@ -1,5 +1,4 @@
 <script>
-  import { page } from '$app/stores'
   import { onMount } from 'svelte'
 
   import Header from '$lib/Header.svelte'
@@ -7,6 +6,7 @@
   import Meta from '$lib/Meta.svelte'
 
   export let data
+
   const {
     settings: { data: settings }
   } = data
@@ -35,7 +35,7 @@
     }
   </script>
 
-  {#if $page.url.searchParams.has('preview')}
+  {#if data.previewToken}
     <script
       async
       defer
