@@ -17,8 +17,8 @@
 
   export let data
 
-  /** @type {'aktuellt'|'kalendarium'|'arkiv'|'salong'}*/
-  export let tab = 'aktuellt'
+  /** @type {'produktioner'|'kalendarium'|'arkiv'|'salong'}*/
+  export let tab = 'produktioner'
 
   /** @type {string?} */
   export let tag = null
@@ -90,7 +90,7 @@
 
   <nav class="u-spaceMd">
     <Tablist selected={tab}>
-      <Tab label="Aktuellt" key="aktuellt" href="/scen" />
+      <Tab label="Produktioner" key="produktioner" href="/scen" />
       <Tab label="Kalendarium" key="kalendarium" href="/scen/kalendarium" />
       <Tab label="Arkiv" key="arkiv" href="/scen/arkiv" />
       <Tab label="Salong" key="salong" href="/scen/salong" />
@@ -113,7 +113,7 @@
     <Html class="u-spaceMd u-textCenter u-sizeFull">
       <p class="u-sizeFull">Kunde inte hitta något här</p>
     </Html>
-  {:else if tab === 'aktuellt'}
+  {:else if tab === 'produktioner'}
     <ol class="rows">
       {#each data.events as event, index (event.id)}
         <li
