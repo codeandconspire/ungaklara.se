@@ -1,19 +1,20 @@
 <script>
   import { asText } from '@prismicio/client'
 
+  import intersection from '$lib/utils/intersection.js'
+  import Blockquote from '$lib/Blockquote.svelte'
   import resolve from '$lib/utils/resolve.js'
   import RichText from '$lib/RichText.svelte'
   import GridCell from '$lib/GridCell.svelte'
-  import Blockquote from '$lib/Blockquote.svelte'
   import srcset from '$lib/utils/srcset.js'
-  import Symbol from '$lib/Symbol.svelte'
+  import Byline from '$lib/Byline.svelte'
+  import Button from '$lib/Button.svelte'
+  import track from '$lib/utils/track.js'
+  import Embed from '$lib/Embed.svelte'
   import Intro from '$lib/Intro.svelte'
   import Html from '$lib/Html.svelte'
-  import Embed from '$lib/Embed.svelte'
   import Grid from '$lib/Grid.svelte'
-  import Byline from '$lib/Byline.svelte'
   import Card from '$lib/Card.svelte'
-  import Button from '$lib/Button.svelte'
 
   export let data
 
@@ -34,6 +35,35 @@
         return acc.concat(slice)
     }
   }, [])
+
+  const tracker = (event, items) => () => {
+    track(event, { items: Array.isArray(items) ? items : [items] })
+  }
+
+  function blurbAsItem(slice) {
+    switch (slice.slice_type) {
+      case 'link_blurb':
+        return {
+          item_id: resolve(slice.primary.link),
+          item_name: asText(slice.primary.link.data.title),
+          item_category: 'Intern länk'
+        }
+      case 'file_blurb':
+        return {
+          item_id: slice.primary.file.url,
+          item_name: asText(slice.primary.title),
+          item_category: 'Länk till dokument eller bild'
+        }
+      case 'any_blurb':
+        return {
+          item_id: resolve(slice.primary.link),
+          item_name: asText(slice.primary.title),
+          item_category: 'Extern länk'
+        }
+      default:
+        return null
+    }
+  }
 
   function image(props) {
     if (!props.url) return null
@@ -69,53 +99,64 @@
     {#each slices as slice}
       <div class="slice slice-{slice.slice_type}">
         {#if slice.slice_type === '__blurbs'}
-          <Grid size={{ md: '1of2', lg: '1of3' }}>
-            {#each slice.items as item}
-              {#if item.slice_type === 'link_blurb'}
-                {@const href = resolve(item.primary.link)}
-                {#if href}
-                  <GridCell>
-                    <Card
-                      title={asText(item.primary.link.data.title)}
-                      image={image(item.primary.link.data.featured_image)}
-                      color={item.primary.color || item.primary.link.data.theme}
-                      link={{ href, text: item.primary.link.data.cta }}>
-                      <RichText content={item.primary.link.data.description} />
-                    </Card>
-                  </GridCell>
+          <div
+            use:intersection={tracker(
+              'view_item_list',
+              slice.items.map(blurbAsItem)
+            )}>
+            <Grid size={{ md: '1of2', lg: '1of3' }}>
+              {#each slice.items as item}
+                {#if item.slice_type === 'link_blurb'}
+                  {@const href = resolve(item.primary.link)}
+                  {#if href}
+                    <GridCell>
+                      <Card
+                        on:click={tracker('select_item', blurbAsItem(item))}
+                        title={asText(item.primary.link.data.title)}
+                        image={image(item.primary.link.data.featured_image)}
+                        color={item.primary.color ||
+                          item.primary.link.data.theme}
+                        link={{ href, text: item.primary.link.data.cta }}>
+                        <RichText
+                          content={item.primary.link.data.description} />
+                      </Card>
+                    </GridCell>
+                  {/if}
                 {/if}
-              {/if}
 
-              {#if item.slice_type === 'file_blurb'}
-                {#if item.primary.file.url}
-                  <GridCell>
-                    <Card
-                      title={asText(item.primary.title)}
-                      image={image(item.primary.image)}
-                      color={item.primary.color}
-                      link={{ href: item.primary.file.url }}>
-                      <RichText content={item.primary.text} />
-                    </Card>
-                  </GridCell>
+                {#if item.slice_type === 'file_blurb'}
+                  {#if item.primary.file.url}
+                    <GridCell>
+                      <Card
+                        on:click={tracker('select_item', blurbAsItem(item))}
+                        title={asText(item.primary.title)}
+                        image={image(item.primary.image)}
+                        color={item.primary.color}
+                        link={{ href: item.primary.file.url }}>
+                        <RichText content={item.primary.text} />
+                      </Card>
+                    </GridCell>
+                  {/if}
                 {/if}
-              {/if}
 
-              {#if item.slice_type === 'any_blurb'}
-                {@const href = resolve(item.primary.link)}
-                {#if href}
-                  <GridCell>
-                    <Card
-                      title={asText(item.primary.title)}
-                      image={image(item.primary.image)}
-                      color={item.primary.color}
-                      link={{ href }}>
-                      <RichText content={item.primary.text} />
-                    </Card>
-                  </GridCell>
+                {#if item.slice_type === 'any_blurb'}
+                  {@const href = resolve(item.primary.link)}
+                  {#if href}
+                    <GridCell>
+                      <Card
+                        on:click={tracker('select_item', blurbAsItem(item))}
+                        title={asText(item.primary.title)}
+                        image={image(item.primary.image)}
+                        color={item.primary.color}
+                        link={{ href }}>
+                        <RichText content={item.primary.text} />
+                      </Card>
+                    </GridCell>
+                  {/if}
                 {/if}
-              {/if}
-            {/each}
-          </Grid>
+              {/each}
+            </Grid>
+          </div>
         {/if}
 
         {#if slice.slice_type === 'text'}
@@ -219,7 +260,7 @@
             image={slice.primary.image.url
               ? Object.assign(
                   {
-                    src: srcset(slice.primary.image.url, [200, 'c_thumb'], {
+                    src: srcset(slice.primary.image.url, [[200, 'c_thumb']], {
                       aspect: 278 / 195
                     }).split(' ')[0],
                     sizes: '15rem',
@@ -304,7 +345,17 @@
 
         {#if slice.slice_type === 'resources'}
           {@const heading = asText(slice.primary.heading)}
-          <hr style="border: 2px solid; margin: 2rem 0;" />
+          <hr
+            style="border: 2px solid; margin: 2rem 0;"
+            use:intersection={tracker(
+              'view_item_list',
+              slice.items.map((item) => ({
+                item_list_name: heading,
+                item_id: item.file.url,
+                item_name: item.name,
+                item_category: 'Pedagogiskt material'
+              }))
+            )} />
           {#if heading || asText(slice.primary.description)}
             <Html>
               <h2>{heading}</h2>
@@ -315,6 +366,12 @@
             {#each slice.items as item}
               <GridCell>
                 <Card
+                  on:click={tracker('select_item', {
+                    item_list_name: heading,
+                    item_id: item.file.url,
+                    item_name: item.name,
+                    item_category: 'Pedagogiskt material'
+                  })}
                   size="small"
                   title={item.name}
                   image={image(item.image) ||

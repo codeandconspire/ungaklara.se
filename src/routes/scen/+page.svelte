@@ -3,6 +3,7 @@
   import { page, navigating } from '$app/stores'
   import { asText } from '@prismicio/client'
   import { goto } from '$app/navigation'
+  import { onMount } from 'svelte'
 
   import Pagination from '$lib/Pagination.svelte'
   import hexToRgb from '$lib/utils/hex-to-rgb'
@@ -10,6 +11,7 @@
   import RichText from '$lib/RichText.svelte'
   import Tablist from '$lib/Tablist.svelte'
   import Filter from '$lib/Filter.svelte'
+  import track from '$lib/utils/track.js'
   import Intro from '$lib/Intro.svelte'
   import Event from '$lib/Event.svelte'
   import Html from '$lib/Html.svelte'
@@ -37,6 +39,22 @@
     hasMounted = true
   })
 
+  onMount(function () {
+    if (tab !== 'produktioner') return
+    track('view_item_list', {
+      item_list_name: 'Produktioner',
+      items: data.events.map(eventAsItem)
+    })
+  })
+
+  function eventAsItem(event) {
+    return {
+      item_id: event.id,
+      item_name: asText(event.data.title),
+      item_category: 'Produktion'
+    }
+  }
+
   function onselect(event) {
     const { detail } = event
 
@@ -50,6 +68,13 @@
     goto(url, { noScroll: true })
   }
 
+  function onselectevent(event) {
+    track('select_item', {
+      item_list_name: 'Produktioner',
+      items: [eventAsItem(event)]
+    })
+  }
+
   function getButtons(event) {
     /** @type {{ [key: string]: any, text: string }[]}*/
     const buttons = [
@@ -57,7 +82,10 @@
         text: 'Läs mer',
         href: resolve(event),
         primary: true,
-        cover: true
+        cover: true,
+        onclick() {
+          onselectevent(event)
+        }
       }
     ]
 
@@ -70,7 +98,10 @@
         icon: 'arrow',
         href: resolve(event.data.buy_link),
         target: '_blank',
-        rel: 'noopener noreferrer'
+        rel: 'noopener noreferrer',
+        onclick() {
+          onselectevent(event)
+        }
       })
     }
 

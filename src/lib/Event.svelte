@@ -38,7 +38,7 @@
       <div class="actions">
         {#each buttons as { text, ...attrs }}
           <span class="action">
-            <Button {...attrs}>{text}</Button>
+            <Button {...attrs} on:click={attrs.onclick}>{text}</Button>
           </span>
         {/each}
       </div>

@@ -1,12 +1,14 @@
 <script>
   import parseJSON from 'date-fns/parseJSON'
   import { asText } from '@prismicio/client'
+  import { onMount } from 'svelte'
 
   import hexToRgb from '$lib/utils/hex-to-rgb.js'
   import resolve from '$lib/utils/resolve.js'
   import Button from '$lib/Button.svelte'
   import Framed from '$lib/Framed.svelte'
   import Symbol from '$lib/Symbol.svelte'
+  import track from '$lib/utils/track.js'
   import srcset from '$lib/utils/srcset'
   import Scen from '../+page.svelte'
 
@@ -32,6 +34,32 @@
       return acc
     }, [])
     .flat(2)
+
+  const onclick = (event, show) => () => {
+    track('select_item', {
+      item_list_name: 'Kalendarium',
+      items: [showAsItem(show, event)]
+    })
+  }
+
+  onMount(function () {
+    track('view_item_list', {
+      item_list_name: 'Kalendarium',
+      items: data.events.flatMap((event) =>
+        event.production?.shows.map((show) => showAsItem(show, event))
+      )
+    })
+  })
+
+  function showAsItem(show, event) {
+    return {
+      item_id: show.id,
+      item_name: show.name,
+      item_category: 'Föreställning',
+      item_category2: asText(event.data.title),
+      item_category3: parseJSON(show.start).toLocaleDateString('sv')
+    }
+  }
 
   function image(props) {
     if (!props.url) return null
@@ -107,6 +135,7 @@
                   target="_blank"
                   rel="noopener noreferrer"
                   href={event.data.buy_link.url}
+                  on:click={onclick(event, show)}
                   disabled={show.stockStatus === 'SoldOut'}>
                   {show.stockStatus === 'SoldOut' ? 'Slutsålt' : 'Boka biljett'}
                 </Button>

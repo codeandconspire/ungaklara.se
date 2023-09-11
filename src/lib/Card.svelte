@@ -9,7 +9,7 @@
   export let color = null
   export let date = null
 
-  /** @type {null|({ [key: string]: string } & { src: string, alt: string })} */
+  /** @type {null|({ [key: string]: string } & { src: string, alt?: string })} */
   export let image = null
 
   /** @type {null|'small'} */
@@ -37,8 +37,8 @@
   class:interactive={link && (color || background)}
   class:dark={background || (color && luma(color) < 110)}
   style:--background-color={color && hexToRgb(color)}
-  style:--figure-aspect={image.height && image.width
-    ? `${(100 * image.height) / image.width}%`
+  style:--figure-aspect={image && image.height && image.width
+    ? `${(100 * +image.height) / +image.width}%`
     : null}>
   <div class="everything">
     {#if image}
@@ -58,7 +58,7 @@
       <div class="body">
         {#if date}
           <time class="meta" datetime={date.toJSON()}>
-            {date.toLocaleString('se', {
+            {date.toLocaleString('sv', {
               year: 'numeric',
               month: 'long',
               day: 'numeric'
@@ -78,6 +78,7 @@
         {@const filename = filetype ? link.href.split('/').pop() : null}
         <div class="footer">
           <a
+            on:click
             class="link"
             class:simle={filetype}
             href={link.href}

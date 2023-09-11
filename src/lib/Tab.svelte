@@ -14,6 +14,7 @@
   <a
     {...$$restProps}
     {href}
+    on:click
     role="tab"
     class="tab"
     class:selected
@@ -21,7 +22,7 @@
     {label}
   </a>
 {:else}
-  <button {...$$restProps} role="tab" class="tab" class:selected>
+  <button {...$$restProps} role="tab" class="tab" class:selected on:click>
     {label}
   </button>
 {/if}

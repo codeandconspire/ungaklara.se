@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from 'svelte'
+  import { dev } from '$app/environment'
 
   import Header from '$lib/Header.svelte'
   import Footer from '$lib/Footer.svelte'
@@ -10,18 +10,6 @@
   const {
     settings: { data: settings }
   } = data
-
-  onMount(function () {
-    const url = new URL(window.location)
-    if (url.searchParams.get('preview')) {
-      const script = document.createElement('script')
-      script.async = true
-      script.defer = true
-      script.src =
-        'https://static.cdn.prismic.io/prismic.js?new=true&repo=unga-klara'
-      document.head.appendChild(script)
-    }
-  })
 </script>
 
 <svelte:head>
@@ -41,6 +29,20 @@
       defer
       src="https://static.cdn.prismic.io/prismic.js?new=true&repo=unga-klara"></script>
   {/if}
+
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=UA-129657568-1"></script>
+  {@html `
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      gtag('config', 'UA-129657568-1'${dev ? ', {debug_mode: true}' : ''})
+    </script>
+  `}
 </svelte:head>
 
 <div class="layout">

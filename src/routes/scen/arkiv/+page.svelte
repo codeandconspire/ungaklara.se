@@ -1,11 +1,13 @@
 <script>
   import { asText } from '@prismicio/client'
   import { page } from '$app/stores'
+  import { onMount } from 'svelte'
 
   import resolve from '$lib/utils/resolve.js'
   import GridCell from '$lib/GridCell.svelte'
   import RichText from '$lib/RichText.svelte'
   import srcset from '$lib/utils/srcset.js'
+  import track from '$lib/utils/track.js'
   import Grid from '$lib/Grid.svelte'
   import Html from '$lib/Html.svelte'
   import Card from '$lib/Card.svelte'
@@ -15,6 +17,30 @@
 
   $: tag = $page.url.searchParams.get('tag')
   $: period = $page.url.searchParams.get('period')
+
+  const onclick = (event) => () => {
+    track('select_item', {
+      item_list_name: 'Produktioner',
+      items: [
+        {
+          item_id: event.id,
+          item_name: asText(event.data.title),
+          item_category: 'Produktion'
+        }
+      ]
+    })
+  }
+
+  onMount(function () {
+    track('view_item_list', {
+      item_list_name: 'Arkiv',
+      items: data.events.map((event) => ({
+        item_id: event.id,
+        item_name: asText(event.data.title),
+        item_category: 'Produktion'
+      }))
+    })
+  })
 
   function image(props) {
     if (!props.url) return null
@@ -39,6 +65,7 @@
         <Card
           shrink
           clamp={4}
+          on:click={onclick(event)}
           title={asText(event.data.title)}
           image={image(event.data.poster)}
           link={{ href: resolve(event), text: event.data.cta || 'Läs mer' }}>

@@ -9,6 +9,7 @@
   import { page } from '$app/stores'
   import { onMount } from 'svelte'
 
+  import intersection from '$lib/utils/intersection.js'
   import Blockquote from '$lib/Blockquote.svelte'
   import resolve from '$lib/utils/resolve.js'
   import FactsBox from '$lib/FactsBox.svelte'
@@ -20,6 +21,7 @@
   import Masonry from '$lib/Masonry.svelte'
   import Trailer from '$lib/Trailer.svelte'
   import srcset from '$lib/utils/srcset.js'
+  import track from '$lib/utils/track.js'
   import Ticket from '$lib/Ticket.svelte'
   import Intro from '$lib/Intro.svelte'
   import Embed from '$lib/Embed.svelte'
@@ -47,11 +49,19 @@
       slice.items.length
   )
 
-  const ontoggle = (event) =>
+  const onclick = (list, items) => () => {
+    track('select_item', {
+      item_list_name: list,
+      items: Array.isArray(items) ? items : [items]
+    })
+  }
+
+  const ontoggle = (event) => {
     event.currentTarget.scrollIntoView({
       behavior: 'smooth',
       block: 'nearest'
     })
+  }
 
   const small = browser ? window.matchMedia('(min-width: 600px)') : null
   const medium = browser ? window.matchMedia('(min-width: 800px)') : null
@@ -65,10 +75,27 @@
 
   onMount(measure)
 
+  function onintersect() {
+    track('view_item_list', {
+      item_list_name: 'Föreställningar',
+      items: shows.map(showAsItem)
+    })
+  }
+
   function measure() {
     isSmall = Boolean(small?.matches)
     isMedium = Boolean(medium?.matches)
     isLarge = Boolean(large?.matches)
+  }
+
+  function showAsItem(show) {
+    return {
+      item_id: show.id,
+      item_name: show.name,
+      item_category: 'Föreställning',
+      item_category2: asText(data.page.data.title),
+      item_category3: parseJSON(show.start).toLocaleDateString('sv')
+    }
   }
 
   function onShowAll(event) {
@@ -148,11 +175,33 @@
           {
             href: '#tickets',
             icon: 'calendar',
-            text: 'Visa spelschema'
+            text: 'Visa spelschema',
+            onclick(event) {
+              tickets.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest'
+              })
+              event.preventDefault()
+            }
           },
           {
             text: 'Boka biljett',
             href: resolve(data.page.data.buy_link),
+            onclick() {
+              track('select_item', {
+                items: [
+                  {
+                    item_id: data.production.id,
+                    item_name: data.production.name,
+                    item_category: 'Föreställning',
+                    item_category2: asText(data.page.data.title),
+                    item_category3: parseJSON(
+                      data.production.start
+                    ).toLocaleDateString('sv')
+                  }
+                ]
+              })
+            },
             primary: true,
             icon: 'arrow',
             target: '_blank',
@@ -478,6 +527,7 @@
   <section
     id="tickets"
     class="u-spaceLg u-narrow u-container"
+    use:intersection={onintersect}
     bind:this={tickets}>
     <hr />
     <Grid class="u-spaceMd" slim appear size={{ md: '1of2', xl: '1of3' }}>
@@ -489,6 +539,7 @@
         <GridCell delay={`${(index - 3) * 150}ms`}>
           <div class="u-sizeFull">
             <Ticket
+              on:click={onclick('Föreställningar', showAsItem(show))}
               name={show.name}
               href={show.shopUri}
               status={show.stockStatus}
@@ -531,6 +582,11 @@
           <GridCell>
             <Card
               size="small"
+              on:click={onclick('Är du pedagog?', {
+                item_id: item.file.url,
+                item_name: item.name,
+                item_category: 'Pedagogiskt material'
+              })}
               title={item.name}
               image={resourceImage(item.image) ||
                 resourceImage(data.page.data.poster)}

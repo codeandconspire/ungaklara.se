@@ -1,5 +1,4 @@
 <script>
-  import { createEventDispatcher } from 'svelte'
   import Symbol from './Symbol.svelte'
 
   /** @type {null|'InStock'|'FewLeft'|'SoldOut'} */
@@ -11,8 +10,6 @@
   export let location = null
   export let href = null
   export let name = null
-
-  const dispatch = createEventDispatcher()
 </script>
 
 <article class="ticket" class:disabled={status === 'SoldOut'}>
@@ -63,11 +60,11 @@
       </div>
       {#if href && status !== 'SoldOut'}
         <a
-          class="link"
           {href}
+          on:click
+          class="link"
           target="_blank"
-          rel="noopener noreferrer"
-          on:click={(event) => dispatch('click')}>
+          rel="noopener noreferrer">
           <Symbol name="arrow" />
           <span class="u-hiddenVisually">Boka biljett</span>
         </a>
