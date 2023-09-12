@@ -199,10 +199,12 @@
         {/if}
 
         {#if slice.slice_type === 'quote'}
-          <Blockquote>
-            <div slot="text"><RichText content={slice.primary.text} /></div>
-            <div slot="cite"><RichText content={slice.primary.cite} /></div>
-          </Blockquote>
+          <div class="u-spaceLg">
+            <Blockquote>
+              <div slot="text"><RichText content={slice.primary.text} /></div>
+              <div slot="cite"><RichText content={slice.primary.cite} /></div>
+            </Blockquote>
+          </div>
         {/if}
 
         {#if slice.slice_type === 'image'}
