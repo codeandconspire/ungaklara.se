@@ -7,7 +7,9 @@
   export let key
   export let href
 
-  $: selected = getContext(TABLIST) == key
+  const state = getContext(TABLIST)
+
+  $: selected = $state === key
 </script>
 
 {#if href}

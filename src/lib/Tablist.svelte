@@ -3,11 +3,15 @@
 </script>
 
 <script>
+  import { writable } from 'svelte/store'
   import { setContext } from 'svelte'
 
   export let selected
 
-  $: setContext(TABLIST, selected)
+  const state = writable(selected)
+  setContext(TABLIST, state)
+
+  $: $state = selected
 </script>
 
 <nav class="tablist"><slot /></nav>

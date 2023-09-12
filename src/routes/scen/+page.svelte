@@ -112,27 +112,53 @@
     goto(event.target.href, { replaceState: true, noScroll: true })
     event.preventDefault()
   }
+
+  const ontabclick = (key) => (event) => {
+    tab = key
+    goto(event.currentTarget.href, { replaceState: true, noScroll: true })
+    event.preventDefault()
+  }
 </script>
 
-<div class="u-container" class:disabled={$navigating} bind:this={root}>
+<div class="u-container" bind:this={root}>
   <header>
     <Intro title={asText(data.page.data.title)} adapt />
   </header>
 
   <nav class="u-spaceMd">
     <Tablist selected={tab}>
-      <Tab label="Produktioner" key="produktioner" href="/scen" />
-      <Tab label="Kalendarium" key="kalendarium" href="/scen/kalendarium" />
-      <Tab label="Arkiv" key="arkiv" href="/scen/arkiv" />
-      <Tab label="Salong" key="salong" href="/scen/salong" />
+      <Tab
+        label="Produktioner"
+        key="produktioner"
+        href="/scen"
+        on:click={ontabclick('produktioner')} />
+      <Tab
+        label="Kalendarium"
+        key="kalendarium"
+        href="/scen/kalendarium"
+        on:click={ontabclick('kalendarium')} />
+      <Tab
+        label="Arkiv"
+        key="arkiv"
+        href="/scen/arkiv"
+        on:click={ontabclick('arkiv')} />
+      <Tab
+        label="Salong"
+        key="salong"
+        href="/scen/salong"
+        on:click={ontabclick('salong')} />
     </Tablist>
 
     {#if (tab === 'arkiv' && !$navigating) || $navigating?.to?.route.id === '/scen/arkiv'}
-      <Filter
-        {tag}
-        {period}
-        on:select={onselect}
-        tags={data.page.data.filters.map((item) => item.tag).filter(Boolean)} />
+      <div class:disabled={$navigating}>
+        <Filter
+          {tag}
+          {period}
+          on:select={onselect}
+          tags={data.page.data.filters
+            .map((item) => item.tag)
+            .filter(Boolean)} />
+      </div>
     {/if}
   </nav>
 
