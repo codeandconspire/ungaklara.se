@@ -4,6 +4,7 @@
   export let primary = false
   export let secondary = false
   export let disabled = false
+  export let ninja = false
   export let cover = false
 
   /** @type {string?} */
@@ -23,6 +24,7 @@
     class:primary
     class:secondary
     class:disabled
+    class:ninja
     class:cover
     {...attrs}>
     {#if icon}
@@ -36,6 +38,7 @@
     class={`button ${_class || ''}`}
     class:primary
     class:secondary
+    class:ninja
     class:cover
     {disabled}
     {...attrs}>
@@ -64,7 +67,7 @@
     letter-spacing: var(--heading-letter-spacing);
     word-spacing: var(--heading-word-spacing);
     border-radius: var(--border-radius);
-    height: 3.5rem;
+    height: 3rem;
   }
 
   .button::first-letter {
@@ -103,6 +106,23 @@
     color: currentColor !important;
     background-color: transparent !important;
     border-color: transparent !important;
+  }
+
+  /**
+   * Ninja
+   */
+
+  .ninja,
+  .ninja:hover,
+  .ninja:active {
+    color: currentColor !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    padding: 0;
+    height: auto;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: var(--border-width);
   }
 
   /**

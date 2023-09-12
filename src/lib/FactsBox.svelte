@@ -11,7 +11,7 @@
         {@const cols = count >= 6 ? 3 : count <= 4 ? count : index < 4 ? 3 : 2}
         {@const mdCols = Math.max(2, Math.floor(cols / 2))}
         <div class={`cell u-md-size1of${mdCols} u-lg-size1of${cols}`}>
-          <dt class="label">{item.label}</dt>
+          <dt class="u-textLabel">{item.label}</dt>
           <dd class="value">{item.text}</dd>
         </div>
       {/each}
@@ -101,14 +101,6 @@
     .cell:last-child {
       padding-bottom: 0;
     }
-  }
-
-  .label {
-    display: block;
-    margin: 0 0 0.3em 0;
-    text-transform: uppercase;
-    letter-spacing: var(--label-letter-spacing);
-    font-size: 0.875em;
   }
 
   .value {

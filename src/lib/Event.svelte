@@ -31,7 +31,7 @@
     {#if label}
       <span class="u-textLabel">{label}</span>
     {/if}
-    <Html size="large">
+    <Html class={label ? 'u-nudgeMd' : ''}>
       <slot />
     </Html>
     {#if buttons.length}
@@ -55,10 +55,6 @@
     z-index: 0;
   }
 
-  .teaser {
-    margin-top: 2.3rem;
-  }
-
   .body {
     display: flex;
     flex-direction: column;
@@ -67,7 +63,6 @@
   @media (min-width: 600px) {
     .event {
       flex-direction: row;
-      padding-top: 1rem;
       flex-wrap: wrap;
     }
 
@@ -120,7 +115,6 @@
       flex-basis: 30%;
       padding-right: 2rem;
       position: relative;
-      top: -1rem;
     }
 
     .teaser .image {
@@ -150,7 +144,7 @@
   .actions {
     display: flex;
     flex-wrap: nowrap;
-    margin: 1rem 0;
+    margin: var(--space-sm) 0 0;
   }
 
   .event:not(.teaser) .actions {

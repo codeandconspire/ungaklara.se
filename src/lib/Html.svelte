@@ -25,6 +25,10 @@
     text-align: left;
   }
 
+  .html :global(> :first-child:not(details)) {
+    margin-top: 0 !important;
+  }
+
   .html :global(.muted) {
     color: rgb(var(--color-gray-dark));
   }
@@ -279,19 +283,6 @@
     .html :global(details[open]) {
       padding-bottom: 2.4rem;
     }
-  }
-
-  /* Labels */
-
-  .html :global(.label) {
-    display: block;
-    padding: 0;
-    margin: 0 0 0.3em 0;
-    text-transform: uppercase;
-    font-family: var(--heading-font-family);
-    line-height: var(--heading-line-height);
-    letter-spacing: var(--label-letter-spacing);
-    font-size: 0.875em;
   }
 
   /* Lists */

@@ -256,7 +256,7 @@
           {/if}
         {/if}
 
-        {#if slice.slice_type === 'author'}
+        {#if slice.slice_type === 'author' || slice.slice_type === 'contact'}
           <Byline
             heading={asText(slice.primary.heading)}
             image={slice.primary.image.url
@@ -325,7 +325,7 @@
                       {/if}
                       <div class="u-nudgeMd">
                         {#if item.label}
-                          <strong class="label">{item.label}</strong>
+                          <strong class="u-textLabel">{item.label}</strong>
                         {/if}
                         <RichText content={item.text} />
                       </div>

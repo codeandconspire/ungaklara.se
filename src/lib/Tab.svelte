@@ -32,7 +32,11 @@
 <style>
   .tab {
     flex: 1 1 auto;
-    padding: 0.8em 0.3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.3em;
+    height: 3em;
     border: solid #000;
     border-width: 2px 0 2px 2px;
     font-size: 1em;

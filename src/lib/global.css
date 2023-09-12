@@ -53,12 +53,12 @@
 	/* Spacing */
 
   --nudge-sm: 0.5rem;
-  --nudge-md: 1rem;
+  --nudge-md: 0.75rem;
   --nudge-lg: 1.5rem;
 
-  --space-sm: 2rem;
+  --space-sm: 1.5rem;
   --space-md: clamp(2rem, 5vw, 4rem);
-  --space-lg: 6rem;
+  --space-lg: clamp(4rem, 5vw, 6rem);
 }
 
 @media (min-width: 500px) {

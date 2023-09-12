@@ -122,7 +122,7 @@
 
 <div class="u-container" bind:this={root}>
   <header>
-    <Intro title={asText(data.page.data.title)} adapt />
+    <Intro title={asText(data.page.data.title)} />
   </header>
 
   <nav class="u-spaceMd">
@@ -186,7 +186,7 @@
             label={[event.data.category, event.data.shortname]
               .filter(Boolean)
               .join(' – ')}>
-            <h2>{asText(event.data.title)}</h2>
+            <h1>{asText(event.data.title)}</h1>
             <RichText content={event.data.description} />
           </Event>
         </li>
@@ -213,25 +213,12 @@
   }
 
   .rows {
-    margin-top: 4.5rem;
+    margin-top: var(--space-lg);
   }
 
   .row:not(:first-child) {
-    padding-top: 0.8rem;
+    padding-top: var(--space-lg);
     border-top: var(--border-width) solid;
-    margin-top: 2.5rem;
-  }
-
-  @media (min-width: 600px) {
-    .row:not(:first-child) {
-      padding-top: 2rem;
-      margin-top: 4rem;
-    }
-  }
-
-  @media (min-width: 1000px) {
-    .row:not(:first-child) {
-      margin-top: 5rem;
-    }
+    margin-top: var(--space-lg);
   }
 </style>

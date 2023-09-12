@@ -1,12 +1,11 @@
 <script>
   export let title = undefined
   export let collapse = false
-  export let adapt = false
   export let blurb = false
   export let image = null
 </script>
 
-<div class="intro" class:collapse class:adapt class:blurb>
+<div class="intro" class:collapse class:blurb>
   <div class="slot">
     <slot />
   </div>
@@ -96,16 +95,13 @@
   }
 
   .badge {
-    position: relative;
+    position: absolute;
     left: 0.04em;
     line-height: 1.4;
-    margin: -2rem 0 0.9rem;
+    margin: 0;
     display: block;
     word-spacing: 0;
-  }
-
-  .badge:empty {
-    display: none;
+    bottom: calc(100% - 0.9rem);
   }
 
   .text {
@@ -187,10 +183,6 @@
     .title {
       font-size: 3.2rem;
     }
-
-    .badge {
-      margin: -2.4rem 0 1.3rem;
-    }
   }
 
   @media (min-width: 600px) {
@@ -206,10 +198,6 @@
       --spacing: 5rem;
     }
 
-    .Intro:not(.adapt) {
-      letter-spacing: -0.035em;
-    }
-
     .title {
       font-size: 4.5rem;
       padding-top: 0.6em;
@@ -218,10 +206,6 @@
 
     .text {
       font-size: 1.5rem;
-    }
-
-    .badge {
-      margin: -2.9rem 0 1.8rem;
     }
   }
 
@@ -238,10 +222,6 @@
     .image,
     .container {
       margin: 4rem 0 0;
-    }
-
-    .badge {
-      margin: -3.4rem 0 1.7rem;
     }
   }
 

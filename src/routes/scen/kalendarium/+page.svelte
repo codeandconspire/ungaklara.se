@@ -78,7 +78,7 @@
   <Scen {data} tab="kalendarium" />
 {:else}
   <Scen {data} tab="kalendarium">
-    <ol>
+    <ol class="u-spaceLg">
       {#each items as item, index}
         {#if typeof item === 'string'}
           {@const [year, month, day] = item.split('-')}
@@ -113,8 +113,11 @@
                 <a href={resolve(event)} class="link">
                   {show.name}
                 </a>
-                <br />
                 <div class="meta">
+                  <span class="location">
+                    <span class="icon"><Symbol name="location" /></span>
+                    {show.venue.name}
+                  </span>
                   <span class="time">
                     <span class="icon"><Symbol name="clock" /></span>
                     {start.toLocaleString('sv', {
@@ -123,24 +126,41 @@
                       hourCycle: 'h23'
                     })}
                   </span>
-                  <span class="location">
-                    <span class="icon"><Symbol name="location" /></span>
-                    {show.venue.name}
-                  </span>
+                  {#if show.stockStatus === 'SoldOut'}
+                    <span class="note">
+                      {#if show.stockStatus === 'SoldOut'}Slutsåld{/if}
+                    </span>
+                  {/if}
+
+                  {#if show.misc}
+                    <!-- This is not yet implemented, don't know where to put it -->
+                    <span class="detail">
+                      <span class="icon">
+                        <Symbol name="check" />
+                      </span>
+                      {show.misc}
+                    </span>
+                  {/if}
                 </div>
               </div>
-              <div class="actions">
-                <Button
-                  primary
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={event.data.buy_link.url}
-                  on:click={onclick(event, show)}
-                  disabled={show.stockStatus === 'SoldOut'}>
-                  {show.stockStatus === 'SoldOut' ? 'Slutsålt' : 'Boka biljett'}
-                </Button>
-                {#if show.stockStatus === 'FewLeft'}
-                  <div class="note">Fåtal kvar!</div>
+              <div class="actions {show.stockStatus === 'SoldOut' ? 'unavailable' : ''}">
+                {#if show.stockStatus !== 'SoldOut'}
+                  <Button
+                    primary
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={event.data.buy_link.url}
+                    disabled={show.stockStatus === 'SoldOut'}>Boka biljett</Button>
+                  {#if show.stockStatus === 'FewLeft'}
+                    <span class="late">
+                      {#if show.stockStatus === 'FewLeft'}Få kvar!{/if}
+                    </span>
+                  {/if}
+                {/if}
+                {#if show.stockStatus === 'SoldOut'}
+                  <span class="note">
+                    {#if show.stockStatus === 'SoldOut'}Slutsåld{/if}
+                  </span>
                 {/if}
               </div>
             </div>
@@ -154,58 +174,150 @@
 <style>
   .row {
     display: flex;
-    padding: 1.2rem 0 1.4rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    margin: 1rem 0;
     position: relative;
   }
 
+  .day {
+    display: block;
+    width: 100%;
+    border-bottom: var(--border-width) solid;
+    margin: 1.5rem 0 0;
+    padding: 0 0 0.5rem;
+    font-family: var(--heading-font-family);
+    line-height: var(--heading-line-height);
+    text-transform: capitalize;
+    font-size: 1rem;
+  }
+
+  @media (min-width: 800px) {
+    .day {
+      font-size: 1.25rem;
+      margin-top: 2rem;
+    }
+  }
+
   .poster {
-    width: 6rem;
+    width: 4rem;
+    margin-top: 0.25rem;
     flex-shrink: 0;
   }
 
   .body {
     flex: 1 1 auto;
-    margin: 0.8rem 0 0 1.5rem;
     font-size: 1rem;
-  }
-
-  .note {
-    margin-top: 0.45rem;
-    margin-left: 0.75rem;
-    font-size: 1rem;
+    margin-left: 1rem;
   }
 
   .actions {
+    position: relative;
+    margin-top: 0.5rem;
     display: flex;
     align-items: baseline;
     white-space: nowrap;
     flex-wrap: wrap;
   }
 
+  .actions .note {
+    display: none;
+  }
+
   .link {
+    display: block;
     padding-bottom: 0.05rem;
     text-decoration: none;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-family: var(--heading-font-family);
-    line-height: var(--heading-line-height);
+    line-height: 1.07;
+    margin-top: 0.25rem;
     letter-spacing: var(--heading-letter-spacing);
     word-spacing: var(--heading-word-spacing);
+    text-wrap: balance;
+  }
+
+  @media (min-width: 800px) {
+    .link {
+      font-size: 1.875rem;
+    }
   }
 
   .meta {
-    margin: 0.5rem 0 0.8rem;
+    margin-top: 0.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 0;
   }
 
   .icon {
     font-size: 0.8em;
     position: relative;
-    top: -0.05rem;
-    margin-right: 0.2rem;
+  }
+
+  .time,
+  .location,
+  .note,
+  .detail {
+    display: inline-block;
+    margin-right: 1rem;
+    display: flex;
+    align-items: baseline;
+  }
+
+  .location {
+    display: none;
   }
 
   .time {
     display: block;
+  }
+
+  .note {
+  }
+
+  .late {
+    background: rgb(var(--theme-color));
+    display: block;
+    border-radius: var(--border-radius);
+    width: 5rem;
+    height: 2rem;
+    white-space: normal;
+    line-height: 0.9;
+    text-align: center;
+    padding-top: 0.56rem;
+    transform: rotate(-9deg);
+    font-weight: 600;
+    font-family: var(--heading-font-family);
+    font-size: 0.9rem;
+    position: absolute;
+    left: 4.3rem;
+    top: 2.3rem;
+  }
+
+  @media (min-width: 1000px) {
+    .location {
+      display: block;
+    }
+
+    .note {
+      display: none;
+    }
+
+    .actions .note {
+      display: block;
+      margin-right: 0;
+      text-align: right;
+      margin-top: 0.25rem;
+    }
+
+    .late {
+      transform: rotate(9deg);
+      left: 5.1rem;
+      top: -1.2rem;
+    }
+
+    .actions .note:first-child {
+      margin-top: 0;
+    }
   }
 
   .link::before {
@@ -223,17 +335,8 @@
     text-decoration-thickness: var(--border-width);
   }
 
-  .day {
-    margin: 1.35rem 0 0.1rem;
-    font-family: var(--heading-font-family);
-    line-height: var(--heading-line-height);
-    text-transform: capitalize;
-    font-size: 1.125rem;
-  }
-
   .row:first-child {
-    padding-top: 0;
-    margin-top: -1rem;
+    margin-top: -2.5rem;
   }
 
   .detail {
@@ -249,55 +352,24 @@
       font-size: 1.125rem;
       display: flex;
       margin-top: 0;
-      align-items: center;
+      margin-left: 1.5rem;
+      align-items: flex-start;
       justify-content: space-between;
     }
 
     .actions {
       display: block;
-    }
-
-    .note {
-      text-align: right;
-    }
-
-    .actions {
       margin-left: 2rem;
-    }
-
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      margin-bottom: 0;
-    }
-
-    .time,
-    .location,
-    .detail {
-      display: inline-block;
-      margin-right: 1.8rem;
-      display: flex;
-      align-items: baseline;
+      margin-top: 1.25rem;
     }
 
     .link {
       font-size: 1.5rem;
+      margin-top: 1rem;
     }
 
     .poster {
       width: 6rem;
-      margin-top: 0.5rem;
-    }
-  }
-
-  @media (min-width: 800px) {
-    .day {
-      font-size: 1.5rem;
-      margin-top: 1.2rem;
-    }
-
-    .link {
-      font-size: 1.875rem;
     }
   }
 </style>
