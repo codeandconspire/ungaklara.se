@@ -53,6 +53,7 @@
     flex-direction: column;
     position: relative;
     z-index: 0;
+    margin-top: 2.5rem;
   }
 
   .body {
@@ -64,6 +65,7 @@
     .event {
       flex-direction: row;
       flex-wrap: wrap;
+      margin-top: 5rem;
     }
 
     .body {
@@ -143,21 +145,14 @@
 
   .actions {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    gap: 1.5rem;
     margin: var(--space-sm) 0 0;
   }
 
   .event:not(.teaser) .actions {
     margin: 0 0 2.5rem;
     order: -1;
-  }
-
-  .event:not(.teaser) .action {
-    flex: 1 1 auto;
-  }
-
-  .event:not(.teaser) .action:not(:last-child) {
-    margin-right: 1em;
   }
 
   @media (min-width: 600px) {

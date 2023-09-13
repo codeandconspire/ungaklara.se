@@ -212,7 +212,7 @@
     font-family: var(--heading-font-family);
     letter-spacing: var(--heading-letter-spacing);
     word-spacing: var(--heading-word-spacing);
-    line-height: 1;
+    line-height: var(--heading-line-height);
     text-underline-offset: 0.25em;
     text-decoration-thickness: var(--border-width);
   }
@@ -233,6 +233,10 @@
     font-size: 1rem;
     margin-top: 0.5rem;
     font-size: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .text:first-child {
@@ -334,6 +338,11 @@
     border-radius: var(--border-radius) var(--border-radius) 0 0;
   }
 
+
+  .card.simple .image {
+    border-radius: var(--border-radius);
+  }
+
   @supports (object-fit: cover) {
     .image {
       object-fit: cover;
@@ -375,7 +384,10 @@
   .card:not(.fill) .link:hover {
     background: black;
     color: #fff;
-    mix-blend-mode: darken;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    padding: 0.2rem;
+    margin: -0.2rem 0 -0.2rem -0.2rem;
   }
 
   @media print {

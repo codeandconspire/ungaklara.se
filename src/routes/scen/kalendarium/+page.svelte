@@ -63,7 +63,7 @@
 
   function image(props) {
     if (!props.url) return null
-    const sources = srcset(props.url, [75, 150, [300, 'q_50']])
+    const sources = srcset(props.url, [75, 150, [300, 'q_60']])
     return {
       srcset: sources,
       sizes: '4.5rem',

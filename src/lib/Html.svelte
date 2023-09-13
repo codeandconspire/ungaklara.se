@@ -166,6 +166,10 @@
     border-radius: var(--border-radius);
   }
 
+  .html :global(.aspect .image) {
+    margin-top: 0;
+  }
+
   .html :global(.image) {
     position: absolute;
     top: 0;

@@ -166,7 +166,7 @@
   }
 
   .container {
-    margin: -12vh 0 0;
+    margin: -12vh 0 2rem;
     order: -1;
     position: relative;
     overflow: hidden;

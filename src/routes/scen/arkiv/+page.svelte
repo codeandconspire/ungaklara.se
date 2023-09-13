@@ -44,7 +44,7 @@
 
   function image(props) {
     if (!props.url) return null
-    const sources = srcset(props.url, [400, 600, [900, 'q_50']], {
+    const sources = srcset(props.url, [400, 600, [900, 'q_70']], {
       aspect: 1
     })
     return {

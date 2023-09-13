@@ -60,6 +60,14 @@
 	text-transform: uppercase;
 	letter-spacing: var(--label-letter-spacing);
 	font-size: 1rem;
+	text-wrap: balance;
+}
+
+/* Sorry, fix for team grid person desc */
+
+.u-textLabel + p {
+	margin-top: 0.5em !important;
+	text-wrap: balance;
 }
 
 /**

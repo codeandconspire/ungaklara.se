@@ -195,7 +195,7 @@
             <Grid carousel>
               {#each images as slice}
                 {@const { dimensions, url, alt = '' } = slice.primary.image}
-                {@const sources = srcset(url, [400, 599, 900, [1500, 'q_40']])}
+                {@const sources = srcset(url, [400, 599, 900, [1500, 'q_60']])}
                 <GridCell>
                   <figure class="u-sizeFull">
                     <Html>
@@ -254,16 +254,15 @@
                           [800, 'q_50']
                         ])}
                         <img
-                          class="u-sizeFull"
                           sizes="13em"
                           srcset={sources}
-                          style="max-width: 13em"
+                          style="max-width: 13em; width: 100%"
                           alt={item.image.alt || ''}
                           src={sources.split(' ')[0]}
                           {...item.image.dimensions} />
                       {/if}
                       {#if item.label}
-                        <strong class="u-textLabel">{item.label}</strong>
+                        <strong class="u-textLabel u-nudgeMd">{item.label}</strong>
                       {/if}
                       <RichText content={item.text} />
                     </Html>
@@ -286,7 +285,7 @@
         }))}>
         {#if slice.slice_type === 'image'}
           {@const { dimensions, url, alt = '' } = slice.primary.image}
-          {@const sources = srcset(url, [400, 599, 900, [1500, 'q_40']])}
+          {@const sources = srcset(url, [400, 599, 900, [1500, 'q_60']])}
           <figure class="u-sizeFull">
             <Html>
               <div
@@ -396,7 +395,7 @@
             {#each slice.items as item}
               <GridCell>
                 <article>
-                  <Html>
+                  <Html size="small" fixed>
                     {#if item.image.url}
                       {@const sources = srcset(item.image.url, [
                         200,
@@ -404,16 +403,15 @@
                         [800, 'q_50']
                       ])}
                       <img
-                        class="u-sizeFull"
                         sizes="13em"
                         srcset={sources}
-                        style="max-width: 13em"
+                        style="max-width: 13em; width: 100%"
                         alt={item.image.alt || ''}
                         src={sources.split(' ')[0]}
                         {...item.image.dimensions} />
                     {/if}
                     {#if item.label}
-                      <strong class="u-textLabel">{item.label}</strong>
+                      <strong class="u-textLabel u-nudgeMd">{item.label}</strong>
                     {/if}
                     <RichText content={item.text} />
                   </Html>

@@ -68,9 +68,7 @@
   function image(props) {
     if (!props.url) return null
     return {
-      srcset: srcset(props.url, [200, 400, 600, 900, [1600, 'q_60,c_thumb']], {
-        transforms: 'c_thumb'
-      }),
+      srcset: srcset(props.url, [200, 400, 600, 900, [1600, 'q_80']]),
       sizes: '(min-width: 600px) 50vw, 100vw',
       alt: props.alt || '',
       src: srcset(props.url, [[900, 'c_thumb']]).split(' ')[0],
@@ -213,8 +211,8 @@
               400,
               600,
               900,
-              [1600, 'q_60'],
-              [3000, 'q_50']
+              [1600, 'q_80'],
+              [3000, 'q_60']
             ])}
             <figure>
               <Html
@@ -262,15 +260,14 @@
             image={slice.primary.image.url
               ? Object.assign(
                   {
-                    src: srcset(slice.primary.image.url, [[200, 'c_thumb']], {
+                    src: srcset(slice.primary.image.url, [200], {
                       aspect: 278 / 195
                     }).split(' ')[0],
                     sizes: '15rem',
                     srcset: srcset(
                       slice.primary.image.url,
-                      [200, 400, [800, 'q_50,c_thumb']],
+                      [200, 400, [800, 'q_80']],
                       {
-                        transforms: 'c_thumb',
                         aspect: 278 / 195
                       }
                     ),
@@ -312,7 +309,7 @@
                         {@const sources = srcset(item.image.url, [
                           200,
                           400,
-                          [800, 'q_50']
+                          [800, 'q_80']
                         ])}
                         <img
                           class="u-sizeFull"
