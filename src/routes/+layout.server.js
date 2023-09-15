@@ -2,8 +2,6 @@ import { createClient } from '$lib/prismic.js'
 import { cookie } from '@prismicio/client'
 import { error } from '@sveltejs/kit'
 
-export const prerender = 'auto'
-
 export async function load({ fetch, request, cookies }) {
   try {
     const client = createClient({ fetch, request })

@@ -1,6 +1,5 @@
 import { createClient } from '$lib/prismic.js'
 import { filter } from '@prismicio/client'
-import addYears from 'date-fns/addYears'
 import { error } from '@sveltejs/kit'
 
 export async function load({ fetch, request, url }) {
@@ -37,7 +36,8 @@ export async function load({ fetch, request, url }) {
 
     if (period) {
       const min = new Date(+period, 0, 0)
-      const max = addYears(min, 10)
+      const max = new Date(min)
+      max.setFullYear(+period + 10)
       filters.push(
         filter.dateAfter('my.event.archive_on', min),
         filter.dateBefore('my.event.archive_on', max)

@@ -1,6 +1,5 @@
 import { createClient } from '$lib/prismic.js'
 import { filter } from '@prismicio/client'
-import parseJSON from 'date-fns/parseJSON'
 import { error } from '@sveltejs/kit'
 
 import { getProduction } from './tickster.js'
@@ -62,6 +61,6 @@ export async function load({ fetch, request, url, platform }) {
 
 function getFirstDate({ production }) {
   return production.shows?.length
-    ? production.shows.map((event) => parseJSON(event.start)).sort()[0]
-    : parseJSON(production.event?.start)
+    ? production.shows.map((event) => new Date(event.start)).sort()[0]
+    : new Date(production.event?.start)
 }

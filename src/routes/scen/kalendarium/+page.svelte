@@ -1,5 +1,4 @@
 <script>
-  import parseJSON from 'date-fns/parseJSON'
   import { asText } from '@prismicio/client'
   import { onMount } from 'svelte'
 
@@ -57,7 +56,7 @@
       item_name: show.name,
       item_category: 'Föreställning',
       item_category2: asText(event.data.title),
-      item_category3: parseJSON(show.start).toLocaleDateString('sv')
+      item_category3: new Date(show.start).toLocaleDateString('sv')
     }
   }
 
@@ -96,7 +95,7 @@
           </li>
         {:else}
           {@const { event, show } = item}
-          {@const start = parseJSON(show.start)}
+          {@const start = new Date(show.start)}
           {@const isSoldOut = show.stockStatus === 'SoldOut'}
           <li
             class="row u-slideUp"
@@ -273,9 +272,6 @@
 
   .time {
     display: block;
-  }
-
-  .note {
   }
 
   .late {
