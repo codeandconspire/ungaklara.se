@@ -58,8 +58,8 @@
   --nudge-lg: 1.5rem;
 
   --space-sm: 1.5rem;
-  --space-md: clamp(2rem, 5vw, 4rem);
-  --space-lg: clamp(4rem, 5vw, 6rem);
+  --space-md: clamp(2rem, 6vw, 4rem);
+  --space-lg: clamp(4rem, 7vw, 6rem);
 }
 
 @media (min-width: 500px) {

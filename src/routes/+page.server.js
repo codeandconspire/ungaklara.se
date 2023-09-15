@@ -68,6 +68,11 @@ const graphQuery = `
             ...non-repeatFields
           }
         }
+        ...on signup {
+          non-repeat {
+            ...non-repeatFields
+          }
+        }
         ...on quote {
           non-repeat {
             ...non-repeatFields

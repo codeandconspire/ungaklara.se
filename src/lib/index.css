@@ -172,15 +172,6 @@ button {
 }
 
 /**
- * Pointer is for links, not for actions on the same page.
- */
-
-:root[scripting-enabled] [role='button'],
-:root[scripting-enabled] [role='tab'] {
-  cursor: default;
-}
-
-/**
  * Provide enhanced focus styles for keyboard focus
  */
 

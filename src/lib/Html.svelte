@@ -402,7 +402,6 @@
     .html :global(h1),
     .html :global(.h1) {
       font-size: 2.4rem;
-      line-height: 0.95;
     }
   }
 

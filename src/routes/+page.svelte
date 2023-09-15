@@ -12,6 +12,7 @@
   import { resolve } from '$lib/prismic.js'
   import Byline from '$lib/Byline.svelte'
   import Button from '$lib/Button.svelte'
+  import Signup from '$lib/Signup.svelte'
   import Embed from '$lib/Embed.svelte'
   import Intro from '$lib/Intro.svelte'
   import Html from '$lib/Html.svelte'
@@ -91,6 +92,8 @@
                 ? asText(parent.data.shortname)
                 : asText(parent.data.title)}
             </a>
+          {:else if data.page.data.shortname?.length}
+            {asText(data.page.data.shortname)}
           {/if}
         </span>
         <RichText slot="text" content={data.page.data.description} />
@@ -170,7 +173,8 @@
                 </Html>
               {/if}
               {#if items.length}
-                <Grid size={{ md: '1of2' }}>
+                {@const size = items.length > 2 ? { md: '1of2', lg: '1of3' } : { md: '1of2' }}
+                <Grid size={size}>
                   {#each items as item}
                     <GridCell>
                       <Html size="large">
@@ -345,6 +349,22 @@
           {/if}
         {/if}
 
+        {#if slice.slice_type === 'signup'}
+          <Signup>
+            <div slot="primary">
+              <Html size="large">
+                <h2 class="h1">{asText(data.settings.data.signup_heading)}</h2>
+                <RichText content={data.settings.data.signup_content} />
+              </Html>
+            </div>
+            <div slot="success">
+              <Html>
+                <RichText content={data.settings.data.signup_success} />
+              </Html>
+            </div>
+          </Signup>
+        {/if}
+
         {#if slice.slice_type === 'resources'}
           {@const heading = asText(slice.primary.heading)}
           <hr
@@ -410,5 +430,9 @@
 
   .slice-heading + * {
     margin-top: var(--space-sm);
+  }
+
+  .slice-signup {
+    margin-top: var(--space-lg);
   }
 </style>
