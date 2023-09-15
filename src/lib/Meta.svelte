@@ -25,7 +25,9 @@
           let drawn = drawFavicon(favicon, getTheme($page.data.page)) || ''
           link.setAttribute('href', drawn)
         }
-      } catch (err) {}
+      } catch (err) {
+        // Ignore error
+      }
     })
     favicon.src = FAVICON_TEMPLATE
   })

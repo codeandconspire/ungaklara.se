@@ -44,7 +44,7 @@
       </div>
     {/if}
   </div>
-  <div class="image outside"><Framed size="flexible" {...imageAttrs} /></div>
+  <div class="image"><Framed size="flexible" {...imageAttrs} /></div>
 </div>
 
 <style>
@@ -94,24 +94,12 @@
     display: none;
   }
 
-  .event:not(.teaser) .inside {
-    display: block;
-    float: right;
-    max-width: 41%;
-    margin: 0 0 0.5rem 1rem;
-  }
-
   @media (min-width: 600px) {
-    .event:not(.teaser) .inside {
-      display: none;
-    }
-
     .teaser .image {
       margin-bottom: 0;
     }
 
-    .teaser .image,
-    .event:not(.teaser) .outside {
+    .teaser .image {
       display: block;
       order: -1;
       flex-basis: 30%;
@@ -125,15 +113,13 @@
   }
 
   @media (min-width: 800px) {
-    .teaser .image,
-    .event:not(.teaser) .outside {
+    .teaser .image {
       padding-right: 3rem;
     }
   }
 
   @media (min-width: 1000px) {
-    .teaser .image,
-    .event:not(.teaser) .outside {
+    .teaser .image {
       flex-basis: 32%;
       padding-right: 6rem;
     }

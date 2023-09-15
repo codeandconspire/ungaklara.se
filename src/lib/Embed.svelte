@@ -273,21 +273,6 @@
     }
   }
 
-  .fullscreen.is-closing {
-    animation: -disappear 350ms 200ms cubic-bezier(0.165, 0.84, 0.44, 1)
-      forwards;
-  }
-
-  @keyframes -disappear {
-    from {
-      opacity: 1;
-    }
-
-    to {
-      opacity: 0;
-    }
-  }
-
   .close {
     width: 100%;
     height: 100%;
@@ -363,21 +348,6 @@
     box-shadow: 0 0 10rem rgba(0, 0, 0, 0.2);
     transform: translate(-50%, -50%);
     will-change: transform;
-  }
-
-  .fullscreen.is-closing .iframe {
-    animation: iframe--disappear 250ms cubic-bezier(0.33, 0.89, 0.62, 1)
-      forwards;
-  }
-
-  @keyframes iframe--disappear {
-    from {
-      transform: translate(-50%, -50%);
-    }
-
-    to {
-      transform: translate(-50%, 50vh);
-    }
   }
 
   .iframe iframe {

@@ -262,7 +262,9 @@
                           {...item.image.dimensions} />
                       {/if}
                       {#if item.label}
-                        <strong class="u-textLabel u-nudgeMd">{item.label}</strong>
+                        <strong class="u-textLabel u-nudgeMd">
+                          {item.label}
+                        </strong>
                       {/if}
                       <RichText content={item.text} />
                     </Html>
@@ -411,7 +413,9 @@
                         {...item.image.dimensions} />
                     {/if}
                     {#if item.label}
-                      <strong class="u-textLabel u-nudgeMd">{item.label}</strong>
+                      <strong class="u-textLabel u-nudgeMd">
+                        {item.label}
+                      </strong>
                     {/if}
                     <RichText content={item.text} />
                   </Html>

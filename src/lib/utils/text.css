@@ -2,72 +2,72 @@
 
 /* @define utilities */
 .u-textBold {
-	font-weight: 600 !important;
+  font-weight: 600 !important;
 }
 
 .u-textRegular {
-	font-weight: normal !important;
+  font-weight: normal !important;
 }
 
 .u-textItalic {
-	font-style: italic !important;
+  font-style: italic !important;
 }
 
 .u-textCenter {
-	text-align: center !important;
+  text-align: center !important;
 }
 
 .u-textNowrap {
-	white-space: nowrap !important;
+  white-space: nowrap !important;
 }
 
 .u-textWordBreak {
-	word-break: break-word !important;
+  word-break: break-word !important;
 }
 
 .u-textHyphens {
-	hyphens: auto !important;
+  hyphens: auto !important;
 }
 
 .u-textUppercase {
-	text-transform: uppercase !important;
+  text-transform: uppercase !important;
 }
 
 .u-textDefault {
-	font-family: var(--document-font-family) !important;
-	line-height: var(--document-line-height) !important;
-	text-transform: normal;
+  font-family: var(--document-font-family) !important;
+  line-height: var(--document-line-height) !important;
+  text-transform: normal;
 }
 
 .u-textHeading {
-	font-family: var(--heading-font-family) !important;
-	line-height: var(--heading-line-height) !important;
-	letter-spacing: var(--heading-letter-spacing);
-	word-spacing: var(--heading-word-spacing);
-	font-weight: 600;
+  font-family: var(--heading-font-family) !important;
+  line-height: var(--heading-line-height) !important;
+  letter-spacing: var(--heading-letter-spacing);
+  word-spacing: var(--heading-word-spacing);
+  font-weight: 600;
 }
 
 .u-nowrap {
-	white-space: nowrap !important;
+  white-space: nowrap !important;
 }
 
 .u-textLabel {
-	font-family: var(--heading-font-family) !important;
-	line-height: var(--heading-line-height) !important;
-	font-weight: 600;
-	display: block;
-	padding: 0;
-	text-transform: uppercase;
-	letter-spacing: var(--label-letter-spacing);
-	font-size: 1rem;
-	text-wrap: balance;
+  font-family: var(--heading-font-family) !important;
+  line-height: var(--heading-line-height) !important;
+  font-weight: 600;
+  display: block;
+  padding: 0;
+  text-transform: uppercase;
+  letter-spacing: var(--label-letter-spacing);
+  font-size: 1rem;
+  text-wrap: balance;
 }
 
 /* Sorry, fix for team grid person desc */
 
 .u-textLabel + p {
-	margin-top: 0.5em !important;
-	text-wrap: balance;
+  margin-top: 0.5em !important;
+  text-wrap: balance;
 }
 
 /**
@@ -76,11 +76,11 @@
  */
 
 .u-textTruncate {
-	display: block !important;
-	max-width: 100% !important; /* 1 */
-	overflow: hidden !important;
-	text-overflow: ellipsis !important;
-	white-space: nowrap !important;
+  display: block !important;
+  max-width: 100% !important; /* 1 */
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
 }
 
 /**
@@ -89,10 +89,10 @@
  */
 
 .u-textBreakLongWords {
-	overflow-wrap: break-word;
-	word-wrap: break-word;
-	-ms-word-break: break-all;
-	word-break: break-all;
-	word-break: break-word;
-	hyphens: auto;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
 }

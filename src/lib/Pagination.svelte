@@ -1,11 +1,13 @@
 <script>
   export let index
   export let total
-  $: list = Array(total).fill(null)
+  $: list = Array(total)
+    .fill(null)
+    .map((_, i) => i)
 </script>
 
 <ol class="pagination">
-  {#each list as _, page}
+  {#each list as page}
     <li class="item">
       <a
         on:click

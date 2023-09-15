@@ -7,9 +7,7 @@
 
   export let data
 
-  const {
-    settings: { data: settings }
-  } = data
+  $: settings = data.settings.data
 </script>
 
 <svelte:head>
@@ -33,16 +31,15 @@
   <script
     async
     src="https://www.googletagmanager.com/gtag/js?id=G-TXREVFW5L2"></script>
-  {@html `
-    <script>
-      window.dataLayer = window.dataLayer || []
-      function gtag() {
-        dataLayer.push(arguments)
-      }
-      gtag('js', new Date())
-      gtag('config', 'G-TXREVFW5L2'${dev ? ', {debug_mode: true}' : ''})
-    </script>
-  `}
+  <svelte:element this="script">
+    {@html `
+    window.dataLayer = window.dataLayer || []
+    function gtag() {
+      dataLayer.push(arguments)
+    }
+    gtag('js', new Date())
+    gtag('config', 'G-TXREVFW5L2'${dev ? ', {debug_mode: true}' : ''})`}
+  </svelte:element>
 </svelte:head>
 
 <div class="layout">

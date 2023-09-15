@@ -97,6 +97,7 @@
         {:else}
           {@const { event, show } = item}
           {@const start = parseJSON(show.start)}
+          {@const isSoldOut = show.stockStatus === 'SoldOut'}
           <li
             class="row u-slideUp"
             style:--delay="{index * 100}ms"
@@ -126,9 +127,9 @@
                       hourCycle: 'h23'
                     })}
                   </span>
-                  {#if show.stockStatus === 'SoldOut'}
+                  {#if isSoldOut}
                     <span class="note">
-                      {#if show.stockStatus === 'SoldOut'}Slutsåld{/if}
+                      {#if isSoldOut}Slutsåld{/if}
                     </span>
                   {/if}
 
@@ -143,23 +144,26 @@
                   {/if}
                 </div>
               </div>
-              <div class="actions {show.stockStatus === 'SoldOut' ? 'unavailable' : ''}">
+              <div class="actions {isSoldOut ? 'unavailable' : ''}">
                 {#if show.stockStatus !== 'SoldOut'}
                   <Button
                     primary
                     target="_blank"
+                    disabled={isSoldOut}
                     rel="noopener noreferrer"
                     href={event.data.buy_link.url}
-                    disabled={show.stockStatus === 'SoldOut'}>Boka biljett</Button>
+                    on:click={isSoldOut ? null : onclick(event, show)}>
+                    Boka biljett
+                  </Button>
                   {#if show.stockStatus === 'FewLeft'}
                     <span class="late">
                       {#if show.stockStatus === 'FewLeft'}Få kvar!{/if}
                     </span>
                   {/if}
                 {/if}
-                {#if show.stockStatus === 'SoldOut'}
+                {#if isSoldOut}
                   <span class="note">
-                    {#if show.stockStatus === 'SoldOut'}Slutsåld{/if}
+                    {#if isSoldOut}Slutsåld{/if}
                   </span>
                 {/if}
               </div>

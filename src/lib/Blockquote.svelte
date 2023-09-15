@@ -131,10 +131,7 @@
         rgb(var(--color-pink)) 20%,
         rgba(var(--color-pink), 0)
       ),
-      linear-gradient(
-        rgb(var(--color-pink)) 20%,
-        rgba(var(--color-pink), 0)
-      );
+      linear-gradient(rgb(var(--color-pink)) 20%, rgba(var(--color-pink), 0));
   }
 
   .variant-7::before,
