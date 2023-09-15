@@ -1,14 +1,7 @@
+import { CLOUDINARY_SECRET } from '$env/static/private'
 import { error } from '@sveltejs/kit'
-import cloudinary from 'cloudinary'
 
 const HEADERS = ['etag', 'last-modified', 'content-length', 'content-type']
-
-cloudinary.config({
-  secure: true,
-  cloud_name: 'dykmd8idd',
-  api_key: import.meta.env.CLOUDINARY_KEY,
-  api_secret: import.meta.env.CLOUDINARY_SECRET
-})
 
 export async function GET(request) {
   const url = new URL(request.url)
@@ -19,10 +12,13 @@ export async function GET(request) {
     uri = `https://images.prismic.io/unga-klara/${uri}`
   }
 
-  const opts = { type: type, sign_url: true }
-  if (transform) opts.raw_transformation = transform
-
-  const res = await fetch(cloudinary.url(uri, opts))
+  const res = transform
+    ? await fetch(
+        `https://res.cloudinary.com/dykmd8idd/image/${type}/s--${btoa(
+          `${transform}/${uri}${CLOUDINARY_SECRET}`
+        ).substring(0, 8)}--/${transform}/${uri}`
+      )
+    : await fetch(url)
 
   if (!res.ok) throw error(res.status, res.statusText)
 
