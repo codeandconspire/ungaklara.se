@@ -14,7 +14,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230904.0",
     "@prismicio/types": "^0.2.8",
-    "@sveltejs/adapter-auto": "^2.0.0",
+    "@sveltejs/adapter-cloudflare": "^2.3.3",
     "@sveltejs/kit": "^1.20.4",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
