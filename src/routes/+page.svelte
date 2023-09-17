@@ -1,7 +1,9 @@
 <script>
   import { asText } from '@prismicio/client'
+  import { enhance } from '$app/forms'
 
   import { intersection } from '$lib/utils/intersection.js'
+  import SchoolBooking from '$lib/SchoolBooking.svelte'
   import Blockquote from '$lib/Blockquote.svelte'
   import { srcset } from '$lib/utils/srcset.js'
   import RichText from '$lib/RichText.svelte'
@@ -17,6 +19,7 @@
   import Card from '$lib/Card.svelte'
 
   export let data
+  export let form
 
   $: parent = data.page.data.parent
   $: parentHref = resolve(parent)
@@ -380,6 +383,19 @@
               </GridCell>
             {/each}
           </Grid>
+        {/if}
+
+        {#if slice.slice_type === 'school_booking_form'}
+          {@const hasBody = Boolean(asText(slice.primary.text))}
+          <form class="u-spaceLg" action="?/booking" method="POST" use:enhance>
+            <SchoolBooking result={form?.booking}>
+              {#if hasBody}
+                <Html>
+                  <RichText content={slice.primary.text} />
+                </Html>
+              {/if}
+            </SchoolBooking>
+          </form>
         {/if}
       </div>
     {/each}
