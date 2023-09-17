@@ -4,7 +4,7 @@
  * @param {{ type?: string, transforms?: string, aspect?: number }} [opts]
  * @returns string
  */
-export default function srcset(uri, sizes, opts = {}) {
+export function srcset(uri, sizes, opts = {}) {
   const type = opts.type || 'fetch'
   let transforms = opts.transforms
   if (!transforms) transforms = 'c_fill,f_auto,q_auto'

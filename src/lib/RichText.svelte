@@ -1,6 +1,6 @@
 <script>
   import { asHTML, asLink, Element } from '@prismicio/helpers'
-  import resolve from './utils/resolve.js'
+  import { resolve } from '$lib/prismic.js'
 
   /** @type {[]|[import('@prismicio/types').RTNode, ...import('@prismicio/types').RTNode[]]}*/
   export let content = []

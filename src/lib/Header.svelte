@@ -1,5 +1,5 @@
 <script>
-  import resolve from './utils/resolve.js'
+  import { resolve } from '$lib/prismic.js'
   export let items = []
 
   function scrollDown(event) {

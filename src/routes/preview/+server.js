@@ -1,7 +1,7 @@
 import { createClient, cookie } from '@prismicio/client'
 import { redirect } from '@sveltejs/kit'
 
-import resolve from '$lib/utils/resolve.js'
+import { resolve } from '$lib/prismic.js'
 
 export async function GET({ url, cookies }) {
   const { token, documentId } = Object.fromEntries(url.searchParams)
@@ -18,5 +18,5 @@ export async function GET({ url, cookies }) {
     httpOnly: false
   })
 
-  throw redirect(302, new URL(href, url))
+  throw redirect(302, href)
 }

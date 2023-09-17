@@ -39,7 +39,7 @@
 <script>
   import { createEventDispatcher } from 'svelte'
 
-  import srcset from '$lib/utils/srcset.js'
+  import { srcset } from '$lib/utils/srcset.js'
 
   export let content = null
 

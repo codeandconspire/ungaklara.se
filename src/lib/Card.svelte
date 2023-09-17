@@ -1,7 +1,6 @@
 <script>
-  import hexToRgb from './utils/hex-to-rgb.js'
+  import { hexToRgb, luma } from './utils/colors.js'
   import Symbol from '$lib/Symbol.svelte'
-  import luma from '$lib/utils/luma.js'
 
   export let background = null
   export let shrink = false

@@ -1,5 +1,5 @@
 <script>
-  import resolve from './utils/resolve.js'
+  import { resolve } from '$lib/prismic.js'
   import Symbol from '$lib/Symbol.svelte'
   import { onMount } from 'svelte'
 

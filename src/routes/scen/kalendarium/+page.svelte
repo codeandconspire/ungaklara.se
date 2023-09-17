@@ -2,13 +2,13 @@
   import { asText } from '@prismicio/client'
   import { onMount } from 'svelte'
 
-  import hexToRgb from '$lib/utils/hex-to-rgb.js'
-  import resolve from '$lib/utils/resolve.js'
+  import { hexToRgb } from '$lib/utils/colors.js'
+  import { track } from '$lib/utils/track.js'
+  import { srcset } from '$lib/utils/srcset'
+  import { resolve } from '$lib/prismic.js'
   import Button from '$lib/Button.svelte'
   import Framed from '$lib/Framed.svelte'
   import Symbol from '$lib/Symbol.svelte'
-  import track from '$lib/utils/track.js'
-  import srcset from '$lib/utils/srcset'
   import Scen from '../+page.svelte'
 
   export let data

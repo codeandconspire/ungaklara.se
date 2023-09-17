@@ -1,7 +1,7 @@
 <script>
+  import { srcset } from './utils/srcset.js'
   import Button from './Button.svelte'
   import Framed from './Framed.svelte'
-  import srcset from './utils/srcset'
   import Html from './Html.svelte'
 
   export let teaser = false

@@ -1,4 +1,4 @@
-export default function intersection(node, onintersect) {
+export function intersection(node, onintersect) {
   const observer = new IntersectionObserver(function ([entry]) {
     if (entry.isIntersecting) {
       observer.disconnect()
