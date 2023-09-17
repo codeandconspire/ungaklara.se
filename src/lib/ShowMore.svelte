@@ -2,7 +2,7 @@
   export let href
 </script>
 
-<div class="pagination">
+<div class="show-more">
   {#if href}
     <a class="link u-textLabel" {href} {...$$restProps} on:click>
       <span class="text"><slot>Visa mer</slot></span>
@@ -15,7 +15,7 @@
 </div>
 
 <style>
-  .pagination {
+  .show-more {
     text-align: center;
     margin: 3rem 0 0;
     user-select: none;

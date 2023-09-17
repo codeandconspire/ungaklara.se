@@ -4,7 +4,7 @@
 </script>
 
 {#if items?.length}
-  <section class="factsbox">
+  <section class="facts-box">
     <h2 class="heading">Fakta</h2>
     <dl class="list">
       {#each items as item, index}
@@ -20,7 +20,7 @@
 {/if}
 
 <style>
-  .factsbox {
+  .facts-box {
     padding: 2.5rem 2rem 2.5rem 5.5rem;
     position: relative;
     min-height: 13.5rem;
@@ -34,13 +34,13 @@
   }
 
   @media (min-width: 600px) {
-    .factsbox {
+    .facts-box {
       padding: 2rem 2rem 2rem 7.5rem;
     }
   }
 
   @media (min-width: 1000px) {
-    .factsbox {
+    .facts-box {
       padding: 2.5rem 2rem 2.5rem 2rem;
       min-height: 0;
     }
