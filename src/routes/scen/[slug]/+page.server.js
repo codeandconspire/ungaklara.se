@@ -1,9 +1,10 @@
 import { createClient } from '$lib/prismic.js'
 import { error } from '@sveltejs/kit'
 
-import { getProduction } from '../tickster.js'
+import { getProduction } from '../../../lib/tickster.js'
 
-export async function load({ fetch, params, request, platform }) {
+export async function load(event) {
+  const { fetch, params, request } = event
   try {
     const client = createClient({ fetch, request })
     const [page, resources] = await Promise.all([
@@ -13,7 +14,7 @@ export async function load({ fetch, params, request, platform }) {
 
     return {
       page,
-      production: await getProduction(page.data.buy_link.url, platform),
+      production: await getProduction(page.data.buy_link.url, event),
       resources: resources?.data.body.filter(
         (slice) =>
           slice.slice_type === 'resources' && slice.primary.event.id === page.id

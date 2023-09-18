@@ -6,6 +6,9 @@
   export let disabled = false
   export let cover = false
 
+  /** @type {null|'small'} */
+  export let size = null
+
   /** @type {string?} */
   export let href = null
 
@@ -24,6 +27,7 @@
     class:secondary
     class:disabled
     class:cover
+    class:small={size === 'small'}
     {...attrs}>
     {#if icon}
       <span class="icon"><Symbol name={icon} /></span>
@@ -37,6 +41,7 @@
     class:primary
     class:secondary
     class:cover
+    class:small={size === 'small'}
     {disabled}
     {...attrs}>
     {#if icon}
@@ -74,9 +79,14 @@
   }
 
   @media (min-width: 1000px) {
-    .button {
+    .button:not(.small) {
       font-size: 1.125rem;
     }
+  }
+
+  .small {
+    height: 2.5rem;
+    padding: 0 0.75rem;
   }
 
   .button[disabled],

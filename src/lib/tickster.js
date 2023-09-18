@@ -7,10 +7,10 @@ const EVENT_URL =
 
 /**
  * @param {string} url
- * @param {object} [platform]
+ * @param {import('@sveltejs/kit').RequestEvent} event
  * @returns {Promise<object?>}
  */
-export async function getProduction(url, platform) {
+export async function getProduction(url, { platform, fetch }) {
   if (!url) return null
 
   const store = getStore(platform)

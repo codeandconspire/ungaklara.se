@@ -8,6 +8,7 @@
   import { srcset } from '$lib/utils/srcset.js'
   import RichText from '$lib/RichText.svelte'
   import GridCell from '$lib/GridCell.svelte'
+  import Calendar from '$lib/Calendar.svelte'
   import { track } from '$lib/utils/track.js'
   import { resolve } from '$lib/prismic.js'
   import Byline from '$lib/Byline.svelte'
@@ -416,6 +417,21 @@
               {/if}
             </SchoolBooking>
           </form>
+        {/if}
+
+        {#if slice.slice_type === 'upcoming_shows'}
+          {@const events = data[slice.id]}
+          {@const text = asText(slice.primary.text)}
+          {#if events}
+            <div class="u-spaceLg">
+              <Html>
+                <RichText content={slice.primary.text} />
+              </Html>
+              <div class:u-spaceSm={text}>
+                <Calendar compact {events} limit={6} />
+              </div>
+            </div>
+          {/if}
         {/if}
       </div>
     {/each}

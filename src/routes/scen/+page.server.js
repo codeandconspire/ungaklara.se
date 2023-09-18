@@ -2,11 +2,12 @@ import { createClient } from '$lib/prismic.js'
 import { filter } from '@prismicio/client'
 import { error } from '@sveltejs/kit'
 
-import { getProduction } from './tickster.js'
+import { getProduction } from '../../lib/tickster.js'
 
 const PAGE_SIZE = 12
 
-export async function load({ fetch, request, url, platform }) {
+export async function load(event) {
+  const { fetch, request, url } = event
   const { page } = Object.fromEntries(url.searchParams)
 
   const client = createClient({ fetch, request })
@@ -44,7 +45,7 @@ export async function load({ fetch, request, url, platform }) {
 
     const events = await Promise.all(
       response.results.map(async (doc) => {
-        const production = await getProduction(doc.data.buy_link.url, platform)
+        const production = await getProduction(doc.data.buy_link.url, event)
         return { ...doc, production }
       })
     )

@@ -1,6 +1,9 @@
 import { POSTMARK_API_TOKEN } from '$env/static/private'
-import { createClient } from '$lib/prismic.js'
 import { error, fail } from '@sveltejs/kit'
+import { filter } from '@prismicio/client'
+
+import { getProduction } from '$lib/tickster.js'
+import { createClient } from '$lib/prismic.js'
 
 const graphQuery = `
   {
@@ -120,20 +123,66 @@ const graphQuery = `
             ...non-repeatFields
           }
         }
+        ...on upcoming_shows {
+          non-repeat {
+            ...non-repeatFields
+            event {
+              ...on event {
+                ...eventFields
+              }
+            }
+          }
+        }
       }
     }
   }
 `.replace(/\n\s+/g, '\n')
 
-export async function load({ fetch, params, request }) {
+export async function load(event) {
+  const { fetch, params, request } = event
   /** @type {{ slug?: string }} */
   const { slug = 'start' } = params
 
   try {
     const client = createClient({ fetch, request })
     const page = await client.getByUID('page', slug, { graphQuery })
-    return { page }
+    const data = { page }
+
+    // Populate data with relational slice data
+    await Promise.all(
+      page.data.body.map(async (slice) => {
+        if (slice.slice_type === 'upcoming_shows') {
+          const events = slice.primary.event?.id
+            ? [slice.primary.event]
+            : await client
+                .get({
+                  filters: [
+                    filter.at('document.type', 'event'),
+                    filter.dateAfter('my.event.archive_on', Date.now())
+                  ]
+                })
+                .then((response) => response.results)
+
+          try {
+            data[slice.id] = await Promise.all(
+              events.map(async (_event) => {
+                const production = await getProduction(
+                  _event.data.buy_link.url,
+                  event
+                )
+                return { ..._event, production }
+              })
+            )
+          } catch {
+            // Fail silently
+          }
+        }
+      })
+    )
+
+    return data
   } catch (err) {
+    console.error(err)
     throw error(404, 'Not found')
   }
 }
