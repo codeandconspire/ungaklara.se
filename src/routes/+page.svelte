@@ -174,8 +174,11 @@
                 </Html>
               {/if}
               {#if items.length}
-                {@const size = items.length > 2 ? { md: '1of2', lg: '1of3' } : { md: '1of2' }}
-                <Grid size={size}>
+                {@const size =
+                  items.length > 2
+                    ? { md: '1of2', lg: '1of3' }
+                    : { md: '1of2' }}
+                <Grid {size}>
                   {#each items as item}
                     <GridCell>
                       <Html size="large">
@@ -351,7 +354,7 @@
         {/if}
 
         {#if slice.slice_type === 'signup'}
-          <Signup>
+          <Signup result={form?.signup}>
             <div slot="primary">
               <Html size="large">
                 <h2 class="h1">{asText(data.settings.data.signup_heading)}</h2>

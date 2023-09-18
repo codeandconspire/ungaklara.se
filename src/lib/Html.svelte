@@ -70,7 +70,7 @@
    * 1. Sorry: make links usable when used within interactive cards (Card)
    */
 
-  .html :global(a) {
+  .html :global(:is(a, .link)) {
     position: relative; /* 1 */
     z-index: 2; /* 1 */
     color: inherit;
@@ -79,8 +79,8 @@
     text-decoration-thickness: var(--border-width);
   }
 
-  .html :global(a:hover),
-  .html :global(a:active) {
+  .html :global(:is(a, .link):hover),
+  .html :global(:is(a, .link):active) {
     background: black;
     color: #fff;
     mix-blend-mode: darken;
@@ -90,10 +90,10 @@
     margin: 0 -0.15em;
   }
 
-  .html :global(.muted a:hover),
-  .html :global(a.muted:hover),
-  .html :global(.muted a:active),
-  .html :global(a.muted:active) {
+  .html :global(.muted :is(a, .link):hover),
+  .html :global(:is(a, .link).muted:hover),
+  .html :global(.muted :is(a, .link):active),
+  .html :global(:is(a, .link).muted:active) {
     border-color: rgb(var(--color-gray-dark));
     background: rgb(var(--color-gray-dark));
     color: rgb(255, 255, 255);
@@ -103,12 +103,12 @@
    * 1. Cover all bases for strong links
    */
 
-  .html :global(a.reset:not(:hover)) {
+  .html :global(:is(a, .link).reset:not(:hover)) {
     border-color: transparent;
   }
 
-  .html :global(.muted a),
-  .html :global(.muted a:hover) {
+  .html :global(.muted :is(a, .link)),
+  .html :global(.muted :is(a, .link):hover) {
     color: inherit;
     text-decoration: underline;
     font-weight: inherit;
