@@ -84,7 +84,7 @@
           month: 'long'
         })}
       </time>
-      {#each items as item, _index (item.id)}
+      {#each items as item (item.id)}
         {@const { event, show } = item}
         {@const start = new Date(show.start)}
         {@const isSoldOut = show.stockStatus === 'SoldOut'}

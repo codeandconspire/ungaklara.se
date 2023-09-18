@@ -1,4 +1,4 @@
-import { createClient as createPrismicClient, cookie } from '@prismicio/client'
+import { createClient as createPrismicClient } from '@prismicio/client'
 
 /**
  * @param {{ fetch: typeof globalThis.fetch, request?: import('@prismicio/client').HttpRequestLike}} props
