@@ -5,13 +5,25 @@
   import Button from '$lib/Button.svelte'
   import Html from '$lib/Html.svelte'
 
-  /** @type {{ success?: boolean, name?: string, email?: string }?}*/
+  /** @type {{ success?: boolean, name?: string, email?: string, form: string }?}*/
   export let result = null
+
+  const id = Math.random().toString(36).slice(2)
 
   $: name = result?.name || ''
   $: email = result?.email || ''
   $: step = +($page.url.searchParams.get('step') || 1)
   $: price = $page.url.searchParams.get('price') === '150' ? 150 : 50
+
+  let loading = false
+
+  const onsubmit = () => {
+    loading = true
+    return ({ update }) => {
+      loading = false
+      update()
+    }
+  }
 </script>
 
 <form
@@ -20,13 +32,14 @@
   data-sveltekit-replacestate
   data-sveltekit-keepfocus
   data-sveltekit-noscroll
-  use:enhance>
+  use:enhance={onsubmit}>
+  <input type="hidden" name="form" value="signup" />
   {#if $$slots.primary}
     <div class="main">
       <slot name="primary" />
     </div>
   {/if}
-  {#if result && 'success' in result}
+  {#if result && 'success' in result && result.form === 'signup'}
     <div class="result">
       {#if result.success}
         <slot name="success">
@@ -68,19 +81,21 @@
           {#if step === 1}
             <div class="content">
               <div class="radios">
-                <label class="radio">
+                <label class="radio" for="youth-{id}">
                   <input
                     value="50"
                     type="radio"
                     name="price"
+                    id="youth-{id}"
                     checked={price === 50} />
                   <span>25 eller yngre (50kr)</span>
                 </label>
-                <label class="radio">
+                <label class="radio" for="adult-{id}">
                   <input
                     value="150"
                     type="radio"
                     name="price"
+                    id="adult-{id}"
                     checked={price === 150} />
                   <span>Över 25 (150kr)</span>
                 </label>
@@ -132,25 +147,27 @@
           {#if step === 3}
             <div class="content">
               <div class="fields">
-                <label for="name">
+                <label for="name-{id}">
                   <span class="label">Ditt namn</span>
                   <input
                     required
-                    id="name"
                     name="name"
                     type="text"
                     class="field"
-                    bind:value={name} />
+                    id="name-{id}"
+                    disabled={loading}
+                    value={name} />
                 </label>
-                <label for="email">
+                <label for="email-{id}">
                   <span class="label">Din e-mailadress</span>
                   <input
                     required
-                    id="email"
                     type="email"
                     name="email"
                     class="field"
-                    bind:value={email} />
+                    id="email-{id}"
+                    disabled={loading}
+                    value={email} />
                 </label>
               </div>
               <input type="hidden" name="price" value={price} />
@@ -158,7 +175,9 @@
                 type="hidden"
                 name="subscription"
                 value="649015a2dfd03234e0cf730e" />
-              <Button primary formaction="?/signup">Skicka in</Button>
+              <Button primary formaction="?/signup" disabled={loading}>
+                Skicka in
+              </Button>
             </div>
           {/if}
         </div>
@@ -211,14 +230,6 @@
     padding: 0.25rem 1.5rem 1.5rem;
   }
 
-  .section .content {
-    display: none;
-  }
-
-  .current .content {
-    display: block;
-  }
-
   .section {
     border-top: var(--border-width) solid;
   }
@@ -263,6 +274,10 @@
     padding: 0.76rem;
     font-size: inherit;
     border-radius: var(--border-radius);
+  }
+
+  .field:disabled {
+    opacity: 0.3;
   }
 
   .field::placeholder {

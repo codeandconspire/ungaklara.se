@@ -1,9 +1,28 @@
 <script>
+  import { enhance } from '$app/forms'
+  import { page } from '$app/stores'
+
   import { resolve } from '$lib/prismic.js'
   import Symbol from '$lib/Symbol.svelte'
-  import { onMount } from 'svelte'
+  import Html from '$lib/Html.svelte'
 
   export let settings = {}
+
+  const id = Math.random().toString(36).slice(2)
+
+  $: result = $page.form?.signup
+
+  let email = result?.email || ''
+  let name = result?.name || ''
+  let loading = false
+
+  const onsubmit = () => {
+    loading = true
+    return ({ update }) => {
+      loading = false
+      update()
+    }
+  }
 
   function addLineBreak(text) {
     return text
@@ -23,101 +42,79 @@
       { link_text: 'Arkiv', link: '/scen/arkiv' }
     ]
   })
-
-  let form
-  let input
-  let button
-  let retries = 0
-  let hasForm = false
-  onMount(function onmount() {
-    if ('mhForm' in window) {
-      window.mhForm
-        // @ts-ignore
-        ?.create({
-          formId: '65041cc40c42572840cfc93c',
-          target: form,
-          insert: 'prepend'
-        })
-        .then(function () {
-          const email = form.querySelector('.mhForm__control--email')
-          const firstName = form.querySelector(
-            '.mhForm__input[name="contact:firstName"]'
-          )
-          const lastName = form.querySelector(
-            '.mhForm__input[name="contact:lastName"]'
-          )
-          const _button = form.querySelector('.mhForm__button')
-
-          if (!firstName || !lastName || !_button) {
-            throw new Error('Missing fields')
-          }
-
-          _button.className = button.className
-          _button.innerHTML = button.innerHTML
-          _button.onclick = function (event) {
-            if (!this.form.checkValidity()) {
-              this.form.reportValidity()
-              event.preventDefault()
-            }
-          }
-
-          const name = input.cloneNode()
-          name.required = true
-          name.type = 'text'
-          name.name = 'contact:name'
-          name.placeholder = 'Ditt namn'
-          name.oninput = function () {
-            const names = this.value.split(' ')
-            if (names.length > 1) {
-              lastName.value = names.pop()
-            }
-            firstName.value = names.join(' ')
-          }
-
-          const emailInput = email.querySelector('input')
-          emailInput.required = true
-
-          email.after(name)
-          hasForm = true
-        })
-        .catch(function (err) {
-          console.error(err)
-          form.classList.add('fallback')
-        })
-    } else if (retries++ < 4) {
-      setTimeout(onmount, 1000)
-    }
-  })
 </script>
-
-<svelte:head>
-  <script async src="https://forms.markethype.io/client/script.v2.js"></script>
-</svelte:head>
 
 <footer class="footer u-container">
   <div class="main">
     <div class="newsletter">
-      <h2>Håll koll på Unga Klara!</h2>
-      <p>
-        Va först med att veta om våra nya pjäser, senaste biljettsläppen och vad
-        som händer på teatern. {#if !hasForm}<a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://forms.markethype.io/share/65041cc40c42572840cfc93c">
-            Prenumerera på vårt nyhetsbrev
-          </a>
-          .{/if}
-      </p>
-      <div class="form">
-        <input type="hidden" bind:this={input} />
-        <div class="fields" bind:this={form} />
-        <div class="u-hiddenVisually">
-          <button type="submit" bind:this={button}>
+      <Html>
+        <h2>Håll koll på Unga Klara!</h2>
+        <p>
+          Va först med att veta om våra nya pjäser, senaste biljettsläppen och
+          vad som händer på teatern.
+        </p>
+        {#if result && 'success' in result && result.form === 'footer'}
+          {#if result.success}
+            <p>
+              <strong>Nästan klart!</strong>
+              Klicka bara på bekräftelselänken i mailet som kommer strax. Tack för
+              att du vill prenumerera på våra utskick.
+            </p>
+          {:else}
+            <p>
+              <strong>Hoppsan!</strong>
+              Något verkar gått fel men du får gärna
+              <a href={$page.url.pathname}>försöka igen</a>
+              .
+            </p>
+          {/if}
+        {/if}
+      </Html>
+      {#if !result?.success || result?.form !== 'footer'}
+        <form
+          class="form"
+          class:loading
+          method="POST"
+          action="?/signup"
+          data-sveltekit-replacestate
+          data-sveltekit-keepfocus
+          data-sveltekit-noscroll
+          use:enhance={onsubmit}>
+          <input type="hidden" name="form" value="footer" />
+          <input
+            type="hidden"
+            name="subscription"
+            value="649015b0dfd03234e0cf7310" />
+          <label for="name-{id}">
+            <span class="u-hiddenVisually">Ditt namn</span>
+            <input
+              required
+              name="name"
+              type="text"
+              class="field"
+              id="name-{id}"
+              disabled={loading}
+              placeholder="Ditt namn"
+              bind:value={name} />
+          </label>
+          <label for="email-{id}">
+            <span class="u-hiddenVisually">Din e-mail</span>
+            <input
+              required
+              name="email"
+              type="email"
+              class="field"
+              id="email-{id}"
+              disabled={loading}
+              placeholder="Din e-mail"
+              bind:value={email} />
+          </label>
+          <button class="submit" type="submit" disabled={loading}>
             <span class="u-hiddenVisually">Spara</span>
             <Symbol name="arrow" />
           </button>
-        </div>
-      </div>
+        </form>
+      {/if}
     </div>
     <div class="section">
       <h3 class="title">Kontakt</h3>
@@ -309,10 +306,6 @@
     text-wrap: balance;
   }
 
-  .newsletter a {
-    text-decoration: underline;
-  }
-
   .form {
     display: flex;
     width: auto;
@@ -320,43 +313,46 @@
     margin: 1rem 0 2rem;
   }
 
-  input {
+  .form.loading {
+    opacity: 0.3;
+  }
+
+  .field {
     width: 100%;
-    border: var(--border-width) solid;
+    border: solid currentColor;
+    border-width: var(--border-width) 0 var(--border-width) var(--border-width);
     padding: 0.76rem;
+    padding: 0.7rem 1rem;
     font-size: inherit;
-    margin-left: calc(var(--border-width) * -1);
     border-right: 0;
   }
 
-  input:first-child {
+  .field[name='name'] {
     border-radius: var(--border-radius) 0 0 var(--border-radius);
-    margin-left: 0;
-    border-right-width: var(--border-width);
   }
 
-  input::placeholder {
+  .field::placeholder {
     color: inherit;
     opacity: 1;
   }
 
-  input:focus {
+  .field:focus {
     outline: 0 !important;
   }
 
-  button {
+  .submit {
     display: block;
     background: black;
     color: white;
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
     cursor: pointer;
-    padding: 0.7rem 1rem;
+    padding: 0 1rem;
   }
 
   @media (min-width: 500px) {
-    input,
-    button {
-      padding: 1rem;
+    .field,
+    .submit {
+      height: 3.25rem;
     }
   }
 
@@ -403,85 +399,5 @@
 
   svg {
     display: block;
-  }
-
-  :global(.mhForm) {
-    display: flex;
-  }
-
-  :global(.mhForm .mhForm__control) {
-    margin: 0;
-  }
-
-  :global(.mhForm__label) {
-    border: 0 !important;
-    clip: rect(1px, 1px, 1px, 1px) !important;
-    height: 1px !important;
-    overflow: hidden !important;
-    padding: 0 !important;
-    position: absolute !important;
-    width: 1px !important;
-  }
-
-  :global(:is(.mhForm__control--email, .mhForm__control--text)) {
-    display: flex;
-    width: 100%;
-    border: var(--border-width) solid;
-    margin-left: calc(var(--border-width) * -1);
-    border-right: 0;
-  }
-
-  :global(:is(.mhForm__control--email, .mhForm__control--text)):first-child {
-    border-radius: var(--border-radius) 0 0 var(--border-radius);
-    margin-left: 0;
-    border-right-width: var(--border-width);
-  }
-
-  .fields:not(.fallback)
-    :global(
-      .mhForm__control:not(.mhForm__control--email, .mhForm__control--button)
-    ) {
-    display: none;
-  }
-
-  :global(.mhForm .mhForm__input) {
-    width: 100%;
-    border: 0;
-    padding: 0.76rem;
-    border-radius: 0;
-    font-size: inherit;
-    font-family: inherit;
-  }
-
-  :global(.mhForm__input)::placeholder {
-    color: inherit;
-    opacity: 1;
-  }
-
-  :global(.mhForm__input):focus {
-    outline: 0 !important;
-  }
-
-  :global(.mhForm__success ~ *) {
-    display: none;
-  }
-
-  :global(.mhForm :is(.mhForm__success, .mhForm__error)) {
-    font-size: 1.125rem;
-    max-width: 26em;
-    text-wrap: balance;
-    background: transparent;
-    color: currentColor;
-    padding: 0;
-  }
-
-  :global(.mhForm__validationError) {
-    display: none;
-  }
-
-  @media (min-width: 500px) {
-    :global(.mhForm__input) {
-      padding: 1rem;
-    }
   }
 </style>
