@@ -1,4 +1,5 @@
 import { POSTMARK_API_TOKEN } from '$env/static/private'
+import { NotFoundError } from '@prismicio/client'
 import { error, fail } from '@sveltejs/kit'
 import { filter } from '@prismicio/client'
 
@@ -183,8 +184,9 @@ export async function load(event) {
 
     return data
   } catch (err) {
-    console.error(err)
-    throw error(404, 'Not found')
+    const status = err instanceof NotFoundError ? 404 : 500
+    const message = err instanceof Error ? err.message : String(err)
+    throw error(status, message)
   }
 }
 
