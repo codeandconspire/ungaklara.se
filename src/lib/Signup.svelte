@@ -51,14 +51,14 @@
       {:else}
         <slot name="error">
           <Html>
-            <h3>Hoppsan! Något gick fel.</h3>
+            <h3>Fel! Något gick tokigt</h3>
             <p>
-              Du kan alltid <button
+              Du får gärna <button
                 class="link"
                 formmethod="GET"
                 name="step"
                 value="1">
-                försöka igen.
+                försöka igen
               </button>
             </p>
           </Html>

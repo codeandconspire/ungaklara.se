@@ -47,6 +47,7 @@
 
   function getTitle(doc) {
     if (doc?.uid === 'start') return TITLE_FALLBACK
+    if (!asText(doc?.data.shortname) && !asText(doc?.data.title)) return TITLE_FALLBACK
     return (
       (asText(doc?.data.shortname) || asText(doc?.data.title) || '') +
       TITLE_SUFFIX

@@ -64,10 +64,9 @@
             </p>
           {:else}
             <p>
-              <strong>Hoppsan!</strong>
-              Något verkar gått fel men du får gärna
+              <strong>Fel :(</strong>
+              Något verkar gått tokingt men du får gärna
               <a href={$page.url.pathname}>försöka igen</a>
-              .
             </p>
           {/if}
         {/if}

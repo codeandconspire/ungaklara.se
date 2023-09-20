@@ -280,7 +280,7 @@
     <div class="u-spaceMd">
       <Masonry
         let:item={slice}
-        gap={isLarge ? 24 : isMedium ? 32 : 24}
+        gap={isLarge ? 48 : isMedium ? 32 : 32}
         items={data.page.data.media.map((slice, index) => ({
           id: `${slice.slice_type}-${index}`,
           ...slice

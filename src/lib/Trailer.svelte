@@ -35,7 +35,7 @@
 
   .image {
     display: none;
-    width: 150%;
+    width: 125vw;
     height: auto;
     position: absolute;
     left: 50%;
@@ -49,28 +49,9 @@
       display: block;
     }
   }
-
-  @media (min-width: 1000px) {
-    .image {
-      width: 130%;
-    }
-  }
-
   @media (min-width: 1400px) {
     .image {
-      width: 110%;
-    }
-  }
-
-  @media (min-width: 1600px) {
-    .image {
-      width: 120%;
-    }
-  }
-
-  @media (min-width: 2000px) {
-    .image {
-      width: 100%;
+      width: 98vw;
     }
   }
 
