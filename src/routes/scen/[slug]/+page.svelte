@@ -256,7 +256,7 @@
                         <img
                           sizes="13em"
                           srcset={sources}
-                          style="max-width: 13em; width: 100%"
+                          style="max-width: 13em !important; width: 100%"
                           alt={item.image.alt || ''}
                           src={sources.split(' ')[0]}
                           {...item.image.dimensions} />
@@ -407,7 +407,7 @@
                       <img
                         sizes="13em"
                         srcset={sources}
-                        style="max-width: 13em; width: 100%"
+                        style="max-width: 13em !important; width: 100%"
                         alt={item.image.alt || ''}
                         src={sources.split(' ')[0]}
                         {...item.image.dimensions} />

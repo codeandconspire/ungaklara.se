@@ -28,6 +28,7 @@ const graphQuery = `
                 parent
                 description
                 featured_image
+                cta
               }
             }
           }

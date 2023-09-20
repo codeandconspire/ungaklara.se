@@ -1,11 +1,14 @@
 <script>
   import { dev } from '$app/environment'
-
+  import { asText } from '@prismicio/client'
+  import { resolve } from '$lib/prismic.js'
   import Header from '$lib/Header.svelte'
   import Footer from '$lib/Footer.svelte'
   import Meta from '$lib/Meta.svelte'
 
   export let data
+
+  let vma = true
 
   $: settings = data.settings.data
 </script>
@@ -45,6 +48,19 @@
 <div class="layout">
   <div class="gradient" />
   <Header items={settings.header_menu.map((item) => item.primary)} />
+  {#if asText(settings.vma_heading) && vma}
+    <div class="u-container">
+      <div class="vma">
+        <h3>
+          {asText(settings.vma_heading)}
+          {#if settings.vma_link}
+            <a href="{resolve(settings.vma_link)}">Läs mer</a>
+          {/if}
+        </h3>
+        <button class="close" on:click={() => vma = false}>Stäng</button>
+      </div>
+    </div>
+  {/if}
   <div class="main">
     <slot />
   </div>
@@ -98,5 +114,73 @@
     height: 100vh;
     top: calc(100% - 1px);
     transform: rotate(180deg);
+  }
+
+  .vma {
+    padding: 1.25rem 4.5rem 1.25rem 1.25rem;
+    background: black;
+    border-radius: var(--border-radius);
+    color: #fff;
+    margin-top: 1rem;
+    font-family: var(--heading-font-family);
+    letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
+    line-height: 1.3;
+    position: relative;
+  }
+
+  .vma h3 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em 1em;
+    max-width: 55em;
+  }
+
+  .vma a {
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: var(--border-width);
+    text-decoration: underline;
+    white-space: nowrap;
+  }
+
+  .vma .close {
+    font-size: 0;
+    color: transparent;
+    line-height: 0.5rem;
+    top: 0.25rem;
+    position: absolute;
+    cursor: pointer;
+    padding: 0.5rem;
+    top: 0.9rem;
+    right: 1rem;
+    width: 2rem;
+    height: 2rem;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .vma .close::after {
+    display: block;
+    content: "⨉";
+    font-size: 1.25rem;
+    color: #000;
+    position: relative;
+    top: -0.2rem;
+  }
+
+  @media (min-width: 800px) {
+    .vma {
+      font-size: 1.25rem;
+      padding: 1.5rem 1.75rem;
+      margin-top: 2rem;
+    }
+
+    .vma .close {
+      top: 1.3rem;
+      right: 1.5rem;
+    }
   }
 </style>

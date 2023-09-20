@@ -95,7 +95,7 @@
             {:else if filetype}
               Ladda ner
             {:else if !internal}
-              Gå till webbsidan
+              Läs mer
             {:else}
               Läs mer
             {/if}

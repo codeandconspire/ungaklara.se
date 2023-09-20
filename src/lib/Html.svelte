@@ -168,9 +168,6 @@
 
   .html :global(.aspect .image) {
     margin-top: 0;
-  }
-
-  .html :global(.image) {
     position: absolute;
     top: 0;
     left: 0;

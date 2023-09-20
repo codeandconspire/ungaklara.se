@@ -34,14 +34,16 @@
       .join('')
   }
 
-  settings.menu.unshift({
-    primary: { link_text: 'På scen', link: '/scen' },
-    items: [
-      { link_text: 'Aktuellt', link: '/scen' },
-      { link_text: 'Kalendarium', link: '/scen/kalendarium' },
-      { link_text: 'Arkiv', link: '/scen/arkiv' }
-    ]
-  })
+  if (typeof window === 'undefined') {
+    settings.menu.unshift({
+      primary: { link_text: 'På scen', link: '/scen' },
+      items: [
+        { link_text: 'Aktuellt', link: '/scen' },
+        { link_text: 'Kalendarium', link: '/scen/kalendarium' },
+        { link_text: 'Arkiv', link: '/scen/arkiv' }
+      ]
+    })
+  }
 </script>
 
 <footer class="footer u-container">
@@ -143,6 +145,7 @@
       <h3 class="title">Hitta hit</h3>
       <address>{@html addLineBreak(settings.address)}</address>
       <a
+        class="underline"
         target="_blank"
         rel="noopener noreferrer"
         href="https://goo.gl/maps/j4YBCNCLvmKU69E89">
@@ -399,5 +402,10 @@
 
   svg {
     display: block;
+  }
+
+  .underline {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
   }
 </style>

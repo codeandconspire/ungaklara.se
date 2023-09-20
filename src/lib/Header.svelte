@@ -121,7 +121,6 @@
   .logo i {
     display: inline-block;
     font-style: normal;
-    text-replace: auto;
     transform: translateY(-130%);
     transition: transform 50ms 0 linear;
     animation: drop 100ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
@@ -135,10 +134,6 @@
     to {
       transform: translateY(0);
     }
-  }
-
-  .logo:hover i {
-    transform: translateY(-1rem);
   }
 
   .logo i:nth-child(1) {

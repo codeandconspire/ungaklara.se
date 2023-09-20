@@ -40,6 +40,7 @@
       case Element.image:
         return `
           <img
+            class="image"
             src="${element.url}"
             alt="${element.alt || ''}"
             width="${element.dimensions.width}"

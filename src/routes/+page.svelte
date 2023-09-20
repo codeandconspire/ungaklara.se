@@ -112,7 +112,7 @@
             <Grid size={{ md: '1of2', lg: '1of3' }}>
               {#each slice.items as item}
                 {#if item.slice_type === 'link_blurb'}
-                  {@const href = resolve(item.primary.link)}
+                  {@const href = resolve(item.primary.link) }
                   {#if href}
                     <GridCell>
                       <Card
@@ -165,21 +165,20 @@
         {/if}
 
         {#if slice.slice_type === 'text'}
-          {@const items = slice.items.filter((item) => asText(item.text))}
-          {#if asText(slice.primary.text) || items.length}
+          {#if asText(slice.primary.text) || slice.items.length}
             <div>
               {#if slice.primary.text.length}
                 <Html size="large">
                   <RichText content={slice.primary.text} />
                 </Html>
               {/if}
-              {#if items.length}
+              {#if slice.items.length}
                 {@const size =
-                  items.length > 2
+                  slice.items.length > 2
                     ? { md: '1of2', lg: '1of3' }
                     : { md: '1of2' }}
-                <Grid {size}>
-                  {#each items as item}
+                <Grid {size} class="u-spaceMd">
+                  {#each slice.items as item}
                     <GridCell>
                       <Html size="large">
                         <RichText content={item.text} />
@@ -195,12 +194,12 @@
         {#if slice.slice_type === 'heading'}
           {@const heading = asText(slice.primary.heading)}
           {#if heading}
+            {#if slice.primary.divider}
+              <div class="u-divider u-spaceLg" />
+            {/if}
             <Html
               size="large"
               class={slice.primary.divider ? 'u-spaceSm' : 'u-spaceLg'}>
-              {#if slice.primary.divider}
-                <div class="u-divider u-spaceLg" />
-              {/if}
               <h2>{heading}</h2>
               <RichText content={slice.primary.text} />
             </Html>
@@ -326,7 +325,7 @@
                           class="u-sizeFull"
                           sizes="13em"
                           srcset={sources}
-                          style="max-width: 13em"
+                          style="max-width: 13em !important; width: 100%"
                           alt={item.image.alt || ''}
                           src={sources.split(' ')[0]}
                           {...item.image.dimensions} />
@@ -445,10 +444,6 @@
   .slice {
     position: relative;
     margin-top: var(--space-md);
-  }
-
-  .slice-heading + * {
-    margin-top: var(--space-sm);
   }
 
   .slice-signup {
