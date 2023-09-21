@@ -84,22 +84,24 @@
 
 <div class="u-container">
   <div>
-    <header>
-      <Intro title={asText(data.page.data.title)}>
-        <span slot="badge">
-          {#if parentHref}
-            <a href={parentHref}>
-              ← {parent.data.shortname?.length
-                ? asText(parent.data.shortname)
-                : asText(parent.data.title)}
-            </a>
-          {:else if data.page.data.shortname?.length}
-            {asText(data.page.data.shortname)}
-          {/if}
-        </span>
-        <RichText slot="text" content={data.page.data.description} />
-      </Intro>
-    </header>
+    {#if !data.page.data.hide_intro}
+      <header>
+        <Intro title={asText(data.page.data.title)}>
+          <span slot="badge">
+            {#if parentHref}
+              <a href={parentHref}>
+                ← {parent.data.shortname?.length
+                  ? asText(parent.data.shortname)
+                  : asText(parent.data.title)}
+              </a>
+            {:else if data.page.data.shortname?.length}
+              {asText(data.page.data.shortname)}
+            {/if}
+          </span>
+          <RichText slot="text" content={data.page.data.description} />
+        </Intro>
+      </header>
+    {/if}
 
     {#each slices as slice}
       <div class="slice slice-{slice.slice_type}">
