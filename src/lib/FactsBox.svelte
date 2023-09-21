@@ -107,7 +107,7 @@
 
   .value {
     padding: 0;
-    margin: 0;
+    margin: 0.35em 0 0;
     font-family: var(--document-font-family);
     letter-spacing: auto;
     word-spacing: auto;
