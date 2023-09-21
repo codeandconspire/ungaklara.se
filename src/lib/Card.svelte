@@ -5,7 +5,7 @@
   export let background = null
   export let shrink = false
   export let caption = null
-  export let square = null
+  export let square = false
   export let color = null
   export let date = null
 

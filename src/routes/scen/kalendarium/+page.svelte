@@ -9,7 +9,7 @@
   <Scen {data} tab="kalendarium" />
 {:else}
   <Scen {data} tab="kalendarium">
-    <div class="u-spaceLg">
+    <div class="u-spaceSm">
       <Calendar events={data.events} />
     </div>
   </Scen>

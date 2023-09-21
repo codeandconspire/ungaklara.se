@@ -113,19 +113,20 @@
             value="2"
             formmethod="GET"
             formnovalidate>
-            <h4>2. Swisha medlemsavgift</h4>
+            <h4>2. Betala medlemsavgift</h4>
           </button>
           {#if step === 2}
             <div class="content">
               <div class="swish">
                 <Html>
                   <h3>Swisha {price} kr till: 123-330 61 72</h3>
-                  <p>
+                  <p style="margin-top: 0.3em;">
                     <a
                       href="https://app.swish.nu/1/p/sw/?sw=1233306172&amt={price}&cur=SEK&msg=&src=qr">
                       Starta Swish på denna enhet
                     </a>
                   </p>
+                  <p style="max-width: 29em;">Om du vill att ditt medlemskap förnyas automatiskt varje år, gör&nbsp;istället en insättning på <strong class="u-nowrap">PG 52 93 11-3</strong>. Märk med ditt namn.</p>
                 </Html>
               </div>
               <input type="hidden" name="price" value={price} />

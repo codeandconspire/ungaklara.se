@@ -46,7 +46,7 @@
   .intro {
     display: flex;
     flex-direction: column;
-    padding-top: 25vh;
+    padding-top: 20vh;
     font-family: var(--heading-font-family);
     letter-spacing: var(--heading-letter-spacing);
     word-spacing: var(--heading-word-spacing);

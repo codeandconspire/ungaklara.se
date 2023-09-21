@@ -56,6 +56,10 @@
     margin-top: 2.5rem;
   }
 
+  .teaser {
+    margin-top: 0;
+  }
+
   .body {
     display: flex;
     flex-direction: column;
@@ -66,6 +70,10 @@
       flex-direction: row;
       flex-wrap: wrap;
       margin-top: 5rem;
+    }
+
+    .teaser {
+      margin-top: 0;
     }
 
     .teaser .body {
