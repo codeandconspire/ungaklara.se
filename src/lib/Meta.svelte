@@ -35,7 +35,7 @@
   function define(doc, settings) {
     return {
       title: getTitle(doc),
-      desc: asText(doc?.data.description) || '',
+      desc: asText(doc?.data.description) || asText(settings.data.description),
       image: getImage(doc) || getImage(settings),
       theme: getTheme(doc)
     }
