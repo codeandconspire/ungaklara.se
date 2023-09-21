@@ -63,6 +63,26 @@
       ...props.dimensions
     }
   }
+
+  function getButtons(data) {
+    if (new Date(data.archive_on).getTime() <= Date.now()) return false
+
+    return [
+      {
+        href: '#program',
+        icon: 'calendar',
+        text: 'Visa spelschema'
+      },
+      {
+        text: 'Boka biljett',
+        href: resolve(data.buy_link),
+        primary: true,
+        icon: 'arrow',
+        target: '_blank',
+        rel: 'noopener noreferrer'
+      }
+    ]
+  }
 </script>
 
 <svelte:window on:resize={measure} />
@@ -96,21 +116,7 @@
   </header>
 
   <Event
-    buttons={[
-      {
-        href: '#program',
-        icon: 'calendar',
-        text: 'Visa spelschema'
-      },
-      {
-        text: 'Boka biljett',
-        href: resolve(data.page.data.buy_link),
-        primary: true,
-        icon: 'arrow',
-        target: '_blank',
-        rel: 'noopener noreferrer'
-      }
-    ]}
+    buttons={getButtons(data.page.data)}
     image={data.page.data.poster.url ? data.page.data.poster : null}>
     <RichText content={data.page.data.about} />
   </Event>
