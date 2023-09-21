@@ -110,7 +110,7 @@
 
   .logo {
     font-family: 'UK Logotype';
-    font-size: clamp(2.5rem, 13.4vw, 11rem);
+    font-size: 0;
     letter-spacing: -0.06em;
     line-height: 1;
     text-transform: uppercase;
@@ -119,6 +119,7 @@
   }
 
   .logo i {
+    font-size: clamp(2.5rem, 13.4vw, 11rem);
     display: inline-block;
     font-style: normal;
     transform: translateY(-130%);
@@ -172,7 +173,7 @@
   }
 
   @media (min-width: 500px) {
-    .logo {
+    .logo i {
       font-size: 3.3rem;
     }
   }

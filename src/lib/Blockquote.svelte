@@ -25,7 +25,7 @@
     z-index: 0;
     margin: 0;
     max-width: 34em;
-    padding: 0.5em 0 0 1.75em;
+    padding: 0em 0 0 1.75em;
   }
 
   .main {

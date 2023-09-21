@@ -28,8 +28,7 @@
 <style>
   .spotify {
     position: relative;
-    color: #fff;
-    background-color: rgb(var(--document-color));
+    background-color: rgb(var(--theme-color));
     border-radius: var(--border-radius);
     overflow: hidden;
   }

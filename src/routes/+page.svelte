@@ -389,7 +389,7 @@
               <RichText content={slice.primary.description} />
             </Html>
           {/if}
-          <Grid class="u-spaceMd" size={{ sm: '1of2', md: '1of3', lg: '1of4' }}>
+          <Grid class="u-spaceMd" size={{ sm: '1of2', md: '1of2', lg: '1of3', xl: '1of4' }}>
             {#each slice.items as item}
               <GridCell>
                 <Card
@@ -403,6 +403,7 @@
                   title={item.name}
                   image={image(item.image) ||
                     image(slice.primary.event?.data?.poster)}
+                  square
                   color={slice.primary.event?.data.theme}
                   link={{ href: item.file.url, text: 'Ladda ner' }} />
               </GridCell>

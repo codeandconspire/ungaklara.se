@@ -27,7 +27,6 @@
       </div>
       <time datetime={date.toJSON()}>
         <span class="date">{date.getDate()}</span>
-        <br />
         <span class="month u-textLabel">
           {date.toLocaleDateString('sv', { month: 'long' })}
         </span>
@@ -35,6 +34,11 @@
     </div>
     <div class="details">
       <div>
+        {#if name}
+          <strong class="detail">
+            {name}
+          </strong>
+        {/if}
         <span class="detail">
           <span class="icon"><Symbol name="clock" /></span>
           {date.toLocaleString('sv', {
@@ -43,18 +47,10 @@
             hourCycle: 'h23'
           })}
         </span>
-        <br />
         {#if location}
           <span class="detail">
             <span class="icon"><Symbol name="location" /></span>
             {location}
-          </span>
-        {/if}
-        {#if name}
-          <br />
-          <span class="Ticket-detail">
-            <Symbol name="check" />
-            {name}
           </span>
         {/if}
       </div>
@@ -79,12 +75,6 @@
     position: relative;
   }
 
-  .disabled {
-    color: rgb(108, 109, 112);
-    background: rgb(218, 220, 226);
-    box-shadow: none;
-  }
-
   .everything {
     position: relative;
     z-index: 1;
@@ -94,6 +84,12 @@
     color: rgb(var(--theme-color-is-dark, 0, 0, 0));
     border-radius: var(--border-radius);
     border: 2px solid black;
+  }
+
+  .disabled .everything {
+    color: rgb(108, 109, 112);
+    background: rgb(218, 220, 226);
+    box-shadow: none;
   }
 
   .ticket:not(.disabled) .everything {
@@ -145,8 +141,7 @@
   }
 
   .disabled .status {
-    color: rgb(218, 220, 226);
-    background: rgb(108, 109, 112);
+    opacity: 0.5;
   }
 
   .icon {
@@ -159,7 +154,7 @@
   .date {
     display: inline-block;
     margin-bottom: 0.25em;
-    margin-right: -0.15em;
+    margin-right: -0.05em;
     font-size: 3.75rem;
     line-height: 0.7;
   }
@@ -175,6 +170,13 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: baseline;
+  }
+
+  strong.detail {
+    font-weight: 600;
+    font-family: var(--heading-font-family);
+    line-height: var(--heading-line-height);
+    margin-bottom: 0.25em;
   }
 
   .link {

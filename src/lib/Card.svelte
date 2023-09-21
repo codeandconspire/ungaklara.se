@@ -5,6 +5,7 @@
   export let background = null
   export let shrink = false
   export let caption = null
+  export let square = null
   export let color = null
   export let date = null
 
@@ -30,6 +31,7 @@
 <article
   class="card"
   class:shrink
+  class:square
   class:simple={filetype}
   class:small={size === 'small'}
   class:fill={color || background}
@@ -300,8 +302,16 @@
     padding-top: var(--figure-aspect);
   }
 
+  .square .figure {
+    padding-top: 50%;
+  }
+
   .fill .figure::before {
     padding-top: 68%;
+  }
+
+  .square .figure::before {
+    padding-top: 50%;
   }
 
   .card:not(.simple):not(.fill) .figure::after {
