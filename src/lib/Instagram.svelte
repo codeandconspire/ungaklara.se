@@ -19,7 +19,7 @@
   {#each posts as post}
     <li class="post">
       <figure>
-        <a href={post.url} target="_blank" rel="noopener noreferrer">
+        <a href={post.link} target="_blank" rel="noopener noreferrer">
           <img class="image" {...image(post.image)} />
         </a>
       </figure>
@@ -46,15 +46,6 @@
     display: block;
   }
 
-  .post a:hover::after {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border: 3px solid;
-  }
-
   .post:nth-child(n+7) {
     display: none;
   }
@@ -63,6 +54,7 @@
     width: 100%;
     height: auto;
     transition: filter 100ms var(--ease-out);
+    border-radius: var(--border-radius);
   }
 
   .post a:hover .image {
