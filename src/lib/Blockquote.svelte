@@ -10,7 +10,7 @@
 
 <div class="blockquote variant-{variant}">
   <figure>
-    <blockquote><slot name="text" /></blockquote>
+    <blockquote class="main"><slot name="text" /></blockquote>
     {#if $$slots.cite}
       <figcaption><slot name="cite" /></figcaption>
     {/if}
@@ -23,6 +23,12 @@
 
     position: relative;
     z-index: 0;
+    margin: 0;
+    max-width: 34em;
+    padding: 0.5em 0 0 1.75em;
+  }
+
+  .main {
     font-weight: 600;
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
@@ -30,9 +36,6 @@
     word-spacing: var(--heading-word-spacing);
     font-size: 1.125rem;
     word-break: break-word;
-    margin: 0;
-    max-width: 34em;
-    padding: 0.5em 0 0 1.75em;
   }
 
   figcaption {
@@ -41,14 +44,17 @@
 
   @media (min-width: 800px) {
     .blockquote {
-      font-size: 1.125em;
       padding: 0.75em 0 0 2em;
       --indent: 0rem;
+    }
+
+    .main {
+      font-size: 1.125em;
     }
   }
 
   @media (min-width: 1000px) {
-    .blockquote {
+    .main {
       font-size: 1.375rem;
     }
   }

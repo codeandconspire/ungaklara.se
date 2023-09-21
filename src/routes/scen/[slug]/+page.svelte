@@ -231,7 +231,7 @@
             {#each quotes as slice}
               <Blockquote>
                 <RichText slot="text" content={slice.primary.text} />
-                <RichText slot="caption" content={slice.primary.cite} />
+                <RichText slot="cite" content={slice.primary.cite} />
               </Blockquote>
             {/each}
           </details>
@@ -315,7 +315,7 @@
         {#if slice.slice_type === 'quote'}
           <Blockquote>
             <RichText slot="text" content={slice.primary.text} />
-            <RichText slot="caption" content={slice.primary.cite} />
+            <RichText slot="cite" content={slice.primary.cite} />
           </Blockquote>
         {/if}
 
