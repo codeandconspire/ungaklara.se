@@ -322,7 +322,7 @@
                           200,
                           400,
                           [800, 'q_80']
-                        ])}
+                        ], { aspect: 1.4 })}
                         <img
                           class="u-sizeFull"
                           sizes="13em"

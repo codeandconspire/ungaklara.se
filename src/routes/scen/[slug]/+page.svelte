@@ -258,7 +258,7 @@
                           200,
                           400,
                           [800, 'q_50']
-                        ])}
+                        ], { aspect: 1.4 })}
                         <img
                           sizes="13em"
                           srcset={sources}
@@ -409,7 +409,7 @@
                         200,
                         400,
                         [800, 'q_50']
-                      ])}
+                      ], { aspect: 1.4 })}
                       <img
                         sizes="13em"
                         srcset={sources}
