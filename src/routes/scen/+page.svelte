@@ -19,8 +19,8 @@
 
   export let data
 
-  /** @type {'produktioner'|'kalendarium'|'arkiv'|'salong'}*/
-  export let tab = 'produktioner'
+  /** @type {'aktuellt'|'kalendarium'|'arkiv'}*/
+  export let tab = 'aktuellt'
 
   /** @type {string?} */
   export let tag = null
@@ -40,9 +40,9 @@
   })
 
   onMount(function () {
-    if (tab !== 'produktioner') return
+    if (tab !== 'aktuellt') return
     track('view_item_list', {
-      item_list_name: 'Produktioner',
+      item_list_name: 'Aktuellt',
       items: data.events.map(eventAsItem)
     })
   })
@@ -70,7 +70,7 @@
 
   function onselectevent(event) {
     track('select_item', {
-      item_list_name: 'Produktioner',
+      item_list_name: 'Aktuellt',
       items: [eventAsItem(event)]
     })
   }
@@ -102,7 +102,8 @@
         onclick() {
           onselectevent(event)
         }
-      })
+      }
+      )
     }
 
     return buttons
@@ -128,10 +129,10 @@
   <nav class="u-spaceMd">
     <Tablist selected={tab}>
       <Tab
-        label="Produktioner"
-        key="produktioner"
+        label="Aktuellt"
+        key="aktuellt"
         href="/scen"
-        on:click={ontabclick('produktioner')} />
+        on:click={ontabclick('aktuellt')} />
       <Tab
         label="Kalendarium"
         key="kalendarium"
@@ -142,11 +143,6 @@
         key="arkiv"
         href="/scen/arkiv"
         on:click={ontabclick('arkiv')} />
-      <Tab
-        label="Salong"
-        key="salong"
-        href="/scen/salong"
-        on:click={ontabclick('salong')} />
     </Tablist>
 
     {#if (tab === 'arkiv' && !$navigating) || $navigating?.to?.route.id === '/scen/arkiv'}
@@ -170,7 +166,7 @@
     <Html class="u-spaceMd u-textCenter u-sizeFull">
       <p class="u-sizeFull">Kunde inte hitta något här</p>
     </Html>
-  {:else if tab === 'produktioner'}
+  {:else if tab === 'aktuellt'}
     <ol class="rows">
       {#each data.events as event, index (event.id)}
         <li

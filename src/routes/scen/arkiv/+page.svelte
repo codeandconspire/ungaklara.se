@@ -20,7 +20,7 @@
 
   const onclick = (event) => () => {
     track('select_item', {
-      item_list_name: 'Produktioner',
+      item_list_name: 'Aktuellt',
       items: [
         {
           item_id: event.id,
