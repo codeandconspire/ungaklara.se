@@ -92,6 +92,14 @@ const graphQuery = `
             ...repeatFields
           }
         }
+        ...on instagram-bilder {
+          non-repeat {
+            ...non-repeatFields
+          }
+          repeat {
+            ...repeatFields
+          }
+        }
         ...on video {
           non-repeat {
             ...non-repeatFields

@@ -6,6 +6,7 @@
   import SchoolBooking from '$lib/SchoolBooking.svelte'
   import Blockquote from '$lib/Blockquote.svelte'
   import { srcset } from '$lib/utils/srcset.js'
+  import Instagram from '$lib/Instagram.svelte'
   import RichText from '$lib/RichText.svelte'
   import GridCell from '$lib/GridCell.svelte'
   import Calendar from '$lib/Calendar.svelte'
@@ -434,6 +435,21 @@
               </Html>
               <div class:u-spaceMd={text}>
                 <Calendar compact {events} limit={6} />
+              </div>
+            </div>
+          {/if}
+        {/if}
+
+        {#if slice.slice_type === 'instagram-bilder'}
+          {@const posts = slice.items}
+          {@const text = asText(slice.primary.heading)}
+          {#if posts}
+            <div class="u-spaceLg">
+              <Html>
+                <RichText content={slice.primary.heading} />
+              </Html>
+              <div class:u-spaceMd={text}>
+                <Instagram {posts} />
               </div>
             </div>
           {/if}

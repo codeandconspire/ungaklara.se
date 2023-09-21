@@ -196,7 +196,8 @@
   @media (min-width: 1000px) {
     .signup {
       grid-template-columns: 1fr 1fr;
-      place-items: center;
+      align-items: center;
+      justify-items: end;
       gap: 3rem;
     }
 
