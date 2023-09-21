@@ -13,7 +13,7 @@
     </figure>
   {/if}
   <div class="body">
-    <Html>
+    <Html size="large">
       <h3 class="u-nudgeMd">{heading}</h3>
       <slot />
     </Html>

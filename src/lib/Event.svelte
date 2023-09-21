@@ -15,7 +15,7 @@
 
   let imageAttrs = null
   $: if (image.url) {
-    const sources = srcset(image.url, [400, 600, [900, 'q_50']])
+    const sources = srcset(image.url, [400, 600, [900, 'q_80']])
     imageAttrs = {
       srcset: sources,
       alt: image.alt || '',

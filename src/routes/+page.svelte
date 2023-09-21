@@ -371,7 +371,7 @@
         {#if slice.slice_type === 'resources'}
           {@const heading = asText(slice.primary.heading)}
           <hr
-            style="border: 2px solid; margin: 2rem 0;"
+            style="margin: 2.5rem 0;"
             use:intersection={tracker(
               'view_item_list',
               slice.items.map((item) => ({
@@ -387,7 +387,7 @@
               <RichText content={slice.primary.description} />
             </Html>
           {/if}
-          <Grid class="u-spaceSm" size={{ sm: '1of2', md: '1of3', lg: '1of4' }}>
+          <Grid class="u-spaceMd" size={{ sm: '1of2', md: '1of3', lg: '1of4' }}>
             {#each slice.items as item}
               <GridCell>
                 <Card
@@ -429,7 +429,7 @@
               <Html>
                 <RichText content={slice.primary.text} />
               </Html>
-              <div class:u-spaceSm={text}>
+              <div class:u-spaceMd={text}>
                 <Calendar compact {events} limit={6} />
               </div>
             </div>
@@ -447,6 +447,15 @@
   }
 
   .slice-signup {
+    margin-top: var(--space-lg);
+  }
+
+  .slice-heading + .slice-button {
+    margin-top: var(--space-sm);
+  }
+
+  .slice-text + .slice-author,
+  .slice-button + .slice-author {
     margin-top: var(--space-lg);
   }
 </style>

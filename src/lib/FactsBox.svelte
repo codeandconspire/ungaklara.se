@@ -10,10 +10,12 @@
       {#each items as item, index}
         {@const cols = count >= 6 ? 3 : count <= 4 ? count : index < 4 ? 3 : 2}
         {@const mdCols = Math.max(2, Math.floor(cols / 2))}
-        <div class={`cell u-md-size1of${mdCols} u-lg-size1of${cols}`}>
-          <dt class="u-textLabel">{item.label}</dt>
-          <dd class="value">{item.text}</dd>
-        </div>
+        {#if item.text}
+          <div class={`cell u-md-size1of${mdCols} u-lg-size1of${cols}`}>
+            <dt class="u-textLabel">{item.label}</dt>
+            <dd class="value">{item.text}</dd>
+          </div>
+        {/if}
       {/each}
     </dl>
   </section>

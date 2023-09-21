@@ -392,7 +392,7 @@
             <h2>{asText(slice.primary.heading)}</h2>
           </Html>
           <Grid
-            class="u-spaceSm"
+            class="u-spaceMd"
             size={{ xs: hasImage ? '1of2' : null, md: '1of3', lg: '1of4' }}>
             {#each slice.items as item}
               <GridCell>

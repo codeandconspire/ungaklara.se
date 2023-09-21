@@ -300,10 +300,12 @@
   .html :global(ul > li) {
     padding-left: 1.5em;
     position: relative;
+    text-wrap: balance;
   }
 
   .html :global(ol > li) {
     padding-left: 0.5em;
+    text-wrap: balance;
   }
 
   .html :global(ul > li::before) {
@@ -315,7 +317,7 @@
   }
 
   .html :global(li + li) {
-    margin-top: 0.8em;
+    margin-top: 0.5em;
   }
 
   .html :global(.checklist li::before) {

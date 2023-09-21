@@ -138,10 +138,12 @@
   .text :global(ul > li) {
     padding-left: 1.5em;
     position: relative;
+    text-wrap: balance;
   }
 
   .text :global(ol > li) {
     padding-left: 0.5em;
+    text-wrap: balance;
   }
 
   .text :global(ul > li::before) {
@@ -153,7 +155,7 @@
   }
 
   .text :global(li + li) {
-    margin-top: 0.8em;
+    margin-top: 0.5em;
   }
 
   .image {
