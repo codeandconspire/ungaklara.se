@@ -126,7 +126,13 @@
                       Starta Swish på denna enhet
                     </a>
                   </p>
-                  <p style="max-width: 29em;">Om du vill att ditt medlemskap förnyas automatiskt varje år, gör&nbsp;istället en insättning på <strong class="u-nowrap">PG 52 93 11-3</strong>. Märk med ditt namn.</p>
+                  <p style="max-width: 29em;">
+                    Om du vill att ditt medlemskap förnyas automatiskt varje år,
+                    gör&nbsp;istället en insättning på <strong class="u-nowrap">
+                      PG 52 93 11-3
+                    </strong>
+                    . Märk med ditt namn.
+                  </p>
                 </Html>
               </div>
               <input type="hidden" name="price" value={price} />

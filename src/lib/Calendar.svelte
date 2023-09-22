@@ -74,7 +74,7 @@
   {#each days as items, index (items[0].date)}
     {@const [year, month, day] = items.at(0).date.split('-')}
     {@const date = new Date(+year, +month, +day)}
-    <li class="row u-slideUp" style:--delay="{index * 100}ms">
+    <li class="row" class:u-slideUp={!compact} style:--delay="{index * 100}ms">
       <time datetime="{year}-{month}-{day}" class="day">
         {date.toLocaleString('sv', {
           weekday: 'long'

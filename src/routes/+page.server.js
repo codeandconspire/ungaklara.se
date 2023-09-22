@@ -84,6 +84,11 @@ const graphQuery = `
             ...non-repeatFields
           }
         }
+        ...on pjas_hypebild_ {
+          non-repeat {
+            ...non-repeatFields
+          }
+        }
         ...on team {
           non-repeat {
             ...non-repeatFields
@@ -127,6 +132,11 @@ const graphQuery = `
           }
           repeat {
             ...repeatFields
+          }
+        }
+        ...on branding {
+          non-repeat {
+            ...non-repeatFields
           }
         }
         ...on school_booking_form {

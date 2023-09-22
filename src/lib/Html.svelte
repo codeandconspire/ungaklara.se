@@ -169,10 +169,7 @@
   .html :global(.aspect .image) {
     margin-top: 0;
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
   }
 
   .html :global(pre) {
@@ -453,6 +450,7 @@
     .html :global(h1),
     .html :global(.h1) {
       font-size: 2.8rem;
+      margin-left: -0.05em;
     }
   }
 </style>

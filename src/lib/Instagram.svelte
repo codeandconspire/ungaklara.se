@@ -20,7 +20,7 @@
     <li class="post">
       <figure>
         <a href={post.link} target="_blank" rel="noopener noreferrer">
-          <img class="image" {...image(post.image)} />
+          <img class="image" alt="" {...image(post.image)} />
         </a>
       </figure>
     </li>
@@ -46,19 +46,19 @@
     display: block;
   }
 
-  .post:nth-child(n+7) {
+  .post:nth-child(n + 7) {
     display: none;
   }
 
   .image {
     width: 100%;
     height: auto;
-    transition: filter 100ms var(--ease-out);
     border-radius: var(--border-radius);
+    transition: filter 100ms var(--ease-out);
   }
 
   .post a:hover .image {
-    filter: brightness(1.1)
+    filter: brightness(1.1);
   }
 
   @media (min-width: 1000px) {
@@ -71,7 +71,7 @@
       display: block;
     }
 
-    .post:nth-child(n+8) {
+    .post:nth-child(n + 8) {
       display: none;
     }
 

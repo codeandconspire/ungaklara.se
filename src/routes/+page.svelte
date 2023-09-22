@@ -12,7 +12,9 @@
   import Calendar from '$lib/Calendar.svelte'
   import { track } from '$lib/utils/track.js'
   import { resolve } from '$lib/prismic.js'
+  import Branding from '$lib/Branding.svelte'
   import Byline from '$lib/Byline.svelte'
+  import Banner from '$lib/Banner.svelte'
   import Button from '$lib/Button.svelte'
   import Signup from '$lib/Signup.svelte'
   import Embed from '$lib/Embed.svelte'
@@ -115,7 +117,7 @@
             <Grid size={{ md: '1of2', lg: '1of3' }}>
               {#each slice.items as item}
                 {#if item.slice_type === 'link_blurb'}
-                  {@const href = resolve(item.primary.link) }
+                  {@const href = resolve(item.primary.link)}
                   {#if href}
                     <GridCell>
                       <Card
@@ -218,10 +220,13 @@
           </div>
         {/if}
 
+        {#if slice.slice_type === 'branding'}
+          <Branding />
+        {/if}
+
         {#if slice.slice_type === 'image'}
           {#if slice.primary.image.url}
             {@const sources = srcset(slice.primary.image.url, [
-              400,
               600,
               900,
               [1600, 'q_80'],
@@ -244,6 +249,48 @@
                 {/if}
               </Html>
             </figure>
+          {/if}
+        {/if}
+
+        {#if slice.slice_type === 'pjas_hypebild_'}
+          {#if slice.primary.image.url}
+            {@const title = asText(slice.primary.name)}
+            {@const link = resolve(slice.primary.link)}
+            {@const tag = slice.primary.tag}
+            {@const desc = slice.primary.desc}
+            <Banner
+              {title}
+              {link}
+              {tag}
+              {desc}
+              background={slice.primary.background.url
+                ? {
+                    src: srcset(slice.primary.background.url, [900]).split(
+                      ' '
+                    )[0],
+                    sizes:
+                      '(min-width: 2000px) 100vw, (min-width: 1600px) 120vw, (min-width: 1400px) 110vw, (min-width: 1000px) 130vw, 150vw',
+                    srcset: srcset(slice.primary.background.url, [
+                      900,
+                      [1800, 'q_70'],
+                      [2600, 'q_60']
+                    ]),
+                    ...slice.primary.background.dimensions
+                  }
+                : null}
+              image={slice.primary.image.url
+                ? {
+                    src: srcset(slice.primary.image.url, [900]).split(' ')[0],
+                    sizes: '90vw',
+                    srcset: srcset(slice.primary.image.url, [
+                      600,
+                      900,
+                      [1600, 'q_80'],
+                      [3000, 'q_60']
+                    ]),
+                    ...slice.primary.image.dimensions
+                  }
+                : null} />
           {/if}
         {/if}
 
@@ -319,11 +366,11 @@
                   <article>
                     <Html>
                       {#if item.image.url}
-                        {@const sources = srcset(item.image.url, [
-                          200,
-                          400,
-                          [800, 'q_80']
-                        ], { aspect: 1.4 })}
+                        {@const sources = srcset(
+                          item.image.url,
+                          [200, 400, [800, 'q_80']],
+                          { aspect: 1.4 }
+                        )}
                         <img
                           class="u-sizeFull"
                           sizes="13em"
@@ -390,7 +437,9 @@
               <RichText content={slice.primary.description} />
             </Html>
           {/if}
-          <Grid class="u-spaceMd" size={{ sm: '1of2', md: '1of2', lg: '1of3', xl: '1of4' }}>
+          <Grid
+            class="u-spaceMd"
+            size={{ sm: '1of2', md: '1of2', lg: '1of3', xl: '1of4' }}>
             {#each slice.items as item}
               <GridCell>
                 <Card
@@ -465,8 +514,14 @@
     margin-top: var(--space-md);
   }
 
-  .slice-signup {
-    margin-top: var(--space-lg);
+  .slice-signup,
+  .slice-branding,
+  .slice-pjas_hypebild_:not(:first-child) {
+    margin-top: var(--space-xl);
+  }
+
+  .slice-branding + * {
+    margin-top: var(--space-xl);
   }
 
   .slice-heading + .slice-button {

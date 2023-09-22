@@ -228,12 +228,9 @@
   }
 
   .container .image {
-    width: 100%;
-    height: 100%;
     margin: 0;
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     border-radius: var(--border-radius);
   }
 </style>

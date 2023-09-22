@@ -102,8 +102,7 @@
         onclick() {
           onselectevent(event)
         }
-      }
-      )
+      })
     }
 
     return buttons

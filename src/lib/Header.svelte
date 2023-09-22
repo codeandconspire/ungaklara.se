@@ -70,9 +70,9 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.2rem clamp(1.25rem, 2.5vw, 2.25rem);
-    opacity: 0;
-    transform: translateY(-2rem);
-    animation: fade 100ms 1000ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    /* opacity: 0;
+    transform: translateY(-2rem); */
+    /* animation: fade 100ms 1000ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards; */
   }
 
   @keyframes fade {
@@ -109,7 +109,7 @@
   }
 
   .logo {
-    font-family: 'UK Logotype';
+    font-family: var(--logo-font-family);
     font-size: 0;
     letter-spacing: -0.06em;
     line-height: 1;
@@ -119,12 +119,12 @@
   }
 
   .logo i {
-    font-size: clamp(2.5rem, 13.4vw, 11rem);
+    font-size: clamp(2.5rem, 12.4vw, 11rem);
     display: inline-block;
     font-style: normal;
-    transform: translateY(-130%);
-    transition: transform 50ms 0 linear;
-    animation: drop 100ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    /* transform: translateY(-130%);
+    transition: transform 50ms 0 linear; */
+    /* animation: drop 100ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards; */
   }
 
   @keyframes drop {

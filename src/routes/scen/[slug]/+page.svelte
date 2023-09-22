@@ -24,7 +24,6 @@
   import Trailer from '$lib/Trailer.svelte'
   import { track } from '$lib/utils/track.js'
   import Ticket from '$lib/Ticket.svelte'
-  import Button from '$lib/Button.svelte'
   import Intro from '$lib/Intro.svelte'
   import Embed from '$lib/Embed.svelte'
   import Event from '$lib/Event.svelte'
@@ -36,12 +35,6 @@
   $: videos = data.page.data.videos.filter((group) => group.video.embed_url)
   $: shows = data.production?.shows?.filter(
     (show) => +parseJSON(show.start) > Date.now()
-  )
-  $: images = data.page.data.media.filter(
-    (slice) => slice.slice_type === 'image' && slice.primary.image.url
-  )
-  $: quotes = data.page.data.media.filter(
-    (slice) => slice.slice_type === 'quote' && slice.primary.text.length
   )
   $: team = data.page.data.team.filter(
     (slice) =>
@@ -62,7 +55,6 @@
       block: 'nearest'
     })
   }
-
 
   const small = browser ? window.matchMedia('(min-width: 600px)') : null
   const medium = browser ? window.matchMedia('(min-width: 800px)') : null
@@ -106,7 +98,6 @@
     })
     event.preventDefault()
   }
-
 
   function heroImage(props) {
     if (!props.url) return null
@@ -295,7 +286,12 @@
               <Grid carousel>
                 {#each images as slice}
                   {@const { dimensions, url, alt = '' } = slice.primary.image}
-                  {@const sources = srcset(url, [400, 599, 900, [1500, 'q_60']])}
+                  {@const sources = srcset(url, [
+                    400,
+                    599,
+                    900,
+                    [1500, 'q_60']
+                  ])}
                   <GridCell>
                     <figure class="u-sizeFull">
                       <Html>
@@ -368,8 +364,8 @@
                           alt=""
                           width="200"
                           height={200 * (4 / 3)}
-                          style="max-width: 13em !important; width: 100%; background-color: {data.page
-                            .data.theme || 'rgb(--color-gray-dark)'};" />
+                          style="max-width: 13em !important; width: 100%; background-color: {data
+                            .page.data.theme || 'rgb(--color-gray-dark)'};" />
                       {/if}
                       {#if item.label}
                         <strong class="u-textLabel u-nudgeMd">
@@ -447,8 +443,8 @@
                 srcset: srcset(background.url, [
                   400,
                   900,
-                  [1800, 'q_50'],
-                  [2600, 'q_30']
+                  [1800, 'q_70'],
+                  [2600, 'q_50']
                 ]),
                 ...background.dimensions
               }
@@ -456,7 +452,8 @@
           <div slot="primary">
             {#if data.page.data.hashtag}
               {@const href = resolve(data.page.data.hashtag_link)}
-              {@const external = data.page.data.hashtag_link.target === '_blank'}
+              {@const external =
+                data.page.data.hashtag_link.target === '_blank'}
               {#if href}
                 <a
                   {href}
@@ -515,17 +512,19 @@
                         alt={item.image.alt || ''}
                         src={sources.split(' ')[0]}
                         width="200"
-                        height={200 * (1.4)} />
+                        height={200 * 1.4} />
                     {:else if hasImage}
                       <img
                         alt=""
                         width="200"
-                        height={200 * (1.4)}
-                        style="max-width: 13em !important; width: 100%; background-color: {data.page.data
-                          .theme || 'rgb(--color-gray-dark)'};" />
+                        height={200 * 1.4}
+                        style="max-width: 13em !important; width: 100%; background-color: {data
+                          .page.data.theme || 'rgb(--color-gray-dark)'};" />
                     {/if}
                     {#if item.label}
-                      <strong class="u-textLabel u-nudgeMd">{item.label}</strong>
+                      <strong class="u-textLabel u-nudgeMd">
+                        {item.label}
+                      </strong>
                     {/if}
                     <RichText content={item.text} />
                   </Html>
@@ -587,15 +586,21 @@
               <h2>Är du pedagog?</h2>
               <RichText content={resources.primary.description}>
                 <p>
-                  Det pedagogiska materialet har tagits fram av Unga Klaras pedagoger
-                  och är till för er som har sett eller ska se föreställningen med er
-                  grupp och vill arbeta vidare kring delar av pjäsens tematik
-                  tillsammans. <a href="/pedagog/pedagogiskt-material">Läs mer</a>.
+                  Det pedagogiska materialet har tagits fram av Unga Klaras
+                  pedagoger och är till för er som har sett eller ska se
+                  föreställningen med er grupp och vill arbeta vidare kring
+                  delar av pjäsens tematik tillsammans. <a
+                    href="/pedagog/pedagogiskt-material">
+                    Läs mer
+                  </a>
+                  .
                 </p>
               </RichText>
             </Html>
           </div>
-          <Grid class="u-spaceMd" size={{ sm: '1of2', md: '1of2', lg: '1of3', xl: '1of4' }}>
+          <Grid
+            class="u-spaceMd"
+            size={{ sm: '1of2', md: '1of2', lg: '1of3', xl: '1of4' }}>
             {#each resources.items as item}
               <GridCell>
                 <Card

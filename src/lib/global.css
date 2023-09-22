@@ -11,6 +11,7 @@
   --color-pink: 255, 66, 255;
   --color-yellow: 255, 240, 54;
   --color-blue: 67, 0, 255;
+  --color-red: 255, 51, 51;
 
   /* Base styles */
 
@@ -60,6 +61,7 @@
   --space-sm: 1.5rem;
   --space-md: clamp(2rem, 6vw, 4rem);
   --space-lg: clamp(4rem, 7vw, 6rem);
+  --space-xl: clamp(6rem, 8vw, 10rem);
 }
 
 @media (min-width: 500px) {

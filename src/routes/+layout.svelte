@@ -54,10 +54,10 @@
         <h3>
           {asText(settings.vma_heading)}
           {#if settings.vma_link}
-            <a href="{resolve(settings.vma_link)}">Läs mer</a>
+            <a href={resolve(settings.vma_link)}>Läs mer</a>
           {/if}
         </h3>
-        <button class="close" on:click={() => vma = false}>Stäng</button>
+        <button class="close" on:click={() => (vma = false)}>Stäng</button>
       </div>
     </div>
   {/if}
@@ -76,13 +76,13 @@
     min-height: 100%;
     position: relative;
     min-width: var(--document-min-width);
+    overflow-x: hidden;
   }
 
   .main {
     flex-grow: 1;
     max-width: 100%;
     min-height: 100vh;
-    z-index: 1;
   }
 
   .gradient {
@@ -164,7 +164,7 @@
 
   .vma .close::after {
     display: block;
-    content: "⨉";
+    content: '⨉';
     font-size: 1.25rem;
     color: #000;
     position: relative;

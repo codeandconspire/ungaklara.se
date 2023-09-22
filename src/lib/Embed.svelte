@@ -135,11 +135,8 @@
 
   .link::before {
     content: '';
-    width: 100%;
-    height: 100%;
     position: absolute;
-    left: 0;
-    top: 0;
+    inset: 0;
   }
 
   .link::after {
@@ -274,11 +271,8 @@
   }
 
   .close {
-    width: 100%;
-    height: 100%;
     position: absolute;
-    left: 0;
-    top: 0;
+    inset: 0;
     z-index: -2;
   }
 
@@ -351,11 +345,8 @@
   }
 
   .iframe iframe {
-    width: 100%;
-    height: 100%;
     position: absolute;
-    left: 0;
-    top: 0;
+    inset: 0;
   }
 
   .fullscreen .iframe iframe {
