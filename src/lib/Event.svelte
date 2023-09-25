@@ -164,6 +164,7 @@
   .event:not(.teaser) .actions {
     margin: 0 0 2.5rem;
     order: -1;
+    gap: 0.75rem;
   }
 
   @media (min-width: 600px) {
@@ -174,6 +175,7 @@
     .event:not(.teaser) .actions {
       order: 2;
       margin: 2rem 0 1rem;
+      gap: 1.25rem;
     }
 
     .event:not(.teaser) .action {

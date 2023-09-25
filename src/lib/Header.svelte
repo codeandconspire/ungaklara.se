@@ -115,7 +115,6 @@
     line-height: 1;
     text-transform: uppercase;
     white-space: nowrap;
-    margin-top: -1rem;
   }
 
   .logo i {
@@ -173,6 +172,10 @@
   }
 
   @media (min-width: 500px) {
+    .logo {
+      margin-top: 0;
+    }
+
     .logo i {
       font-size: 3.3rem;
     }

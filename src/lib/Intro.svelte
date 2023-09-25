@@ -214,6 +214,7 @@
   @media (min-width: 1000px) {
     .title {
       font-size: 4.75rem;
+      width: 93%
     }
 
     .text {

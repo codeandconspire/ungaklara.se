@@ -170,11 +170,14 @@
             text: 'Visa spelschema',
             onclick(event) {
               tickets.scrollIntoView({
-                behavior: 'smooth',
-                block: 'nearest'
+                behavior: 'smooth'
               })
               event.preventDefault()
             }
+          },
+          {
+            href: '/skolbokning',
+            text: 'Skolbokning'
           },
           {
             text: 'Boka biljett',
@@ -485,7 +488,7 @@
     {#if team.length}
       {#each team as slice, index}
         {@const hasImage = slice.items.some((item) => item.image.url)}
-        <section class="u-spaceLg u-container">
+        <section class="u-spaceMd">
           {#if index}
             <div class="u-divider u-spaceLg" />
           {/if}
@@ -539,13 +542,14 @@
     {#if shows?.length}
       <section
         id="tickets"
-        class="u-spaceLg u-narrow u-container"
+        style="scroll-margin: 2rem"
+        class="u-spaceLg u-narrow"
         use:intersection={onintersect}
         bind:this={tickets}>
         <Html>
           <h2>Biljetter</h2>
         </Html>
-        <Grid class="u-spaceMd" slim appear size={{ md: '1of2', xl: '1of3' }}>
+        <Grid class="u-spaceMd" slim appear size={{ lg: '1of2', xl: '1of3' }}>
           {@const subset = shows.slice(
             0,
             showAll ? shows.length : INITAIL_TICKET_COUNT

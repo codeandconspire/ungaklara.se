@@ -74,7 +74,7 @@
   }
 
   function image(props) {
-    if (!props.url) return null
+    if (!props?.url) return null
     return {
       srcset: srcset(props.url, [200, 400, 600, 900, [1600, 'q_80']]),
       sizes: '(min-width: 600px) 50vw, 100vw',
@@ -156,7 +156,7 @@
                       <Card
                         on:click={tracker('select_item', blurbAsItem(item))}
                         title={asText(item.primary.title)}
-                        image={image(item.primary.image)}
+                        image={item.primary ? image(item.primary.image) : null}
                         color={item.primary.color}
                         link={{ href }}>
                         <RichText content={item.primary.text} />
