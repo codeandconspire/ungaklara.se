@@ -15,6 +15,7 @@
   import Branding from '$lib/Branding.svelte'
   import Byline from '$lib/Byline.svelte'
   import Banner from '$lib/Banner.svelte'
+  import Symbol from '$lib/Symbol.svelte'
   import Button from '$lib/Button.svelte'
   import Signup from '$lib/Signup.svelte'
   import Embed from '$lib/Embed.svelte'
@@ -486,7 +487,9 @@
                 <Calendar compact {events} limit={6} />
               </div>
               <div class="action">
-                <Button href="/scen/kalendarium">Fler datum</Button>
+                <Button href="/scen/kalendarium">
+                  <Symbol name="arrow" />Fler datum
+                </Button>
               </div>
             </div>
           {/if}

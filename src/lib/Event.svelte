@@ -34,11 +34,11 @@
     <Html size="large" class={label ? 'u-nudgeMd' : ''}>
       <slot />
     </Html>
-    {#if buttons.length}
+    {#if buttons?.length}
       <div class="actions">
-        {#each buttons as { text, ...attrs }}
+        {#each buttons as { text, onclick, ...attrs }}
           <span class="action">
-            <Button {...attrs} on:click={attrs.onclick}>{text}</Button>
+            <Button {...attrs} on:click={onclick}>{text}</Button>
           </span>
         {/each}
       </div>

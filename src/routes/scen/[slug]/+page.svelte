@@ -15,20 +15,21 @@
   import FactsBox from '$lib/FactsBox.svelte'
   import RichText from '$lib/RichText.svelte'
   import GridCell from '$lib/GridCell.svelte'
-  import Card from '$lib/Card.svelte'
+  import { track } from '$lib/utils/track.js'
   import ShowMore from '$lib/ShowMore.svelte'
   import { resolve } from '$lib/prismic.js'
   import Hashtag from '$lib/Hashtag.svelte'
   import Spotify from '$lib/Spotify.svelte'
   import Masonry from '$lib/Masonry.svelte'
+  import Toolbar from '$lib/Toolbar.svelte'
   import Trailer from '$lib/Trailer.svelte'
-  import { track } from '$lib/utils/track.js'
   import Ticket from '$lib/Ticket.svelte'
   import Intro from '$lib/Intro.svelte'
   import Embed from '$lib/Embed.svelte'
   import Event from '$lib/Event.svelte'
   import Html from '$lib/Html.svelte'
   import Grid from '$lib/Grid.svelte'
+  import Card from '$lib/Card.svelte'
 
   export let data
 
@@ -68,6 +69,52 @@
 
   onMount(measure)
 
+  /** @type {any[]} */
+  $: actions = [
+    data.production?.shows?.length
+      ? {
+          href: '#tickets',
+          icon: 'calendar',
+          text: 'Visa spelschema',
+          onclick(event) {
+            tickets.scrollIntoView({
+              behavior: 'smooth'
+            })
+            event.preventDefault()
+          }
+        }
+      : null,
+    {
+      href: '/skolbokning',
+      text: 'Skolbokning'
+    },
+    data.production?.shows?.length
+      ? {
+          text: 'Boka biljett',
+          href: resolve(data.page.data.buy_link),
+          onclick() {
+            track('select_item', {
+              items: [
+                {
+                  item_id: data.production.id,
+                  item_name: data.production.name,
+                  item_category: 'Föreställning',
+                  item_category2: asText(data.page.data.title),
+                  item_category3: parseJSON(
+                    data.production.start
+                  ).toLocaleDateString('sv')
+                }
+              ]
+            })
+          },
+          primary: true,
+          icon: 'arrow',
+          target: '_blank',
+          rel: 'noopener noreferrer'
+        }
+      : null
+  ].filter(Boolean)
+
   function onintersect() {
     track('view_item_list', {
       item_list_name: 'Föreställningar',
@@ -90,6 +137,7 @@
       item_category3: parseJSON(show.start).toLocaleDateString('sv')
     }
   }
+
   function onShowAll(event) {
     showAll = true
     tickets.scrollIntoView({
@@ -162,51 +210,12 @@
   </header>
 
   <Event
-    buttons={data.production?.shows?.length
-      ? [
-          {
-            href: '#tickets',
-            icon: 'calendar',
-            text: 'Visa spelschema',
-            onclick(event) {
-              tickets.scrollIntoView({
-                behavior: 'smooth'
-              })
-              event.preventDefault()
-            }
-          },
-          {
-            href: '/skolbokning',
-            text: 'Skolbokning'
-          },
-          {
-            text: 'Boka biljett',
-            href: resolve(data.page.data.buy_link),
-            onclick() {
-              track('select_item', {
-                items: [
-                  {
-                    item_id: data.production.id,
-                    item_name: data.production.name,
-                    item_category: 'Föreställning',
-                    item_category2: asText(data.page.data.title),
-                    item_category3: parseJSON(
-                      data.production.start
-                    ).toLocaleDateString('sv')
-                  }
-                ]
-              })
-            },
-            primary: true,
-            icon: 'arrow',
-            target: '_blank',
-            rel: 'noopener noreferrer'
-          }
-        ]
-      : []}
+    buttons={actions}
     image={data.page.data.poster.url ? data.page.data.poster : null}>
     <RichText content={data.page.data.about} />
   </Event>
+
+  <Toolbar heading={asText(data.page.data.title)} buttons={actions} />
 
   <div class="u-spaceLg">
     <FactsBox items={data.page.data.details} />
