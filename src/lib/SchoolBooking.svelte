@@ -127,6 +127,32 @@
             bind:value={booking.students} />
           <span class="label">Antal elever</span>
         </label>
+        <label class="item">
+          <select
+            class="field"
+            name="Bokning:Skolstadie"
+            required
+            bind:value={booking.level}>
+            <option disabled selected={booking.level == null}>Välj en</option>
+            <option>Förskola</option>
+            <option>Lågstadie</option>
+            <option>Mellanstadie</option>
+            <option>Högstadie</option>
+            <option>Gymnasium</option>
+            <option>Folkhögskola</option>
+            <option>Universitet/högskola</option>
+          </select>
+          <span class="label">Skolstadie</span>
+        </label>
+        <label class="item">
+          <input
+            type="text"
+            class="field"
+            name="Bokning:Årskurs"
+            required
+            bind:value={booking.grade} />
+          <span class="label">Årskurs</span>
+        </label>
         <label class="item" style:--span="2">
           <textarea
             rows="5"
@@ -235,6 +261,14 @@
     border: var(--border-width) solid currentColor;
     border-radius: var(--border-radius);
     resize: none;
+    appearance: none;
+  }
+
+  select.field {
+    padding-right: 1.5rem;
+    background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2224%22%20viewBox%3D%220%20-960%20960%20960%22%20width%3D%2224%22%3E%3Cpath%20d%3D%22M480-358.463%20253.847-584.615%20296-626.768l184%20184%20184-184%2042.153%2042.153L480-358.463Z%22%2F%3E%3C%2Fsvg%3E');
+    background-position: calc(100% - 0.5rem) calc(50% + 0.08rem);
+    background-repeat: no-repeat;
   }
 
   .submit {
