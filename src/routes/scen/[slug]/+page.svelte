@@ -579,52 +579,50 @@
     {/if}
 
     {#if data.resources?.length}
-      <div class="u-container u-spaceLg">
-        <div class="u-divider u-spaceLg" />
-        {#each data.resources as resources, index}
-          {#if index}
-            <div class="u-divider u-spaceLg" />
-          {/if}
-          <div class="u-spaceSm">
-            <Html size="large">
-              <h2>Är du pedagog?</h2>
-              <RichText content={resources.primary.description}>
-                <p>
-                  Det pedagogiska materialet har tagits fram av Unga Klaras
-                  pedagoger och är till för er som har sett eller ska se
-                  föreställningen med er grupp och vill arbeta vidare kring
-                  delar av pjäsens tematik tillsammans. <a
-                    href="/pedagog/pedagogiskt-material">
-                    Läs mer
-                  </a>
-                  .
-                </p>
-              </RichText>
-            </Html>
-          </div>
-          <Grid
-            class="u-spaceMd"
-            size={{ sm: '1of2', md: '1of2', lg: '1of3', xl: '1of4' }}>
-            {#each resources.items as item}
-              <GridCell>
-                <Card
-                  size="small"
-                  square
-                  on:click={onclick('Är du pedagog?', {
-                    item_id: item.file.url,
-                    item_name: item.name,
-                    item_category: 'Pedagogiskt material'
-                  })}
-                  title={item.name}
-                  image={resourceImage(item.image) ||
-                    resourceImage(data.page.data.poster)}
-                  color={data.page.data.theme}
-                  link={{ href: item.file.url, text: 'Ladda ner' }} />
-              </GridCell>
-            {/each}
-          </Grid>
-        {/each}
-      </div>
+      <div class="u-divider u-spaceLg" />
+      {#each data.resources as resources, index}
+        {#if index}
+          <div class="u-divider u-spaceLg" />
+        {/if}
+        <div class="u-spaceSm">
+          <Html size="large">
+            <h2>Är du pedagog?</h2>
+            <RichText content={resources.primary.description}>
+              <p>
+                Det pedagogiska materialet har tagits fram av Unga Klaras
+                pedagoger och är till för er som har sett eller ska se
+                föreställningen med er grupp och vill arbeta vidare kring delar
+                av pjäsens tematik tillsammans. <a
+                  href="/pedagog/pedagogiskt-material">
+                  Läs mer
+                </a>
+                .
+              </p>
+            </RichText>
+          </Html>
+        </div>
+        <Grid
+          class="u-spaceMd"
+          size={{ sm: '1of2', md: '1of2', lg: '1of3', xl: '1of4' }}>
+          {#each resources.items as item}
+            <GridCell>
+              <Card
+                size="small"
+                square
+                on:click={onclick('Är du pedagog?', {
+                  item_id: item.file.url,
+                  item_name: item.name,
+                  item_category: 'Pedagogiskt material'
+                })}
+                title={item.name}
+                image={resourceImage(item.image) ||
+                  resourceImage(data.page.data.poster)}
+                color={data.page.data.theme}
+                link={{ href: item.file.url, text: 'Ladda ner' }} />
+            </GridCell>
+          {/each}
+        </Grid>
+      {/each}
     {/if}
   {/if}
 </div>
