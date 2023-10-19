@@ -18,38 +18,23 @@
   $: ({ class: _class, ...attrs } = $$restProps)
 </script>
 
-{#if href}
-  <a
-    {href}
-    on:click
-    class={`button ${_class || ''}`}
-    class:primary
-    class:secondary
-    class:disabled
-    class:cover
-    class:small={size === 'small'}
-    {...attrs}>
-    {#if icon}
-      <span class="icon"><Symbol name={icon} /></span>
-    {/if}
-    <slot />
-  </a>
-{:else}
-  <button
-    on:click
-    class={`button ${_class || ''}`}
-    class:primary
-    class:secondary
-    class:cover
-    class:small={size === 'small'}
-    {disabled}
-    {...attrs}>
-    {#if icon}
-      <span class="icon"><Symbol name={icon} /></span>
-    {/if}
-    <slot />
-  </button>
-{/if}
+<svelte:element
+  this={href ? 'a' : 'button'}
+  role={href ? 'link' : 'button'}
+  on:click
+  class="button {_class || ''}"
+  class:primary
+  class:secondary
+  class:disabled
+  class:cover
+  class:small={size === 'small'}
+  {href}
+  {...attrs}>
+  {#if icon}
+    <span class="icon"><Symbol name={icon} /></span>
+  {/if}
+  <slot />
+</svelte:element>
 
 <style>
   .button {
