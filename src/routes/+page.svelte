@@ -485,6 +485,9 @@
               <div class:u-spaceMd={text}>
                 <Calendar compact {events} limit={6} />
               </div>
+              <div class="action">
+                <Button href="/scen/kalendarium">Fler datum</Button>
+              </div>
             </div>
           {/if}
         {/if}
@@ -531,5 +534,11 @@
   .slice-text + .slice-author,
   .slice-button + .slice-author {
     margin-top: var(--space-lg);
+  }
+
+  .action {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
   }
 </style>
