@@ -61,6 +61,7 @@ export async function load(event) {
 }
 
 function getFirstDate({ production }) {
+  if (!production) return null
   return production.shows?.length
     ? production.shows.map((event) => new Date(event.start)).sort()[0]
     : new Date(production.event?.start)
