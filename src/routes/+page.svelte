@@ -123,7 +123,7 @@
                     <GridCell>
                       <Card
                         on:click={tracker('select_item', blurbAsItem(item))}
-                        title={asText(item.primary.link.data.title)}
+                        title={asText(item.primary.link.data.shortname) || asText(item.primary.link.data.title)}
                         image={image(item.primary.link.data.featured_image)}
                         color={item.primary.color ||
                           item.primary.link.data.theme}
