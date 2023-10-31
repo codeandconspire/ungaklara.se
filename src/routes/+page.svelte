@@ -158,14 +158,14 @@
                     <GridCell>
                       <Card
                         on:click={tracker('select_item', blurbAsItem(item))}
-                        title={asText(item.primary.link.data.shortname) ||
-                          asText(item.primary.link.data.title)}
-                        image={image(item.primary.link.data.featured_image)}
+                        title={asText(item.primary.link.data?.shortname) ||
+                          asText(item.primary.link.data?.title)}
+                        image={image(item.primary.link.data?.featured_image)}
                         color={item.primary.color ||
-                          item.primary.link.data.theme}
-                        link={{ href, text: item.primary.link.data.cta }}>
+                          item.primary.link.data?.theme}
+                        link={{ href, text: item.primary.link.data?.cta }}>
                         <RichText
-                          content={item.primary.link.data.description} />
+                          content={item.primary.link.data?.description} />
                       </Card>
                     </GridCell>
                   {/if}
@@ -477,7 +477,7 @@
                   image={image(item.image) ||
                     image(slice.primary.event?.data?.poster)}
                   square
-                  color={slice.primary.event?.data.theme}
+                  color={slice.primary.event?.data?.theme}
                   link={{ href: item.file.url, text: 'Ladda ner' }} />
               </GridCell>
             {/each}
