@@ -31,14 +31,12 @@
 
 <style>
   .tab {
-    flex: 1 1 auto;
     display: flex;
+    flex: 1;
     align-items: center;
     justify-content: center;
     padding: 0 0.3em;
     height: 3em;
-    border: solid #000;
-    border-width: 2px 0 2px 2px;
     font-size: 1em;
     text-align: center;
     font-weight: 600;
@@ -46,16 +44,8 @@
     line-height: var(--heading-line-height);
     letter-spacing: var(--heading-letter-spacing);
     word-spacing: var(--heading-word-spacing);
-    background-color: transparent;
-  }
-
-  .tab:first-child {
-    border-radius: 3px 0 0 3px;
-  }
-
-  .tab:last-child {
-    border-radius: 0 3px 3px 0;
-    border-right-width: 2px;
+    background-color: #fff;
+    border-radius: var(--border-radius);
   }
 
   @media (min-width: 600px) {

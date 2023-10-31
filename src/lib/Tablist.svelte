@@ -19,8 +19,10 @@
 <style>
   .tablist {
     display: flex;
+    gap: clamp(0.5rem, 1.5vw, 1.5rem);
     user-select: none;
     margin-bottom: 1.4em;
+    margin-top: -1rem;
   }
 
   @media (min-width: 800px) {
