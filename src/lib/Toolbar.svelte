@@ -1,4 +1,6 @@
 <script>
+  import { onMount } from 'svelte'
+
   import { intersection } from '$lib/utils/intersection.js'
   import Button from '$lib/Button.svelte'
 
@@ -7,18 +9,37 @@
   /** @type {string?} */
   export let heading = null
 
+  let node
+  let offset = 0
+  let scrollY = 0
   let visible = 0
   let offsetHeight
+
+  const measure = () => {
+    offset = 0
+    let parent = node
+    while (parent) {
+      offset += parent.offsetTop
+      parent = parent.offsetParent
+    }
+  }
+
+  onMount(measure)
 </script>
+
+<svelte:window bind:scrollY on:resize={measure} />
 
 <nav
   class="toolbar"
+  bind:this={node}
   style:--visible={visible.toFixed(2)}
   style:--height="{offsetHeight}px"
   use:intersection={{
     onintersect(entry) {
-      if (window.scrollY > entry.boundingClientRect.top) {
+      if (scrollY > offset) {
         visible = 1 - entry.intersectionRatio
+      } else {
+        visible = 0
       }
     }
   }}>
@@ -45,6 +66,7 @@
 
     height: var(--height);
     margin-bottom: calc(var(--height) * -1);
+    position: relative;
   }
 
   .sticky {
@@ -56,7 +78,7 @@
   .sticky.stuck {
     width: 100%;
     padding: 0.7em 0;
-    border-bottom: 2px solid currentcolor;
+    border-bottom: 2px solid currentColor;
     position: fixed;
     top: 0;
     left: 0;
