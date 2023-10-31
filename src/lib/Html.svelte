@@ -248,7 +248,7 @@
     width: 1em;
     height: 3px;
     transform: translateY(-50%);
-    background-color: currentColor;
+    background-color: currentcolor;
     border-radius: 1.5px;
   }
 
@@ -260,7 +260,7 @@
     width: 3px;
     height: 1em;
     transform: translate(50%, -50%);
-    background-color: currentColor;
+    background-color: currentcolor;
     border-radius: 1.5px;
     transform-origin: center;
   }

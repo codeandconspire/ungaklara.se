@@ -298,7 +298,7 @@
     position: absolute;
     right: 1rem;
     top: 50%;
-    background: currentColor;
+    background: currentcolor;
   }
 
   .cross::before {

@@ -194,7 +194,7 @@ hr {
   height: var(--border-width);
   border: 0;
   margin: 4.5rem 0 3.9rem;
-  background-color: currentColor;
+  background-color: currentcolor;
 }
 
 @media (min-width: 800px) {

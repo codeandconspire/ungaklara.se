@@ -258,7 +258,7 @@
     padding: 0.75em 1em;
     font-size: 1rem;
     line-height: 1;
-    border: var(--border-width) solid currentColor;
+    border: var(--border-width) solid currentcolor;
     border-radius: var(--border-radius);
     resize: none;
     appearance: none;
@@ -282,7 +282,7 @@
     padding: 1rem;
     margin: 1.5rem 0;
     border-radius: var(--border-radius);
-    border: var(--border-width) solid currentColor;
+    border: var(--border-width) solid currentcolor;
   }
 
   .success {

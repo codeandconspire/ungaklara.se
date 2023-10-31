@@ -96,7 +96,7 @@
   .secondary,
   .secondary:hover,
   .secondary:active {
-    color: currentColor !important;
+    color: currentcolor !important;
     background-color: transparent !important;
     border-color: transparent !important;
   }

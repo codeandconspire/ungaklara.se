@@ -56,7 +56,7 @@
   .sticky.stuck {
     width: 100%;
     padding: 0.7em 0;
-    border-bottom: 2px solid currentColor;
+    border-bottom: 2px solid currentcolor;
     position: fixed;
     top: 0;
     left: 0;
