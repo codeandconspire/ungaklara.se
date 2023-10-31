@@ -61,7 +61,6 @@
           class="link"
           target="_blank"
           rel="noopener noreferrer">
-          <Symbol name="arrow" />
           <span class="u-hiddenVisually">Boka biljett</span>
         </a>
       {/if}
@@ -76,6 +75,7 @@
   }
 
   .everything {
+    height: 100%;
     position: relative;
     z-index: 1;
     background-color: rgb(var(--theme-color));
@@ -110,6 +110,7 @@
     bottom: 0;
     z-index: -1;
     background: black;
+    border-radius: var(--border-radius);
   }
 
   .main {
@@ -146,9 +147,9 @@
 
   .icon {
     font-size: 0.8em;
-    margin-right: 0.25rem;
     position: relative;
     top: -0.1em;
+    left: -0.2em;
   }
 
   .date {

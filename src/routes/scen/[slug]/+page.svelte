@@ -558,14 +558,14 @@
         <Html>
           <h2>Biljetter</h2>
         </Html>
-        <Grid class="u-spaceMd" slim appear size={{ lg: '1of2', xl: '1of3' }}>
+        <Grid class="u-spaceMd" slim appear size={{ md: '1of2', lg: '1of3' }}>
           {@const subset = shows.slice(
             0,
             showAll ? shows.length : INITAIL_TICKET_COUNT
           )}
           {#each subset as show, index (show.id)}
             <GridCell delay={`${(index - 3) * 150}ms`}>
-              <div class="u-sizeFull">
+              <div class="u-sizeFull u-flex">
                 <Ticket
                   on:click={onclick('Föreställningar', showAsItem(show))}
                   name={show.name}
