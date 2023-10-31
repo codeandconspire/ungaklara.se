@@ -13,7 +13,7 @@
   }
 </script>
 
-<header class="header u-container">
+<header class="header header-override u-container">
   <h2 class="u-hiddenVisually">Navigation</h2>
   <a class="logo" href="/" rel="home">
     <i>U</i>
@@ -39,7 +39,7 @@
           <svg width="25" height="25" viewBox="0 0 25 25">
             <g fill="none" fill-rule="evenodd">
               <path
-                fill="currentColor"
+                fill="currentcolor"
                 d="M6 13h11.9l-3.7 4.4a1 1 0 1 0 1.6 1.2l5-6v-.1l.1-.1.1-.4v-.4h-.1l-.1-.2-5-6a1 1 0 0 0-1.6 1.2L18 11H6a1 1 0 0 0 0 2z" />
             </g>
           </svg>
@@ -51,6 +51,9 @@
 
 <style>
   .header {
+    --color: #000;
+    --color-alt: #fff;
+
     user-select: none;
     padding: 1.7rem 0 0;
     display: flex;
@@ -58,6 +61,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 0.5rem 3rem;
+    color: var(--color);
   }
 
   @media (min-width: 450px) {
@@ -101,9 +105,9 @@
   }
 
   .link:hover {
-    background: black;
-    color: white;
-    box-shadow: 0.3em 0 0 black, -0.3em 0 0 black;
+    background: var(--color);
+    color: var(--color-alt);
+    box-shadow: 0.3em 0 0 var(--color), -0.3em 0 0 var(--color);
     mix-blend-mode: color-burn;
     border-radius: var(--border-radius);
   }
@@ -178,6 +182,8 @@
 
     .logo i {
       font-size: 3.3rem;
+
+      margin-right: -0.025em;
     }
   }
 
@@ -190,6 +196,6 @@
 
   .icon svg {
     display: block;
-    color: currentColor;
+    color: currentcolor;
   }
 </style>

@@ -86,6 +86,21 @@
   }
 </script>
 
+{#if data.page.data.hide_intro}
+  <style>
+    @media (min-width: 700px) {
+      .header-override.header-override.header-override {
+        --color: #fff;
+        --color-alt: #000;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+      }
+    }
+  </style>
+{/if}
+
 <div class="u-container">
   <div>
     {#if !data.page.data.hide_intro}
@@ -107,7 +122,7 @@
       </header>
     {/if}
 
-    {#each slices as slice}
+    {#each slices as slice, index}
       <div class="slice slice-{slice.slice_type}">
         {#if slice.slice_type === '__blurbs'}
           <div
@@ -260,25 +275,11 @@
             {@const tag = slice.primary.tag}
             {@const desc = slice.primary.desc}
             <Banner
+              top={index === 0}
               {title}
               {link}
               {tag}
               {desc}
-              background={slice.primary.background.url
-                ? {
-                    src: srcset(slice.primary.background.url, [900]).split(
-                      ' '
-                    )[0],
-                    sizes:
-                      '(min-width: 2000px) 100vw, (min-width: 1600px) 120vw, (min-width: 1400px) 110vw, (min-width: 1000px) 130vw, 150vw',
-                    srcset: srcset(slice.primary.background.url, [
-                      900,
-                      [1800, 'q_70'],
-                      [2600, 'q_60']
-                    ]),
-                    ...slice.primary.background.dimensions
-                  }
-                : null}
               image={slice.primary.image.url
                 ? {
                     src: srcset(slice.primary.image.url, [900]).split(' ')[0],

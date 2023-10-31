@@ -2,20 +2,15 @@
   import Html from '$lib/Html.svelte'
 
   export let image = null
-  export let background = null
   export let title = undefined
   export let link = undefined
   export let tag = undefined
   export let desc = undefined
+  export let top = false
 </script>
 
-<div class="banner">
-  {#if background}
-    <div class="background">
-      <img alt="" {...background} class="image" />
-    </div>
-  {/if}
-  <div class="main" class:narrow={background}>
+<div class="banner" class:top>
+  <div class="main">
     <img alt="" {...image} class="image" />
     {#if title || desc || tag}
       <div class="body u-paddedBox">
@@ -41,6 +36,8 @@
 <style>
   .banner {
     position: relative;
+    border-radius: var(--border-radius);
+    background: #000;
   }
 
   .image {
@@ -54,47 +51,11 @@
     position: relative;
   }
 
-  .main,
-  .background {
+  .main {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-  }
-
-  @media (min-width: 700px) {
-    .narrow {
-      max-width: 80%;
-      margin: 0 auto;
-    }
-  }
-
-  .background {
-    overflow: hidden;
-    pointer-events: none;
-    z-index: -1;
-  }
-
-  .background .image {
-    width: 150vw;
-    height: auto;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: -1;
-    transform: translate(-50%, -50%);
-  }
-
-  @media (min-width: 700px) {
-    .background .image {
-      width: 125vw;
-    }
-  }
-
-  @media (min-width: 1400px) {
-    .background .image {
-      width: 100vw;
-    }
   }
 
   .body {
@@ -107,21 +68,49 @@
   }
 
   @media (min-width: 700px) {
+    .banner {
+      border-radius: 0;
+    }
+
+    .top .main {
+      height: 100vh;
+      height: 100svh;
+      min-height: 23rem;
+    }
+
+    .top .image {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .image {
+      border-radius: 0;
+    }
+
     .body {
       position: absolute;
       inset: 0;
       color: #fff;
       background: transparent;
       z-index: 1;
+      padding: var(--document-margin) !important;
     }
 
-    .body::before {
+    .body::before,
+    .body::after {
       content: '';
       position: absolute;
       inset: 0;
       z-index: -1;
       background: linear-gradient(0, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 60%);
       border-radius: var(--border-radius);
+    }
+
+    .body::after {
+      transform: rotate(180deg);
     }
   }
 
