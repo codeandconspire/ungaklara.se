@@ -157,7 +157,7 @@
   .actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 0.5rem;
     margin: var(--space-sm) 0 0;
   }
 

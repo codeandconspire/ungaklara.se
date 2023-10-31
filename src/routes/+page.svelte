@@ -10,12 +10,13 @@
   import RichText from '$lib/RichText.svelte'
   import GridCell from '$lib/GridCell.svelte'
   import Calendar from '$lib/Calendar.svelte'
+
   import { track } from '$lib/utils/track.js'
   import { resolve } from '$lib/prismic.js'
   import Branding from '$lib/Branding.svelte'
   import Byline from '$lib/Byline.svelte'
+  import Framed from '$lib/Framed.svelte'
   import Banner from '$lib/Banner.svelte'
-  import Symbol from '$lib/Symbol.svelte'
   import Button from '$lib/Button.svelte'
   import Signup from '$lib/Signup.svelte'
   import Embed from '$lib/Embed.svelte'
@@ -119,6 +120,25 @@
           </span>
           <RichText slot="text" content={data.page.data.description} />
         </Intro>
+        {#if data.page.data.show_image && data.page.data.featured_image}
+          {@const featured = data.page.data.featured_image}
+          {@const image = Object.assign(
+            {
+              src: srcset(featured.url, [200], {
+                aspect: 278 / 195
+              }).split(' ')[0],
+              sizes: '15rem',
+              srcset: srcset(featured.url, [200, 400, [800, 'q_80']], {
+                aspect: 278 / 195
+              }),
+              alt: featured.alt || ''
+            },
+            featured.dimensions
+          )}
+          <figure class="intro-image">
+            <Framed format="ellipse" {...image} />
+          </figure>
+        {/if}
       </header>
     {/if}
 
@@ -138,7 +158,8 @@
                     <GridCell>
                       <Card
                         on:click={tracker('select_item', blurbAsItem(item))}
-                        title={asText(item.primary.link.data.shortname) || asText(item.primary.link.data.title)}
+                        title={asText(item.primary.link.data.shortname) ||
+                          asText(item.primary.link.data.title)}
                         image={image(item.primary.link.data.featured_image)}
                         color={item.primary.color ||
                           item.primary.link.data.theme}
@@ -481,16 +502,18 @@
           {@const text = asText(slice.primary.text)}
           {#if events}
             <div class="u-spaceLg">
-              <Html>
-                <RichText content={slice.primary.text} />
-              </Html>
+              <div class="header">
+                <Html>
+                  <RichText content={slice.primary.text} />
+                  <a
+                    style="position: absolute; top: 0.5rem; right: 0;"
+                    href="/scen/kalendarium">
+                    Hela kalendariumet
+                  </a>
+                </Html>
+              </div>
               <div class:u-spaceMd={text}>
                 <Calendar compact {events} limit={6} />
-              </div>
-              <div class="action">
-                <Button href="/scen/kalendarium">
-                  <Symbol name="arrow" />Fler datum
-                </Button>
               </div>
             </div>
           {/if}
@@ -540,9 +563,48 @@
     margin-top: var(--space-lg);
   }
 
-  .action {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
+  header + .slice-button {
+    margin-top: var(--space-sm);
+  }
+
+  @media (min-width: 700px) {
+    .slice-pjas_hypebild_:first-child {
+      margin-top: 0;
+    }
+
+    .slice-pjas_hypebild_ {
+      margin-left: calc(var(--document-margin) * -1);
+      margin-right: calc(var(--document-margin) * -1);
+    }
+  }
+
+  .intro-image {
+    display: none;
+  }
+
+  @media (width > 600px) {
+    .intro-image {
+      display: block;
+      position: absolute;
+      width: clamp(9rem, 26vw, 20rem);
+      top: clamp(8rem, 100vh, 10rem);
+      right: var(--document-margin);
+    }
+  }
+
+  @media (width > 1300px) {
+    .intro-image {
+      right: 8rem;
+    }
+  }
+
+  .link {
+    display: inline-block;
+    font-size: 1rem;
+    font-family: var(--heading-font-family);
+    font-weight: 600;
+    white-space: nowrap;
+    user-select: none;
+    margin: 1rem 0 -1rem;
   }
 </style>

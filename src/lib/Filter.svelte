@@ -132,28 +132,23 @@
   }
 
   .select {
-    padding: 0.5em 3em 0.5em 1em;
+    padding: 0.5em 1em 0.5em 2em;
     border: 0;
-    margin-left: 0.3em;
+    margin-left: -0.75em;
+    margin-right: -1em;
     font-weight: 600;
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
     letter-spacing: var(--heading-letter-spacing);
     word-spacing: var(--heading-word-spacing);
-    background-color: #fff;
-    background-image: url('/arrow.svg');
-    background-position: calc(100% - 1em) 50%;
+    background-color: transparent;
+    background-image: url(/arrow.svg);
+    background-position: 1em 54.2%;
     background-size: 0.7em 0.45em;
     background-repeat: no-repeat;
     border-radius: 0;
     -webkit-appearance: none;
     appearance: none;
-    border-radius: var(--border-radius);
-  }
-
-  @media (min-width: 800px) {
-    .select {
-      width: 12em;
-    }
+    width: auto;
   }
 </style>

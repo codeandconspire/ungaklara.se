@@ -23,10 +23,10 @@
 
   --heading-font-family: 'UK', var(--document-font-family);
   --heading-line-height: 1.25;
-  --heading-letter-spacing: -0.015em;
-  --heading-word-spacing: -0.07em;
+  --heading-letter-spacing: -0.016em;
+  --heading-word-spacing: -0.1em;
 
-  --label-letter-spacing: 0.05em;
+  --label-letter-spacing: 0.04em;
 
   --logo-font-family: 'UK Logotype', var(--heading-font-family);
   --logo-line-height: 1.2;
@@ -44,7 +44,7 @@
   --focus-ring-color: var(--color-black);
 
   --border-width: 2px;
-  --border-radius: 3px;
+  --border-radius: 4px;
 
   /* Easing curves */
 
@@ -61,7 +61,7 @@
   --space-sm: 1.5rem;
   --space-md: clamp(2rem, 6vw, 4rem);
   --space-lg: clamp(4rem, 7vw, 6rem);
-  --space-xl: clamp(6rem, 8vw, 10rem);
+  --space-xl: clamp(6rem, 9vw, 10rem);
 }
 
 @media (min-width: 500px) {

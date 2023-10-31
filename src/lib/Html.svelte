@@ -79,6 +79,10 @@
     text-decoration-thickness: var(--border-width);
   }
 
+  .html :global(:is(h1, h2, .h1, .h2) :is(a, .link)) {
+    text-underline-offset: 0.1em;
+  }
+
   .html :global(:is(a, .link):hover),
   .html :global(:is(a, .link):active) {
     background: black;

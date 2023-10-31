@@ -112,7 +112,7 @@
 
   .text :global(a) {
     text-decoration: underline;
-    text-underline-offset: 0.25em;
+    text-underline-offset: 0.1em;
     text-decoration-thickness: var(--border-width);
   }
 
