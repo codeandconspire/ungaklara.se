@@ -353,6 +353,7 @@
       object-fit: cover;
       inset: 0;
       transform: none;
+      width: 100%;
     }
   }
 

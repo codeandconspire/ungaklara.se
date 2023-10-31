@@ -12,10 +12,6 @@ export function srcset(uri, sizes, opts = {}) {
   if (!/f_/.test(transforms)) transforms += ',f_auto'
   if (!/q_/.test(transforms)) transforms += ',q_auto'
 
-  // trim prismic domain from uri
-  let parts = uri.split('images.prismic.io/unga-klara/')
-  uri = encodeURIComponent(parts[parts.length - 1])
-
   return sizes
     .map(function (size) {
       let transform = transforms
@@ -28,7 +24,7 @@ export function srcset(uri, sizes, opts = {}) {
       }
       if (opts.aspect) transform += `,h_${Math.floor(size * opts.aspect)}`
 
-      return `/media/${type}/${transform},w_${size}/${uri} ${size}w`
+      return `/media/${type}/${transform},w_${size}/${encodeURIComponent(uri)} ${size}w`
     })
     .join(',')
 }

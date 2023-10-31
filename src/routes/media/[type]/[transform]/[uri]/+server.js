@@ -6,17 +6,12 @@ const HEADERS = ['etag', 'last-modified', 'content-length', 'content-type']
 export async function GET(request) {
   const url = new URL(request.url)
   let { type, transform, uri } = request.params
-  if (url.search) uri += `?${url.search}`
-
-  if (type === 'fetch' && !/^(?:https?:)?\/\//.test(uri)) {
-    uri = `https://images.prismic.io/unga-klara/${uri}`
-  }
 
   const res = transform
     ? await fetch(
         `https://res.cloudinary.com/dykmd8idd/image/${type}/s--${btoa(
           `${transform}/${uri}${CLOUDINARY_SECRET}`
-        ).substring(0, 8)}--/${transform}/${uri}`
+        ).substring(0, 8)}--/${transform}/${encodeURIComponent(uri)}`
       )
     : await fetch(url)
 
