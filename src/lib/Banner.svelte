@@ -72,16 +72,17 @@
       border-radius: 0;
     }
 
-    .top .main {
+    .main {
       height: 100vh;
       height: 100svh;
       min-height: 23rem;
     }
 
-    .top .image {
+    .image {
       position: absolute;
-      inset: 0;
+      top: 0;
       height: 100%;
+      width: 100vw;
       object-fit: cover;
       object-position: center;
     }
@@ -103,14 +104,22 @@
     .body::after {
       content: '';
       position: absolute;
-      inset: 0;
+      top: 0;
+      left: -100vw;
+      width: 200vw;
+      height: 100%;
       z-index: -1;
-      background: linear-gradient(0, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 60%);
+      background: linear-gradient(0, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 45%);
       border-radius: var(--border-radius);
     }
 
     .body::after {
+      display: none;
+    }
+
+    .top .body::after {
       transform: rotate(180deg);
+      display: block;
     }
   }
 
