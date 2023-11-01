@@ -12,7 +12,9 @@
 
   export let events = []
   export let compact = false
-  export let limit = Infinity
+
+  /** @type {number?} */
+  export let limit = null
 
   $: days = Object.values(
     events
@@ -23,13 +25,14 @@
         })
       })
       .filter(Boolean)
-      .slice(0, limit)
+      .sort((a, b) => (a.date < b.date ? -1 : 1))
       .reduce((acc, item) => {
+        if (limit && Object.values(acc).flat().length >= limit) return acc
         if (acc[item.date]) acc[item.date].push(item)
         else acc[item.date] = [item]
         return acc
       }, {})
-  ).sort(([a], [b]) => (a.date < b.date ? -1 : 1))
+  )
 
   const onclick = (event, show) => () => {
     track('select_item', {
