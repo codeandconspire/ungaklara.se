@@ -276,13 +276,6 @@
     }
   }
 
-  @media (min-width: 400px) {
-    .terms {
-      display: flex;
-      gap: 1.25rem;
-    }
-  }
-
   h2 {
     margin: -0.25rem 0 0.75rem;
     font-family: var(--heading-font-family);
