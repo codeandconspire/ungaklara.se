@@ -1,4 +1,6 @@
 import { TICKSTER_API_KEY } from '$env/static/private'
+import startOfDay from 'date-fns/startOfDay'
+import parseJSON from 'date-fns/parseJSON'
 
 const store = {}
 
@@ -30,13 +32,15 @@ export async function getProduction(url, { platform, fetch }) {
     if (!res.ok) return null
 
     const body = await res.json()
-
+    const today = startOfDay(new Date())
     const production = {
       ...body,
       childEvents: undefined,
-      shows: body?.childEvents.map((event) => {
-        return { ...event, goods: undefined }
-      })
+      shows: body?.childEvents
+        .filter((event) => parseJSON(event.start) >= today)
+        .map((event) => {
+          return { ...event, goods: undefined }
+        })
     }
 
     await store.put(id, JSON.stringify(production), {
