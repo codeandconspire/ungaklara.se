@@ -1,6 +1,5 @@
 import { TICKSTER_API_KEY } from '$env/static/private'
-import startOfDay from 'date-fns/startOfDay'
-import parseJSON from 'date-fns/parseJSON'
+import { startOfDay, parseJSON } from 'date-fns'
 
 const store = {}
 
