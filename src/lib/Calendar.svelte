@@ -166,10 +166,9 @@
 
   @media (min-width: 800px) {
     .compact {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: block;
+      column-count: 2;
       column-gap: 2rem;
-      row-gap: 1.5rem;
     }
   }
 
@@ -183,6 +182,13 @@
   @media (min-width: 600px) {
     .row {
       align-items: flex-start;
+    }
+  }
+
+  @media (min-width: 800px) {
+    .compact .row {
+      break-inside: avoid-column;
+      margin-bottom: 1.5rem;
     }
   }
 
