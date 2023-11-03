@@ -89,9 +89,7 @@
       }
     ]
 
-    if (
-      event.production?.shows.some((show) => show.stockStatus !== 'SoldOut')
-    ) {
+    if (event.data.buy_link) {
       buttons.push({
         text: 'Boka biljett',
         secondary: true,
