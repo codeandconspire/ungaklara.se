@@ -82,7 +82,7 @@
       width={content.thumbnail_width}
       height={content.thumbnail_height}
       sizes={size === 'large' ? '(min-width: 600px) 65vw, 100vw' : '50vw'}
-      srcset={srcset(id, [400, 900, 1800, [2600, 'q750']], {
+      srcset={srcset(id, [400, 900, 1800, [2600, 'q_75']], {
         type: provider
       })} />
     <figcaption class="caption">
@@ -345,6 +345,8 @@
   }
 
   .iframe iframe {
+    width: 100%;
+    height: 100%;
     position: absolute;
     inset: 0;
   }
