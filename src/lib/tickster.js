@@ -53,14 +53,32 @@ export async function getProduction(url, { platform, fetch }) {
 }
 
 /**
- * @param {object} platform
+ * @param {App.Platform|undefined} platform
  * @returns {KVNamespace}
  */
 function getStore(platform) {
+  // @ts-ignore
   return (
-    platform?.env?.STORE || {
+    platform?.env.STORE || {
       async get(key) {
         return store[key]
+      },
+      async getWithMetadata(key) {
+        return {
+          value: await this.get(key),
+          metadata: null,
+          cacheStatus: null
+        }
+      },
+      async delete(key) {
+        delete store[key]
+      },
+      async list() {
+        return {
+          cacheStatus: null,
+          list_complete: true,
+          keys: Object.keys(store).map((name) => ({ name }))
+        }
       },
       async put(key, value) {
         store[key] = value
