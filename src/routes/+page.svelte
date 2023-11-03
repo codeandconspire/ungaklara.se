@@ -87,22 +87,6 @@
   }
 </script>
 
-{#if data.page.data.hide_intro}
-  <style>
-    @media (min-width: 700px) {
-      .header-override.header-override.header-override {
-        --color: #fff;
-        --color-alt: #000;
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 10;
-      }
-    }
-  </style>
-{/if}
-
 <div class="u-container">
   <div>
     {#if !data.page.data.hide_intro}

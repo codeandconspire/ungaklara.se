@@ -1,6 +1,11 @@
 <script>
+  import { page } from '$app/stores'
+
   import { resolve } from '$lib/prismic.js'
+
   export let items = []
+
+  $: override = $page.data.page?.data.hide_intro
 
   function scrollDown(event) {
     const menu = document.querySelector('#menu')
@@ -13,7 +18,7 @@
   }
 </script>
 
-<header class="header header-override u-container">
+<header class="header u-container" class:override>
   <h2 class="u-hiddenVisually">Navigation</h2>
   <a class="logo" href="/" rel="home">
     <i>U</i>
@@ -51,8 +56,8 @@
 
 <style>
   .header {
-    --color: #000;
-    --color-alt: #fff;
+    --hover-background: #000;
+    --hover-color: rgb(var(--theme-color));
 
     user-select: none;
     padding: 1.7rem 0 0;
@@ -70,13 +75,23 @@
     }
   }
 
+  @media (min-width: 700px) {
+    .header.override {
+      --hover-background: #fff;
+      --hover-color: #000;
+      color: #fff;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+  }
+
   .list {
     display: flex;
     flex-wrap: wrap;
     gap: 0.2rem clamp(1.25rem, 2.5vw, 2.25rem);
-    /* opacity: 0;
-    transform: translateY(-2rem); */
-    /* animation: fade 100ms 1000ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards; */
   }
 
   @keyframes fade {
@@ -105,10 +120,10 @@
   }
 
   .link:hover {
-    background: var(--color);
-    color: var(--color-alt);
-    box-shadow: 0.3em 0 0 var(--color), -0.3em 0 0 var(--color);
-    mix-blend-mode: color-burn;
+    background: var(--hover-background);
+    color: var(--hover-color);
+    box-shadow: 0.3em 0 0 var(--hover-background),
+      -0.3em 0 0 var(--hover-background);
     border-radius: var(--border-radius);
   }
 
@@ -125,9 +140,6 @@
     font-size: clamp(2.5rem, 12.4vw, 11rem);
     display: inline-block;
     font-style: normal;
-    /* transform: translateY(-130%);
-    transition: transform 50ms 0 linear; */
-    /* animation: drop 100ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards; */
   }
 
   @keyframes drop {
