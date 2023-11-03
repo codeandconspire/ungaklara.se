@@ -1,4 +1,6 @@
 <script>
+  import { formatInTimeZone } from 'date-fns-tz'
+  import parseJSON from 'date-fns/parseJSON'
   import { asText } from '@prismicio/client'
   import { onMount } from 'svelte'
 
@@ -89,7 +91,7 @@
       </time>
       {#each items as item}
         {@const { event, show } = item}
-        {@const start = new Date(show.start)}
+        {@const start = parseJSON(show.start)}
         {@const isSoldOut = show.stockStatus === 'SoldOut'}
         <div
           class="show"
@@ -115,11 +117,7 @@
                 {/if}
                 <span class="time">
                   <span class="icon"><Symbol name="clock" /></span>
-                  {start.toLocaleString('sv', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hourCycle: 'h23'
-                  })}
+                  {formatInTimeZone(start, 'Europe/Stockholm', 'HH:mm')}
                 </span>
                 {#if isSoldOut}
                   <span class="note">
