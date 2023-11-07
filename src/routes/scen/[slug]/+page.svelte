@@ -62,6 +62,7 @@
   const large = browser ? window.matchMedia('(min-width: 1000px)') : null
 
   let tickets
+  let toolbarHeight
   let isSmall = false
   let isMedium = false
   let isLarge = false
@@ -181,7 +182,7 @@
 
 <svelte:window on:resize={measure} />
 
-<div class="u-container">
+<div class="u-container" style:--toolbar-height="{toolbarHeight}px">
   <header>
     <Intro
       title={asText(data.page.data.title)}
@@ -215,7 +216,10 @@
     <RichText content={data.page.data.about} />
   </Event>
 
-  <Toolbar heading={asText(data.page.data.title)} buttons={actions} />
+  <Toolbar
+    bind:height={toolbarHeight}
+    heading={asText(data.page.data.title)}
+    buttons={actions} />
 
   <div class="u-spaceLg">
     <FactsBox items={data.page.data.details} />
