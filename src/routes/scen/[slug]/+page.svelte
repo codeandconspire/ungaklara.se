@@ -551,91 +551,97 @@
         </section>
       {/each}
     {/if}
+  {/if}
 
-    {#if shows?.length}
-      <section
-        id="tickets"
-        style="scroll-margin: 2rem"
-        class="u-spaceLg u-narrow"
-        use:intersection={onintersect}
-        bind:this={tickets}>
-        <Html>
-          <h2>Biljetter</h2>
-        </Html>
-        <Grid class="u-spaceMd" slim appear size={{ md: '1of2', lg: '1of3' }}>
-          {@const subset = shows.slice(
-            0,
-            showAll ? shows.length : INITAIL_TICKET_COUNT
-          )}
-          {#each subset as show, index (show.id)}
-            <GridCell delay={`${(index - 3) * 150}ms`}>
-              <div class="u-sizeFull u-flex">
-                <Ticket
-                  on:click={onclick('Föreställningar', showAsItem(show))}
-                  name={show.name}
-                  href={show.shopUri}
-                  status={show.stockStatus}
-                  location={show.venue.name}
-                  date={parseJSON(show.start)} />
-              </div>
-            </GridCell>
-          {/each}
-        </Grid>
-        {#if !showAll && shows.length > INITAIL_TICKET_COUNT}
-          <ShowMore
-            href={new URL('?showAll#tickets', $page.url)}
-            on:click={onShowAll}>
-            Visa fler
-          </ShowMore>
-        {/if}
-      </section>
-    {/if}
-
-    {#if data.resources?.length}
+  {#if shows?.length}
+    <section
+      id="tickets"
+      class="shows u-spaceLg u-narrow"
+      use:intersection={onintersect}
+      bind:this={tickets}>
       <div class="u-divider u-spaceLg" />
-      {#each data.resources as resources, index}
-        {#if index}
-          <div class="u-divider u-spaceLg" />
-        {/if}
-        <div class="u-spaceSm">
-          <Html size="large">
-            <h2>Är du pedagog?</h2>
-            <RichText content={resources.primary.description}>
-              <p>
-                Det pedagogiska materialet har tagits fram av Unga Klaras
-                pedagoger och är till för er som har sett eller ska se
-                föreställningen med er grupp och vill arbeta vidare kring delar
-                av pjäsens tematik tillsammans. <a
-                  href="/pedagog/pedagogiskt-material">
-                  Läs mer
-                </a>
-                .
-              </p>
-            </RichText>
-          </Html>
-        </div>
-        <Grid
-          class="u-spaceMd"
-          size={{ sm: '1of2', md: '1of2', lg: '1of3', xl: '1of4' }}>
-          {#each resources.items as item}
-            <GridCell>
-              <Card
-                size="small"
-                square
-                on:click={onclick('Är du pedagog?', {
-                  item_id: item.file.url,
-                  item_name: item.name,
-                  item_category: 'Pedagogiskt material'
-                })}
-                title={item.name}
-                image={resourceImage(item.image) ||
-                  resourceImage(data.page.data.poster)}
-                color={data.page.data.theme}
-                link={{ href: item.file.url, text: 'Ladda ner' }} />
-            </GridCell>
-          {/each}
-        </Grid>
-      {/each}
-    {/if}
+      <Html>
+        <h2>Biljetter</h2>
+      </Html>
+      <Grid class="u-spaceMd" slim appear size={{ md: '1of2', lg: '1of3' }}>
+        {@const subset = shows.slice(
+          0,
+          showAll ? shows.length : INITAIL_TICKET_COUNT
+        )}
+        {#each subset as show, index (show.id)}
+          <GridCell delay={`${(index - 3) * 150}ms`}>
+            <div class="u-sizeFull u-flex">
+              <Ticket
+                on:click={onclick('Föreställningar', showAsItem(show))}
+                name={show.name}
+                href={show.shopUri}
+                status={show.stockStatus}
+                location={show.venue.name}
+                date={parseJSON(show.start)} />
+            </div>
+          </GridCell>
+        {/each}
+      </Grid>
+      {#if !showAll && shows.length > INITAIL_TICKET_COUNT}
+        <ShowMore
+          href={new URL('?showAll#tickets', $page.url)}
+          on:click={onShowAll}>
+          Visa fler
+        </ShowMore>
+      {/if}
+    </section>
+  {/if}
+
+  {#if data.resources?.length}
+    <div class="u-divider u-spaceLg" />
+    {#each data.resources as resources, index}
+      {#if index}
+        <div class="u-divider u-spaceLg" />
+      {/if}
+      <div class="u-spaceSm">
+        <Html size="large">
+          <h2>Är du pedagog?</h2>
+          <RichText content={resources.primary.description}>
+            <p>
+              Det pedagogiska materialet har tagits fram av Unga Klaras
+              pedagoger och är till för er som har sett eller ska se
+              föreställningen med er grupp och vill arbeta vidare kring delar av
+              pjäsens tematik tillsammans. <a
+                href="/pedagog/pedagogiskt-material">
+                Läs mer
+              </a>
+              .
+            </p>
+          </RichText>
+        </Html>
+      </div>
+      <Grid
+        class="u-spaceMd"
+        size={{ sm: '1of2', md: '1of2', lg: '1of3', xl: '1of4' }}>
+        {#each resources.items as item}
+          <GridCell>
+            <Card
+              size="small"
+              square
+              on:click={onclick('Är du pedagog?', {
+                item_id: item.file.url,
+                item_name: item.name,
+                item_category: 'Pedagogiskt material'
+              })}
+              title={item.name}
+              image={resourceImage(item.image) ||
+                resourceImage(data.page.data.poster)}
+              color={data.page.data.theme}
+              link={{ href: item.file.url, text: 'Ladda ner' }} />
+          </GridCell>
+        {/each}
+      </Grid>
+    {/each}
   {/if}
 </div>
+
+<style>
+  .shows {
+    scroll-margin-top: calc(var(--toolbar-height, 3rem) - 2px);
+  }
+</style>
