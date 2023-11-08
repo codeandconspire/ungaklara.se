@@ -89,7 +89,7 @@
       href: '/skolbokning',
       text: 'Skolbokning'
     },
-    data.production?.shows?.length
+    resolve(data.page.data.buy_link)
       ? {
           text: 'Boka biljett',
           href: resolve(data.page.data.buy_link),
