@@ -175,7 +175,7 @@
   .row {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
     position: relative;
   }
 
@@ -195,8 +195,8 @@
   .day {
     display: block;
     width: 100%;
-    border-bottom: var(--border-width) solid;
-    padding: 0 0 0.5rem;
+    border-top: var(--border-width) solid;
+    padding: 0.5rem 0;
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
     text-transform: capitalize;
