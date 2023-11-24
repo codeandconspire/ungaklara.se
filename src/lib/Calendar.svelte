@@ -415,7 +415,7 @@
     color: rgb(var(--document-color));
     position: absolute;
     left: 3rem;
-    top: 2.5rem;
+    top: 2.2rem;
   }
 
   .compact .tag {
