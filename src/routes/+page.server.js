@@ -391,7 +391,6 @@ export const actions = {
     })
 
     if (res.status !== 200) {
-      console.log(res.status, res.statusText)
       return fail(500, { booking: { success: false } })
     }
 

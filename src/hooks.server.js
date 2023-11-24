@@ -13,25 +13,11 @@ export async function handle({ event, resolve }) {
     const url = new URL(event.request.url)
 
     // Try and fetch static asset
-    const asset = await env.ASSETS.fetch(event.request).catch(() => null)
-
-    if (asset?.status === 200) {
-      // Duplicate the asset so that we can mutate it
-      const response = new Response(asset.body, asset)
-
-      if (url.pathname.startsWith('/assets/')) {
-        // Cache hashed assets for 1 year
-        response.headers.set(
-          'cache-control',
-          `public, max-age=${60 * 60 * 24 * 365}`
-        )
-      }
-
-      return response
-    }
+    const asset = new Request(url, { headers: event.request.headers })
+    const res = await env.ASSETS.fetch(asset).catch(() => null)
 
     // Return any found asset as is
-    if (asset?.status < 400) return asset
+    if (res && res.status < 400) return res
 
     const cache = await caches.default
     let cached = await cache.match(url)
