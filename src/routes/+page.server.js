@@ -355,22 +355,31 @@ export const actions = {
               <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%;">
                 <tbody>
                   <tr>
-                    <td style="padding: 0 20px;">
-                      ${Object.entries(groups).reduce(
-                        (acc, [key, value], index) => {
-                          if (!index) acc += '<br /><br />'
-                          acc += `<strong>${key}</strong>`
-                          acc += Object.entries(value).reduce(
-                            (acc, [key, value]) => {
-                              acc += `<br /><strong>${key}:</strong> ${value}`
-                              return acc
-                            },
-                            ''
-                          )
-                          return acc
-                        },
-                        ''
-                      )}
+                    <td align="center" style="padding: 50px 40px;">
+                      <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%; max-width: 400px; text-aling: left;">
+                        <tbody>
+                          ${Object.entries(groups)
+                            .map(
+                              ([key, value]) => `
+                              <tr>
+                                <th colspan="2" align="left" style="padding: 10px 0;">${key}</th>
+                              </tr>
+                              <tr>
+                                ${Object.entries(value)
+                                  .map(
+                                    ([key, value]) => `
+                                    <tr>
+                                      <th align="left">${key}</th>
+                                      <td>${value}</td>
+                                  `
+                                  )
+                                  .join('\n')}
+                              </tr>
+                            `
+                            )
+                            .join('\n')}
+                        </tbody>
+                      </table>
                     </td>
                   </tr>
                 </tbody>
@@ -383,7 +392,6 @@ export const actions = {
 
     if (res.status !== 200) {
       console.log(res.status, res.statusText)
-      console.log(await res.text().catch((err) => err))
       return fail(500, { booking: { success: false } })
     }
 
