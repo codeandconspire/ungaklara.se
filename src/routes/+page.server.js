@@ -382,6 +382,8 @@ export const actions = {
     })
 
     if (res.status !== 200) {
+      console.log(res.status, res.statusText)
+      console.log(await res.text().catch((err) => err))
       return fail(500, { booking: { success: false } })
     }
 
