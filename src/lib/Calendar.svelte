@@ -395,38 +395,24 @@
     background: rgb(var(--theme-color));
     display: block;
     border-radius: var(--border-radius);
-    width: 5rem;
-    height: 2rem;
+    width: 4.2rem;
+    height: 1.55rem;
     white-space: normal;
     line-height: 0.9;
     text-align: center;
-    padding-top: 0.56rem;
-    transform: rotate(-9deg);
+    padding-top: 0.36rem;
+    transform: rotate(-4deg);
     font-weight: 600;
     font-family: var(--heading-font-family);
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     color: rgb(var(--document-color));
     position: absolute;
-    left: 4.3rem;
-    top: 2.3rem;
+    left: 3rem;
+    top: 2.5rem;
   }
 
   .compact .tag {
-    width: 4.5rem;
-    height: 1.75rem;
-    font-size: 0.875rem;
-    left: 0;
-  }
-
-  @media (min-width: 1000px) {
-    .tag {
-      transform: rotate(9deg);
-      left: 5.1rem;
-      top: -1.2rem;
-    }
-
-    .compact .tag {
-      left: 1.5rem;
-    }
+    left: -0.2rem;
+    top: 2.2rem;
   }
 </style>
