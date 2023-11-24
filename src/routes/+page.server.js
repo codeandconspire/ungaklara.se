@@ -232,7 +232,7 @@ export const actions = {
       },
       body: JSON.stringify({
         MessageStream: 'outbound',
-        To: 'info@ungaklara.se',
+        To: 'bokning@ungaklara.se',
         From: 'ungaklara.se <bokning@ungaklara.se>',
         Subject: 'Bokningsförfrågan',
         TextBody: Object.entries(groups).reduce((acc, [key, value]) => {
