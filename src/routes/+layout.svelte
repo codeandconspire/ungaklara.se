@@ -33,7 +33,7 @@
 
   <script
     async
-    src="https://www.googletagmanager.com/gtag/js?id=G-TXREVFW5L2"></script>
+    src="https://www.googletagmanager.com/gtag/js?id=G-9YLV4PRT5R"></script>
   <svelte:element this="script">
     {@html `
     window.dataLayer = window.dataLayer || []
@@ -41,7 +41,7 @@
       dataLayer.push(arguments)
     }
     gtag('js', new Date())
-    gtag('config', 'G-TXREVFW5L2'${dev ? ', {debug_mode: true}' : ''})`}
+    gtag('config', 'G-9YLV4PRT5R'${dev ? ', {debug_mode: true}' : ''})`}
   </svelte:element>
 </svelte:head>
 

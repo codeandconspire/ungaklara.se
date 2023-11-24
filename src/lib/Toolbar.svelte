@@ -9,11 +9,12 @@
   /** @type {string?} */
   export let heading = null
 
+  export let height = 0
+
   let node
   let offset = 0
   let scrollY = 0
   let visible = 0
-  let offsetHeight
 
   const measure = () => {
     offset = 0
@@ -33,7 +34,7 @@
   class="toolbar"
   bind:this={node}
   style:--visible={visible.toFixed(2)}
-  style:--height="{offsetHeight}px"
+  style:--height="{height}px"
   use:intersection={{
     onintersect(entry) {
       if (scrollY > offset) {
@@ -43,7 +44,7 @@
       }
     }
   }}>
-  <div class="sticky stuck" bind:offsetHeight>
+  <div class="sticky stuck" bind:offsetHeight={height}>
     <div class="content u-container">
       {#if heading}
         <h2 class="heading">{heading}</h2>

@@ -1,4 +1,6 @@
 <script>
+  import { formatInTimeZone } from 'date-fns-tz'
+  import parseJSON from 'date-fns/parseJSON'
   import { asText } from '@prismicio/client'
   import { onMount } from 'svelte'
 
@@ -12,7 +14,9 @@
 
   export let events = []
   export let compact = false
-  export let limit = Infinity
+
+  /** @type {number?} */
+  export let limit = null
 
   $: days = Object.values(
     events
@@ -23,13 +27,14 @@
         })
       })
       .filter(Boolean)
-      .slice(0, limit)
+      .sort((a, b) => (a.date < b.date ? -1 : 1))
       .reduce((acc, item) => {
+        if (limit && Object.values(acc).flat().length >= limit) return acc
         if (acc[item.date]) acc[item.date].push(item)
         else acc[item.date] = [item]
         return acc
       }, {})
-  ).sort(([a], [b]) => (a.date < b.date ? -1 : 1))
+  )
 
   const onclick = (event, show) => () => {
     track('select_item', {
@@ -73,7 +78,7 @@
 <ol class="calendar" class:compact>
   {#each days as items, index (items[0].date)}
     {@const [year, month, day] = items.at(0).date.split('-')}
-    {@const date = new Date(+year, +month, +day)}
+    {@const date = new Date(+year, +month - 1, +day)}
     <li class="row" class:u-slideUp={!compact} style:--delay="{index * 100}ms">
       <time datetime="{year}-{month}-{day}" class="day">
         {date.toLocaleString('sv', {
@@ -86,7 +91,7 @@
       </time>
       {#each items as item}
         {@const { event, show } = item}
-        {@const start = new Date(show.start)}
+        {@const start = parseJSON(show.start)}
         {@const isSoldOut = show.stockStatus === 'SoldOut'}
         <div
           class="show"
@@ -112,11 +117,7 @@
                 {/if}
                 <span class="time">
                   <span class="icon"><Symbol name="clock" /></span>
-                  {start.toLocaleString('sv', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hourCycle: 'h23'
-                  })}
+                  {formatInTimeZone(start, 'Europe/Stockholm', 'HH:mm')}
                 </span>
                 {#if isSoldOut}
                   <span class="note">
@@ -165,17 +166,16 @@
 
   @media (min-width: 800px) {
     .compact {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: block;
+      column-count: 2;
       column-gap: 2rem;
-      row-gap: 1.5rem;
     }
   }
 
   .row {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
     position: relative;
   }
 
@@ -185,11 +185,18 @@
     }
   }
 
+  @media (min-width: 800px) {
+    .compact .row {
+      break-inside: avoid-column;
+      margin-bottom: 1.5rem;
+    }
+  }
+
   .day {
     display: block;
     width: 100%;
-    border-bottom: var(--border-width) solid;
-    padding: 0 0 0.5rem;
+    border-top: var(--border-width) solid;
+    padding: 0.5rem 0;
     font-family: var(--heading-font-family);
     line-height: var(--heading-line-height);
     text-transform: capitalize;
