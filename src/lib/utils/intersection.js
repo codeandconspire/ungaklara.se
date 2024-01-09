@@ -1,6 +1,6 @@
 /**
  * @param {HTMLElement} node
- * @param {function(IntersectionObserverEntry): void|{ onintersect: function(IntersectionObserverEntry): void, once?: boolean, threshold?: number|number[] }} options
+ * @param {{ onintersect: function(IntersectionObserverEntry): void, once?: boolean, threshold?: number|number[] }|function(IntersectionObserverEntry): void} options
  * @returns {{ update: function(function(IntersectionObserverEntry): void|{ onintersect: function(IntersectionObserverEntry): void }): void, destroy: function(): void }}
  */
 export function intersection(node, options) {
@@ -28,6 +28,7 @@ export function intersection(node, options) {
   observer.observe(node)
 
   return {
+    /** @type {function({ onintersect: function(IntersectionObserverEntry): void }|function(IntersectionObserverEntry): void): void}} */
     update(options) {
       onintersect =
         typeof options === 'function' ? options : options.onintersect
