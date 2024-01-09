@@ -133,7 +133,7 @@
                   target="_blank"
                   disabled={isSoldOut}
                   rel="noopener noreferrer"
-                  href={event.data.buy_link.url}
+                  href={show.shopUri}
                   size={compact ? 'small' : null}
                   on:click={isSoldOut ? null : onclick(event, show)}>
                   {#if compact}Boka{:else}Boka biljett{/if}
