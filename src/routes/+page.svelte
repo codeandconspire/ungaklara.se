@@ -493,7 +493,7 @@
                   <a
                     style="position: absolute; top: 0.5rem; right: 0;"
                     href="/scen/kalendarium">
-                    Hela kalendariumet
+                    Hela kalendariet
                   </a>
                 </Html>
               </div>

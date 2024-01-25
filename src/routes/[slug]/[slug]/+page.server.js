@@ -1,1 +1,1 @@
-export { load } from '../+page.server.js'
+export { load, actions } from '../+page.server.js'
