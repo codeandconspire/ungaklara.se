@@ -1,7 +1,7 @@
 export async function handle({ event, resolve }) {
   const render = async () => {
     const response = await resolve(event)
-    response.headers.set('cache-control', `s-maxage=${60 * 60}, max-age=0`)
+    response.headers.set('cache-control', `s-maxage=${60 * 10}, max-age=0`)
     return response
   }
 
