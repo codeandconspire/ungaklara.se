@@ -1,6 +1,8 @@
 <script>
-  import { dev } from '$app/environment'
   import { asText } from '@prismicio/client'
+  import { dev } from '$app/environment'
+  import { onMount } from 'svelte'
+
   import { resolve } from '$lib/prismic.js'
   import Header from '$lib/Header.svelte'
   import Footer from '$lib/Footer.svelte'
@@ -11,6 +13,17 @@
   let vma = true
 
   $: settings = data.settings.data
+
+  onMount(() => {
+    navigator.serviceWorker.getRegistrations().then((workers) => {
+      for (const worker of workers) {
+        // Unregister any lingering service workers from old app versions
+        if (worker.active?.scriptURL?.endsWith('sw.js')) {
+          worker.unregister()
+        }
+      }
+    })
+  })
 </script>
 
 <svelte:head>

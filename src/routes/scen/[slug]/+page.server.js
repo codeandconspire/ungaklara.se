@@ -22,6 +22,6 @@ export async function load(event) {
     }
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err)
-    throw error(500, message)
+    error(500, message)
   }
 }

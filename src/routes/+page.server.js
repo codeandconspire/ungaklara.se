@@ -206,7 +206,7 @@ export async function load(event) {
   } catch (err) {
     const status = err instanceof NotFoundError ? 404 : 500
     const message = err instanceof Error ? err.message : String(err)
-    throw error(status, message)
+    error(status, message)
   }
 }
 

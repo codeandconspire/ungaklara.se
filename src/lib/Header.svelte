@@ -122,7 +122,8 @@
   .link:hover {
     background: var(--hover-background);
     color: var(--hover-color);
-    box-shadow: 0.3em 0 0 var(--hover-background),
+    box-shadow:
+      0.3em 0 0 var(--hover-background),
       -0.3em 0 0 var(--hover-background);
     border-radius: var(--border-radius);
   }
