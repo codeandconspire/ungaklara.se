@@ -1,8 +1,8 @@
 import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching'
-import { build } from '$service-worker'
+import { build, version } from '$service-worker'
 
 // Clean old assets
 cleanupOutdatedCaches()
 
 // Precache all assets
-precacheAndRoute(build)
+precacheAndRoute(build.map((url) => ({ url, revision: version })))
