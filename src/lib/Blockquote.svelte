@@ -125,8 +125,12 @@
         rgb(var(--color-yellow)) 20%,
         rgba(var(--color-yellow), 0)
       );
-    background-position: 0 0, 2.2em 0;
-    background-size: 1.5em 100%, 1.5em 100%;
+    background-position:
+      0 0,
+      2.2em 0;
+    background-size:
+      1.5em 100%,
+      1.5em 100%;
     background-repeat: no-repeat;
     top: -0.5em;
     left: calc(var(--indent) * -1);

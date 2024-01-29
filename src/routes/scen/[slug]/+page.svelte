@@ -5,7 +5,7 @@
 <script>
   import { asText } from '@prismicio/client'
   import { browser } from '$app/environment'
-  import parseJSON from 'date-fns/parseJSON'
+  import { parseJSON } from 'date-fns'
   import { page } from '$app/stores'
   import { onMount } from 'svelte'
 
@@ -141,10 +141,6 @@
 
   function onShowAll(event) {
     showAll = true
-    tickets.scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest'
-    })
     event.preventDefault()
   }
 

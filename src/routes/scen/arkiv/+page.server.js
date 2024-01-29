@@ -17,7 +17,7 @@ export async function load({ fetch, request, url }) {
     return { page: _page, events, index, total }
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err)
-    throw error(500, message)
+    error(500, message)
   }
 
   /**
