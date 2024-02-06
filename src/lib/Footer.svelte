@@ -58,9 +58,8 @@
         {#if result && 'success' in result && result.form === 'footer'}
           {#if result.success}
             <p>
-              <strong>Nästan klart!</strong>
-              Klicka bara på bekräftelselänken i mailet som kommer strax. Tack för
-              att du vill prenumerera på våra utskick.
+              <strong>Klart!</strong>
+              Tack för att du vill prenumerera på våra utskick.
             </p>
           {:else}
             <p>

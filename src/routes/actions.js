@@ -1,8 +1,8 @@
-import { ZAPIER_WEBHOOK_URL } from '$env/static/private'
+import { MARKETHYPE_API_KEY } from '$env/static/private'
 import { fail } from '@sveltejs/kit'
 
-export async function signup({ fetch, request }) {
-  const { email, name, subscription, form } =
+export async function signup({ request }) {
+  const { email, name, /* subscription, */ form } =
     /** @type {{ [key: string]: string }}  */ (
       Object.fromEntries(await request.formData())
     )
@@ -12,22 +12,37 @@ export async function signup({ fetch, request }) {
   const names = name.split(' ')
   const lastName = names.length > 1 ? names.pop() : ''
   const firstName = names.join(' ')
-  const [date] = new Date().toJSON().split('T')
 
   try {
-    const res = await fetch(ZAPIER_WEBHOOK_URL, {
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({
-        date,
-        email,
-        firstName,
-        lastName,
-        subscription
-      }),
-      method: 'POST'
-    })
+    const res = await fetch(
+      'https://api.markethype.io/ingestion/v1/imports/contacts',
+      {
+        method: 'POST',
+        headers: {
+          accept: 'application/json',
+          'X-API-TOKEN': MARKETHYPE_API_KEY,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          contacts: [
+            {
+              firstName,
+              lastName,
+              emails: [email],
+              consent: {
+                subscriptionType: 'auto',
+                legalBasis: 'freelyGiven',
+                occurredAt: new Date()
+              }
+            }
+          ]
+        })
+      }
+    )
 
-    if (!res.ok) throw new Error('Failed to send to Zapier')
+    if (!res.ok) {
+      throw new Error('Kunde inte spara uppgifter.')
+    }
 
     return { signup: { success: true, form } }
   } catch (err) {
