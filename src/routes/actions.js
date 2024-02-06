@@ -2,7 +2,7 @@ import { MARKETHYPE_API_KEY } from '$env/static/private'
 import { fail } from '@sveltejs/kit'
 
 export async function signup({ request }) {
-  const { email, name, /* subscription, */ form } =
+  const { email, name, subscription, form } =
     /** @type {{ [key: string]: string }}  */ (
       Object.fromEntries(await request.formData())
     )
@@ -30,7 +30,7 @@ export async function signup({ request }) {
               lastName,
               emails: [email],
               consent: {
-                subscriptionType: 'auto',
+                subscriptionType: [subscription],
                 legalBasis: 'freelyGiven',
                 occurredAt: new Date()
               }
