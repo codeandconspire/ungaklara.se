@@ -15,8 +15,9 @@ export async function GET({ url, cookies }) {
 
   cookies.set(cookie.preview, token, {
     maxAge: 60 * 60 * 12,
-    httpOnly: false
+    httpOnly: false,
+    path: '/'
   })
 
-  throw redirect(302, href)
+  redirect(302, href)
 }

@@ -9,6 +9,6 @@ export async function load({ fetch, request, cookies }) {
     const previewToken = cookies.get(cookie.preview)
     return { settings, previewToken }
   } catch (err) {
-    throw error(404, 'Not found')
+    error(404, 'Not found')
   }
 }
