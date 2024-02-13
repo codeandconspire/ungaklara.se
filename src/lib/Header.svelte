@@ -18,41 +18,45 @@
   }
 </script>
 
-<header class="header u-container" class:override>
-  <h2 class="u-hiddenVisually">Navigation</h2>
-  <a class="logo" href="/" rel="home">
-    <i>U</i>
-    <i>n</i>
-    <i>g</i>
-    <i>a</i>
-    <i>K</i>
-    <i>l</i>
-    <i>a</i>
-    <i>r</i>
-    <i>a</i>
-  </a>
-  <ul class="list">
-    {#each items as item}
+<div class="wrap">
+  <header class="header u-container" class:override>
+    <h2 class="u-hiddenVisually">Navigation</h2>
+    <a class="logo" href="/" rel="home">
+      <i>U</i>
+      <i>n</i>
+      <i>g</i>
+      <i>a</i>
+      <i>K</i>
+      <i>l</i>
+      <i>a</i>
+      <i>r</i>
+      <i>a</i>
+    </a>
+    <ul class="list">
+      {#each items as item}
+        <li class="u-inlineBlock">
+          <a class="link" href={resolve(item.link)}>{item.link_text}</a>
+        </li>
+      {/each}
       <li class="u-inlineBlock">
-        <a class="link" href={resolve(item.link)}>{item.link_text}</a>
+        <a class="link link--scroll" href="#menu" on:click={scrollDown}>
+          Mer
+          <span class="icon">
+            <svg width="25" height="25" viewBox="0 0 25 25">
+              <g fill="none" fill-rule="evenodd">
+                <path
+                  fill="currentcolor"
+                  d="M6 13h11.9l-3.7 4.4a1 1 0 1 0 1.6 1.2l5-6v-.1l.1-.1.1-.4v-.4h-.1l-.1-.2-5-6a1 1 0 0 0-1.6 1.2L18 11H6a1 1 0 0 0 0 2z" />
+              </g>
+            </svg>
+          </span>
+        </a>
       </li>
-    {/each}
-    <li class="u-inlineBlock">
-      <a class="link link--scroll" href="#menu" on:click={scrollDown}>
-        Mer
-        <span class="icon">
-          <svg width="25" height="25" viewBox="0 0 25 25">
-            <g fill="none" fill-rule="evenodd">
-              <path
-                fill="currentcolor"
-                d="M6 13h11.9l-3.7 4.4a1 1 0 1 0 1.6 1.2l5-6v-.1l.1-.1.1-.4v-.4h-.1l-.1-.2-5-6a1 1 0 0 0-1.6 1.2L18 11H6a1 1 0 0 0 0 2z" />
-            </g>
-          </svg>
-        </span>
-      </a>
-    </li>
-  </ul>
-</header>
+    </ul>
+  </header>
+
+  <slot />
+</div>
 
 <style>
   .header {
@@ -80,11 +84,15 @@
       --hover-background: #fff;
       --hover-color: #000;
       color: #fff;
+    }
+
+    .wrap:has(.header.override) {
       position: absolute;
       top: 0;
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
+      width: 100%;
     }
   }
 

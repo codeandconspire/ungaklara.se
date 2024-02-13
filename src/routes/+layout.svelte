@@ -47,20 +47,22 @@
 
 <div class="layout">
   <div class="gradient" />
-  <Header items={settings.header_menu.map((item) => item.primary)} />
-  {#if asText(settings.vma_heading) && vma}
-    <div class="u-container">
-      <div class="vma">
-        <h3>
-          {asText(settings.vma_heading)}
-          {#if settings.vma_link}
-            <a href={resolve(settings.vma_link)}>Läs mer</a>
-          {/if}
-        </h3>
-        <button class="close" on:click={() => (vma = false)}>Stäng</button>
+  <Header items={settings.header_menu.map((item) => item.primary)}>
+    {#if asText(settings.vma_heading) && vma}
+      <div class="u-container">
+        <div class="vma">
+          <h3>
+            {asText(settings.vma_heading)}
+
+            {#if settings.vma_link && resolve(settings.vma_link)}
+              <a href={resolve(settings.vma_link)}>Läs mer</a>
+            {/if}
+          </h3>
+          <button class="close" on:click={() => (vma = false)}>Stäng</button>
+        </div>
       </div>
-    </div>
-  {/if}
+    {/if}
+  </Header>
   <div class="main">
     <slot />
   </div>
