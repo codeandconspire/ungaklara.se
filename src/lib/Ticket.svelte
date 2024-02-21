@@ -26,6 +26,12 @@
         {/if}
       </div>
       <div class="datetime">
+        <time datetime={date.toJSON()}>
+          <span class="date">{date.getDate()}</span>
+          <span class="month u-textLabel">
+            {date.toLocaleDateString('sv', { month: 'long' })}
+          </span>
+        </time>
         <span class="time">
           <span class="icon"><Symbol name="clock" /></span>
           {date.toLocaleString('sv', {
@@ -34,12 +40,6 @@
             hourCycle: 'h23'
           })}
         </span>
-        <time datetime={date.toJSON()}>
-          <span class="date">{date.getDate()}</span>
-          <span class="month u-textLabel">
-            {date.toLocaleDateString('sv', { month: 'long' })}
-          </span>
-        </time>
       </div>
     </div>
     <div class="details">
@@ -166,6 +166,11 @@
   .datetime .icon {
     top: 0em;
     left: 0.3em;
+  }
+
+  .time {
+    font-weight: normal;
+    font-family: var(--document-font-family);
   }
 
   .details {
