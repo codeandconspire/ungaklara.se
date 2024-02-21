@@ -33,5 +33,8 @@
     "workbox-precaching": "^7.0.0",
     "wrangler": "^3.25.0"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@sveltejs/vite-plugin-svelte": "^3.0.2"
+  }
 }

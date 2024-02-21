@@ -217,6 +217,12 @@
     z-index: 0;
   }
 
+  .show + .show {
+    border-top: 2px solid #d2d4da;
+    padding-top: 1.15rem;
+    margin-top: 0.75rem;
+  }
+
   .poster {
     width: 4rem;
     margin-top: 0.25rem;
@@ -240,6 +246,7 @@
     display: flex;
     margin-top: 0;
     margin-left: 1.5rem;
+    gap: 1rem;
     align-items: flex-start;
     justify-content: space-between;
   }
@@ -280,9 +287,9 @@
     }
   }
 
-  .actions .note {
+  /* .actions .note {
     display: none;
-  }
+  } */
 
   .link {
     display: block;
@@ -352,21 +359,26 @@
     text-overflow: ellipsis;
   }
 
-  @media (min-width: 1000px) {
-    .note {
-      display: none;
-    }
+  .note {
+    display: none;
+  }
 
-    .actions .note {
-      display: block;
-      margin-right: 0;
-      text-align: right;
-      margin-top: 0.25rem;
-    }
+  .actions .note {
+    display: block;
+    margin-right: 0;
+    text-align: right;
+    margin-top: 0.25rem;
+    min-height: 2.5rem;
+    min-width: 4.25rem;
+    background: #d2d4d9;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-    .actions .note:first-child {
-      margin-top: 0;
-    }
+  .actions .note:first-child {
+    margin-top: 0;
   }
 
   .location {

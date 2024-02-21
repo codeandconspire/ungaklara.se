@@ -25,12 +25,22 @@
           </span>
         {/if}
       </div>
-      <time datetime={date.toJSON()}>
-        <span class="date">{date.getDate()}</span>
-        <span class="month u-textLabel">
-          {date.toLocaleDateString('sv', { month: 'long' })}
+      <div class="datetime">
+        <span class="time">
+          <span class="icon"><Symbol name="clock" /></span>
+          {date.toLocaleString('sv', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hourCycle: 'h23'
+          })}
         </span>
-      </time>
+        <time datetime={date.toJSON()}>
+          <span class="date">{date.getDate()}</span>
+          <span class="month u-textLabel">
+            {date.toLocaleDateString('sv', { month: 'long' })}
+          </span>
+        </time>
+      </div>
     </div>
     <div class="details">
       <div>
@@ -39,14 +49,6 @@
             {name}
           </strong>
         {/if}
-        <span class="detail">
-          <span class="icon"><Symbol name="clock" /></span>
-          {date.toLocaleString('sv', {
-            hour: '2-digit',
-            minute: '2-digit',
-            hourCycle: 'h23'
-          })}
-        </span>
         {#if location}
           <span class="detail">
             <span class="icon"><Symbol name="location" /></span>
@@ -115,7 +117,7 @@
 
   .main {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 2rem;
@@ -153,11 +155,17 @@
   }
 
   .date {
-    display: inline-block;
-    margin-bottom: 0.25em;
-    margin-right: -0.05em;
+    margin-bottom: 0.15em;
+    margin-right: -0.03em;
     font-size: 3.75rem;
     line-height: 0.7;
+    letter-spacing: -0.05em;
+    display: block;
+  }
+
+  .datetime .icon {
+    top: 0em;
+    left: 0.3em;
   }
 
   .details {
