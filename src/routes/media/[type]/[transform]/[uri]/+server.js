@@ -16,7 +16,12 @@ export async function GET(request) {
     : await fetch(url)
 
   if (!res.ok) {
-    error(/** @type {import('@sveltejs/kit').NumericRange<400, 599>} */ (res.status), res.statusText)
+    error(
+      /** @type {import('@sveltejs/kit').NumericRange<400, 599>} */ (
+        res.status
+      ),
+      res.statusText
+    )
   }
 
   return new Response(res.body, {

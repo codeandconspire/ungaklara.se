@@ -7,6 +7,56 @@
   import Header from '$lib/Header.svelte'
   import Footer from '$lib/Footer.svelte'
   import Meta from '$lib/Meta.svelte'
+  import '@beyonk/gdpr-cookie-consent-banner/banner.css'
+  import GdprBanner from '@beyonk/gdpr-cookie-consent-banner'
+
+  const gdprProps = {
+    cookieName: 'ungaklara',
+    cookieConfig: {
+      domain: 'ungaklara.se',
+      path: '/'
+    },
+    heading: 'Snabb fråga om cookies',
+    description:
+      'De används för att förbättra hemsidan och för att samla besöksstatistik.',
+    acceptLabel: 'Godkänn',
+    rejectLabel: 'Endast nödvändiga',
+    settingsLabel: 'Välj vilka',
+    closeLabel: 'Stäng',
+    editLabel: 'Ändra inställningar',
+    choices: {
+      necessary: {
+        label: 'Nödvändiga kakor',
+        description:
+          'Används för att vi inte ska fråga dig om cookie-inställningar igen.',
+        value: true
+      },
+      tracking: {
+        label: 'Cookies för profilering',
+        description: 'Används för marknadsföring.',
+        value: true
+      },
+      analytics: {
+        label: 'Cookies för trafikanalys',
+        description:
+          'Används för att hantera Google Analytics, en tjänst från Google.',
+        value: true
+      },
+      marketing: false
+    },
+    showEditIcon: false
+  }
+
+  let consent = false
+  if (typeof localStorage !== 'undefined') {
+    consent = !!localStorage.getItem('consent') || false
+  }
+
+  function handleCookies() {
+    consent = true
+    if (typeof localStorage === 'undefined') return
+    localStorage.setItem('consent', 'true')
+  }
 
   export let data
 
@@ -57,6 +107,10 @@
     gtag('config', 'G-9YLV4PRT5R'${dev ? ', {debug_mode: true}' : ''})`}
   </svelte:element>
 </svelte:head>
+
+{#if !consent}
+  <GdprBanner {...gdprProps} on:analytics={handleCookies} />
+{/if}
 
 <div class="layout">
   <div class="gradient" />
@@ -197,5 +251,79 @@
       top: 1.3rem;
       right: 1.5rem;
     }
+  }
+
+  :global(
+      .cookie-consent-banner::part(consent--description),
+      .cookieConsent__Description
+    ) {
+    margin-top: 0;
+  }
+
+  :global(.cookieConsent__Button) {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 1rem 0.2rem;
+    border: var(--border-width) solid rgb(var(--document-color));
+    position: relative;
+    font-size: 1rem;
+    color: #fff;
+    background: transparent;
+    font-weight: 600;
+    white-space: nowrap;
+    user-select: none;
+    text-align: center;
+    font-family: var(--heading-font-family);
+    letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
+    border-radius: var(--border-radius);
+    height: 3rem;
+    cursor: pointer;
+  }
+
+  :global(.cookieConsent__Button[type='submit']) {
+    color: #000;
+    background: #fff;
+  }
+
+  :global(.cookieConsent__Button[type='button']) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  :global(
+      .cookie-consent-banner::part(operations--list),
+      .cookieConsentOperations__List
+    ) {
+    border-radius: var(--border-radius);
+    margin: 1rem;
+  }
+
+  :global(.cookieConsentOperations__Item label) {
+    display: block;
+    padding-bottom: 0.35rem;
+    text-decoration: none;
+    font-size: 1.25rem !important;
+    font-family: var(--heading-font-family);
+    line-height: 1.07;
+    margin-top: 0.25rem;
+    letter-spacing: var(--heading-letter-spacing);
+    word-spacing: var(--heading-word-spacing);
+    text-wrap: balance;
+  }
+
+  :global(.cookieConsent__Button--Close) {
+    margin-top: 0.5rem;
+  }
+
+  :global(.cookieConsentOperations) {
+    align-items: center;
+    justify-content: center;
+    transition: none;
+    user-select: none;
+  }
+
+  :global(.cookieConsentWrapper) {
+    user-select: none;
   }
 </style>
