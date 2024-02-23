@@ -325,5 +325,10 @@
 
   :global(.cookieConsentWrapper) {
     user-select: none;
+    padding: 0
+  }
+
+  :global(.cookieConsent) {
+    padding: 20px;
   }
 </style>
