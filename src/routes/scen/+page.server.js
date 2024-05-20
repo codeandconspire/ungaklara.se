@@ -37,10 +37,16 @@ export async function load(event) {
         filter.at('document.type', 'event'),
         filter.dateAfter('my.event.archive_on', Date.now())
       ],
-      orderings: {
-        field: 'document.first_publication_date',
-        direction: 'desc'
-      }
+      orderings: [
+        {
+          field: 'my.event.prioritized',
+          direction: 'desc'
+        },
+        {
+          field: 'document.first_publication_date',
+          direction: 'desc'
+        }
+      ]
     })
 
     const events = await Promise.all(
@@ -53,16 +59,7 @@ export async function load(event) {
     return {
       index: response.page,
       total: response.total_pages,
-      events: events.sort((a, b) =>
-        getFirstDate(a) < getFirstDate(b) ? -1 : 1
-      )
+      events: events
     }
   }
-}
-
-function getFirstDate({ production }) {
-  if (!production) return null
-  return production.shows?.length
-    ? production.shows.map((event) => new Date(event.start)).sort()[0]
-    : new Date(production.event?.start)
 }
