@@ -12,30 +12,30 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240117.0",
-    "@prismicio/client": "^7.3.1",
+    "@cloudflare/workers-types": "^4.20240512.0",
+    "@prismicio/client": "^7.5.0",
     "@prismicio/helpers": "^2.3.9",
     "@prismicio/types": "^0.2.8",
-    "@sveltejs/adapter-cloudflare": "^4.1.0",
-    "@sveltejs/kit": "^2.5.0",
+    "@sveltejs/adapter-cloudflare": "^4.4.0",
+    "@sveltejs/kit": "^2.5.9",
     "date-fns": "^2.30.0",
-    "date-fns-tz": "^2.0.0",
-    "eslint": "^8.56.0",
+    "date-fns-tz": "^2.0.1",
+    "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-svelte": "^2.35.1",
+    "eslint-plugin-svelte": "^2.39.0",
     "modern-normalize": "^2.0.0",
-    "prettier": "^3.2.4",
-    "prettier-plugin-svelte": "^3.1.2",
-    "svelte": "^4.2.9",
-    "svelte-check": "^3.6.3",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.13",
-    "workbox-precaching": "^7.0.0",
-    "wrangler": "^3.25.0"
+    "prettier": "^3.2.5",
+    "prettier-plugin-svelte": "^3.2.3",
+    "svelte": "^4.2.17",
+    "svelte-check": "^3.7.1",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11",
+    "workbox-precaching": "^7.1.0",
+    "wrangler": "^3.57.0"
   },
   "type": "module",
   "dependencies": {
     "@beyonk/gdpr-cookie-consent-banner": "^12.1.0",
-    "@sveltejs/vite-plugin-svelte": "^3.0.2"
+    "@sveltejs/vite-plugin-svelte": "^3.1.0"
   }
 }
