@@ -4,7 +4,7 @@
   import { asText } from '@prismicio/client'
   import { onMount } from 'svelte'
 
-  import { hexToRgb } from '$lib/utils/colors.js'
+  import { hexToRgb, luma } from '$lib/utils/colors.js'
   import { track } from '$lib/utils/track.js'
   import { srcset } from '$lib/utils/srcset'
   import { resolve } from '$lib/prismic.js'
@@ -92,11 +92,13 @@
       {#each items as item}
         {@const { event, show } = item}
         {@const start = parseJSON(show.start)}
+        {@const color = event.data.theme ? hexToRgb(event.data.theme) : null}
         {@const isSoldOut = show.stockStatus === 'SoldOut'}
         <div
           class="show"
-          style:--theme-color={event.data.theme
-            ? hexToRgb(event.data.theme)
+          style:--theme-color={color}
+          style:--text-color={color && luma(color) < 110
+            ? '255, 255, 255'
             : null}>
           {#if event.data.poster.url}
             <div class="poster">
@@ -287,10 +289,6 @@
     }
   }
 
-  /* .actions .note {
-    display: none;
-  } */
-
   .link {
     display: block;
     padding-bottom: 0.05rem;
@@ -424,7 +422,7 @@
     font-weight: 600;
     font-family: var(--heading-font-family);
     font-size: 0.875rem;
-    color: rgb(var(--document-color));
+    color: rgb(var(--text-color, var(--document-color)));
     position: absolute;
     left: 3rem;
     top: 2.2rem;
