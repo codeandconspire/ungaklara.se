@@ -367,12 +367,17 @@
     text-align: right;
     margin-top: 0.25rem;
     min-height: 2.5rem;
-    min-width: 4.25rem;
+    padding: 0 1rem;
     background: #d2d4d9;
     border-radius: var(--border-radius);
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .compact .actions .note {
+    padding: 0;
+    min-width: 4.25rem;
   }
 
   .actions .note:first-child {
