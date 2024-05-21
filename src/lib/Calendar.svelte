@@ -18,7 +18,16 @@
   /** @type {number?} */
   export let limit = null
 
-  $: days = Object.values(
+  const sort = (days) => {
+    Object.values(days).forEach((items) => {
+      items.sort((a, b) =>
+        parseJSON(a.show.start) < parseJSON(b.show.start) ? -1 : 1
+      )
+    })
+    return days
+  }
+
+  $: days = sort(
     events
       .flatMap((event) => {
         return event.production?.shows?.map((show) => {
@@ -76,7 +85,7 @@
 </script>
 
 <ol class="calendar" class:compact>
-  {#each days as items, index (items[0].date)}
+  {#each Object.entries(days) as [key, items], index (key)}
     {@const [year, month, day] = items.at(0).date.split('-')}
     {@const date = new Date(+year, +month - 1, +day)}
     <li class="row" class:u-slideUp={!compact} style:--delay="{index * 100}ms">
