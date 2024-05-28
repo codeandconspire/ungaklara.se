@@ -169,7 +169,6 @@
           data.events.find((doc) => event.id === doc.id)
         )
       : data.events}
-    {@debug data}
     <ol class="rows">
       {#each events as event, index (event.id)}
         <li
