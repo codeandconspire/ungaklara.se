@@ -39,10 +39,6 @@ export async function load(event) {
       ],
       orderings: [
         {
-          field: 'my.event.prioritized',
-          direction: 'desc'
-        },
-        {
           field: 'document.first_publication_date',
           direction: 'desc'
         }

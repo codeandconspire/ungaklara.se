@@ -164,8 +164,14 @@
       <p class="u-sizeFull">Kunde inte hitta något här</p>
     </Html>
   {:else if tab === 'aktuellt'}
+    {@const events = data.page.data.current_events?.length
+      ? data.events.filter(
+        (doc) => data.page.data.current_events.some(({event}) => event.id === doc.id)
+      )
+      : data.events}
+    {@debug data}
     <ol class="rows">
-      {#each data.events as event, index (event.id)}
+      {#each events as event, index (event.id)}
         <li
           class="row u-slideUp"
           style:--delay="{index * 150}ms"
