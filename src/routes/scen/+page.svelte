@@ -165,8 +165,8 @@
     </Html>
   {:else if tab === 'aktuellt'}
     {@const events = data.page.data.current_events?.length
-      ? data.events.filter((doc) =>
-          data.page.data.current_events.some(({ event }) => event.id === doc.id)
+      ? data.page.data.current_events.map(({ event }) =>
+          data.events.find((doc) => event.id === doc.id)
         )
       : data.events}
     {@debug data}
