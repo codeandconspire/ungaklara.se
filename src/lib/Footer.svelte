@@ -155,7 +155,7 @@
     {#each settings.menu as section}
       <div class="section">
         <h3 class="title">
-          <a class="link" href="{resolve(section.primary.link)}">
+          <a class="link" href={resolve(section.primary.link)}>
             {section.primary.link_text}
           </a>
         </h3>
