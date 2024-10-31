@@ -170,7 +170,7 @@
         )
       : data.events}
     <ol class="rows">
-      {#each events as event, index (event.id)}
+      {#each events as event, index (event?.id)}
         {#if event}
           <li
             class="row u-slideUp"
