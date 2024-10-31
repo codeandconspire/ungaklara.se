@@ -171,23 +171,25 @@
       : data.events}
     <ol class="rows">
       {#each events as event, index (event.id)}
-        <li
-          class="row u-slideUp"
-          style:--delay="{index * 150}ms"
-          style:--theme-color={event.data.theme
-            ? hexToRgb(event.data.theme)
-            : null}>
-          <Event
-            teaser
-            image={event.data.poster}
-            buttons={getButtons(event)}
-            label={[event.data.category, event.data.shortname]
-              .filter(Boolean)
-              .join(' – ')}>
-            <h1>{asText(event.data.title)}</h1>
-            <RichText content={event.data.description} />
-          </Event>
-        </li>
+        {#if event}
+          <li
+            class="row u-slideUp"
+            style:--delay="{index * 150}ms"
+            style:--theme-color={event.data.theme
+              ? hexToRgb(event.data.theme)
+              : null}>
+            <Event
+              teaser
+              image={event.data.poster}
+              buttons={getButtons(event)}
+              label={[event.data.category, event.data.shortname]
+                .filter(Boolean)
+                .join(' – ')}>
+              <h1>{asText(event.data.title)}</h1>
+              <RichText content={event.data.description} />
+            </Event>
+          </li>
+        {/if}
       {/each}
     </ol>
   {:else}
