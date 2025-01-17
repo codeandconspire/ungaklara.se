@@ -70,6 +70,8 @@
 
   onMount(measure)
 
+  console.log(data.production)
+
   /** @type {any[]} */
   $: actions = [
     data.production?.shows?.length
@@ -85,10 +87,12 @@
           }
         }
       : null,
-    {
-      href: '/skolbokning',
-      text: 'Skolbokning'
-    },
+    resolve(data.page.data.buy_link)
+      ? {
+          href: '/skolbokning',
+          text: 'Skolbokning'
+        }
+      : null,
     resolve(data.page.data.buy_link)
       ? {
           text: 'Boka biljett',
